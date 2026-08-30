@@ -1,0 +1,69 @@
+[build-system]
+requires = ["hatchling>=1.28,<2"]
+build-backend = "hatchling.build"
+
+[project]
+name = "finance-assurance-platform"
+version = "0.1.0"
+description = "Executable architecture proof for the Finance & Assurance Platform."
+readme = "README.md"
+requires-python = ">=3.13,<3.14"
+dependencies = [
+    "pydantic>=2.12,<3",
+    "duckdb==1.5.5",
+    "pyarrow==25.0.0",
+    "xlsxwriter==3.2.9",
+    "uvicorn>=0.34,<1",
+]
+
+[project.scripts]
+finance-assurance-finance-data = "finance_assurance.finance_data.runner:main"
+finance-assurance-finance-model = "finance_assurance.finance_model.runner:main"
+finance-assurance-finance-delivery = "finance_assurance.finance_delivery.runner:main"
+finance-assurance-handoff = "finance_assurance.handoff.runner:main"
+finance-assurance-pythia = "finance_assurance.pythia.runner:main"
+
+[dependency-groups]
+dev = [
+    "dbt-core==1.11.11",
+    "dbt-duckdb==1.10.1",
+    "pytest>=9,<10",
+    "ruff>=0.14,<1",
+]
+
+[tool.uv]
+required-version = "==0.11.32"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/finance_assurance"]
+
+[tool.pytest.ini_options]
+addopts = [
+    "--import-mode=importlib",
+    "--strict-config",
+    "--strict-markers",
+    "-ra",
+]
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 88
+target-version = "py313"
+
+[tool.ruff.lint]
+select = [
+    "B",
+    "E",
+    "F",
+    "I",
+    "RUF",
+    "SIM",
+    "UP",
+]
+ignore = [
+    # Historical executable authorities and mutation fixtures intentionally use
+    # dense declarations so their sealed semantics remain reviewable in place.
+    "E402",
+    "E501",
+    "E702",
+]

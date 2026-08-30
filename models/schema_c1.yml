@@ -1,0 +1,128 @@
+version: 2
+
+models:
+  - name: mart_financial_performance_monthly
+    description: Versioned statutory income-statement performance at monthly scope grain.
+    columns:
+      - name: financial_performance_hk
+        data_tests: [not_null, unique]
+  - name: mart_balance_sheet_monthly
+    description: Full 66-month governed balance-sheet history replacing the synthetic opening anchor.
+    columns:
+      - name: balance_sheet_monthly_hk
+        data_tests: [not_null, unique]
+  - name: mart_cash_flow_liquidity_monthly
+    description: Reconciled cash flow combined with debt, lease, and liquidity state.
+    columns:
+      - name: cash_flow_liquidity_hk
+        data_tests: [not_null, unique]
+  - name: mart_o2c_customer_collections_monthly
+    description: Monthly billings, collections, and AR state by region and customer segment.
+    columns:
+      - name: o2c_customer_collections_hk
+        data_tests: [not_null, unique]
+  - name: mart_revenue_waterfall_monthly
+    description: Revenue schedule and deferred-revenue rollforward reconciliation.
+    columns:
+      - name: revenue_waterfall_hk
+        data_tests: [not_null, unique]
+  - name: mart_ap_working_capital_monthly
+    description: Monthly AP and working-capital state with vendor activity.
+    columns:
+      - name: ap_working_capital_hk
+        data_tests: [not_null, unique]
+  - name: mart_workforce_cost_monthly
+    description: Posted payroll and month-end workforce state by governed organisation dimensions.
+    columns:
+      - name: workforce_cost_hk
+        data_tests: [not_null, unique]
+  - name: mart_saas_performance_monthly
+    description: Monthly ARR, MRR movement, customers, and retention by commercial dimensions.
+    columns:
+      - name: saas_performance_hk
+        data_tests: [not_null, unique]
+  - name: mart_fixed_asset_capex_monthly
+    description: Fixed-asset rollforwards and capital additions by entity and asset class.
+    columns:
+      - name: fixed_asset_capex_hk
+        data_tests: [not_null, unique]
+  - name: mart_capital_structure_monthly
+    description: Debt, lease, cash, net-debt, and liquidity state by reporting scope.
+    columns:
+      - name: capital_structure_hk
+        data_tests: [not_null, unique]
+  - name: mart_tax_equity_monthly
+    description: Tax, equity movement, and retained-earnings rollforwards by scope.
+    columns:
+      - name: tax_equity_hk
+        data_tests: [not_null, unique]
+  - name: mart_planning_performance_monthly
+    description: Enriched management variance source report that remains non-statutory.
+    columns:
+      - name: planning_performance_hk
+        data_tests: [not_null, unique]
+  - name: mart_cfo_presented_financials
+    description: Labelled long-form statutory statements for consumer presentation.
+    columns:
+      - name: cfo_presented_financial_hk
+        data_tests: [not_null, unique]
+  - name: mart_cfo_presented_operating_metrics
+    description: Typed executive operating metrics with per-metric authority and drill-through.
+    columns:
+      - name: cfo_presented_operating_metric_hk
+        data_tests: [not_null, unique]
+  - name: mart_cfo_metric_readiness
+    description: Validator-produced coverage and null-policy status for each executive metric.
+    columns:
+      - name: cfo_metric_readiness_hk
+        data_tests: [not_null, unique]
+  - name: mart_executive_cfo_command_center
+    description: One governed group-level monthly command-centre row for React and BI.
+    columns:
+      - name: executive_cfo_command_center_hk
+        data_tests: [not_null, unique]
+  - name: mart_model_actuals_feed
+    description: Account-level monthly statutory actuals with exact reporting version.
+    columns:
+      - name: model_actuals_feed_hk
+        data_tests: [not_null, unique]
+  - name: mart_model_working_capital_drivers
+    description: Monthly revenue and working-capital drivers for authored financial models.
+    columns:
+      - name: model_working_capital_driver_hk
+        data_tests: [not_null, unique]
+  - name: mart_model_capital_schedules
+    description: Normalised fixed asset, debt, lease, tax, and equity schedules with domain labels.
+    columns:
+      - name: model_capital_schedule_hk
+        data_tests: [not_null, unique]
+  - name: mart_model_planning_inputs
+    description: Scenario-isolated budget and forecast inputs bound to exact actuals.
+    columns:
+      - name: model_planning_input_hk
+        data_tests: [not_null, unique]
+  - name: mart_model_readiness_controls
+    description: Current-state validators for history, reconciliation, subledgers, and planning boundaries.
+    columns:
+      - name: model_readiness_control_hk
+        data_tests: [not_null, unique]
+  - name: q_finance_v5_dataset_registry
+    description: Q-FINANCE v5 closed inventory including the 21 C1 marts.
+    columns:
+      - name: dataset_id
+        data_tests: [not_null, unique]
+  - name: q_finance_v5_relationship_registry
+    description: Q-FINANCE v5 tool-neutral relationships for atomic and mart datasets.
+    columns:
+      - name: relationship_id
+        data_tests: [not_null, unique]
+  - name: q_finance_v5_measure_registry
+    description: Q-FINANCE v5 governed measure definitions for executive and model consumption.
+    columns:
+      - name: measure_id
+        data_tests: [not_null, unique]
+  - name: q_finance_v5_lineage_registry
+    description: Q-FINANCE v5 A2.4-to-atomic-to-mart lineage catalogue.
+    columns:
+      - name: dataset_id
+        data_tests: [not_null, unique]

@@ -1,0 +1,20 @@
+select
+    trim(period_id) as period_id,
+    trim(legal_entity_id) as legal_entity_id,
+    trim(reporting_version_ref) as reporting_version_ref,
+    trim(soft_close_accounting_event_ref) as soft_close_accounting_event_ref,
+    trim(hard_close_accounting_event_ref) as hard_close_accounting_event_ref,
+    trim(reporting_publication_accounting_event_ref) as reporting_publication_accounting_event_ref,
+    upper(trim(subledger_reconciliation_status)) as subledger_reconciliation_status,
+    upper(trim(bank_reconciliation_status)) as bank_reconciliation_status,
+    upper(trim(intercompany_reconciliation_status)) as intercompany_reconciliation_status,
+    upper(trim(trial_balance_status)) as trial_balance_status,
+    upper(trim(statement_status)) as statement_status,
+    upper(trim(close_status)) as close_status,
+    cast(closed_at as timestamptz) as closed_at,
+    _source_row_hash,
+    cast(_ingested_at as timestamptz) as _ingested_at,
+    _source_file,
+    _source_file_sha256,
+    _source_data_ref
+from {{ source('a24_bronze', 'accounting__monthly_close_status') }}

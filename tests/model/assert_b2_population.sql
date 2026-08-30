@@ -1,0 +1,30 @@
+{{ config(tags=['slice_b2']) }}
+
+with populations as (
+    select 'dim_bank_account' model_name, (select count(*) from {{ ref('dim_bank_account') }}) actual_rows, (select count(*) from {{ ref('stg_treasury__bank_accounts') }}) expected_rows
+    union all select 'dim_debt_instrument', (select count(*) from {{ ref('dim_debt_instrument') }}), (select count(*) from {{ ref('stg_treasury__debt_instruments') }})
+    union all select 'dim_fixed_asset', (select count(*) from {{ ref('dim_fixed_asset') }}), (select count(*) from {{ ref('stg_fixed_assets__fixed_asset_register') }})
+    union all select 'dim_lease_contract', (select count(*) from {{ ref('dim_lease_contract') }}), (select count(*) from {{ ref('stg_leases__lease_contracts') }})
+    union all select 'dim_tax_jurisdiction', (select count(*) from {{ ref('dim_tax_jurisdiction') }}), (select count(distinct concat_ws('|', legal_entity_id, jurisdiction_code)) from {{ ref('stg_tax__tax_calculation_inputs') }})
+    union all select 'fct_fixed_asset_lifecycle_events', (select count(*) from {{ ref('fct_fixed_asset_lifecycle_events') }}), (select count(*) from {{ ref('stg_fixed_assets__asset_lifecycle_events') }})
+    union all select 'fct_fixed_asset_movements', (select count(*) from {{ ref('fct_fixed_asset_movements') }}), (select count(*) from {{ ref('stg_fixed_assets__fixed_asset_movements') }})
+    union all select 'fct_fixed_asset_control_results', (select count(*) from {{ ref('fct_fixed_asset_control_results') }}), (select count(*) from {{ ref('stg_assurance__fixed_asset_control_results') }})
+    union all select 'fct_bank_transactions', (select count(*) from {{ ref('fct_bank_transactions') }}), (select count(*) from {{ ref('stg_treasury__bank_transactions') }})
+    union all select 'fct_bank_statement_lines', (select count(*) from {{ ref('fct_bank_statement_lines') }}), (select count(*) from {{ ref('stg_treasury__bank_statement_lines') }})
+    union all select 'fct_bank_reconciliations', (select count(*) from {{ ref('fct_bank_reconciliations') }}), (select count(*) from {{ ref('stg_treasury__bank_reconciliations') }})
+    union all select 'fct_debt_schedule', (select count(*) from {{ ref('fct_debt_schedule') }}), (select count(*) from {{ ref('stg_treasury__debt_schedule') }})
+    union all select 'fct_lease_lifecycle_events', (select count(*) from {{ ref('fct_lease_lifecycle_events') }}), (select count(*) from {{ ref('stg_leases__lease_lifecycle_events') }})
+    union all select 'fct_lease_schedule', (select count(*) from {{ ref('fct_lease_schedule') }}), (select count(*) from {{ ref('stg_leases__lease_schedule') }})
+    union all select 'fct_tax_calculation_inputs', (select count(*) from {{ ref('fct_tax_calculation_inputs') }}), (select count(*) from {{ ref('stg_tax__tax_calculation_inputs') }})
+    union all select 'fct_tax_schedule', (select count(*) from {{ ref('fct_tax_schedule') }}), (select count(*) from {{ ref('stg_tax__tax_schedule') }})
+    union all select 'fct_tax_loss_register', (select count(*) from {{ ref('fct_tax_loss_register') }}), (select count(*) from {{ ref('stg_tax__tax_loss_register') }})
+    union all select 'fct_equity_movements', (select count(*) from {{ ref('fct_equity_movements') }}), (select count(*) from {{ ref('stg_equity__equity_movements') }})
+    union all select 'fct_accrual_source_events', (select count(*) from {{ ref('fct_accrual_source_events') }}), (select count(*) from {{ ref('stg_working_capital__accrual_source_events') }})
+    union all select 'fct_accrual_schedule', (select count(*) from {{ ref('fct_accrual_schedule') }}), (select count(*) from {{ ref('stg_working_capital__accrual_schedule') }})
+    union all select 'fct_prepayment_source_events', (select count(*) from {{ ref('fct_prepayment_source_events') }}), (select count(*) from {{ ref('stg_working_capital__prepayment_source_events') }})
+    union all select 'fct_prepayment_schedule', (select count(*) from {{ ref('fct_prepayment_schedule') }}), (select count(*) from {{ ref('stg_working_capital__prepayment_schedule') }})
+    union all select 'fct_intercompany_transactions', (select count(*) from {{ ref('fct_intercompany_transactions') }}), (select count(*) from {{ ref('stg_intercompany__intercompany_transactions') }})
+    union all select 'fct_intercompany_balances', (select count(*) from {{ ref('fct_intercompany_balances') }}), (select count(*) from {{ ref('stg_intercompany__intercompany_balances') }})
+    union all select 'fct_statutory_subledger_controls', (select count(*) from {{ ref('fct_statutory_subledger_controls') }}), (select count(*) from {{ ref('stg_assurance__statutory_subledger_control_results') }})
+)
+select * from populations where actual_rows <> expected_rows

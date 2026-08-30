@@ -1,0 +1,118 @@
+version: 2
+
+models:
+  - name: dim_period
+    description: Conformed fiscal-month dimension spanning actual and future planning periods.
+    columns:
+      - name: period_hk
+        data_tests: [not_null, unique]
+      - name: period_id
+        data_tests: [not_null, unique]
+  - name: dim_legal_entity
+    description: Legal-entity dimension sourced only from corporate-secretary records.
+    columns:
+      - name: legal_entity_hk
+        data_tests: [not_null, unique]
+      - name: legal_entity_id
+        data_tests: [not_null, unique]
+  - name: dim_reporting_scope
+    description: Entity and consolidated-group reporting scopes.
+    columns:
+      - name: reporting_scope_hk
+        data_tests: [not_null, unique]
+      - name: scope_id
+        data_tests: [not_null, unique]
+  - name: dim_gl_account
+    description: Governed chart-of-accounts semantics and analytical flags.
+    columns:
+      - name: gl_account_hk
+        data_tests: [not_null, unique]
+      - name: account_id
+        data_tests: [not_null, unique]
+  - name: dim_reporting_version
+    description: Immutable monthly reporting versions with purpose-specific reliability.
+    columns:
+      - name: reporting_version_hk
+        data_tests: [not_null, unique]
+      - name: reporting_version_ref
+        data_tests: [not_null, unique]
+  - name: fct_business_events
+    description: Typed causal business events retained for source-to-ledger lineage.
+    columns:
+      - name: business_event_hk
+        data_tests: [not_null, unique]
+      - name: business_event_ref
+        data_tests: [not_null, unique]
+  - name: fct_accounting_events
+    description: Typed accounting lifecycle events, never posting-engine inputs.
+    columns:
+      - name: accounting_event_hk
+        data_tests: [not_null, unique]
+      - name: accounting_event_ref
+        data_tests: [not_null, unique]
+  - name: fct_gl_journal_lines
+    description: Posted source-ledger lines resolved to their causal business events.
+    columns:
+      - name: gl_journal_line_hk
+        data_tests: [not_null, unique]
+      - name: source_journal_line_id
+        data_tests: [not_null, unique]
+  - name: fct_elimination_journal_lines
+    description: Group-only eliminations resolved to accounting lifecycle events.
+    columns:
+      - name: elimination_journal_line_hk
+        data_tests: [not_null, unique]
+      - name: elimination_journal_line_id
+        data_tests: [not_null, unique]
+  - name: fct_statutory_trial_balance
+    description: Entity and group monthly trial balances at exact reporting versions.
+    columns:
+      - name: trial_balance_hk
+        data_tests: [not_null, unique]
+  - name: fct_statutory_statement_lines
+    description: Historical statutory statement lines derived from closed trial balances.
+    columns:
+      - name: statement_line_hk
+        data_tests: [not_null, unique]
+  - name: fct_retained_earnings_bridge
+    description: Retained-earnings reconciliation by month, scope, and version.
+    columns:
+      - name: retained_earnings_bridge_hk
+        data_tests: [not_null, unique]
+  - name: fct_cash_flow_reconciliation
+    description: Direct-method cash-flow reconciliation by month, scope, and version.
+    columns:
+      - name: cash_flow_reconciliation_hk
+        data_tests: [not_null, unique]
+  - name: fct_monthly_close_status
+    description: Soft close, hard close, publication, and prerequisite status.
+    columns:
+      - name: monthly_close_status_hk
+        data_tests: [not_null, unique]
+  - name: fct_statutory_reconciliations
+    description: Argus reconciliation results supporting statutory close.
+    columns:
+      - name: statutory_reconciliation_hk
+        data_tests: [not_null, unique]
+      - name: reconciliation_ref
+        data_tests: [not_null, unique]
+  - name: q_finance_dataset_registry
+    description: Closed Q-FINANCE v1 governed dataset registry.
+    columns:
+      - name: dataset_id
+        data_tests: [not_null, unique]
+  - name: q_finance_relationship_registry
+    description: Closed relationship and filter-plan registry.
+    columns:
+      - name: relationship_id
+        data_tests: [not_null, unique]
+  - name: q_finance_measure_registry
+    description: Tool-neutral governed measure specifications.
+    columns:
+      - name: measure_id
+        data_tests: [not_null, unique]
+  - name: q_finance_lineage_registry
+    description: Dataset-level A2.4 to Silver to Gold lineage registry.
+    columns:
+      - name: dataset_id
+        data_tests: [not_null, unique]

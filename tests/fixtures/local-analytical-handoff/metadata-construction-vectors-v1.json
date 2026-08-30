@@ -1,0 +1,207 @@
+{
+  "contract_version": "handoff-metadata-construction-vectors@v1",
+  "envelope_field_order": [
+    "contract_version",
+    "handoff_binding",
+    "source_documents",
+    "source_datasets",
+    "field_provenance",
+    "payload"
+  ],
+  "exact_s_model_fields": {
+    "HandoffBinding@v1": ["handoff_ref", "source_model_ref", "source_model_digest", "source_package_digest"],
+    "SourceDocumentBinding@v1": ["path", "contract_version", "sha256"],
+    "SourceDatasetBinding@v1": ["source_coordinate", "parquet_path", "parquet_sha256", "logical_table_digest", "technical_projection_digest", "column_names"],
+    "JsonSourcePointer@v1": ["pointer_kind", "source_document_path", "json_pointer"],
+    "DatasetCellPointer@v1": ["pointer_kind", "source_coordinate", "selector_ref", "field_name"],
+    "FieldProvenance@v1": ["target_json_pointer", "coverage", "derivation_class", "source_pointers", "algorithm_ref"],
+    "RCacheBinding@v1": ["cache_contract_version", "model_ref", "source_package_digest", "profile_coordinate", "database_path", "database_sha256", "database_byte_count", "engine", "engine_version", "storage_compatibility_version", "database_storage_version", "build_source_format", "schema_names", "metadata_table_names", "table_count", "table_bindings_digest", "read_only_consumer_required"],
+    "FieldRoleProjection@v1": ["source_coordinate", "source_name", "source_type", "physical_type", "column_role", "default_visibility", "default_summarization", "display_label", "display_folder", "format_hints"],
+    "DatasetPointer@v1": ["source_coordinate", "r_table_alias"],
+    "DirectedJoinStep@v1": ["step_ordinal", "relationship_id", "from_coordinate", "from_fields", "to_coordinate", "to_fields", "projected_key_ref", "direction"],
+    "EvidenceStatusField@v1": ["source_coordinate", "field_name", "allowed_enum_values"],
+    "ConsumerSuitabilityEntry@v1": ["consumer_id", "supported_use_ids", "conditional_use_ids", "unsupported_use_ids", "required_upstream_expansion_ids", "required_source_paths"]
+  },
+  "inherited_r_model_fields": {
+    "SourceBindingTableEntry@v1": ["source_registry_id", "source_registry_version", "source_dataset_id", "source_dataset_version", "source_dataset_name", "primary_consumption_class", "included_by_profile", "semantic_owners", "source_schema_path", "source_schema_hash", "source_data_hash", "row_count", "primary_key", "unique_keys", "default_sort", "logical_table_digest", "technical_projection_digest", "relationship_key_projections", "csv_path", "csv_hash", "parquet_path", "parquet_hash", "physical_schema_fingerprint", "duckdb_schema", "duckdb_object"],
+    "DataDictionaryTable@v1": ["source_coordinate", "physical_alias", "display_label", "primary_consumption_class", "included_by_profile", "semantic_owners", "default_sort", "column_names", "primary_key", "unique_keys"],
+    "DataDictionaryColumn@v1": ["source_coordinate", "source_name", "source_type", "physical_type", "nullable", "enum_values", "value_origin", "transformation", "column_role", "default_visibility", "default_summarization", "display_label", "display_folder", "ordinal", "xlsx_storage_mode"],
+    "RelationshipProjection@v1": ["relationship_id", "relationship_type", "enforcement", "from_registry", "from_dataset", "from_columns", "to_registry", "to_dataset", "to_columns", "allowed_target_coordinates", "load_disposition", "relationship_role", "projected_key_ref", "cross_filter_direction", "consumer_reason"],
+    "MeasureProjection@v1": ["measure_id", "measure_name", "source_registry_id", "source_dataset_id", "source_field", "classification", "aggregation", "required_grain", "required_grouping", "currency_policy", "reporting_version_policy", "population_class", "multirow_behavior", "non_combinable_with", "default_format"]
+  },
+  "source_model_path_order": [
+    "source-model/model-manifest.json",
+    "source-model/semantic-model.json",
+    "source-model/relationships.json",
+    "source-model/checksums.json",
+    "source-model/model.digest",
+    "source-model/noncanonical-cache.json"
+  ],
+  "source_model_document_contract_versions": {
+    "source-model/model-manifest.json": "consumer-model@v1",
+    "source-model/semantic-model.json": "semantic-catalogue@v1",
+    "source-model/relationships.json": "relationship-catalogue@v1",
+    "source-model/checksums.json": "checksum-ledger@v1",
+    "source-model/model.digest": "detached-model-digest@v1",
+    "source-model/noncanonical-cache.json": "duckdb-cache-manifest@v1"
+  },
+  "construction_rules": [
+    "source_documents contains only the vector's source_document_paths in that exact order; contract_version comes from source_model_document_contract_versions and sha256 comes from the already R-C02-verified source-model bytes",
+    "source_datasets contains the selected R manifest table bindings in exact R table_entries order and prefixes each parquet_path with source-model/",
+    "field_provenance covers every payload scalar leaf with VALUE and every payload array with ARRAY_ORDER; target pointers are absolute RFC6901 pointers rooted at /payload",
+    "field_provenance is ordered lexically by target_json_pointer then coverage; source_pointers retain algorithm input order",
+    "R_COPY uses one pointer and IDENTITY@v1; R_PROJECTION uses one or more pointers and a vector algorithm; S_GUIDANCE uses no source pointer and a vector S algorithm",
+    "payload arrays use the exact order_rule in the vector; no implementation may infer another source, order, field name, or derivation class"
+  ],
+  "lineage_literal_selection": {
+    "dataset_coordinates": ["P-EVIDENCE@v1/P-D16@v1", "P-EVIDENCE@v1/P-D17@v1"],
+    "directed_relationship_ids": ["P-RL11", "P-RL12"],
+    "step_endpoint_fields": [["source_ref", "node_ref"], ["target_ref", "node_ref"]],
+    "evidence_status_fields": []
+  },
+  "provenance_projection_rules": {
+    "metadata/source-model.json": [
+      "/payload/profile_coordinate recursively copies /profile_coordinate from source-model/model-manifest.json",
+      "/payload/source_formats recursively copies /requested_formats from source-model/model-manifest.json",
+      "/payload/r_paths is S_GUIDANCE under R-MANIFEST-BINDING@v1 and equals source_model_path_order with the source-model/ prefix removed",
+      "/payload/r_cache_binding recursively projects the complete source-model/noncanonical-cache.json object using the exact RCacheBinding@v1 field list",
+      "/payload/table_entries recursively copies /table_entries from source-model/model-manifest.json"
+    ],
+    "metadata/data-dictionary.json": [
+      "each /payload/tables/{table-index} copies the matching /tables/{table-index} in source-model/semantic-model.json and appends primary_key and unique_keys from matching /table_entries/{table-index} in source-model/model-manifest.json",
+      "each /payload/columns/{column-index} copies the matching /columns/{column-index} in source-model/semantic-model.json and appends one-based ordinal within its source table plus xlsx_storage_mode from XLSX-TYPE-MAP@v1"
+    ],
+    "metadata/relationships.json": [
+      "/payload/relationships recursively copies /relationships from source-model/relationships.json"
+    ],
+    "metadata/measures.json": [
+      "/payload/measures recursively projects /measures from source-model/semantic-model.json then orders entries by measure_id"
+    ],
+    "metadata/field-roles.json": [
+      "each /payload/fields/{column-index} copies the named R semantic-column fields from matching /columns/{column-index} in source-model/semantic-model.json and appends format_hints from S-FORMAT-HINTS@v1"
+    ],
+    "metadata/lineage.json": [
+      "/payload/dataset_pointers contains exactly the two lineage_literal_selection dataset coordinates and their matching R semantic-table aliases",
+      "/payload/directed_join_steps contains exactly P-RL11 then P-RL12 projected from their source-model/relationships.json entries with the literal endpoint field pairs in lineage_literal_selection",
+      "/payload/evidence_status_fields is the exact empty array in lineage_literal_selection; its ARRAY_ORDER provenance is R_PROJECTION from the P-D16/P-D17 R column semantics"
+    ],
+    "metadata/consumer-suitability.json": [
+      "the complete payload recursively copies S-CONSUMER-SUITABILITY@v1 as S_GUIDANCE with no source pointer"
+    ],
+    "metadata/validation-checks.json": [
+      "the complete payload recursively copies tests/fixtures/local-analytical-handoff/validation-registry-v1.json",
+      "selector literals and expected upstream values use DatasetCellPointer@v1; measure and relationship IDs use JsonSourcePointer@v1; only check IDs descriptions combiners result labels and consumer-use classifications are S_GUIDANCE"
+    ]
+  },
+  "vector_field_order": [
+    "vector_ref",
+    "metadata_path",
+    "contract_version",
+    "payload_fields",
+    "nested_model_refs",
+    "source_document_paths",
+    "source_dataset_selection",
+    "algorithm_refs",
+    "order_rule",
+    "expected_plan_digest"
+  ],
+  "vectors": [
+    [
+      "S-MV01",
+      "metadata/source-model.json",
+      "handoff-source-binding@v1",
+      ["profile_coordinate", "source_formats", "r_paths", "r_cache_binding", "table_entries"],
+      ["RCacheBinding@v1", "SourceBindingTableEntry@v1"],
+      ["source-model/model-manifest.json", "source-model/semantic-model.json", "source-model/relationships.json", "source-model/checksums.json", "source-model/model.digest", "source-model/noncanonical-cache.json"],
+      "ALL_R_TABLE_ENTRIES",
+      ["R-MANIFEST-BINDING@v1", "R3-CACHE-BINDING@v1"],
+      "R_TABLE_ENTRIES; R_PATHS_SOURCE_MODEL_PATH_ORDER",
+      "sha256:cd820b085f43a99990c975f744d80cbe4721385132deb2966157358edac60525"
+    ],
+    [
+      "S-MV02",
+      "metadata/data-dictionary.json",
+      "handoff-data-dictionary@v1",
+      ["tables", "columns"],
+      ["DataDictionaryTable@v1", "DataDictionaryColumn@v1"],
+      ["source-model/model-manifest.json", "source-model/semantic-model.json"],
+      "ALL_R_TABLE_ENTRIES",
+      ["R-TABLE-COLUMN-PROJECTION@v1", "S-XLSX-MODE@v1"],
+      "R_TABLE_ENTRIES_THEN_R_COLUMN_ORDER",
+      "sha256:fb32b086664885c00178eabc9ab81462707dd5b46667818f87f8f7aa82ebce2b"
+    ],
+    [
+      "S-MV03",
+      "metadata/relationships.json",
+      "handoff-relationships@v1",
+      ["relationships"],
+      ["RelationshipProjection@v1"],
+      ["source-model/relationships.json"],
+      "RELATIONSHIP_ENDPOINT_DATASETS_IN_R_TABLE_ORDER",
+      ["R-RELATIONSHIP-PROJECTION@v1"],
+      "R_RELATIONSHIP_CATALOGUE_ORDER",
+      "sha256:fef62b52dbb0df0ca148d73d77e86f32fe8c3ce8dd7693b9e54c35d15af7a80d"
+    ],
+    [
+      "S-MV04",
+      "metadata/measures.json",
+      "handoff-measures@v1",
+      ["measures"],
+      ["MeasureProjection@v1"],
+      ["source-model/semantic-model.json"],
+      "MEASURE_SOURCE_DATASETS_IN_R_TABLE_ORDER",
+      ["R-MEASURE-PROJECTION@v1"],
+      "LEXICAL_MEASURE_ID",
+      "sha256:d8c24f35b7507a331aa789505319b788de9a522a7a0aa92b9abbe9c776677f52"
+    ],
+    [
+      "S-MV05",
+      "metadata/field-roles.json",
+      "handoff-field-roles@v1",
+      ["fields"],
+      ["FieldRoleProjection@v1"],
+      ["source-model/semantic-model.json"],
+      "ALL_R_TABLE_ENTRIES",
+      ["R-FIELD-ROLE-PROJECTION@v1", "S-FORMAT-HINTS@v1"],
+      "R_TABLE_ENTRIES_THEN_R_COLUMN_ORDER",
+      "sha256:42629aadd3dd2f7a6c7594f661054954a31f87e9955c84f0728f42ceff6dd226"
+    ],
+    [
+      "S-MV06",
+      "metadata/lineage.json",
+      "handoff-lineage-guide@v1",
+      ["dataset_pointers", "directed_join_steps", "evidence_status_fields"],
+      ["DatasetPointer@v1", "DirectedJoinStep@v1", "EvidenceStatusField@v1"],
+      ["source-model/semantic-model.json", "source-model/relationships.json"],
+      "P-D16_AND_P-D17_IN_R_TABLE_ORDER",
+      ["R-LINEAGE-POINTERS@v1"],
+      "SOURCE_COORDINATE_THEN_STEP_ORDINAL_THEN_SOURCE_COORDINATE_FIELD_NAME",
+      "sha256:3e1ff2ce5f27a9e5145ac0fbae51cd4469f308f20d9810c123c9f3167230ccaf"
+    ],
+    [
+      "S-MV07",
+      "metadata/consumer-suitability.json",
+      "consumer-suitability@v1",
+      ["consumers", "synthetic_depth_notice"],
+      ["ConsumerSuitabilityEntry@v1"],
+      [],
+      "NONE",
+      ["S-CONSUMER-SUITABILITY@v1"],
+      "REACT_EXCEL_POWER_BI_SQL; NESTED_IDS_LEXICAL; REQUIRED_PATHS_LEXICAL",
+      "sha256:d0cd7d74ec7231d2fdd06bd800c3d675cfeba295c031d7b72cdb4e00b725b300"
+    ],
+    [
+      "S-MV08",
+      "metadata/validation-checks.json",
+      "validation-check-registry@v1",
+      ["checks", "contract_version", "registry_id", "selector_order", "selectors", "source_profile_id", "source_profile_version"],
+      ["ValidationCheckRegistryPayload@v1"],
+      ["source-model/semantic-model.json", "source-model/relationships.json"],
+      "SELECTOR_DATASETS_IN_R_TABLE_ORDER",
+      ["S-VALIDATION-REGISTRY@v1"],
+      "PAYLOAD_FIELD_ORDER; SELECTORS_LEXICAL_SELECTOR_ID; CHECKS_S-V01_THROUGH_S-V12",
+      "sha256:258542ccba280e2110b2f2e6fedc0b45441bbeb5439358f07b42a941121cc8f2"
+    ]
+  ],
+  "digest_rule": "expected_plan_digest is canonical_sha256 of the first nine vector fields as one JSON array"
+}

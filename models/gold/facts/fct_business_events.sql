@@ -1,0 +1,22 @@
+select
+    md5(event.business_event_ref) as business_event_hk,
+    event.business_event_ref,
+    event.event_type,
+    event.source_system,
+    event.source_record_ref,
+    event.occurred_at,
+    event.recorded_at,
+    event.effective_date,
+    event.legal_entity_id,
+    event.counterparty_ref,
+    event.amount_minor,
+    event.currency,
+    event.reporting_amount_minor,
+    event.reporting_currency,
+    event.posting_rule_ref,
+    event.record_semantic_hash,
+    event._source_row_hash,
+    event._source_file,
+    event._source_file_sha256,
+    event._source_data_ref
+from {{ ref('stg_events__business_events') }} as event

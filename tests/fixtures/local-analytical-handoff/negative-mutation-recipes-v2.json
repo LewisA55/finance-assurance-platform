@@ -1,0 +1,738 @@
+{
+  "contract_version": "handoff-negative-mutation-recipe-registry@v2",
+  "recipe_field_order": [
+    "recipe_ref",
+    "operation",
+    "apply_after_checkpoint",
+    "target_ref",
+    "operator",
+    "before_state",
+    "mutation",
+    "reseal_steps",
+    "request_mutation_ref",
+    "expected_first_failure_checkpoint"
+  ],
+  "execution_rules": [
+    "Resolve target_ref within a private mutable fixture copy; never mutate a repository authority or caller source.",
+    "Assert before_state byte-for-byte or typed-value-for-typed-value before applying operator.",
+    "Apply exactly one operator after apply_after_checkpoint and before the next checkpoint.",
+    "Execute reseal_steps in lexical step order, then apply the named request mutation.",
+    "The first public failure must occur at expected_first_failure_checkpoint; any earlier or different failure invalidates the fixture.",
+    "Restore moved fixture sources and delete private mutation copies after assertion."
+  ],
+  "operator_vocabulary": [
+    "ADD_JSON_ARRAY_ITEM",
+    "ADD_JSON_MEMBER",
+    "ADD_PATH",
+    "ADD_ZIP_MEMBER",
+    "CREATE_DIRECTORY",
+    "CREATE_LINK",
+    "DELETE_PATH",
+    "INJECT_FAULT_ONCE",
+    "MOVE_PATH",
+    "REMOVE_RUNTIME_CAPABILITY",
+    "REPLACE_FILE_BYTE",
+    "REPLACE_SQL_STATEMENT",
+    "REPLACE_ZIP_MEMBER_BYTE",
+    "SET_DATASET_CELL",
+    "SET_DUCKDB_CELL",
+    "SET_JSON_POINTER",
+    "SET_REQUEST_FIELD",
+    "SET_XLSX_FORMULA",
+    "SET_XLSX_TYPED_CELL"
+  ],
+  "recipes": [
+    [
+      "MUTATED_PQ_BEHIND_MODEL",
+      "S-C01",
+      "C01_ENTRY",
+      "SOURCE_PACKAGE::P-EVIDENCE@v1/P-D06@v1::SEL-C1-V1-REVENUE::amount_minor",
+      "SET_DATASET_CELL",
+      "INTEGER:0",
+      "INTEGER:1",
+      "NONE",
+      "NONE",
+      "C01_SOURCE_PACKAGE_VERIFIED"
+    ],
+    [
+      "SPLIT_R_DIRECTORY",
+      "S-C01",
+      "C01_ENTRY",
+      "SOURCE_MODEL::schemas/p-evidence-v1/P-D06.schema.json",
+      "DELETE_PATH",
+      "REGULAR_FILE_SHA256:SOURCE_MODEL_MANIFEST_ENTRY:schemas/p-evidence-v1/P-D06.schema.json",
+      "ABSENT",
+      "NONE",
+      "NONE",
+      "C01_SOURCE_MODEL_VERIFIED"
+    ],
+    [
+      "RESEALED_DUCKDB_DOMAIN_DIVERGENCE",
+      "S-C02",
+      "C02_ENTRY",
+      "SOURCE_HANDOFF::source-model/warehouse/finance-assurance.duckdb::P-D06::SEL-C1-V1-REVENUE::amount_minor",
+      "SET_DUCKDB_CELL",
+      "INTEGER:0",
+      "INTEGER:1",
+      "RESEAL_R_CACHE_AND_S_NONCANONICAL_MANIFEST",
+      "USE_RESEALED_MUTANT_HANDOFF_DIGEST",
+      "C02_R3_CACHE_VERIFIED"
+    ],
+    [
+      "RECURSIVE_HANDOFF_DIGEST_FIELD",
+      "S-C02",
+      "C02_ENTRY",
+      "SOURCE_HANDOFF::handoff-manifest.json#/handoff_digest",
+      "ADD_JSON_MEMBER",
+      "ABSENT",
+      "TEXT:sha256:0000000000000000000000000000000000000000000000000000000000000000",
+      "RESEAL_S_CANONICAL",
+      "USE_RESEALED_MUTANT_HANDOFF_DIGEST",
+      "C02_PACKAGE_INVENTORY_VERIFIED"
+    ],
+    [
+      "RESEALED_UNSAFE_INTEGER_NUMERIC",
+      "S-C02",
+      "C02_ENTRY",
+      "SOURCE_HANDOFF::excel/finance-assurance-data-pack.xlsx::SEL-C1-V1-REVENUE::amount_minor",
+      "SET_XLSX_TYPED_CELL",
+      "INTEGER_TEXT:9007199254740992",
+      "INTEGER_NUMERIC:9007199254740992",
+      "RESEAL_S_XLSX_BINARY_MANIFEST_AND_HANDOFF",
+      "USE_RESEALED_MUTANT_HANDOFF_DIGEST",
+      "C02_XLSX_LOGICAL_VERIFIED"
+    ],
+    [
+      "RESEALED_NULL_AS_EMPTY_TEXT",
+      "S-C02",
+      "C02_ENTRY",
+      "SOURCE_HANDOFF::excel/finance-assurance-data-pack.xlsx::NULL_VECTOR::nullable_text",
+      "SET_XLSX_TYPED_CELL",
+      "ABSENT_CELL",
+      "PRESENT_TEXT:",
+      "RESEAL_S_XLSX_BINARY_MANIFEST_AND_HANDOFF",
+      "USE_RESEALED_MUTANT_HANDOFF_DIGEST",
+      "C02_XLSX_LOGICAL_VERIFIED"
+    ],
+    [
+      "RESEALED_FORMULA_INJECTION",
+      "S-C02",
+      "C02_ENTRY",
+      "SOURCE_HANDOFF::excel/finance-assurance-data-pack.xlsx::SEL-C1-V1-REVENUE::amount_minor",
+      "SET_XLSX_FORMULA",
+      "INTEGER_NUMERIC:0",
+      "FORMULA:=1-1",
+      "RESEAL_S_XLSX_BINARY_MANIFEST_AND_HANDOFF",
+      "USE_RESEALED_MUTANT_HANDOFF_DIGEST",
+      "C02_XLSX_STRUCTURE_VERIFIED"
+    ],
+    [
+      "RESEALED_EXTERNAL_LINK_INJECTION",
+      "S-C02",
+      "C02_ENTRY",
+      "SOURCE_HANDOFF::excel/finance-assurance-data-pack.xlsx::xl/externalLinks/externalLink1.xml",
+      "ADD_ZIP_MEMBER",
+      "ABSENT",
+      "UTF8_XML:<externalLink/>",
+      "RESEAL_S_XLSX_BINARY_MANIFEST_AND_HANDOFF",
+      "USE_RESEALED_MUTANT_HANDOFF_DIGEST",
+      "C02_XLSX_STRUCTURE_VERIFIED"
+    ],
+    [
+      "RESEALED_METADATA_SOURCE_VALUE_CHANGE",
+      "S-C02",
+      "C02_ENTRY",
+      "SOURCE_HANDOFF::metadata/data-dictionary.json#/source_datasets/5/logical_table_digest",
+      "SET_JSON_POINTER",
+      "TEXT:SOURCE_MODEL_DATASET_DIGEST:P-D06",
+      "TEXT:sha256:0000000000000000000000000000000000000000000000000000000000000000",
+      "RESEAL_S_CANONICAL",
+      "USE_RESEALED_MUTANT_HANDOFF_DIGEST",
+      "C02_METADATA_VERIFIED"
+    ],
+    [
+      "RESEALED_PROVENANCE_COVERAGE_ERROR",
+      "S-C02",
+      "C02_ENTRY",
+      "SOURCE_HANDOFF::metadata/lineage.json#/field_provenance/0/source_pointers",
+      "SET_JSON_POINTER",
+      "JSON:CURRENT_TARGET_VALUE",
+      "JSON:[]",
+      "RESEAL_S_CANONICAL",
+      "USE_RESEALED_MUTANT_HANDOFF_DIGEST",
+      "C02_METADATA_VERIFIED"
+    ],
+    [
+      "RESEALED_ASSERTION_VARIANT_ERROR",
+      "S-C02",
+      "C02_ENTRY",
+      "SOURCE_HANDOFF::metadata/validation-checks.json#/payload/checks/0/assertions/0/kind",
+      "SET_JSON_POINTER",
+      "TEXT:FIELD_EQUALS",
+      "TEXT:GRAPH_INTEGRITY",
+      "RESEAL_S_CANONICAL",
+      "USE_RESEALED_MUTANT_HANDOFF_DIGEST",
+      "C02_VALIDATION_REGISTRY_VERIFIED"
+    ],
+    [
+      "RESEALED_SQL_BRIDGE_RECOMPUTATION",
+      "S-C02",
+      "C02_ENTRY",
+      "SOURCE_HANDOFF::examples/reconciliation-queries.sql::S-QV03",
+      "REPLACE_SQL_STATEMENT",
+      "UTF8:AUTHORITY_QUERY:S-QV03",
+      "UTF8:SELECT SUM(adjustment_minor) FROM R_BRIDGE",
+      "RESEAL_S_CANONICAL",
+      "USE_RESEALED_MUTANT_HANDOFF_DIGEST",
+      "C02_SQL_REGISTRY_VERIFIED"
+    ],
+    [
+      "RESEALED_SQL_ORDER_REMOVAL",
+      "S-C02",
+      "C02_ENTRY",
+      "SOURCE_HANDOFF::examples/starter-queries.sql::S-QS01",
+      "REPLACE_SQL_STATEMENT",
+      "UTF8:AUTHORITY_QUERY:S-QS01",
+      "UTF8:-- S-QS01\nSELECT\n  \"reporting_version_ref\",\n  \"statement_field\",\n  \"amount_minor\",\n  \"currency\"\nFROM \"p_evidence_v1\".\"r_reporting_values\"\nWHERE \"scenario_ref\" = 'DEMO-C001-RESTATEMENT@v1';",
+      "RESEAL_S_CANONICAL",
+      "USE_RESEALED_MUTANT_HANDOFF_DIGEST",
+      "C02_SQL_REGISTRY_VERIFIED"
+    ],
+    [
+      "RESEALED_POPULATION_UNION",
+      "S-C02",
+      "C02_ENTRY",
+      "SOURCE_HANDOFF::metadata/validation-checks.json#/payload/checks/10/assertions/0/left/selector_ref",
+      "SET_JSON_POINTER",
+      "TEXT:SEL-CT1-AUTHORED-HEADERS",
+      "TEXT:SEL-CT1-REFERENCED-HEADERS",
+      "RESEAL_S_CANONICAL",
+      "USE_RESEALED_MUTANT_HANDOFF_DIGEST",
+      "C02_VALIDATION_REGISTRY_VERIFIED"
+    ],
+    [
+      "RESEALED_TRACE_EDGE_REVERSAL",
+      "S-C02",
+      "C02_ENTRY",
+      "SOURCE_HANDOFF::metadata/validation-checks.json#/payload/checks/11/assertions/0/direction",
+      "SET_JSON_POINTER",
+      "TEXT:SOURCE_TO_TARGET",
+      "TEXT:TARGET_TO_SOURCE",
+      "RESEAL_S_CANONICAL",
+      "USE_RESEALED_MUTANT_HANDOFF_DIGEST",
+      "C02_VALIDATION_REGISTRY_VERIFIED"
+    ],
+    [
+      "EXTRA_PACKAGE_FILE",
+      "S-C02",
+      "C02_ENTRY",
+      "SOURCE_HANDOFF::unexpected.txt",
+      "ADD_PATH",
+      "ABSENT",
+      "UTF8:S-NF16",
+      "NONE",
+      "NONE",
+      "C02_PACKAGE_INVENTORY_VERIFIED"
+    ],
+    [
+      "SYMLINK_PATH_ESCAPE",
+      "S-C01",
+      "C01_ENTRY",
+      "REQUEST::source_model_path",
+      "CREATE_LINK",
+      "DIRECTORY:verified-model",
+      "SYMLINK:../outside-model",
+      "NONE",
+      "NONE",
+      "C01_PATH_FIREWALL_PASSED"
+    ],
+    [
+      "OCCUPIED_OUTPUT",
+      "S-C01",
+      "C01_ENTRY",
+      "REQUEST::output_path",
+      "CREATE_DIRECTORY",
+      "ABSENT",
+      "DIRECTORY_WITH_FILE:sentinel.txt=UTF8:S-NF18",
+      "NONE",
+      "NONE",
+      "C01_OUTPUT_ABSENCE_VERIFIED"
+    ],
+    [
+      "ATOMIC_RENAME_INTERRUPTION",
+      "S-C01",
+      "C01_SEAL_COMPLETED",
+      "RUNTIME::atomic_rename(staging_path,output_path)",
+      "INJECT_FAULT_ONCE",
+      "CALLABLE:normal",
+      "OSERROR:S-NF19",
+      "NONE",
+      "NONE",
+      "C01_PUBLICATION_RENAME_COMPLETED"
+    ],
+    [
+      "UNSUPPORTED_WRITER_COORDINATE",
+      "S-C01",
+      "C01_ENTRY",
+      "REQUEST::xlsx_writer_profile_ref",
+      "SET_REQUEST_FIELD",
+      "TEXT:XLSXWRITER-3.2.9@v1",
+      "TEXT:XLSXWRITER-UNSUPPORTED@v1",
+      "NONE",
+      "SET_UNSUPPORTED_WRITER_COORDINATE",
+      "C01_WRITER_PROFILE_RESOLVED"
+    ],
+    [
+      "R3_PATH_VERSION_MISMATCH",
+      "S-C01",
+      "C01_ENTRY",
+      "SOURCE_MODEL::noncanonical-cache.json#/profile_coordinate/profile_version",
+      "SET_JSON_POINTER",
+      "INTEGER:1",
+      "INTEGER:2",
+      "NONE",
+      "NONE",
+      "C01_SOURCE_R3_CACHE_VERIFIED"
+    ],
+    [
+      "XLSX_CAPACITY_OVERFLOW",
+      "S-C01",
+      "C01_COPY_COMPLETED",
+      "SOURCE_MODEL::model-manifest.json#/table_entries/5/row_count",
+      "SET_JSON_POINTER",
+      "INTEGER:SOURCE_MODEL_ROW_COUNT:P-D06",
+      "INTEGER:1048576",
+      "RESEAL_R_MODEL",
+      "NONE",
+      "C01_XLSX_CAPACITY_VERIFIED"
+    ],
+    [
+      "RESEALED_SOURCE_REGISTRY_TAMPER",
+      "S-C03",
+      "C03_ENTRY",
+      "SOURCE_HANDOFF::metadata/validation-checks.json#/payload/checks/0/assertions/0/expected/value",
+      "SET_JSON_POINTER",
+      "INTEGER:0",
+      "INTEGER:1",
+      "RESEAL_S_CANONICAL",
+      "USE_RESEALED_MUTANT_HANDOFF_DIGEST",
+      "C03_SOURCE_VALIDATION_REGISTRY_VERIFIED"
+    ],
+    [
+      "SOURCE_PACKAGE_ABSENT_AT_ENTRY",
+      "S-C03",
+      "C03_ENTRY",
+      "REQUEST::source_package_path",
+      "MOVE_PATH",
+      "DIRECTORY:verified-package",
+      "SIBLING_DIRECTORY:held-for-S-NF24",
+      "NONE",
+      "NONE",
+      "C03_SOURCE_PACKAGE_PATH_RESOLVED"
+    ],
+    [
+      "R3_REPRODUCED_CACHE_LOGICAL_DIVERGENCE",
+      "S-C03",
+      "C03_REPRO_R3_MODEL_BUILT",
+      "STAGING::source-model/warehouse/finance-assurance.duckdb::P-D06::SEL-C1-V1-REVENUE::amount_minor",
+      "SET_DUCKDB_CELL",
+      "INTEGER:0",
+      "INTEGER:1",
+      "RESEAL_R_CACHE_ONLY",
+      "NONE",
+      "C03_REPRO_R3_CACHE_VERIFIED"
+    ],
+    [
+      "SOURCE_HANDOFF_WRITER_RUNTIME_UNAVAILABLE",
+      "S-C03",
+      "C03_ENTRY",
+      "RUNTIME::xlsx_writer_profile/XLSXWRITER-3.2.9@v1",
+      "REMOVE_RUNTIME_CAPABILITY",
+      "AVAILABLE:XlsxWriter-3.2.9",
+      "UNAVAILABLE",
+      "NONE",
+      "NONE",
+      "C03_SOURCE_WRITER_PROFILE_RESOLVED"
+    ],
+    [
+      "REPRODUCED_CANONICAL_DIGEST_DIVERGENCE",
+      "S-C03",
+      "C03_REPRO_SEAL_COMPLETED",
+      "STAGING::limitations.json#/limitations",
+      "ADD_JSON_ARRAY_ITEM",
+      "JSON:CURRENT_TARGET_VALUE",
+      "JSON:{\"code\":\"S-NF27\"}",
+      "RESEAL_STAGED_CANONICAL_TO_DIFFERENT_DIGEST",
+      "NONE",
+      "C03_REPRO_CANONICAL_DIGEST_VERIFIED"
+    ],
+    [
+      "OCCUPIED_REPRODUCTION_OUTPUT",
+      "S-C03",
+      "C03_ENTRY",
+      "REQUEST::reproduction_output_path",
+      "CREATE_DIRECTORY",
+      "ABSENT",
+      "DIRECTORY_WITH_FILE:sentinel.txt=UTF8:S-NF28",
+      "NONE",
+      "NONE",
+      "C03_OUTPUT_ABSENCE_VERIFIED"
+    ],
+    [
+      "SOURCE_PACKAGE_REMOVED_AFTER_SOURCE_VERIFY",
+      "S-C03",
+      "C03_SOURCE_VERIFY_COMPLETED",
+      "REQUEST::source_package_path",
+      "MOVE_PATH",
+      "DIRECTORY:verified-package",
+      "SIBLING_DIRECTORY:held-for-S-NF29",
+      "NONE",
+      "NONE",
+      "C03_REPRO_SOURCE_PACKAGE_AVAILABLE"
+    ],
+    [
+      "INJECT_STAGE_IO_FAILURE",
+      "S-C01",
+      "C01_SOURCE_R3_CACHE_VERIFIED",
+      "RUNTIME::create_staging_directory",
+      "INJECT_FAULT_ONCE",
+      "CALLABLE:normal",
+      "OSERROR:S-NF30",
+      "NONE",
+      "NONE",
+      "C01_STAGE_CREATE_STARTED"
+    ],
+    [
+      "INJECT_COPY_IO_FAILURE",
+      "S-C01",
+      "C01_STAGE_CREATED",
+      "RUNTIME::copy_source_model",
+      "INJECT_FAULT_ONCE",
+      "CALLABLE:normal",
+      "OSERROR:S-NF31",
+      "NONE",
+      "NONE",
+      "C01_COPY_STARTED"
+    ],
+    [
+      "INJECT_DERIVE_IO_FAILURE",
+      "S-C01",
+      "C01_COPY_COMPLETED",
+      "RUNTIME::derive_metadata_and_sql",
+      "INJECT_FAULT_ONCE",
+      "CALLABLE:normal",
+      "OSERROR:S-NF32",
+      "NONE",
+      "NONE",
+      "C01_DERIVATION_STARTED"
+    ],
+    [
+      "INJECT_XLSX_IO_FAILURE",
+      "S-C01",
+      "C01_DERIVATION_COMPLETED",
+      "RUNTIME::write_xlsx_projection",
+      "INJECT_FAULT_ONCE",
+      "CALLABLE:normal",
+      "OSERROR:S-NF33",
+      "NONE",
+      "NONE",
+      "C01_XLSX_WRITE_STARTED"
+    ],
+    [
+      "INJECT_SEAL_IO_FAILURE",
+      "S-C01",
+      "C01_XLSX_WRITE_COMPLETED",
+      "RUNTIME::seal_staged_handoff",
+      "INJECT_FAULT_ONCE",
+      "CALLABLE:normal",
+      "OSERROR:S-NF34",
+      "NONE",
+      "NONE",
+      "C01_SEAL_STARTED"
+    ],
+    [
+      "INJECT_STAGED_VERIFY_IO_FAILURE",
+      "S-C01",
+      "C01_SEAL_COMPLETED",
+      "RUNTIME::verify_staged_handoff",
+      "INJECT_FAULT_ONCE",
+      "CALLABLE:normal",
+      "OSERROR:S-NF35",
+      "NONE",
+      "NONE",
+      "C01_STAGED_VERIFY_STARTED"
+    ],
+    [
+      "INJECT_READ_ONLY_VERIFY_IO_FAILURE",
+      "S-C02",
+      "C02_ENTRY",
+      "RUNTIME::verify_source_handoff",
+      "INJECT_FAULT_ONCE",
+      "CALLABLE:normal",
+      "OSERROR:S-NF36",
+      "NONE",
+      "NONE",
+      "C02_VERIFY_STARTED"
+    ],
+    [
+      "INJECT_REPRODUCTION_IO_FAILURE",
+      "S-C03",
+      "C03_SOURCE_VERIFY_COMPLETED",
+      "RUNTIME::reproduce_handoff",
+      "INJECT_FAULT_ONCE",
+      "CALLABLE:normal",
+      "OSERROR:S-NF37",
+      "NONE",
+      "NONE",
+      "C03_REPRODUCTION_STARTED"
+    ],
+    [
+      "MALFORMED_REQUEST_BEFORE_PATH_RESOLUTION",
+      "S-C01",
+      "C01_ENTRY",
+      "REQUEST::expected_model_digest",
+      "SET_REQUEST_FIELD",
+      "TEXT:sha256:64-lower-hex",
+      "TEXT:not-a-digest",
+      "NONE",
+      "NONE",
+      "C01_REQUEST_PARSED"
+    ],
+    [
+      "SOURCE_MODEL_CHANGED_DURING_COPY",
+      "S-C01",
+      "C01_COPY_STARTED",
+      "SOURCE_MODEL::model-manifest.json",
+      "REPLACE_FILE_BYTE",
+      "SHA256:CURRENT_TARGET_BYTES",
+      "BYTE_AT_OFFSET:0:XOR:01",
+      "NONE",
+      "NONE",
+      "C01_SOURCE_COPY_STABILITY_VERIFIED"
+    ],
+    [
+      "UNRESEALED_XLSX_BINARY_CHANGE",
+      "S-C02",
+      "C02_ENTRY",
+      "SOURCE_HANDOFF::excel/finance-assurance-data-pack.xlsx::docProps/core.xml",
+      "REPLACE_ZIP_MEMBER_BYTE",
+      "SHA256:DERIVED_XLSX_MEMBER:docProps/core.xml",
+      "BYTE_AT_OFFSET:0:XOR:01",
+      "NONE",
+      "NONE",
+      "C02_NONCANONICAL_BINARY_VERIFIED"
+    ],
+    [
+      "INJECT_SOURCE_HANDOFF_VERIFY_IO_FAILURE",
+      "S-C03",
+      "C03_ENTRY",
+      "RUNTIME::verify_source_handoff",
+      "INJECT_FAULT_ONCE",
+      "CALLABLE:normal",
+      "OSERROR:S-NF41",
+      "NONE",
+      "NONE",
+      "C03_SOURCE_VERIFY_STARTED"
+    ]
+  ],
+  "target_ref_grammar": [
+    "REQUEST::<request-field>",
+    "SOURCE_PACKAGE::<source-coordinate>::<selector-ref>::<field-name>",
+    "SOURCE_MODEL::<package-relative-path>[#<RFC6901-pointer>]",
+    "SOURCE_HANDOFF::<package-relative-path>[#<RFC6901-pointer>][::<selector-ref>::<field-name>]",
+    "STAGING::<package-relative-path>[#<RFC6901-pointer>][::<selector-ref>::<field-name>]",
+    "RUNTIME::<closed-hook-name>"
+  ],
+  "value_ref_grammar": [
+    "ABSENT | ABSENT_CELL | UNAVAILABLE",
+    "<scalar-type>:<literal-ASCII>",
+    "SHA256:REQUEST_FIELD:<request-field>",
+    "SHA256:CURRENT_TARGET_BYTES",
+    "SHA256:DERIVED_XLSX_MEMBER:<zip-member-path>",
+    "REGULAR_FILE_SHA256:SOURCE_MODEL_MANIFEST_ENTRY:<package-relative-path>",
+    "INTEGER:SOURCE_MODEL_ROW_COUNT:<dataset-id>",
+    "TEXT:SOURCE_MODEL_DATASET_DIGEST:<dataset-id>",
+    "TEXT:CURRENT_TARGET_VALUE",
+    "JSON:CURRENT_TARGET_VALUE",
+    "UTF8:AUTHORITY_QUERY:<query-id>",
+    "BYTE_AT_OFFSET:<zero-based-integer>:XOR:<two-lower-hex>",
+    "JSON:<S-CANONICAL-JSON@v1-value>"
+  ],
+  "resolution_rules": [
+    "TEXT:CURRENT_TARGET_VALUE and JSON:CURRENT_TARGET_VALUE resolve the selected pre-mutation value in the declared type and are then asserted unchanged until the operator applies.",
+    "SHA256:CURRENT_TARGET_BYTES resolves the SHA-256 of the selected regular-file bytes before mutation and is then asserted unchanged until the operator applies.",
+    "REQUEST_FIELD, SOURCE_MODEL_MANIFEST_ENTRY, SOURCE_MODEL_ROW_COUNT, and SOURCE_MODEL_DATASET_DIGEST resolve only from the already verified request or source model.",
+    "AUTHORITY_QUERY resolves to the complete LF-normalized query block headed by the exact query ID in the checked-in SQL authority.",
+    "DERIVED_XLSX_MEMBER resolves to the exact member bytes produced by the pinned writer profile before mutation.",
+    "All literal payloads are ASCII; JSON payloads parse under S-CANONICAL-JSON@v1 and UTF8 payloads use LF."
+  ],
+  "operator_contract_field_order": [
+    "operator",
+    "target_kind",
+    "mutation_kind",
+    "exact_effect"
+  ],
+  "operator_contracts": [
+    [
+      "ADD_JSON_ARRAY_ITEM",
+      "JSON array selected by RFC6901",
+      "JSON",
+      "append exactly one parsed value"
+    ],
+    [
+      "ADD_JSON_MEMBER",
+      "JSON object selected by RFC6901",
+      "typed scalar",
+      "add exactly the named terminal member and reject an existing member"
+    ],
+    [
+      "ADD_PATH",
+      "absent package-relative path",
+      "UTF8",
+      "create one regular file with exact UTF-8 bytes"
+    ],
+    [
+      "ADD_ZIP_MEMBER",
+      "absent OPC member",
+      "UTF8_XML",
+      "create one ZIP member with exact UTF-8 bytes and no other ZIP change"
+    ],
+    [
+      "CREATE_DIRECTORY",
+      "absent filesystem path",
+      "DIRECTORY_WITH_FILE",
+      "create the directory and exact sentinel child"
+    ],
+    [
+      "CREATE_LINK",
+      "resolved filesystem path",
+      "SYMLINK",
+      "replace the private-copy path with the exact relative symbolic link"
+    ],
+    [
+      "DELETE_PATH",
+      "existing regular file or directory",
+      "ABSENT",
+      "remove only the target inside the private mutation copy"
+    ],
+    [
+      "INJECT_FAULT_ONCE",
+      "closed runtime hook",
+      "OSERROR",
+      "raise OSError with the exact ASCII token on the first call only"
+    ],
+    [
+      "MOVE_PATH",
+      "existing fixture path",
+      "SIBLING_DIRECTORY",
+      "atomically move to the exact sibling and restore during cleanup"
+    ],
+    [
+      "REMOVE_RUNTIME_CAPABILITY",
+      "closed runtime capability",
+      "UNAVAILABLE",
+      "hide only the named capability for one fixture process"
+    ],
+    [
+      "REPLACE_FILE_BYTE",
+      "regular file verified by SHA256",
+      "BYTE_AT_OFFSET",
+      "XOR exactly one byte at the declared offset"
+    ],
+    [
+      "REPLACE_SQL_STATEMENT",
+      "query block selected by query ID",
+      "UTF8",
+      "replace the complete block with the exact LF-normalized payload"
+    ],
+    [
+      "REPLACE_ZIP_MEMBER_BYTE",
+      "ZIP member verified by SHA256",
+      "BYTE_AT_OFFSET",
+      "XOR exactly one uncompressed member byte and rebuild no other member"
+    ],
+    [
+      "SET_DATASET_CELL",
+      "one selector-resolved source cell",
+      "typed scalar",
+      "replace the one cell with the exact typed scalar"
+    ],
+    [
+      "SET_DUCKDB_CELL",
+      "one selector-resolved DuckDB cell",
+      "typed scalar",
+      "update exactly one cell in a private database copy"
+    ],
+    [
+      "SET_JSON_POINTER",
+      "existing RFC6901 value",
+      "typed scalar",
+      "replace exactly the selected value"
+    ],
+    [
+      "SET_REQUEST_FIELD",
+      "closed request field",
+      "typed scalar",
+      "replace exactly the request field before validation"
+    ],
+    [
+      "SET_XLSX_FORMULA",
+      "one selector-resolved XLSX cell",
+      "FORMULA",
+      "replace exactly the cell with a formula cell"
+    ],
+    [
+      "SET_XLSX_TYPED_CELL",
+      "one selector-resolved XLSX cell",
+      "typed scalar",
+      "replace exactly the cell storage type and value"
+    ]
+  ],
+  "reseal_contracts": {
+    "NONE": [],
+    "RESEAL_R_CACHE_AND_S_NONCANONICAL_MANIFEST": [
+      "recompute DuckDB cache logical digests",
+      "rewrite duckdb-cache-manifest.json",
+      "recompute XLSX/DuckDB noncanonical manifest entries",
+      "recompute handoff.digest only if canonical bytes changed"
+    ],
+    "RESEAL_S_CANONICAL": [
+      "canonicalize every changed JSON or SQL authority",
+      "recompute affected checksums.json entries",
+      "recompute handoff.digest"
+    ],
+    "RESEAL_S_XLSX_BINARY_MANIFEST_AND_HANDOFF": [
+      "recompute XLSX SHA-256 and typed logical digests",
+      "rewrite the noncanonical XLSX manifest",
+      "retain canonical handoff.digest because no canonical byte changed"
+    ],
+    "RESEAL_R_MODEL": [
+      "canonicalize the changed R manifest",
+      "recompute its checksum ledger and detached model digest"
+    ],
+    "RESEAL_R_CACHE_ONLY": [
+      "recompute DuckDB same-build and logical digests in duckdb-cache-manifest.json",
+      "do not change the source S handoff"
+    ],
+    "RESEAL_STAGED_CANONICAL_TO_DIFFERENT_DIGEST": [
+      "canonicalize the changed staged JSON",
+      "recompute staged checksums.json",
+      "recompute staged handoff.digest and assert it differs from the request digest"
+    ]
+  },
+  "request_mutation_contracts": {
+    "NONE": [],
+    "USE_RESEALED_MUTANT_HANDOFF_DIGEST": [
+      "set expected_handoff_digest to the resealed mutant handoff.digest"
+    ],
+    "SET_UNSUPPORTED_WRITER_COORDINATE": [
+      "set xlsx_writer_profile_ref to XLSXWRITER-UNSUPPORTED@v1"
+    ]
+  },
+  "cleanup_rules": [
+    "All file, directory, database, workbook, and package mutations occur in a unique private fixture copy.",
+    "A MOVE_PATH recipe restores the held source in a finally block after failure serialization.",
+    "Fault hooks and hidden runtime capabilities are process-local and are removed in a finally block.",
+    "The harness deletes only its resolved private mutation copy and same-parent staging directory."
+  ]
+}

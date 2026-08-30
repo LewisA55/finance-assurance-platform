@@ -1,0 +1,80 @@
+{
+  "contract_version": "xlsx-logical-vectors@v1",
+  "logical_workbook_vector": {
+    "expected_digest": "sha256:bbc933e97173a78b4e63f73c7552c42170cced257f76a2d6473eb59a9f3cf199",
+    "preimage": {
+      "contract_version": "logical-workbook-digest@v1",
+      "sheet_entries": [
+        {
+          "column_count": 9,
+          "columns": [
+            {"name": "text_value", "nullability": false, "ordinal": 1, "source_type": "text", "storage_mode": "TEXT_EXACT"},
+            {"name": "date_value", "nullability": false, "ordinal": 2, "source_type": "date", "storage_mode": "TEXT_DATE_ISO"},
+            {"name": "timestamp_value", "nullability": false, "ordinal": 3, "source_type": "timestamp", "storage_mode": "TEXT_TIMESTAMP_UTC"},
+            {"name": "boolean_value", "nullability": false, "ordinal": 4, "source_type": "boolean", "storage_mode": "BOOLEAN_NATIVE"},
+            {"name": "safe_integer", "nullability": false, "ordinal": 5, "source_type": "integer", "storage_mode": "NUMBER_EXACT"},
+            {"name": "unsafe_integer", "nullability": false, "ordinal": 6, "source_type": "integer", "storage_mode": "TEXT_INT64"},
+            {"name": "hash_value", "nullability": false, "ordinal": 7, "source_type": "hash", "storage_mode": "TEXT_EXACT"},
+            {"name": "enum_value", "nullability": false, "ordinal": 8, "source_type": "enum", "storage_mode": "TEXT_EXACT"},
+            {"name": "nullable_text", "nullability": true, "ordinal": 9, "source_type": "text", "storage_mode": "TEXT_EXACT"}
+          ],
+          "null_counts": [
+            {"count": 0, "name": "text_value"},
+            {"count": 0, "name": "date_value"},
+            {"count": 0, "name": "timestamp_value"},
+            {"count": 0, "name": "boolean_value"},
+            {"count": 0, "name": "safe_integer"},
+            {"count": 0, "name": "unsafe_integer"},
+            {"count": 0, "name": "hash_value"},
+            {"count": 0, "name": "enum_value"},
+            {"count": 1, "name": "nullable_text"}
+          ],
+          "row_count": 2,
+          "sheet_kind": "DATA",
+          "sheet_name": "VECTOR_DATA",
+          "source_coordinate": "VECTOR@v1/V-D01@v1",
+          "source_logical_table_digest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+          "source_technical_projection_digest": "sha256:2222222222222222222222222222222222222222222222222222222222222222",
+          "table_name": "t_vector_data",
+          "typed_rows_digest": "sha256:45e5d4a173227f850d5e667c8fefa9df3ce571ba2a48a4a11705a4b25e6a0504"
+        }
+      ],
+      "sheet_order": ["VECTOR_DATA"],
+      "source_model_digest": "sha256:3333333333333333333333333333333333333333333333333333333333333333",
+      "source_package_digest": "sha256:4444444444444444444444444444444444444444444444444444444444444444",
+      "xlsx_type_map_hash": "sha256:41b42f86d6620e042e1137b352fee44018ecfa34b980fb4bca4f33eeb71e48dd",
+      "xlsx_type_map_ref": "XLSX-TYPE-MAP@v1"
+    },
+    "vector_id": "S-XLSX-LOGICAL-POSITIVE-01"
+  },
+  "mutation_vectors": [
+    {"base_vector_id": "S-XLSX-TYPED-ROWS-POSITIVE-01", "expected_digest": "sha256:8f448041e66bb2a89fb084d046af074479bcdf91006a02e1e531260b7d5e7f00", "expected_outcome": "DIGEST_CHANGED", "mutation_id": "S-XLSX-M01-VALUE", "operations": [{"replacement": "beta-mutated", "target_json_pointer": "/rows/1/cells/0/value"}]},
+    {"base_vector_id": "S-XLSX-TYPED-ROWS-POSITIVE-01", "expected_digest": "sha256:fae4a72cb2d545825dcbcc152e3520addb9a637a5d2888eba231fd7873b7557b", "expected_outcome": "DIGEST_CHANGED", "mutation_id": "S-XLSX-M02-TYPE", "operations": [{"replacement": "text", "target_json_pointer": "/columns/7/source_type"}, {"replacement": "text", "target_json_pointer": "/rows/0/cells/7/source_type"}, {"replacement": "text", "target_json_pointer": "/rows/1/cells/7/source_type"}]},
+    {"base_vector_id": "S-XLSX-TYPED-ROWS-POSITIVE-01", "expected_digest": "sha256:c081084899b891098bf421bbbf02b2d9542ac44f9629b9785e783fe27479d00f", "expected_outcome": "DIGEST_CHANGED", "mutation_id": "S-XLSX-M03-ORDER", "operations": [{"operation": "SWAP_ROW_CELL_ARRAYS", "row_ordinals": [1, 2]}]},
+    {"base_vector_id": "S-XLSX-LOGICAL-POSITIVE-01", "expected_digest": "sha256:dbf5c5f188cfc3c264c3ab1131628e47413030cec4cd1e17151d31786b5c50aa", "expected_outcome": "DIGEST_CHANGED_AND_CONTRACT_REJECTED", "mutation_id": "S-XLSX-M04-COUNT", "operations": [{"replacement": 3, "target_json_pointer": "/sheet_entries/0/row_count"}]},
+    {"base_vector_id": "S-XLSX-LOGICAL-POSITIVE-01", "expected_digest": "sha256:7498220ae7e9d85b412259d5f3d3b5b2cd58aa84314385a9cdffc08a82111b0e", "expected_outcome": "DIGEST_CHANGED", "mutation_id": "S-XLSX-M05-SOURCE-DIGEST", "operations": [{"replacement": "sha256:5555555555555555555555555555555555555555555555555555555555555555", "target_json_pointer": "/source_model_digest"}]},
+    {"base_vector_id": "S-XLSX-LOGICAL-POSITIVE-01", "expected_digest": "sha256:7e339bb4558d983347e4090a12f5236f7d65cbb213798164bf4d290b45064685", "expected_outcome": "DIGEST_CHANGED_AND_CONTRACT_REJECTED", "mutation_id": "S-XLSX-M06-STORAGE-MODE", "operations": [{"replacement": "TEXT_INT64", "target_json_pointer": "/sheet_entries/0/columns/4/storage_mode"}]}
+  ],
+  "typed_rows_vector": {
+    "expected_digest": "sha256:45e5d4a173227f850d5e667c8fefa9df3ce571ba2a48a4a11705a4b25e6a0504",
+    "preimage": {
+      "columns": [
+        {"name": "text_value", "ordinal": 1, "source_type": "text"},
+        {"name": "date_value", "ordinal": 2, "source_type": "date"},
+        {"name": "timestamp_value", "ordinal": 3, "source_type": "timestamp"},
+        {"name": "boolean_value", "ordinal": 4, "source_type": "boolean"},
+        {"name": "safe_integer", "ordinal": 5, "source_type": "integer"},
+        {"name": "unsafe_integer", "ordinal": 6, "source_type": "integer"},
+        {"name": "hash_value", "ordinal": 7, "source_type": "hash"},
+        {"name": "enum_value", "ordinal": 8, "source_type": "enum"},
+        {"name": "nullable_text", "ordinal": 9, "source_type": "text"}
+      ],
+      "contract_version": "xlsx-typed-rows@v1",
+      "rows": [
+        {"cells": [{"is_null": false, "source_type": "text", "value": "alpha"}, {"is_null": false, "source_type": "date", "value": "2026-06-30"}, {"is_null": false, "source_type": "timestamp", "value": "2026-06-30T12:34:56.123456Z"}, {"is_null": false, "source_type": "boolean", "value": true}, {"is_null": false, "source_type": "integer", "value": 12345}, {"is_null": false, "source_type": "integer", "value": 9223372036854775807}, {"is_null": false, "source_type": "hash", "value": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"}, {"is_null": false, "source_type": "enum", "value": "APPROVED"}, {"is_null": true, "source_type": "text", "value": null}], "row_ordinal": 1},
+        {"cells": [{"is_null": false, "source_type": "text", "value": "beta"}, {"is_null": false, "source_type": "date", "value": "2026-07-31"}, {"is_null": false, "source_type": "timestamp", "value": "2026-07-31T01:02:03.000004Z"}, {"is_null": false, "source_type": "boolean", "value": false}, {"is_null": false, "source_type": "integer", "value": -54321}, {"is_null": false, "source_type": "integer", "value": -9223372036854775808}, {"is_null": false, "source_type": "hash", "value": "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"}, {"is_null": false, "source_type": "enum", "value": "VERIFIED"}, {"is_null": false, "source_type": "text", "value": "present"}], "row_ordinal": 2}
+      ]
+    },
+    "vector_id": "S-XLSX-TYPED-ROWS-POSITIVE-01"
+  }
+}

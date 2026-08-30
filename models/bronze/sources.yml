@@ -1,0 +1,80 @@
+version: 2
+
+sources:
+  - name: a24_bronze
+    description: >
+      Immutable A2.4 Bronze authority. The attached DuckDB database is opened
+      read-only and is verified before a governed Slice B build is admitted.
+    database: a24_source
+    schema: bronze
+    tables:
+      - name: reference__periods
+      - name: reference__legal_entities
+      - name: accounting__chart_of_accounts
+      - name: events__business_events
+      - name: accounting__accounting_events
+      - name: accounting__source_gl_journal_lines
+      - name: consolidation__elimination_journal_lines
+      - name: accounting__statutory_trial_balance
+      - name: accounting__statutory_statement_lines
+      - name: accounting__retained_earnings_bridge
+      - name: accounting__cash_flow_reconciliation
+      - name: accounting__monthly_close_status
+      - name: governance__statutory_reconciliation_results
+      - name: treasury__bank_accounts
+      - name: treasury__bank_transactions
+      - name: treasury__bank_statement_lines
+      - name: treasury__bank_reconciliations
+      - name: treasury__debt_instruments
+      - name: treasury__debt_schedule
+      - name: fixed_assets__fixed_asset_register
+      - name: fixed_assets__fixed_asset_movements
+      - name: fixed_assets__asset_lifecycle_events
+      - name: assurance__fixed_asset_control_results
+      - name: leases__lease_contracts
+      - name: leases__lease_lifecycle_events
+      - name: leases__lease_schedule
+      - name: tax__tax_calculation_inputs
+      - name: tax__tax_schedule
+      - name: tax__tax_loss_register
+      - name: equity__equity_movements
+      - name: working_capital__accrual_source_events
+      - name: working_capital__accrual_schedule
+      - name: working_capital__prepayment_source_events
+      - name: working_capital__prepayment_schedule
+      - name: intercompany__intercompany_transactions
+      - name: intercompany__intercompany_balances
+      - name: assurance__statutory_subledger_control_results
+      - name: hermes__source_admission_results
+      - name: reference__regions
+      - name: reference__departments
+      - name: reference__products
+      - name: reference__product_price_book
+      - name: billing__customers
+      - name: billing__subscriptions
+      - name: billing__subscription_events
+      - name: billing__invoices
+      - name: billing__invoice_lines
+      - name: billing__payments
+      - name: billing__payment_allocations
+      - name: billing__ar_ageing_snapshot
+      - name: revenue__revenue_recognition_schedule
+      - name: revenue__deferred_revenue_rollforward
+      - name: procurement__vendors
+      - name: procurement__vendor_invoices
+      - name: procurement__vendor_invoice_lines
+      - name: procurement__vendor_payments
+      - name: procurement__ap_ageing_snapshot
+      - name: procurement__capital_purchase_orders
+      - name: procurement__capital_goods_receipts
+      - name: procurement__capital_invoices
+      - name: hris__employees
+      - name: hris__headcount_snapshot
+      - name: workforce__payroll_expense_lines
+      - name: workforce__employee_compensation
+      - name: workforce__headcount_plan
+      - name: planning__budget_versions
+      - name: planning__budget_lines
+      - name: planning__forecast_versions
+      - name: planning__forecast_lines
+      - name: planning__variance_source_extract

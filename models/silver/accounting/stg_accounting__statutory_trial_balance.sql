@@ -1,0 +1,20 @@
+select
+    trim(period_id) as period_id,
+    trim(scope_id) as scope_id,
+    trim(legal_entity_id) as legal_entity_id,
+    trim(account_id) as account_id,
+    cast(opening_balance_minor as bigint) as opening_balance_minor,
+    cast(debit_activity_minor as bigint) as debit_activity_minor,
+    cast(credit_activity_minor as bigint) as credit_activity_minor,
+    cast(elimination_debit_minor as bigint) as elimination_debit_minor,
+    cast(elimination_credit_minor as bigint) as elimination_credit_minor,
+    cast(closing_balance_minor as bigint) as closing_balance_minor,
+    upper(trim(currency)) as currency,
+    trim(reporting_version_ref) as reporting_version_ref,
+    upper(trim(close_status)) as close_status,
+    _source_row_hash,
+    cast(_ingested_at as timestamptz) as _ingested_at,
+    _source_file,
+    _source_file_sha256,
+    _source_data_ref
+from {{ source('a24_bronze', 'accounting__statutory_trial_balance') }}

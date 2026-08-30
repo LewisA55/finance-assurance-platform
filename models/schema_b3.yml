@@ -1,0 +1,219 @@
+version: 2
+
+models:
+  - name: dim_region
+    description: Conformed operating region and currency dimension.
+    columns:
+      - name: region_hk
+        data_tests: [not_null, unique]
+      - name: region_id
+        data_tests: [not_null, unique]
+  - name: dim_department
+    description: Conformed department, business-unit and opex-class dimension.
+    columns:
+      - name: department_hk
+        data_tests: [not_null, unique]
+      - name: department_id
+        data_tests: [not_null, unique]
+  - name: dim_product
+    description: Conformed product and revenue-type dimension.
+    columns:
+      - name: product_hk
+        data_tests: [not_null, unique]
+      - name: product_id
+        data_tests: [not_null, unique]
+  - name: dim_product_price
+    description: Effective-dated product, segment and region price book.
+    columns:
+      - name: product_price_hk
+        data_tests: [not_null, unique]
+      - name: price_book_id
+        data_tests: [not_null, unique]
+  - name: dim_customer
+    description: Conformed customer, segment, industry and region dimension.
+    columns:
+      - name: customer_hk
+        data_tests: [not_null, unique]
+      - name: customer_id
+        data_tests: [not_null, unique]
+  - name: dim_subscription
+    description: Conformed customer-product subscription master.
+    columns:
+      - name: subscription_hk
+        data_tests: [not_null, unique]
+      - name: subscription_id
+        data_tests: [not_null, unique]
+  - name: dim_vendor
+    description: Conformed procurement vendor, category and region dimension.
+    columns:
+      - name: vendor_hk
+        data_tests: [not_null, unique]
+      - name: vendor_id
+        data_tests: [not_null, unique]
+  - name: dim_employee
+    description: Conformed employee, department and region dimension.
+    columns:
+      - name: employee_hk
+        data_tests: [not_null, unique]
+      - name: employee_id
+        data_tests: [not_null, unique]
+  - name: fct_operational_event_links
+    description: Reusable bridge from posting operational objects to B1 events, journals and close versions.
+    columns:
+      - name: operational_event_link_hk
+        data_tests: [not_null, unique]
+      - name: business_event_ref
+        data_tests: [not_null, unique]
+  - name: fct_subscription_lifecycle_events
+    description: Atomic subscription movements with governed SaaS movement classification.
+    columns:
+      - name: subscription_lifecycle_event_hk
+        data_tests: [not_null, unique]
+      - name: subscription_event_id
+        data_tests: [not_null, unique]
+  - name: fct_customer_invoices
+    description: Billing invoices resolved to causal events, B1 journals and hard-close versions.
+    columns:
+      - name: customer_invoice_hk
+        data_tests: [not_null, unique]
+      - name: invoice_id
+        data_tests: [not_null, unique]
+  - name: fct_customer_invoice_lines
+    description: Atomic invoice lines inheriting parent invoice accounting lineage.
+    columns:
+      - name: customer_invoice_line_hk
+        data_tests: [not_null, unique]
+      - name: invoice_line_id
+        data_tests: [not_null, unique]
+  - name: fct_customer_payments
+    description: Cash receipts resolved to causal events, B1 journals and hard-close versions.
+    columns:
+      - name: customer_payment_hk
+        data_tests: [not_null, unique]
+      - name: payment_id
+        data_tests: [not_null, unique]
+  - name: fct_payment_allocations
+    description: Payment-to-invoice allocation bridge preserving both operational parents.
+    columns:
+      - name: payment_allocation_hk
+        data_tests: [not_null, unique]
+      - name: allocation_id
+        data_tests: [not_null, unique]
+  - name: fct_revenue_recognition
+    description: Monthly invoice recognition events resolved to B1 revenue journals.
+    columns:
+      - name: revenue_recognition_hk
+        data_tests: [not_null, unique]
+      - name: schedule_id
+        data_tests: [not_null, unique]
+  - name: fct_deferred_revenue_rollforward
+    description: Currency-level monthly deferred revenue rollforward bound to the group close.
+    columns:
+      - name: deferred_revenue_rollforward_hk
+        data_tests: [not_null, unique]
+  - name: fct_vendor_invoices
+    description: Vendor invoices conformed to cost dimensions and resolved to B1 journals.
+    columns:
+      - name: vendor_invoice_hk
+        data_tests: [not_null, unique]
+      - name: vendor_invoice_id
+        data_tests: [not_null, unique]
+  - name: fct_vendor_invoice_lines
+    description: Atomic vendor invoice lines inheriting parent accounting lineage.
+    columns:
+      - name: vendor_invoice_line_hk
+        data_tests: [not_null, unique]
+      - name: vendor_invoice_line_id
+        data_tests: [not_null, unique]
+  - name: fct_vendor_payments
+    description: Supplier payments resolved to B1 cash and accounts-payable journals.
+    columns:
+      - name: vendor_payment_hk
+        data_tests: [not_null, unique]
+      - name: vendor_payment_id
+        data_tests: [not_null, unique]
+  - name: fct_capital_purchase_orders
+    description: Capital purchase orders at original source grain.
+    columns:
+      - name: capital_purchase_order_hk
+        data_tests: [not_null, unique]
+      - name: capital_purchase_order_id
+        data_tests: [not_null, unique]
+  - name: fct_capital_goods_receipts
+    description: Capital goods receipts linked to their approved purchase orders.
+    columns:
+      - name: capital_goods_receipt_hk
+        data_tests: [not_null, unique]
+      - name: capital_goods_receipt_id
+        data_tests: [not_null, unique]
+  - name: fct_capital_invoices
+    description: Capital supplier invoices with three-way-match, ledger and fixed-asset lineage.
+    columns:
+      - name: capital_invoice_hk
+        data_tests: [not_null, unique]
+      - name: capital_invoice_id
+        data_tests: [not_null, unique]
+  - name: fct_payroll_expense_lines
+    description: Employee-period payroll costs resolved to B1 journal and close authority.
+    columns:
+      - name: payroll_expense_line_hk
+        data_tests: [not_null, unique]
+      - name: payroll_line_id
+        data_tests: [not_null, unique]
+  - name: fct_employee_compensation
+    description: Payroll components inheriting the governed payroll-line accounting lineage.
+    columns:
+      - name: employee_compensation_hk
+        data_tests: [not_null, unique]
+      - name: compensation_line_id
+        data_tests: [not_null, unique]
+  - name: fct_headcount_monthly_snapshot
+    description: Monthly employee state, FTE and annualised salary snapshot.
+    columns:
+      - name: headcount_monthly_snapshot_hk
+        data_tests: [not_null, unique]
+  - name: fct_ar_ageing_daily
+    description: Full daily open-invoice state with customer and accounting lineage.
+    columns:
+      - name: ar_ageing_daily_hk
+        data_tests: [not_null, unique]
+  - name: fct_ap_ageing_daily
+    description: Full daily open-vendor-invoice state with supplier and accounting lineage.
+    columns:
+      - name: ap_ageing_daily_hk
+        data_tests: [not_null, unique]
+  - name: fct_subscription_monthly_state
+    description: Month-end subscription state replayed from lifecycle events.
+    columns:
+      - name: subscription_monthly_state_hk
+        data_tests: [not_null, unique]
+  - name: fct_saas_monthly_movements
+    description: Monthly MRR and ARR bridge with retention and logo state.
+    columns:
+      - name: saas_monthly_movement_hk
+        data_tests: [not_null, unique]
+  - name: fct_working_capital_monthly
+    description: Governed month-end AR, AP, deferred revenue, DSO and DPO state.
+    columns:
+      - name: working_capital_monthly_hk
+        data_tests: [not_null, unique]
+  - name: q_finance_v3_dataset_registry
+    description: Closed Q-FINANCE v3 dataset registry preserving B1 and B2.
+    columns:
+      - name: dataset_id
+        data_tests: [not_null, unique]
+  - name: q_finance_v3_relationship_registry
+    description: Tool-neutral relationship catalogue for Q-FINANCE v3.
+    columns:
+      - name: relationship_id
+        data_tests: [not_null, unique]
+  - name: q_finance_v3_measure_registry
+    description: Tool-neutral governed operational-finance measure specifications.
+    columns:
+      - name: measure_id
+        data_tests: [not_null, unique]
+  - name: q_finance_v3_lineage_registry
+    description: Complete A2.4 to Silver to Gold lineage catalogue for Q-FINANCE v3.
+    columns:
+      - name: dataset_id
+        data_tests: [not_null, unique]

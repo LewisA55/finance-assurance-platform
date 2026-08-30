@@ -1,0 +1,20 @@
+select * from (values
+    ('QF-R01', 'QF-D08', 'period_id', 'QF-D01', 'period_id', 'MANY_TO_ONE', 'ACTIVE', 'CONSUMER_RELATIONSHIP'),
+    ('QF-R02', 'QF-D08', 'legal_entity_id', 'QF-D02', 'legal_entity_id', 'MANY_TO_ONE', 'ACTIVE', 'CONSUMER_RELATIONSHIP'),
+    ('QF-R03', 'QF-D08', 'account_id', 'QF-D04', 'account_id', 'MANY_TO_ONE', 'ACTIVE', 'CONSUMER_RELATIONSHIP'),
+    ('QF-R04', 'QF-D08', 'business_event_ref', 'QF-D06', 'business_event_ref', 'MANY_TO_ONE', 'NAVIGATION_ONLY', 'INTEGRITY_AND_LINEAGE'),
+    ('QF-R05', 'QF-D09', 'accounting_event_ref', 'QF-D07', 'accounting_event_ref', 'MANY_TO_ONE', 'NAVIGATION_ONLY', 'INTEGRITY_AND_LINEAGE'),
+    ('QF-R06', 'QF-D09', 'period_id', 'QF-D01', 'period_id', 'MANY_TO_ONE', 'ACTIVE', 'CONSUMER_RELATIONSHIP'),
+    ('QF-R07', 'QF-D09', 'account_id', 'QF-D04', 'account_id', 'MANY_TO_ONE', 'ACTIVE', 'CONSUMER_RELATIONSHIP'),
+    ('QF-R08', 'QF-D10', 'period_id', 'QF-D01', 'period_id', 'MANY_TO_ONE', 'ACTIVE', 'CONSUMER_RELATIONSHIP'),
+    ('QF-R09', 'QF-D10', 'scope_id', 'QF-D03', 'scope_id', 'MANY_TO_ONE', 'ACTIVE', 'CONSUMER_RELATIONSHIP'),
+    ('QF-R10', 'QF-D10', 'account_id', 'QF-D04', 'account_id', 'MANY_TO_ONE', 'ACTIVE', 'CONSUMER_RELATIONSHIP'),
+    ('QF-R11', 'QF-D10', 'reporting_version_ref', 'QF-D05', 'reporting_version_ref', 'MANY_TO_ONE', 'NAVIGATION_ONLY', 'INTEGRITY_AND_LINEAGE'),
+    ('QF-R12', 'QF-D11', 'period_id', 'QF-D01', 'period_id', 'MANY_TO_ONE', 'ACTIVE', 'CONSUMER_RELATIONSHIP'),
+    ('QF-R13', 'QF-D11', 'scope_id', 'QF-D03', 'scope_id', 'MANY_TO_ONE', 'ACTIVE', 'CONSUMER_RELATIONSHIP'),
+    ('QF-R14', 'QF-D11', 'reporting_version_ref', 'QF-D05', 'reporting_version_ref', 'MANY_TO_ONE', 'NAVIGATION_ONLY', 'INTEGRITY_AND_LINEAGE'),
+    ('QF-R15', 'QF-D12', 'reporting_version_ref', 'QF-D05', 'reporting_version_ref', 'MANY_TO_ONE', 'NAVIGATION_ONLY', 'INTEGRITY_AND_LINEAGE'),
+    ('QF-R16', 'QF-D13', 'reporting_version_ref', 'QF-D05', 'reporting_version_ref', 'MANY_TO_ONE', 'NAVIGATION_ONLY', 'INTEGRITY_AND_LINEAGE'),
+    ('QF-R17', 'QF-D14', 'reporting_version_ref', 'QF-D05', 'reporting_version_ref', 'ONE_TO_ONE', 'NAVIGATION_ONLY', 'INTEGRITY_AND_LINEAGE'),
+    ('QF-R18', 'QF-D15', 'reporting_version_ref', 'QF-D05', 'reporting_version_ref', 'MANY_TO_ONE', 'NAVIGATION_ONLY', 'INTEGRITY_AND_LINEAGE')
+) as t(relationship_id, from_dataset_id, from_columns, to_dataset_id, to_columns, cardinality, load_disposition, enforcement)

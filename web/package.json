@@ -1,0 +1,60 @@
+{
+  "name": "finance-assurance-platform-web",
+  "version": "0.1.0",
+  "private": true,
+  "engines": {
+    "node": ">=22.13.0"
+  },
+  "scripts": {
+    "sync:finance-data": "node scripts/sync-c2-react-assets.mjs",
+    "prepare:duckdb": "node scripts/prepare-duckdb-runtime.mjs",
+    "predev": "npm run prepare:duckdb",
+    "dev": "vinext dev",
+    "prebuild": "npm run prepare:duckdb",
+    "build": "vinext build",
+    "start": "vinext start",
+    "test:d1": "node --test tests/d1-finance-runtime.test.mjs",
+    "test:d2": "node --test tests/d2-financial-performance.test.mjs",
+    "test:d3": "node --test tests/d3-cash-capital.test.mjs",
+    "test:d4": "node --test tests/d4-revenue-saas.test.mjs",
+    "test:d5": "node --test tests/d5-assurance-readiness.test.mjs",
+    "test:d6": "node --test tests/d6-planning-valuation.test.mjs",
+    "pretest:finance": "npm run prepare:duckdb",
+    "test:finance": "node --test tests/d1-finance-runtime.test.mjs tests/d2-financial-performance.test.mjs tests/d3-cash-capital.test.mjs tests/d4-revenue-saas.test.mjs tests/d5-assurance-readiness.test.mjs tests/d6-planning-valuation.test.mjs",
+    "test": "npm run build && node --test tests/rendered-html.test.mjs tests/phase6-hardening.test.mjs",
+    "audit:dependencies": "npm audit --audit-level=high",
+    "lint": "eslint app scripts tests",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@duckdb/duckdb-wasm": "1.33.1-dev57.0",
+    "react": "19.2.8",
+    "react-dom": "19.2.8"
+  },
+  "devDependencies": {
+    "@cloudflare/vite-plugin": "1.54.2",
+    "@eslint/js": "9.39.4",
+    "@next/eslint-plugin-next": "16.2.6",
+    "@tailwindcss/postcss": "4.2.1",
+    "@types/node": "22.19.19",
+    "@types/react": "19.2.14",
+    "@types/react-dom": "19.2.3",
+    "@vitejs/plugin-react": "6.1.1",
+    "@vitejs/plugin-rsc": "0.5.34",
+    "eslint": "9.39.4",
+    "eslint-plugin-jsx-a11y": "6.10.2",
+    "eslint-plugin-react": "7.37.5",
+    "eslint-plugin-react-hooks": "7.1.1",
+    "globals": "16.4.0",
+    "hyparquet": "1.29.2",
+    "hyparquet-compressors": "1.1.1",
+    "react-server-dom-webpack": "19.2.8",
+    "tailwindcss": "4.2.1",
+    "typescript": "5.9.3",
+    "typescript-eslint": "8.59.3",
+    "vinext": "1.0.0-beta.8",
+    "vite": "8.2.2",
+    "wrangler": "4.127.1"
+  },
+  "type": "module"
+}

@@ -1,0 +1,65 @@
+version: 2
+
+models:
+  - name: dim_budget_version
+    description: Pythia budget-version input preserving approval and lock state.
+    columns:
+      - name: budget_version_hk
+        data_tests: [not_null, unique]
+      - name: budget_version_ref
+        data_tests: [not_null, unique]
+  - name: dim_planning_scenario
+    description: Forecast scenario version bound to an exact reliable Atlas actuals cutover.
+    columns:
+      - name: planning_scenario_hk
+        data_tests: [not_null, unique]
+      - name: planning_scenario_ref
+        data_tests: [not_null, unique]
+  - name: fct_budget_plan_lines
+    description: Atomic approved budget inputs at version-period-department-account grain.
+    columns:
+      - name: budget_plan_line_hk
+        data_tests: [not_null, unique]
+      - name: budget_line_id
+        data_tests: [not_null, unique]
+  - name: fct_forecast_plan_lines
+    description: Atomic forecast inputs retaining exact scenario and approval state.
+    columns:
+      - name: forecast_plan_line_hk
+        data_tests: [not_null, unique]
+      - name: forecast_line_id
+        data_tests: [not_null, unique]
+  - name: fct_planning_variance_source
+    description: Planning source-system variance report without statutory-actual authority.
+    columns:
+      - name: planning_variance_source_hk
+        data_tests: [not_null, unique]
+      - name: variance_line_id
+        data_tests: [not_null, unique]
+  - name: fct_headcount_plan
+    description: Atomic planned positions conformed to scenario, department and region.
+    columns:
+      - name: headcount_plan_hk
+        data_tests: [not_null, unique]
+      - name: position_id
+        data_tests: [not_null, unique]
+  - name: q_finance_v4_dataset_registry
+    description: Final Slice B dataset registry preserving Q-FINANCE v1 through v3.
+    columns:
+      - name: dataset_id
+        data_tests: [not_null, unique]
+  - name: q_finance_v4_relationship_registry
+    description: Final Slice B tool-neutral relationship catalogue.
+    columns:
+      - name: relationship_id
+        data_tests: [not_null, unique]
+  - name: q_finance_v4_measure_registry
+    description: Final Slice B measure catalogue distinguishing plan and actual policies.
+    columns:
+      - name: measure_id
+        data_tests: [not_null, unique]
+  - name: q_finance_v4_lineage_registry
+    description: Final Slice B A2.4-to-Silver-to-Gold lineage catalogue.
+    columns:
+      - name: dataset_id
+        data_tests: [not_null, unique]

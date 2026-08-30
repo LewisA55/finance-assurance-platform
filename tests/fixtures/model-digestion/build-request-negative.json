@@ -1,0 +1,82 @@
+[
+  {
+    "case": "EMPTY_FORMATS",
+    "error_contains": "formats must be non-empty",
+    "updates": {
+      "formats": [],
+      "parquet_writer_profile_hash": null,
+      "parquet_writer_profile_ref": null
+    }
+  },
+  {
+    "case": "NONCANONICAL_FORMAT_ORDER",
+    "error_contains": "canonically ordered",
+    "updates": {
+      "formats": [
+        "PARQUET",
+        "CSV"
+      ]
+    }
+  },
+  {
+    "case": "DUPLICATE_FORMAT",
+    "error_contains": "canonically ordered",
+    "updates": {
+      "formats": [
+        "CSV",
+        "PARQUET",
+        "PARQUET"
+      ]
+    }
+  },
+  {
+    "case": "DUCKDB_WITHOUT_PARQUET",
+    "error_contains": "DUCKDB requires PARQUET",
+    "updates": {
+      "duckdb_storage_compatibility_version": "v1.5.0",
+      "formats": [
+        "DUCKDB"
+      ],
+      "parquet_writer_profile_hash": null,
+      "parquet_writer_profile_ref": null
+    }
+  },
+  {
+    "case": "PARQUET_WITHOUT_PROFILE",
+    "error_contains": "writer coordinate",
+    "updates": {
+      "parquet_writer_profile_hash": null,
+      "parquet_writer_profile_ref": null
+    }
+  },
+  {
+    "case": "DUCKDB_WITHOUT_STORAGE_VERSION",
+    "error_contains": "storage version",
+    "updates": {
+      "formats": [
+        "CSV",
+        "PARQUET",
+        "DUCKDB"
+      ]
+    }
+  },
+  {
+    "case": "DUCKDB_UNSUPPORTED_STORAGE_VERSION",
+    "error_contains": "Input should be 'v1.5.0'",
+    "updates": {
+      "duckdb_storage_compatibility_version": "v1.4.0",
+      "formats": [
+        "CSV",
+        "PARQUET",
+        "DUCKDB"
+      ]
+    }
+  },
+  {
+    "case": "UNKNOWN_FIELD",
+    "error_contains": "Extra inputs are not permitted",
+    "updates": {
+      "consumer_tool": "Excel"
+    }
+  }
+]

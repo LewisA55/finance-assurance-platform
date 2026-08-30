@@ -1,0 +1,53 @@
+name: finance_assurance_analytics
+version: "1.0.0"
+config-version: 2
+
+profile: finance_assurance_analytics
+
+model-paths: ["models"]
+test-paths: ["tests/model"]
+macro-paths: ["macros"]
+
+target-path: "target"
+clean-targets:
+  - "target"
+  - "dbt_packages"
+
+flags:
+  send_anonymous_usage_stats: false
+
+vars:
+  a24_data_ref: "{{ env_var('FAP_A24_DATA_REF', 'ATLAS-FINANCE-STATUTORY-A24@v1') }}"
+  a24_package_digest: "{{ env_var('FAP_A24_PACKAGE_DIGEST') }}"
+  finance_model_ref: "{{ env_var('FAP_FINANCE_MODEL_REF', 'Q-FINANCE-B1@v1') }}"
+
+models:
+  finance_assurance_analytics:
+    silver:
+      +materialized: view
+      +schema: silver
+      +tags: ["silver", "slice_b1"]
+    gold:
+      +materialized: table
+      +schema: gold
+      +tags: ["gold", "slice_b1"]
+    governance:
+      +materialized: table
+      +schema: governance
+      +tags: ["governance", "slice_b1"]
+    governance_b2:
+      +materialized: table
+      +schema: governance
+      +tags: ["governance", "slice_b2"]
+    governance_b3:
+      +materialized: table
+      +schema: governance
+      +tags: ["governance", "slice_b3"]
+    governance_b4:
+      +materialized: table
+      +schema: governance
+      +tags: ["governance", "slice_b4"]
+    governance_c1:
+      +materialized: table
+      +schema: governance
+      +tags: ["governance", "slice_c"]

@@ -1,0 +1,194 @@
+version: 2
+
+models:
+  - name: dim_bank_account
+    description: Conformed treasury bank-account dimension.
+    columns:
+      - name: bank_account_hk
+        data_tests: [not_null, unique]
+      - name: bank_account_id
+        data_tests: [not_null, unique]
+  - name: dim_debt_instrument
+    description: Conformed debt-facility and instrument dimension.
+    columns:
+      - name: debt_instrument_hk
+        data_tests: [not_null, unique]
+      - name: debt_instrument_id
+        data_tests: [not_null, unique]
+  - name: dim_fixed_asset
+    description: Fixed and intangible asset master with acquisition-event lineage.
+    columns:
+      - name: fixed_asset_hk
+        data_tests: [not_null, unique]
+      - name: asset_id
+        data_tests: [not_null, unique]
+  - name: dim_lease_contract
+    description: Governed lease-contract master.
+    columns:
+      - name: lease_contract_hk
+        data_tests: [not_null, unique]
+      - name: lease_contract_id
+        data_tests: [not_null, unique]
+  - name: dim_tax_jurisdiction
+    description: Entity and tax-jurisdiction analytical dimension.
+    columns:
+      - name: tax_jurisdiction_hk
+        data_tests: [not_null, unique]
+  - name: fct_subledger_event_links
+    description: Reusable causal bridge from B2 objects to B1 events, journals and close versions.
+    columns:
+      - name: subledger_event_link_hk
+        data_tests: [not_null, unique]
+      - name: business_event_ref
+        data_tests: [not_null]
+  - name: fct_fixed_asset_lifecycle_events
+    description: Fixed-asset source lifecycle events with Hermes admission outcomes.
+    columns:
+      - name: fixed_asset_lifecycle_event_hk
+        data_tests: [not_null, unique]
+      - name: asset_lifecycle_event_id
+        data_tests: [not_null, unique]
+  - name: fct_fixed_asset_movements
+    description: Monthly fixed-asset gross book value, depreciation and net book value rollforwards.
+    columns:
+      - name: fixed_asset_movement_hk
+        data_tests: [not_null, unique]
+      - name: asset_movement_id
+        data_tests: [not_null, unique]
+  - name: fct_fixed_asset_control_results
+    description: Argus fixed-asset observations and evidence.
+    columns:
+      - name: fixed_asset_control_result_hk
+        data_tests: [not_null, unique]
+      - name: test_result_id
+        data_tests: [not_null, unique]
+  - name: fct_bank_transactions
+    description: Bank-book transactions resolved to B1 events, journal lines and closes.
+    columns:
+      - name: bank_transaction_hk
+        data_tests: [not_null, unique]
+      - name: bank_transaction_id
+        data_tests: [not_null, unique]
+  - name: fct_bank_statement_lines
+    description: Bank statement evidence at atomic line grain.
+    columns:
+      - name: bank_statement_line_hk
+        data_tests: [not_null, unique]
+      - name: statement_line_id
+        data_tests: [not_null, unique]
+  - name: fct_bank_reconciliations
+    description: Monthly bank-to-GL reconciliation facts.
+    columns:
+      - name: bank_reconciliation_hk
+        data_tests: [not_null, unique]
+  - name: fct_debt_schedule
+    description: Monthly principal, interest and undrawn debt rollforwards.
+    columns:
+      - name: debt_schedule_hk
+        data_tests: [not_null, unique]
+  - name: fct_lease_lifecycle_events
+    description: Lease source events with Hermes admission outcomes.
+    columns:
+      - name: lease_lifecycle_event_hk
+        data_tests: [not_null, unique]
+      - name: lease_lifecycle_event_id
+        data_tests: [not_null, unique]
+  - name: fct_lease_schedule
+    description: Monthly lease-liability and right-of-use-asset rollforwards.
+    columns:
+      - name: lease_schedule_hk
+        data_tests: [not_null, unique]
+  - name: fct_tax_calculation_inputs
+    description: Approved statutory tax calculation inputs.
+    columns:
+      - name: tax_calculation_input_hk
+        data_tests: [not_null, unique]
+      - name: tax_calculation_input_id
+        data_tests: [not_null, unique]
+  - name: fct_tax_schedule
+    description: Current tax, deferred tax, cash tax and loss-utilisation rollforwards.
+    columns:
+      - name: tax_schedule_hk
+        data_tests: [not_null, unique]
+  - name: fct_tax_loss_register
+    description: Monthly tax-loss vintage facts.
+    columns:
+      - name: tax_loss_register_hk
+        data_tests: [not_null, unique]
+  - name: fct_equity_movements
+    description: Authorised equity movements resolved to B1 event and journal records.
+    columns:
+      - name: equity_movement_hk
+        data_tests: [not_null, unique]
+      - name: equity_movement_id
+        data_tests: [not_null, unique]
+  - name: fct_accrual_source_events
+    description: Approved accrual estimates and settlements with admission outcomes.
+    columns:
+      - name: accrual_source_event_hk
+        data_tests: [not_null, unique]
+      - name: accrual_source_event_id
+        data_tests: [not_null, unique]
+  - name: fct_accrual_schedule
+    description: Monthly accrual additions, releases and balances.
+    columns:
+      - name: accrual_schedule_hk
+        data_tests: [not_null, unique]
+  - name: fct_prepayment_source_events
+    description: Prepayment cash and consumption events including quarantined duplicates.
+    columns:
+      - name: prepayment_source_event_hk
+        data_tests: [not_null, unique]
+      - name: prepayment_source_event_id
+        data_tests: [not_null, unique]
+  - name: fct_prepayment_schedule
+    description: Monthly governed prepayment rollforwards.
+    columns:
+      - name: prepayment_schedule_hk
+        data_tests: [not_null, unique]
+  - name: fct_intercompany_transactions
+    description: Bilateral transactions with dual Hermes admissions and elimination linkage.
+    columns:
+      - name: intercompany_transaction_hk
+        data_tests: [not_null, unique]
+      - name: intercompany_transaction_id
+        data_tests: [not_null, unique]
+  - name: fct_intercompany_balances
+    description: Bilaterally confirmed monthly intercompany balances.
+    columns:
+      - name: intercompany_balance_hk
+        data_tests: [not_null, unique]
+  - name: fct_statutory_subledger_controls
+    description: Argus control observations for lease, tax, accrual and prepayment objects.
+    columns:
+      - name: statutory_subledger_control_hk
+        data_tests: [not_null, unique]
+      - name: test_result_id
+        data_tests: [not_null, unique]
+  - name: fct_source_admissions
+    description: Hermes admission and quarantine results for B2 causal source records.
+    columns:
+      - name: source_admission_hk
+        data_tests: [not_null, unique]
+      - name: admission_result_id
+        data_tests: [not_null, unique]
+  - name: q_finance_v2_dataset_registry
+    description: Closed Q-FINANCE v2 registry preserving B1 and adding B2 subledgers.
+    columns:
+      - name: dataset_id
+        data_tests: [not_null, unique]
+  - name: q_finance_v2_relationship_registry
+    description: B1 plus B2 consumer and lineage relationship plan.
+    columns:
+      - name: relationship_id
+        data_tests: [not_null, unique]
+  - name: q_finance_v2_measure_registry
+    description: B1 plus B2 tool-neutral governed measure specifications.
+    columns:
+      - name: measure_id
+        data_tests: [not_null, unique]
+  - name: q_finance_v2_lineage_registry
+    description: B1 plus B2 A2.4-to-Silver-to-Gold lineage catalogue.
+    columns:
+      - name: dataset_id
+        data_tests: [not_null, unique]

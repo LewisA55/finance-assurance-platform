@@ -1,0 +1,21 @@
+select
+    trim(period_id) as period_id,
+    trim(scope_id) as scope_id,
+    cast(opening_cash_minor as bigint) as opening_cash_minor,
+    cast(operating_cash_flow_minor as bigint) as operating_cash_flow_minor,
+    cast(investing_cash_flow_minor as bigint) as investing_cash_flow_minor,
+    cast(financing_cash_flow_minor as bigint) as financing_cash_flow_minor,
+    cast(fx_and_other_movement_minor as bigint) as fx_and_other_movement_minor,
+    cast(closing_cash_minor as bigint) as closing_cash_minor,
+    cast(statement_cash_movement_minor as bigint) as statement_cash_movement_minor,
+    cast(unreconciled_difference_minor as bigint) as unreconciled_difference_minor,
+    upper(trim(currency)) as currency,
+    trim(reporting_version_ref) as reporting_version_ref,
+    source_trial_balance_digest,
+    upper(trim(reconciliation_status)) as reconciliation_status,
+    _source_row_hash,
+    cast(_ingested_at as timestamptz) as _ingested_at,
+    _source_file,
+    _source_file_sha256,
+    _source_data_ref
+from {{ source('a24_bronze', 'accounting__cash_flow_reconciliation') }}

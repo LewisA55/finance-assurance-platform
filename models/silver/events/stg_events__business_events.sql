@@ -1,0 +1,22 @@
+select
+    trim(business_event_ref) as business_event_ref,
+    upper(trim(event_type)) as event_type,
+    upper(trim(source_system)) as source_system,
+    trim(source_record_ref) as source_record_ref,
+    cast(occurred_at as timestamptz) as occurred_at,
+    cast(recorded_at as timestamptz) as recorded_at,
+    cast(effective_date as date) as effective_date,
+    trim(legal_entity_id) as legal_entity_id,
+    nullif(trim(counterparty_ref), '') as counterparty_ref,
+    cast(amount_minor as bigint) as amount_minor,
+    upper(trim(currency)) as currency,
+    cast(reporting_amount_minor as bigint) as reporting_amount_minor,
+    upper(trim(reporting_currency)) as reporting_currency,
+    trim(posting_rule_ref) as posting_rule_ref,
+    record_semantic_hash,
+    _source_row_hash,
+    cast(_ingested_at as timestamptz) as _ingested_at,
+    _source_file,
+    _source_file_sha256,
+    _source_data_ref
+from {{ source('a24_bronze', 'events__business_events') }}

@@ -1,0 +1,47 @@
+{
+  "active_relationships": 33,
+  "composite_relationship_ids": [
+    "P-RL02",
+    "P-RL03",
+    "P-RL04",
+    "P-RL05",
+    "P-RL06",
+    "P-RL07",
+    "P-RL08",
+    "P-RL10"
+  ],
+  "dataset_count": 37,
+  "inactive_role_playing_relationships": 1,
+  "measure_count": 12,
+  "profile_counts": {
+    "CORE": 26,
+    "DIAGNOSTIC": 37,
+    "LINEAGE": 31
+  },
+  "profile_relationship_counts": {
+    "CORE": {
+      "ACTIVE": 27,
+      "INACTIVE_ROLE_PLAYING": 1,
+      "NAVIGATION_ONLY": 17,
+      "TOTAL": 49,
+      "VALIDATION_ONLY": 4
+    },
+    "DIAGNOSTIC": {
+      "ACTIVE": 33,
+      "INACTIVE_ROLE_PLAYING": 1,
+      "NAVIGATION_ONLY": 18,
+      "TOTAL": 64,
+      "VALIDATION_ONLY": 12
+    },
+    "LINEAGE": {
+      "ACTIVE": 30,
+      "INACTIVE_ROLE_PLAYING": 1,
+      "NAVIGATION_ONLY": 18,
+      "TOTAL": 57,
+      "VALIDATION_ONLY": 8
+    }
+  },
+  "raw_integer_columns": 50,
+  "source_column_count": 427,
+  "technical_column_placements": 16
+}

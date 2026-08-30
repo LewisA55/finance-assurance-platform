@@ -1,0 +1,12 @@
+finance_assurance_analytics:
+  target: dev
+  outputs:
+    dev:
+      type: duckdb
+      path: "{{ env_var('FAP_ANALYTICS_PATH') }}"
+      schema: main
+      threads: 4
+      attach:
+        - path: "{{ env_var('FAP_A24_SOURCE_PATH') }}"
+          alias: a24_source
+          read_only: true

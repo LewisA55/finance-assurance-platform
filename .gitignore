@@ -1,0 +1,62 @@
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+.venv.recovery-*/
+venv/
+
+# Node
+node_modules/
+dist/
+build/
+target/
+.next/
+.vinext/
+.wrangler/
+*.tsbuildinfo
+
+# Local data and generated artifacts
+data/raw/
+data/processed/
+data/warehouse/
+*.duckdb
+*.parquet
+*.xlsx
+*.pbix
+outputs/
+
+# The small, governed browser runtime is a versioned v0.1 release fixture.
+!web/public/finance-data/**/*.parquet
+
+# Rebuilt from the pinned @duckdb/duckdb-wasm dependency.
+web/public/duckdb/
+
+# Local consumer-product authoring and release binaries.
+consumer-products/*/work/
+consumer-products/*/exports/
+consumer-products/power-bi/model/.pbi/
+temp cover page tests/
+local-notes/
+
+# Forensic recovery working trees (not product source)
+recovery/
+recovery-output/
+recovery-chronological*/
+recovery/*.tmp
+
+# Environment
+.env
+.env.local
+.env.*
+!.env.example
+
+# Tooling and operating-system state
+.coverage
+coverage/
+.test-tmp*/
+.pytest-recovery*/
+.release-check-v01/
+.DS_Store
+Thumbs.db
+*.log

@@ -1,0 +1,368 @@
+{
+  "contract_version": "handoff-mutation-positive-context@v2",
+  "metadata_vector_refs": {
+    "metadata/source-model.json": "S-MV10-01",
+    "metadata/data-dictionary.json": "S-MV10-02",
+    "metadata/relationships.json": "S-MV10-03",
+    "metadata/measures.json": "S-MV10-04",
+    "metadata/field-roles.json": "S-MV10-05",
+    "metadata/lineage.json": "S-MV10-06",
+    "metadata/consumer-suitability.json": "S-MV10-07",
+    "metadata/validation-checks.json": "S-MV10-08"
+  },
+  "json_roots": {
+    "SOURCE_MODEL": {
+      "model-manifest.json": {
+        "table_entries": [
+          {
+            "row_count": 1,
+            "logical_table_digest": "sha256:4444444444444444444444444444444444444444444444444444444444444444"
+          },
+          {
+            "row_count": 1,
+            "logical_table_digest": "sha256:5555555555555555555555555555555555555555555555555555555555555555"
+          },
+          {
+            "row_count": 1,
+            "logical_table_digest": "sha256:6666666666666666666666666666666666666666666666666666666666666666"
+          },
+          {
+            "row_count": 1,
+            "logical_table_digest": "sha256:7777777777777777777777777777777777777777777777777777777777777777"
+          },
+          {
+            "row_count": 1,
+            "logical_table_digest": "sha256:8888888888888888888888888888888888888888888888888888888888888888"
+          },
+          {
+            "row_count": 4,
+            "logical_table_digest": "sha256:9999999999999999999999999999999999999999999999999999999999999999"
+          },
+          {
+            "row_count": 1,
+            "logical_table_digest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+          },
+          {
+            "row_count": 1,
+            "logical_table_digest": "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+          },
+          {
+            "row_count": 1,
+            "logical_table_digest": "sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc"
+          },
+          {
+            "row_count": 1,
+            "logical_table_digest": "sha256:dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd"
+          },
+          {
+            "row_count": 1,
+            "logical_table_digest": "sha256:eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"
+          },
+          {
+            "row_count": 1,
+            "logical_table_digest": "sha256:ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
+          },
+          {
+            "row_count": 1,
+            "logical_table_digest": "sha256:1111111111111111111111111111111111111111111111111111111111111111"
+          },
+          {
+            "row_count": 1,
+            "logical_table_digest": "sha256:2222222222222222222222222222222222222222222222222222222222222222"
+          },
+          {
+            "row_count": 1,
+            "logical_table_digest": "sha256:3333333333333333333333333333333333333333333333333333333333333333"
+          },
+          {
+            "row_count": 1,
+            "logical_table_digest": "sha256:4444444444444444444444444444444444444444444444444444444444444444"
+          },
+          {
+            "row_count": 1,
+            "logical_table_digest": "sha256:5555555555555555555555555555555555555555555555555555555555555555"
+          },
+          {
+            "row_count": 1,
+            "logical_table_digest": "sha256:6666666666666666666666666666666666666666666666666666666666666666"
+          },
+          {
+            "row_count": 1,
+            "logical_table_digest": "sha256:7777777777777777777777777777777777777777777777777777777777777777"
+          },
+          {
+            "row_count": 1,
+            "logical_table_digest": "sha256:8888888888888888888888888888888888888888888888888888888888888888"
+          },
+          {
+            "row_count": 1,
+            "logical_table_digest": "sha256:9999999999999999999999999999999999999999999999999999999999999999"
+          },
+          {
+            "row_count": 1,
+            "logical_table_digest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+          },
+          {
+            "row_count": 1,
+            "logical_table_digest": "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+          },
+          {
+            "row_count": 1,
+            "logical_table_digest": "sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc"
+          },
+          {
+            "row_count": 1,
+            "logical_table_digest": "sha256:dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd"
+          },
+          {
+            "row_count": 1,
+            "logical_table_digest": "sha256:eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"
+          },
+          {
+            "row_count": 1,
+            "logical_table_digest": "sha256:ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
+          },
+          {
+            "row_count": 1,
+            "logical_table_digest": "sha256:1111111111111111111111111111111111111111111111111111111111111111"
+          },
+          {
+            "row_count": 1,
+            "logical_table_digest": "sha256:2222222222222222222222222222222222222222222222222222222222222222"
+          },
+          {
+            "row_count": 1,
+            "logical_table_digest": "sha256:3333333333333333333333333333333333333333333333333333333333333333"
+          },
+          {
+            "row_count": 1,
+            "logical_table_digest": "sha256:4444444444444444444444444444444444444444444444444444444444444444"
+          }
+        ]
+      },
+      "noncanonical-cache.json": {
+        "profile_coordinate": {
+          "profile_id": "LINEAGE",
+          "profile_version": 1
+        }
+      }
+    },
+    "SOURCE_HANDOFF": {
+      "handoff-manifest.json": {},
+      "metadata/source-model.json": {
+        "metadata_vector_ref": "S-MV10-01"
+      },
+      "metadata/data-dictionary.json": {
+        "metadata_vector_ref": "S-MV10-02"
+      },
+      "metadata/relationships.json": {
+        "metadata_vector_ref": "S-MV10-03"
+      },
+      "metadata/measures.json": {
+        "metadata_vector_ref": "S-MV10-04"
+      },
+      "metadata/field-roles.json": {
+        "metadata_vector_ref": "S-MV10-05"
+      },
+      "metadata/lineage.json": {
+        "metadata_vector_ref": "S-MV10-06"
+      },
+      "metadata/consumer-suitability.json": {
+        "metadata_vector_ref": "S-MV10-07"
+      },
+      "metadata/validation-checks.json": {
+        "metadata_vector_ref": "S-MV10-08"
+      }
+    },
+    "STAGING": {
+      "limitations.json": {
+        "contract_version": "handoff-limitations@v1",
+        "limitations": [
+          {
+            "limitation_id": "S-L01",
+            "statement": "C-001 and CT-1 are synthetic bounded scenario proofs, not production evidence."
+          },
+          {
+            "limitation_id": "S-L02",
+            "statement": "The handoff is insufficient for DCF, three-statement, enterprise forecast, benchmark, or statistical claims."
+          },
+          {
+            "limitation_id": "S-L03",
+            "statement": "Measures are specifications; consumer formulas, DAX, models, and visuals require separate governance."
+          },
+          {
+            "limitation_id": "S-L04",
+            "statement": "DuckDB is a rebuildable read-only cache; canonical authority remains the verified source model."
+          }
+        ],
+        "synthetic_data": true,
+        "synthetic_data_notice": "Synthetic demonstration data only. Not production financial, assurance, audit, or decision evidence."
+      }
+    }
+  },
+  "direct_targets": {
+    "SOURCE_PACKAGE::P-EVIDENCE@v1/P-D06@v1::SEL-C1-V1-REVENUE::amount_minor": {
+      "kind": "INTEGER",
+      "value": 0
+    },
+    "SOURCE_MODEL::schemas/p-evidence-v1/P-D06.schema.json": {
+      "kind": "REGULAR_FILE_SHA256",
+      "value": "sha256:7777777777777777777777777777777777777777777777777777777777777777"
+    },
+    "SOURCE_HANDOFF::source-model/warehouse/finance-assurance.duckdb::P-D06::SEL-C1-V1-REVENUE::amount_minor": {
+      "kind": "INTEGER",
+      "value": 0
+    },
+    "SOURCE_HANDOFF::excel/finance-assurance-data-pack.xlsx::SEL-C1-V1-REVENUE::amount_minor": {
+      "kind": "INTEGER_NUMERIC",
+      "value": 0
+    },
+    "SOURCE_HANDOFF::excel/finance-assurance-data-pack.xlsx::NULL_VECTOR::nullable_text": {
+      "kind": "ABSENT_CELL",
+      "value": null
+    },
+    "SOURCE_HANDOFF::excel/finance-assurance-data-pack.xlsx::xl/externalLinks/externalLink1.xml": {
+      "kind": "ABSENT",
+      "value": null
+    },
+    "SOURCE_HANDOFF::examples/reconciliation-queries.sql::S-QV03": {
+      "kind": "AUTHORITY_QUERY",
+      "value": "S-QV03"
+    },
+    "SOURCE_HANDOFF::examples/starter-queries.sql::S-QS01": {
+      "kind": "AUTHORITY_QUERY",
+      "value": "S-QS01"
+    },
+    "SOURCE_HANDOFF::unexpected.txt": {
+      "kind": "ABSENT",
+      "value": null
+    },
+    "REQUEST::source_model_path": {
+      "kind": "DIRECTORY",
+      "value": "verified-model"
+    },
+    "REQUEST::output_path": {
+      "kind": "ABSENT",
+      "value": null
+    },
+    "RUNTIME::atomic_rename(staging_path,output_path)": {
+      "kind": "CALLABLE",
+      "value": "normal"
+    },
+    "REQUEST::xlsx_writer_profile_ref": {
+      "kind": "TEXT",
+      "value": "XLSXWRITER-3.2.9@v1"
+    },
+    "REQUEST::source_package_path": {
+      "kind": "DIRECTORY",
+      "value": "verified-package"
+    },
+    "STAGING::source-model/warehouse/finance-assurance.duckdb::P-D06::SEL-C1-V1-REVENUE::amount_minor": {
+      "kind": "INTEGER",
+      "value": 0
+    },
+    "RUNTIME::xlsx_writer_profile/XLSXWRITER-3.2.9@v1": {
+      "kind": "AVAILABLE",
+      "value": "XlsxWriter-3.2.9"
+    },
+    "REQUEST::reproduction_output_path": {
+      "kind": "ABSENT",
+      "value": null
+    },
+    "RUNTIME::create_staging_directory": {
+      "kind": "CALLABLE",
+      "value": "normal"
+    },
+    "RUNTIME::copy_source_model": {
+      "kind": "CALLABLE",
+      "value": "normal"
+    },
+    "RUNTIME::derive_metadata_and_sql": {
+      "kind": "CALLABLE",
+      "value": "normal"
+    },
+    "RUNTIME::write_xlsx_projection": {
+      "kind": "CALLABLE",
+      "value": "normal"
+    },
+    "RUNTIME::seal_staged_handoff": {
+      "kind": "CALLABLE",
+      "value": "normal"
+    },
+    "RUNTIME::verify_staged_handoff": {
+      "kind": "CALLABLE",
+      "value": "normal"
+    },
+    "RUNTIME::verify_source_handoff": {
+      "kind": "CALLABLE",
+      "value": "normal"
+    },
+    "RUNTIME::reproduce_handoff": {
+      "kind": "CALLABLE",
+      "value": "normal"
+    },
+    "REQUEST::expected_model_digest": {
+      "kind": "TEXT",
+      "value": "sha256:1111111111111111111111111111111111111111111111111111111111111111"
+    },
+    "SOURCE_MODEL::model-manifest.json": {
+      "kind": "REGULAR_FILE_SHA256",
+      "value": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+    },
+    "SOURCE_HANDOFF::excel/finance-assurance-data-pack.xlsx::docProps/core.xml": {
+      "kind": "ZIP_MEMBER_SHA256",
+      "value": "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+    }
+  },
+  "recipe_target_overrides": {
+    "RESEALED_UNSAFE_INTEGER_NUMERIC": {
+      "SOURCE_HANDOFF::excel/finance-assurance-data-pack.xlsx::SEL-C1-V1-REVENUE::amount_minor": {
+        "kind": "INTEGER_TEXT",
+        "value": 9007199254740992
+      }
+    }
+  },
+  "reseal_contracts": {
+    "RESEAL_R_CACHE_AND_S_NONCANONICAL_MANIFEST": [
+      "SOURCE_MODEL_MANIFEST",
+      "R_CACHE",
+      "S_CANONICAL"
+    ],
+    "RESEAL_S_CANONICAL": [
+      "S_CANONICAL"
+    ],
+    "RESEAL_S_XLSX_BINARY_MANIFEST_AND_HANDOFF": [
+      "XLSX_BINARY",
+      "S_CANONICAL"
+    ],
+    "RESEAL_R_MODEL": [
+      "SOURCE_MODEL_MANIFEST"
+    ],
+    "RESEAL_R_CACHE_ONLY": [
+      "R_CACHE"
+    ],
+    "RESEAL_STAGED_CANONICAL_TO_DIFFERENT_DIGEST": [
+      "STAGED_CANONICAL"
+    ]
+  },
+  "request_mutations": {
+    "USE_RESEALED_MUTANT_HANDOFF_DIGEST": {
+      "target_ref": "REQUEST::expected_handoff_digest",
+      "operator": "SET_REQUEST_FIELD",
+      "mutation": "TEXT:sha256:mutant-handoff-digest"
+    },
+    "SET_UNSUPPORTED_WRITER_COORDINATE": {
+      "target_ref": "REQUEST::xlsx_writer_profile_ref",
+      "operator": "SET_REQUEST_FIELD",
+      "mutation": "TEXT:XLSXWRITER-UNSUPPORTED@v99"
+    }
+  },
+  "derived_values": {
+    "SOURCE_MODEL_SCHEMA_P-D06_SHA256": "sha256:7777777777777777777777777777777777777777777777777777777777777777",
+    "SOURCE_MODEL_P-D06_ROW_COUNT": 4,
+    "SOURCE_MODEL_P-D06_LOGICAL_TABLE_DIGEST": "sha256:9999999999999999999999999999999999999999999999999999999999999999",
+    "SOURCE_MODEL_MANIFEST_SHA256": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "XLSX_MEMBER_docProps/core.xml_SHA256": "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+  },
+  "validation_payload_digest": "sha256:36255992b12b0176f290ec2fa033e5655d8ca4b3a2e4cbd3a522a1de295f7cb8"
+}

@@ -1,0 +1,17 @@
+{
+  "built_at": "2026-08-13T12:00:00Z",
+  "expected_source_package_digest": "sha256:3e803d0854444cb3698bdf64302753ed0696bc99e8c9b959d313c9df6998a727",
+  "formats": [
+    "CSV",
+    "PARQUET"
+  ],
+  "model_ref": "MODEL-LINEAGE-DEMO@v1",
+  "output_path": "build/model-digestion/MODEL-LINEAGE-DEMO@v1",
+  "parquet_writer_profile_hash": "sha256:2702aa8812844e508d5b303c50b52e30ab9f20cf7b65c42c2d59f39171b85cb1",
+  "parquet_writer_profile_ref": "PYARROW-25@v1",
+  "producer_release": "finance-assurance-platform@0.1.0",
+  "profile_id": "LINEAGE",
+  "profile_version": 1,
+  "request_contract_version": "build-consumer-model-request@v1",
+  "source_package_path": "build/governed-outputs/Q-ANALYTICS-DEMO"
+}

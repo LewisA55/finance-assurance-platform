@@ -1,0 +1,21 @@
+select
+    trim(source_journal_line_id) as source_journal_line_id,
+    trim(source_journal_id) as source_journal_id,
+    cast(line_no as integer) as line_no,
+    trim(business_event_ref) as business_event_ref,
+    trim(posting_rule_ref) as posting_rule_ref,
+    trim(period_id) as period_id,
+    cast(effective_date as date) as effective_date,
+    cast(recorded_at as timestamptz) as recorded_at,
+    trim(legal_entity_id) as legal_entity_id,
+    trim(account_id) as account_id,
+    cast(debit_minor as bigint) as debit_minor,
+    cast(credit_minor as bigint) as credit_minor,
+    upper(trim(currency)) as currency,
+    trim(source_record_ref) as source_record_ref,
+    _source_row_hash,
+    cast(_ingested_at as timestamptz) as _ingested_at,
+    _source_file,
+    _source_file_sha256,
+    _source_data_ref
+from {{ source('a24_bronze', 'accounting__source_gl_journal_lines') }}
