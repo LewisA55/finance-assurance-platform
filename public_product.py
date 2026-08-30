@@ -41,6 +41,37 @@ def _npm_executable() -> str:
     return resolved
 
 
+def _node_executable() -> str:
+    candidate = "node.exe" if os.name == "nt" else "node"
+    resolved = shutil.which(candidate)
+    if resolved is None:
+        raise RuntimeError("Node.js is required to run the public product")
+    return resolved
+
+
+def _vinext_cli() -> Path:
+    cli = WEB_ROOT / "node_modules" / "vinext" / "dist" / "cli.js"
+    if not cli.is_file():
+        raise RuntimeError(
+            "vinext is not installed; run `npm ci` in the web directory"
+        )
+    return cli
+
+
+def _web_dev_command(*, host: str, port: int) -> list[str]:
+    """Target the long-lived Node process directly, without an npm wrapper."""
+
+    return [
+        _node_executable(),
+        str(_vinext_cli()),
+        "dev",
+        "--hostname",
+        host,
+        "--port",
+        str(port),
+    ]
+
+
 def _process_options() -> dict[str, object]:
     if os.name == "nt":
         return {"creationflags": subprocess.CREATE_NEW_PROCESS_GROUP}
@@ -102,9 +133,30 @@ def _remove_file_with_retry(path: Path, *, timeout: float = 5.0) -> None:
             time.sleep(0.1)
 
 
-def _wait_for_tcp(host: str, port: int, *, timeout: float = 45.0) -> None:
+def _ensure_port_available(host: str, port: int) -> None:
+    try:
+        with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as probe:
+            probe.bind((host, port))
+    except OSError as error:
+        raise RuntimeError(
+            f"local port {host}:{port} is already in use; stop the existing "
+            "service or choose another port"
+        ) from error
+
+
+def _wait_for_tcp(
+    host: str,
+    port: int,
+    *,
+    process: subprocess.Popen[bytes] | None = None,
+    timeout: float = 45.0,
+) -> None:
     deadline = time.monotonic() + timeout
     while time.monotonic() < deadline:
+        if process is not None and process.poll() is not None:
+            raise RuntimeError(
+                f"local service exited before opening {host}:{port}"
+            )
         try:
             with socket.create_connection((host, port), timeout=0.5):
                 return
@@ -219,6 +271,9 @@ def _launch(
     database: Path,
     quiet: bool,
 ) -> tuple[subprocess.Popen[bytes], subprocess.Popen[bytes]]:
+    _ensure_port_available(host, api_port)
+    _ensure_port_available(host, web_port)
+
     environment = os.environ.copy()
     environment["FINANCE_ASSURANCE_DEMO_DB"] = str(database.resolve())
     environment["FINANCE_ASSURANCE_API_ORIGIN"] = f"http://{host}:{api_port}"
@@ -240,23 +295,14 @@ def _launch(
     )
     web: subprocess.Popen[bytes] | None = None
     try:
-        _wait_for_tcp(host, api_port)
+        _wait_for_tcp(host, api_port, process=api)
         web = _start_process(
-            [
-                _npm_executable(),
-                "run",
-                "dev",
-                "--",
-                "--hostname",
-                host,
-                "--port",
-                str(web_port),
-            ],
+            _web_dev_command(host=host, port=web_port),
             cwd=WEB_ROOT,
             environment=environment,
             quiet=quiet,
         )
-        _wait_for_tcp(host, web_port)
+        _wait_for_tcp(host, web_port, process=web)
     except Exception:
         if web is not None:
             _stop_process(web)

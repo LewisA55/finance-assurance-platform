@@ -117,7 +117,8 @@ uv run --locked python public_product.py serve
 
 Open `http://127.0.0.1:3000`.
 
-For the finance-intelligence frontend only:
+For the finance-intelligence frontend only (the Assurance Casework routes require
+the complete launcher above):
 
 ```bash
 cd web

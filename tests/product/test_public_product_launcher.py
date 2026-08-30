@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import importlib.util
 import json
+import socket
 from pathlib import Path
 
 import pytest
@@ -72,3 +73,36 @@ def test_build_digest_rejects_ambiguous_preview_identity(tmp_path: Path) -> None
 
     with pytest.raises(RuntimeError, match="preview-mode identity count"):
         public_product._tree_digest(tmp_path)
+
+
+def test_web_dev_command_targets_the_owned_node_process(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    monkeypatch.setattr(public_product, "_node_executable", lambda: "node-test")
+    monkeypatch.setattr(
+        public_product,
+        "_vinext_cli",
+        lambda: Path("vinext-test.js"),
+    )
+
+    command = public_product._web_dev_command(host="127.0.0.1", port=3000)
+
+    assert command == [
+        "node-test",
+        "vinext-test.js",
+        "dev",
+        "--hostname",
+        "127.0.0.1",
+        "--port",
+        "3000",
+    ]
+    assert "npm" not in command
+
+
+def test_launcher_rejects_an_occupied_port() -> None:
+    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as listener:
+        listener.bind(("127.0.0.1", 0))
+        host, port = listener.getsockname()
+
+        with pytest.raises(RuntimeError, match="already in use"):
+            public_product._ensure_port_available(host, port)
