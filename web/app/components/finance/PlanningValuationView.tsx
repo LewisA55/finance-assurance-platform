@@ -103,12 +103,14 @@ export function PlanningValuationView({
   const sensitivity = data?.sensitivities.filter((row) => row.scenario_code === selectedScenario) ?? [];
   const waccValues = [...new Set(sensitivity.map((row) => row.wacc_bps))];
   const growthValues = [...new Set(sensitivity.map((row) => row.terminal_growth_bps))];
-  const controlsPassed = data?.executionControls.filter((row) => row.result_status === "PASS").length ?? 10;
+  const controlsPassed = data?.executionControls.filter((row) => row.result_status === "PASS").length ?? 11;
   const closing = selectedRows.at(-1);
 
   if (!data || !valuation || !scenario || !closing) {
     return <section className="fi-panel"><p>Preparing governed Pythia results.</p></section>;
   }
+  const valuationReady = valuation.valuation_status === "READY";
+  const fundingRequired = valuation.first_funding_gap_period != null;
 
   return (
     <>
@@ -144,20 +146,20 @@ export function PlanningValuationView({
 
       <section className="fi-kpi-grid fi-plan-kpis" aria-label="Scenario decision indicators">
         <article className="fi-kpi-card"><p>Five-year revenue</p><strong>{money(valuation.five_year_revenue_minor)}</strong><div className="fi-kpi-meta"><span className="neutral">Atlas plan lines</span><small>60 explicit months</small></div></article>
-        <article className="fi-kpi-card"><p>Five-year EBITDA</p><strong>{money(valuation.five_year_ebitda_minor)}</strong><div className="fi-kpi-meta"><span className="negative">Loss-making plan</span><small>No margin override</small></div></article>
-        <article className="fi-kpi-card"><p>Five-year unlevered FCF</p><strong>{money(valuation.five_year_unlevered_fcf_minor)}</strong><div className="fi-kpi-meta"><span className="negative">Cash consumption</span><small>After CapEx and working capital</small></div></article>
-        <article className="fi-kpi-card"><p>First funding gap</p><strong>{periodLabel(valuation.first_funding_gap_period)}</strong><div className="fi-kpi-meta"><span className="negative">Facility exhausted</span><small>Not hidden by a cash plug</small></div></article>
-        <article className="fi-kpi-card"><p>Peak funding requirement</p><strong>{money(valuation.peak_funding_requirement_minor)}</strong><div className="fi-kpi-meta"><span className="negative">Management action</span><small>Beyond committed liquidity</small></div></article>
+        <article className="fi-kpi-card"><p>Five-year EBITDA</p><strong>{money(valuation.five_year_ebitda_minor)}</strong><div className="fi-kpi-meta"><span className={valuation.five_year_ebitda_minor > 0 ? "positive" : "negative"}>{valuation.five_year_ebitda_minor > 0 ? "Positive operating result" : "Loss-making plan"}</span><small>{selectedScenario === "BULL" ? "Versioned cost transition" : "Atlas plan lines"}</small></div></article>
+        <article className="fi-kpi-card"><p>Five-year unlevered FCF</p><strong>{money(valuation.five_year_unlevered_fcf_minor)}</strong><div className="fi-kpi-meta"><span className={valuation.five_year_unlevered_fcf_minor > 0 ? "positive" : "negative"}>{valuation.five_year_unlevered_fcf_minor > 0 ? "Cash generative" : "Cash consumption"}</span><small>After CapEx and working capital</small></div></article>
+        <article className="fi-kpi-card"><p>First funding gap</p><strong>{periodLabel(valuation.first_funding_gap_period)}</strong><div className="fi-kpi-meta"><span className={fundingRequired ? "negative" : "positive"}>{fundingRequired ? "Facility exhausted" : "Within facility"}</span><small>Not hidden by a cash plug</small></div></article>
+        <article className="fi-kpi-card"><p>Peak funding requirement</p><strong>{money(valuation.peak_funding_requirement_minor)}</strong><div className="fi-kpi-meta"><span className={fundingRequired ? "negative" : "positive"}>{fundingRequired ? "Management action" : "No uncovered requirement"}</span><small>Beyond committed liquidity</small></div></article>
       </section>
 
       <section className="fi-plan-grid">
         <article className="fi-panel">
-          <div className="fi-panel-head"><div><p className="fi-eyebrow">Integrated forecast</p><h3>Growth does not convert to free cash flow</h3></div><span>GBP / annual</span></div>
+          <div className="fi-panel-head"><div><p className="fi-eyebrow">Integrated forecast</p><h3>{valuationReady ? "Growth and operating discipline convert to free cash flow" : "Growth does not convert to free cash flow"}</h3></div><span>GBP / annual</span></div>
           <ForecastChart rows={annual} />
         </article>
         <article className="fi-panel fi-plan-decision">
-          <div className="fi-panel-head"><div><p className="fi-eyebrow">Decision gate</p><h3>Funding action required</h3></div><span className="fi-control-status review">Escalate</span></div>
-          <p>The approved operating inputs produce negative EBITDA and exhaust the committed revolving facility. Pythia publishes the economic consequence; it does not manufacture financing or a valuation.</p>
+          <div className="fi-panel-head"><div><p className="fi-eyebrow">Decision gate</p><h3>{valuationReady ? "Economically viable; approval pending" : "Funding action required"}</h3></div><span className={`fi-control-status ${valuationReady ? "pass" : "review"}`}>{valuationReady ? "Draft case" : "Escalate"}</span></div>
+          <p>{valuationReady ? "The draft BULL overlay reaches positive terminal free cash flow and remains within committed liquidity. It demonstrates a viable decision path, but its draft authority prevents it from replacing the approved BASE forecast." : "The selected operating inputs produce negative EBITDA and exhaust the committed revolving facility. Pythia publishes the economic consequence; it does not manufacture financing or a valuation."}</p>
           <dl>
             <div><dt>Scenario authority</dt><dd>{scenario.pythia_result_status.replaceAll("_", " ")}</dd></div>
             <div><dt>Facility breach</dt><dd>{periodLabel(valuation.first_funding_gap_period)}</dd></div>
@@ -177,7 +179,7 @@ export function PlanningValuationView({
               {data.valuations.map((row) => (
                 <tr key={row.scenario_code} className={row.scenario_code === selectedScenario ? "selected" : ""}>
                   <th><button type="button" onClick={() => setSelectedScenario(row.scenario_code)}>{row.scenario_code}</button></th>
-                  <td>{row.scenario_approval_status}</td><td>{money(row.five_year_revenue_minor)}</td><td>{money(row.five_year_ebitda_minor)}</td><td>{money(row.five_year_unlevered_fcf_minor)}</td><td>{periodLabel(row.first_funding_gap_period)}</td><td>{money(row.peak_funding_requirement_minor)}</td><td><span className="fi-control-status review">Blocked</span></td>
+                  <td>{row.scenario_approval_status}</td><td>{money(row.five_year_revenue_minor)}</td><td>{money(row.five_year_ebitda_minor)}</td><td>{money(row.five_year_unlevered_fcf_minor)}</td><td>{periodLabel(row.first_funding_gap_period)}</td><td>{money(row.peak_funding_requirement_minor)}</td><td><span className={`fi-control-status ${row.valuation_status === "READY" ? "pass" : "review"}`}>{row.valuation_status === "READY" ? "Ready / draft" : "Blocked"}</span></td>
                 </tr>
               ))}
             </tbody>
@@ -213,14 +215,17 @@ export function PlanningValuationView({
 
       <section className="fi-plan-grid fi-valuation-grid">
         <article className="fi-panel fi-valuation-gate">
-          <div className="fi-panel-head"><div><p className="fi-eyebrow">DCF valuation gate</p><h3>Terminal value withheld</h3></div><span className="fi-control-status review">Not supportable</span></div>
-          <div className="fi-valuation-message"><strong>Negative terminal-year free cash flow fails the perpetuity-growth precondition.</strong><p>The explicit forecast PV is retained for traceability, but Pythia will not turn a negative terminal cash flow into a mechanically precise enterprise value.</p></div>
+          <div className="fi-panel-head"><div><p className="fi-eyebrow">DCF valuation gate</p><h3>{valuationReady ? "Terminal value supportable" : "Terminal value withheld"}</h3></div><span className={`fi-control-status ${valuationReady ? "pass" : "review"}`}>{valuationReady ? "Model ready / draft" : "Not supportable"}</span></div>
+          <div className="fi-valuation-message"><strong>{valuationReady ? "Positive terminal-year free cash flow satisfies the perpetuity-growth precondition." : "Negative terminal-year free cash flow fails the perpetuity-growth precondition."}</strong><p>{valuationReady ? "Pythia publishes the DCF and sensitivity result from the draft scenario. Governance approval remains a separate decision." : "The explicit forecast PV is retained for traceability, but Pythia will not turn a negative terminal cash flow into a mechanically precise enterprise value."}</p></div>
           <dl className="fi-valuation-list">
             <div><dt>WACC</dt><dd>{percent(valuation.wacc_bps)}</dd></div>
             <div><dt>Terminal growth</dt><dd>{percent(valuation.terminal_growth_bps)}</dd></div>
             <div><dt>Explicit-period PV</dt><dd>{money(valuation.explicit_period_pv_minor)}</dd></div>
             <div><dt>Terminal-year FCF</dt><dd>{money(valuation.terminal_year_fcf_minor)}</dd></div>
-            <div><dt>Terminal value</dt><dd>Withheld</dd></div>
+            <div><dt>Terminal value</dt><dd>{money(valuation.terminal_value_minor)}</dd></div>
+            <div><dt>Enterprise value</dt><dd>{valuationReady ? money(valuation.enterprise_value_minor) : "Withheld"}</dd></div>
+            <div><dt>Equity value</dt><dd>{valuationReady ? money(valuation.equity_value_minor) : "Withheld"}</dd></div>
+            <div><dt>Implied value / share</dt><dd>{valuationReady ? money(valuation.implied_value_per_share_minor) : "Withheld"}</dd></div>
           </dl>
         </article>
         <article className="fi-panel">
@@ -239,7 +244,7 @@ export function PlanningValuationView({
       </section>
 
       <section className="fi-panel fi-pythia-controls">
-        <div className="fi-panel-head"><div><p className="fi-eyebrow">Executed model assurance</p><h3>{controlsPassed}/10 Pythia validators pass</h3></div><span>{workspace ? "Browser replayed" : "Sealed package snapshot"}</span></div>
+        <div className="fi-panel-head"><div><p className="fi-eyebrow">Executed model assurance</p><h3>{controlsPassed}/{data.executionControls.length} Pythia validators pass</h3></div><span>{workspace ? "Browser replayed" : "Sealed package snapshot"}</span></div>
         <div>
           {data.executionControls.map((control) => (
             <article key={control.control_id}><span>{control.control_id}</span><strong>{control.control_name.replaceAll("_", " ")}</strong><small>{control.actual_value} / {control.expected_value}</small><i className="fi-control-status pass">Pass</i></article>

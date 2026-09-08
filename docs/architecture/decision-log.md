@@ -751,3 +751,21 @@ Accepted.
 Artifact F v0.2 satisfies the closed-serializer criterion for C-001 and CT-1. The authored object boundary remains nine accounting objects and ten accounting-event types across seventeen canonical event instances. J-010 is available only through a non-authored proof projection, and statement-body arithmetic remains a runtime-resolved assurance test.
 
 The remaining retry and executable projection-binding checks are implementation backlog items and do not block design ratification.
+
+## ADR-028: Mirror and Authenticate the Browser Parquet Extension
+
+Accepted.
+
+The public React product must not depend on a runtime download from DuckDB's
+extension service. The build preparation step mirrors the exact signed Parquet
+extension declared by the browser runtime manifest and verifies its byte length
+and SHA-256 digest before use. The browser repeats that verification, points
+DuckDB at the local extension repository, loads Parquet explicitly, and then
+disables known-extension auto-install and community extension loading.
+
+DuckDB-Wasm, the extension executable, and governed Parquet inputs therefore
+remain separate authenticated authorities. The mirrored executable is a
+generated, ignored build input; its version, platform, source URL, size, and
+digest remain tracked in source and the published runtime manifest. A missing or
+mismatched extension is a visible runtime failure rather than permission to
+fall back to an external download.

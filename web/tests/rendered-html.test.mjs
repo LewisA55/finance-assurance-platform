@@ -35,7 +35,8 @@ test("server-renders the bounded finance product shell", async () => {
   assert.match(html, /CFO Command Centre/);
   assert.match(html, /Financial state, operating drivers and assurance in one view/);
   assert.match(html, /RV-NEXUS-GROUP-2026-06@v1/);
-  assert.match(html, /DuckDB-Wasm \/ governed Parquet/);
+  assert.match(html, /Governed warm view available/);
+  assert.match(html, /Reading governed runtime authority/);
   assert.doesNotMatch(html, /codex-preview|react-loading-skeleton|Starter Project/i);
 });
 

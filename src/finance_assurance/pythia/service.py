@@ -40,6 +40,10 @@ ASSUMPTIONS: dict[str, dict[str, int]] = {
         "deferred_revenue_as_revenue_bps": 7757,
         "prepayments_as_cash_cost_bps": 500,
         "accruals_as_cash_cost_bps": 300,
+        "research_as_revenue_cap_bps": 20_000,
+        "sales_as_revenue_cap_bps": 20_000,
+        "admin_as_revenue_cap_bps": 20_000,
+        "operating_cost_transition_months": 36,
     },
     "BULL": {
         "wacc_bps": 900,
@@ -52,6 +56,10 @@ ASSUMPTIONS: dict[str, dict[str, int]] = {
         "deferred_revenue_as_revenue_bps": 8200,
         "prepayments_as_cash_cost_bps": 500,
         "accruals_as_cash_cost_bps": 300,
+        "research_as_revenue_cap_bps": 1_800,
+        "sales_as_revenue_cap_bps": 2_500,
+        "admin_as_revenue_cap_bps": 1_200,
+        "operating_cost_transition_months": 36,
     },
     "BEAR": {
         "wacc_bps": 1050,
@@ -64,6 +72,10 @@ ASSUMPTIONS: dict[str, dict[str, int]] = {
         "deferred_revenue_as_revenue_bps": 7000,
         "prepayments_as_cash_cost_bps": 450,
         "accruals_as_cash_cost_bps": 250,
+        "research_as_revenue_cap_bps": 20_000,
+        "sales_as_revenue_cap_bps": 20_000,
+        "admin_as_revenue_cap_bps": 20_000,
+        "operating_cost_transition_months": 36,
     },
 }
 
@@ -114,6 +126,23 @@ def _mul_bps(value: int, basis_points: int) -> int:
 
 def _ratio_bps(numerator: int, denominator: int) -> int | None:
     return None if denominator == 0 else round(numerator * 10_000 / denominator)
+
+
+def _transition_to_cost_cap(
+    planned_cost: int,
+    revenue: int,
+    cap_bps: int,
+    month: int,
+    transition_months: int,
+) -> int:
+    """Overlay a transparent scenario cost cap without mutating Atlas inputs."""
+    capped_cost = min(planned_cost, _mul_bps(revenue, cap_bps))
+    if capped_cost >= planned_cost:
+        return planned_cost
+    elapsed = min(month, transition_months)
+    return round(
+        planned_cost - (planned_cost - capped_cost) * elapsed / transition_months
+    )
 
 
 def _csv_bytes(rows: list[dict[str, object]]) -> bytes:
@@ -356,6 +385,27 @@ class PythiaService:
                 research = plan["research_and_development"]
                 sales = plan["sales_and_marketing"]
                 admin = plan["general_and_administrative"]
+                research = _transition_to_cost_cap(
+                    research,
+                    revenue,
+                    assumption["research_as_revenue_cap_bps"],
+                    month_index,
+                    assumption["operating_cost_transition_months"],
+                )
+                sales = _transition_to_cost_cap(
+                    sales,
+                    revenue,
+                    assumption["sales_as_revenue_cap_bps"],
+                    month_index,
+                    assumption["operating_cost_transition_months"],
+                )
+                admin = _transition_to_cost_cap(
+                    admin,
+                    revenue,
+                    assumption["admin_as_revenue_cap_bps"],
+                    month_index,
+                    assumption["operating_cost_transition_months"],
+                )
                 cash_costs = cogs + research + sales + admin
                 gross_profit = revenue - cogs
                 ebitda = revenue - cash_costs
@@ -684,6 +734,12 @@ class PythiaService:
                 ),
                 0,
             ),
+            (
+                "PYT-D6-11",
+                "VIABLE_DRAFT_VALUATION",
+                sum(row["valuation_status"] == "READY" for row in valuations),
+                1,
+            ),
         )
         rows = []
         for order, (control_id, name, actual, expected) in enumerate(checks, start=1):
@@ -869,8 +925,9 @@ class PythiaService:
                 "This sealed package consumes Q-FINANCE-C2 actuals and planning inputs. "
                 "It publishes integrated forecast, liquidity and valuation-readiness results. "
                 "Atlas actuals remain immutable. Draft BULL and BEAR inputs remain draft outputs. "
-                "A negative terminal free cash flow blocks terminal-value publication rather than "
-                "manufacturing a valuation.\n",
+                "The BULL case overlays a versioned 36-month operating-cost transition and remains "
+                "unapproved. A non-positive terminal free cash flow blocks terminal-value publication "
+                "rather than manufacturing a valuation.\n",
                 encoding="ascii",
                 newline="\n",
             )
@@ -912,7 +969,7 @@ class PythiaService:
         scenarios = _rows(package / "csv" / "dim_pythia_scenario.csv")
         forecast = _rows(package / "csv" / "fct_pythia_forecast_monthly.csv")
         controls = _rows(package / "csv" / "mart_pythia_execution_controls.csv")
-        if len(scenarios) != 3 or len(forecast) != 360 or len(controls) != 10:
+        if len(scenarios) != 3 or len(forecast) != 360 or len(controls) != 11:
             raise PythiaError("Pythia replay population differs")
         if any(row["result_status"] != "PASS" for row in controls):
             raise PythiaError("Pythia replay controls are not green")

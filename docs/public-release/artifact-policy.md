@@ -17,7 +17,8 @@ The following are excluded from Git:
 
 - `build/`, `outputs/`, dbt `target/` and local test caches;
 - raw/Bronze populations, DuckDB warehouses and general Parquet exports;
-- DuckDB-Wasm chunks under `web/public/duckdb/`, rebuilt from the pinned npm package;
+- DuckDB-Wasm chunks and the signed Parquet extension under
+  `web/public/duckdb/`, prepared from pinned, digest-verified authorities;
 - XLSX, PBIX and other consumer binaries;
 - local consumer-product workspaces (`consumer-products/*/work/`), cover
   mock-ups and private review notes; and
@@ -43,3 +44,8 @@ The public-release checker rejects forbidden paths, unexpected binary formats,
 personal absolute paths, common credential signatures and oversized files. It
 also replays the byte length and SHA-256 digest of every tracked browser Parquet
 partition against `runtime-manifest.json`.
+
+The browser preparation step also authenticates the locally mirrored Parquet
+extension before DuckDB loads it. Runtime auto-install and community extension
+loading remain disabled, so a public browser session does not silently acquire
+an unpinned executable dependency.

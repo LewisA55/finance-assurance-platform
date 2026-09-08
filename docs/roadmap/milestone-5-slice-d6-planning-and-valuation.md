@@ -23,7 +23,7 @@ D6 answers six management questions:
 ## 1. Pythia execution authority
 
 `PYTHIA-D6@v1` consumes the sealed `Q-FINANCE-C2@v1` delivery digest
-`sha256:47ac28ea7cd7880815cb03f875c31bf064d7101e5574db48266a949fccfc8366`.
+`sha256:7538132e08ea2b7e8c20f339db10e6c138cd2a08c71c4708c47c378d7c1b0141`.
 It binds all scenarios to `RV-NEXUS-GROUP-2026-06@v1`, preserves Atlas actuals
 without mutation, and executes 120 forecast months for each of Base, Bull and
 Bear.
@@ -34,13 +34,13 @@ The result package contains:
 - 360 integrated monthly forecast rows;
 - three scenario valuation-readiness rows;
 - 75 WACC and terminal-growth sensitivity states;
-- ten validator-produced execution controls;
+- eleven validator-produced execution controls, including a viable-draft gate;
 - versioned assumptions and source-to-result lineage;
 - CSV and Parquet physical results; and
 - a checksum inventory and detached package digest.
 
 The published Pythia digest is
-`sha256:ddb713a3d22090ffa80c495b8d37fc19a4e4bfb78f41ee2075f0f45169fbca32`.
+`sha256:907f015413018c5badde7ca696177fd94b17df9653d907465655a2718991aac3`.
 
 ## 2. Approval and reliability boundary
 
@@ -80,15 +80,18 @@ GBP 139.8m EBITDA and negative GBP 144.3m unlevered free cash flow. The first
 unfunded liquidity gap occurs in October 2027 and the ten-year peak additional
 funding requirement is GBP 368.0m.
 
-Bull scales revenue and costs more aggressively and breaches earlier. Bear
-reduces both and breaches later. None reaches positive terminal-year free cash
-flow. Pythia therefore publishes the explicit-period present value for
-traceability but withholds terminal value, enterprise-value completion and the
-DCF sensitivity outputs that depend on a positive terminal cash flow.
+Bear reduces both revenue and costs and still breaches later. The draft Bull
+case now overlays an explicit 36-month operating-cost transition on the same
+Atlas plan. It reaches GBP 22.4m of five-year EBITDA and GBP 4.0m of five-year
+unlevered free cash flow, remains inside the committed facility and produces
+positive terminal-year free cash flow. Pythia therefore publishes one complete
+draft DCF and 25 sensitivity values while continuing to withhold terminal value
+for Base and Bear.
 
-This is a governed decision result, not a model failure. A supportable DCF now
-requires an authorised management-action scenario, recapitalisation or revised
-operating plan rather than an arithmetic workaround.
+This is a governed decision boundary, not an arithmetic workaround. The Bull
+result demonstrates viable mechanics but remains a draft scenario. It cannot
+replace the approved Base forecast until the operating actions are reviewed,
+approved and locked.
 
 ## 5. React consumer boundary
 
@@ -112,9 +115,10 @@ terminal-value engine.
 - all 360 forecasts balance and cash-reconcile;
 - Base approval and Bull/Bear draft states remain distinct;
 - terminal value is absent wherever terminal free cash flow is negative;
+- exactly one draft scenario supports a complete DCF and 25 sensitivity states;
 - the D6 runtime contains the five exact Pythia result tables;
 - the route remains browser-local and read-only;
-- 38 focused finance-product tests pass;
-- 15 shared rendering and hardening tests pass, including the explicit D6
+- 39 focused finance-product tests pass;
+- 8 shared rendering and hardening tests pass, including the explicit D6
   server-render assertion; and
 - typecheck, lint and production build complete with no new lint warning.

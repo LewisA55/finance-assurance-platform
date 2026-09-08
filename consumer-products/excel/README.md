@@ -18,3 +18,7 @@ events or a private warehouse.
 The C2 data-only Excel inspection pack is an input aid, not the model itself.
 Its governed facts, relationships and measure guidance remain the source of
 truth for the later workbook.
+
+Tracked workbook specifications belong in `specifications/`; executable review
+and reconciliation definitions belong in `validation/`. The private workbook
+itself remains in `work/` until a reviewed release asset is published.

@@ -39,6 +39,9 @@ test("every browser-local runtime file is authenticated before query registratio
 
 test("DuckDB-Wasm is host-safe, complete and locally chunked", () => {
   assert.equal(manifest.duckdbWasm.variant, "eh");
+  assert.equal(manifest.parquetExtension.version, "v1.5.4");
+  assert.equal(manifest.parquetExtension.platform, "wasm_eh");
+  assert.match(manifest.parquetExtension.digest, /^sha256:[0-9a-f]{64}$/);
   assert.equal(
     manifest.duckdbWasm.parts.reduce((sum, part) => sum + part.bytes, 0),
     manifest.duckdbWasm.sourceBytes,
@@ -108,6 +111,9 @@ test("DuckDB is client-only and the finance route owns the intelligence experien
   assert.match(runtime, /new duckdb\.AsyncDuckDB/);
   assert.match(runtime, /registerFileBuffer/);
   assert.match(runtime, /new Worker\("\/duckdb\/duckdb-browser-eh\.worker\.js"\)/);
+  assert.match(runtime, /set custom_extension_repository/);
+  assert.match(runtime, /load parquet/);
+  assert.match(runtime, /set autoinstall_known_extensions = false/);
   assert.match(page, /FinanceIntelligenceExperience/);
   assert.doesNotMatch(component, /payroll plus AP|opening balance sheet proxy/i);
 });

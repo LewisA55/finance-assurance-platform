@@ -29,6 +29,7 @@ export default [
       ...reactHooks.configs.recommended.rules,
       ...nextPlugin.configs.recommended.rules,
       ...tseslint.configs.recommended.rules,
+      "no-unused-vars": "off",
       "react/react-in-jsx-scope": "off",
     },
   },

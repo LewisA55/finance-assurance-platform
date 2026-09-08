@@ -226,7 +226,7 @@ function Sidebar({ screen }: { screen: Screen }) {
     | { label: string; mark: string; href: string; available: true }
     | { label: string; mark: string; available: false }
   > = [
-    { label: "Overview", mark: "OV", href: "/", available: true },
+    { label: "Overview", mark: "OV", href: "/casework", available: true },
     {
       label: "Hermes",
       mark: "HE",
@@ -261,13 +261,13 @@ function Sidebar({ screen }: { screen: Screen }) {
 
   return (
     <aside className="sidebar" aria-label="Product modules">
-      <Link className="brand" href="/" aria-label="Finance and Assurance home">
+      <Link className="brand" href="/" aria-label="Nexus Technologies finance home">
         <span className="brand-mark" aria-hidden="true">
-          F
+          N
         </span>
         <span>
-          <strong>Finance &amp; Assurance</strong>
-          <small>Operating environment</small>
+          <strong>Nexus</strong>
+          <small>Technologies</small>
         </span>
       </Link>
       <nav className="module-nav" aria-label="Primary navigation">
@@ -297,6 +297,10 @@ function Sidebar({ screen }: { screen: Screen }) {
         )}
       </nav>
       <div className="sidebar-lower">
+        <Link className="casework-return" href="/assurance">
+          <span aria-hidden="true">&larr;</span>
+          <span><small>Reporting product</small><strong>Return to assurance</strong></span>
+        </Link>
         <Link
           className={active === "Trace" ? "module-link active" : "module-link"}
           href={traceHref("RV-2026-06@v2", "subscription_revenue_minor")}
@@ -346,7 +350,7 @@ function Topbar({ loadState }: { loadState: LoadState }) {
   return (
     <header className="topbar">
       <div>
-        <p className="eyebrow">Nexus Group / June 2026</p>
+        <p className="eyebrow">Nexus Group / June 2026 / Investigation mode</p>
         <h1>Assurance Casework</h1>
       </div>
       <div className="context-strip" aria-label="Current data context">
@@ -484,24 +488,6 @@ function OverviewScreen({ overview }: { overview: PlatformOverview }) {
           Inspect correction <span aria-hidden="true">&rarr;</span>
         </Link>
       </section>
-      <section className="journey-card broken-quarter-entry">
-        <div className="journey-number">O-J02</div>
-        <div>
-          <p className="section-kicker">Flagship journey</p>
-          <h3>{brokenQuarterJourney?.label ?? "Explain a broken quarter"}</h3>
-          <p>
-            Follow the immutable June v1 report through reconciliation, assurance,
-            governance, restatement, and exact purpose-specific readiness.
-          </p>
-        </div>
-        <Link
-          className="secondary-action"
-          href={brokenQuarterJourney?.route ?? "/atlas/reporting/2026-06"}
-        >
-          Start the journey <span aria-hidden="true">&rarr;</span>
-        </Link>
-      </section>
-
       <section className="journey-card broken-quarter-entry">
         <div className="journey-number">O-J02</div>
         <div>
@@ -660,7 +646,7 @@ function ReportingScreen({ report }: { report: ReportingVersion }) {
     <div className="screen-stack">
       {isCanonicalRestatement ? <BrokenQuarterRail current="restatement" /> : null}
       <nav className="breadcrumbs" aria-label="Breadcrumb">
-        <Link href="/">Overview</Link><span>/</span><span>Atlas</span><span>/</span>
+        <Link href="/casework">Casework</Link><span>/</span><span>Atlas</span><span>/</span>
         <span aria-current="page">{report.data.reporting_version_ref}</span>
       </nav>
       <section className="page-heading compact">
@@ -816,7 +802,7 @@ function TraceScreen({ trace }: { trace: ReportingTrace }) {
     <div className="screen-stack">
       {isCanonicalRestatement ? <BrokenQuarterRail current="restatement" /> : null}
       <nav className="breadcrumbs" aria-label="Breadcrumb">
-        <Link href="/">Overview</Link><span>/</span><span>Trace</span><span>/</span>
+        <Link href="/casework">Casework</Link><span>/</span><span>Trace</span><span>/</span>
         <span aria-current="page">{humanizeCode(trace.data.statement_field)}</span>
       </nav>
       <section className="page-heading compact trace-heading">
@@ -937,7 +923,7 @@ function ErrorState({ code, message }: { code: string; message: string }) {
       <p className="section-kicker">Public view unavailable</p>
       <h2>{humanizeCode(code)}</h2>
       <p>{message}</p>
-      <Link className="primary-action" href="/">Return to overview</Link>
+      <Link className="primary-action" href="/casework">Return to casework overview</Link>
     </section>
   );
 }

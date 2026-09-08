@@ -57,7 +57,36 @@ async function main() {
     offset += part.bytes;
   }
   if (offset !== wasm.length) throw new Error("DuckDB-Wasm manifest does not cover the source module");
-  process.stdout.write(`Prepared ${manifest.duckdbWasm.parts.length} verified DuckDB-Wasm chunks.\n`);
+
+  const extension = manifest.parquetExtension;
+  if (!extension || extension.version !== "v1.5.4" || extension.platform !== "wasm_eh") {
+    throw new Error("Pinned Parquet extension contract is unavailable");
+  }
+  const extensionTarget = join(
+    targetRoot,
+    "extensions",
+    extension.version,
+    extension.platform,
+    "parquet.duckdb_extension.wasm",
+  );
+  let extensionBytes;
+  try {
+    extensionBytes = await readFile(extensionTarget);
+  } catch {
+    const response = await fetch(extension.sourceUrl);
+    if (!response.ok) {
+      throw new Error(`Pinned Parquet extension unavailable (${response.status})`);
+    }
+    extensionBytes = Buffer.from(await response.arrayBuffer());
+  }
+  if (extensionBytes.length !== extension.bytes || digest(extensionBytes) !== extension.digest) {
+    throw new Error("Pinned Parquet extension integrity differs");
+  }
+  await mkdir(dirname(extensionTarget), { recursive: true });
+  await writeFile(extensionTarget, extensionBytes);
+  process.stdout.write(
+    `Prepared ${manifest.duckdbWasm.parts.length} verified DuckDB-Wasm chunks and one signed Parquet extension.\n`,
+  );
 }
 
 await main();

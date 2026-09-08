@@ -81,7 +81,7 @@ def test_pythia_keeps_approval_and_valuation_boundaries(tmp_path: Path) -> None:
             producer_release="0.1.0",
         )
     )
-    assert result.control_count == 10
+    assert result.control_count == 11
     scenarios = pq.read_table(output / "parquet" / "dim_pythia_scenario.parquet").to_pylist()
     assert next(row for row in scenarios if row["scenario_code"] == "BASE")[
         "pythia_result_status"
@@ -92,8 +92,14 @@ def test_pythia_keeps_approval_and_valuation_boundaries(tmp_path: Path) -> None:
         if row["scenario_code"] != "BASE"
     )
     valuations = pq.read_table(output / "parquet" / "mart_pythia_valuation.parquet").to_pylist()
-    assert all(
-        row["valuation_status"] == "BLOCKED_NEGATIVE_TERMINAL_FCF"
-        for row in valuations
-    )
-    assert all(row["terminal_value_minor"] is None for row in valuations)
+    valuation_by_scenario = {row["scenario_code"]: row for row in valuations}
+    assert valuation_by_scenario["BULL"]["valuation_status"] == "READY"
+    assert valuation_by_scenario["BULL"]["terminal_value_minor"] is not None
+    assert valuation_by_scenario["BULL"]["pythia_result_status"] == "DRAFT_SCENARIO_RESULT"
+    for code in ("BASE", "BEAR"):
+        assert valuation_by_scenario[code]["valuation_status"] == "BLOCKED_NEGATIVE_TERMINAL_FCF"
+        assert valuation_by_scenario[code]["terminal_value_minor"] is None
+    sensitivity = pq.read_table(
+        output / "parquet" / "mart_pythia_dcf_sensitivity.parquet"
+    ).to_pylist()
+    assert sum(row["valuation_status"] == "READY" for row in sensitivity) == 25

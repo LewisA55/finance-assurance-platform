@@ -458,6 +458,14 @@ export interface FinanceRuntimeManifest {
     sourceDigest: string;
     parts: Array<{ url: string; bytes: number; digest: string }>;
   };
+  parquetExtension: {
+    version: "v1.5.4";
+    platform: "wasm_eh";
+    sourceUrl: string;
+    url: string;
+    bytes: number;
+    digest: string;
+  };
   runtimeTables: RuntimeTableContract[];
 }
 

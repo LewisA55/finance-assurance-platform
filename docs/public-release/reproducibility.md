@@ -12,8 +12,10 @@ npm ci
 npm test
 ```
 
-`npm test` prepares exact DuckDB-Wasm chunks from the pinned npm package, builds
-the application and runs the rendered-route and hardening tests.
+`npm test` prepares exact DuckDB-Wasm chunks from the pinned npm package and a
+digest-pinned signed Parquet extension from DuckDB's official repository, builds
+the application and runs the rendered-route and hardening tests. The product
+then serves the extension locally and disables further runtime installation.
 
 ## Full finance regeneration
 
@@ -25,7 +27,7 @@ Maintainers can reconstruct the complete authority chain with the versioned CLIs
 | `ATLAS-FINANCE-STATUTORY-A24@v1` | `sha256:39af66f379d5497399f89e3956e601b6fb99a070146d8c6d378bb684f288b7e5` |
 | `Q-FINANCE-C1@v1` | `sha256:16b7795117b7bba57f9d7f7fcb0b72dcdd36f346668611dddad4400a15ad5d8a` |
 | `Q-FINANCE-C2@v1` | `sha256:7538132e08ea2b7e8c20f339db10e6c138cd2a08c71c4708c47c378d7c1b0141` |
-| `PYTHIA-D6@v1` | `sha256:a12bf4c3c1300f8fd72b23c60f7770fe78d400f3b0598a7f734de2b57ccd6b19` |
+| `PYTHIA-D6@v1` | `sha256:907f015413018c5badde7ca696177fd94b17df9653d907465655a2718991aac3` |
 
 Build the source/Bronze package:
 

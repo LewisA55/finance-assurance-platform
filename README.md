@@ -164,6 +164,10 @@ docs/public-release/     Public architecture, artifacts and reproduction guide
 scripts/                 Release and supporting build utilities
 ```
 
+The roadmap is intentionally append-only. Its [index](docs/roadmap/README.md)
+distinguishes current release work from retained correction and reassessment
+evidence.
+
 Generated warehouses, complete source populations, local Excel/PBIX files and
 temporary evidence do not belong in source control. See the
 [artifact policy](docs/public-release/artifact-policy.md).

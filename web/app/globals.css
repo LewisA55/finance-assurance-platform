@@ -192,6 +192,25 @@ a {
   margin-top: auto;
 }
 
+.casework-return {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  border: 1px solid rgba(184, 240, 210, 0.15);
+  border-radius: 0.55rem;
+  background: rgba(184, 240, 210, 0.055);
+  color: #dce9e4;
+  margin-bottom: 0.75rem;
+  padding: 0.75rem;
+  text-decoration: none;
+}
+
+.casework-return > span:first-child { color: var(--mint); font-size: 1rem; }
+.casework-return small,
+.casework-return strong { display: block; }
+.casework-return small { color: #79908a; font-size: 0.58rem; text-transform: uppercase; letter-spacing: 0.08em; }
+.casework-return strong { margin-top: 0.16rem; font-size: 0.68rem; }
+
 .runtime-card {
   display: flex;
   align-items: flex-start;

@@ -19,3 +19,9 @@ package consumed by Excel and React.
 The current `work/` directory is for private authoring only. It is deliberately
 outside the v0.1 source boundary. The active Desktop file is kept locally as
 `work/finance-assurance-platform.pbix` so future authoring has one stable home.
+
+When the model moves to PBIP, commit reviewable text source under
+`semantic-model/` and `report/`. Purposeful custom-visual source belongs under
+`custom-visuals/`; reconciliation and rendering evidence belongs under
+`validation/`. Power BI Desktop `.pbi/` cache directories remain ignored at
+any depth.

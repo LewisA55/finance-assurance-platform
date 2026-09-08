@@ -13,7 +13,7 @@ const d6Populations = {
   fct_pythia_forecast_monthly: 360,
   mart_pythia_valuation: 3,
   mart_pythia_dcf_sensitivity: 75,
-  mart_pythia_execution_controls: 10,
+  mart_pythia_execution_controls: 11,
 };
 
 test("D6 admits the sealed Pythia authority without changing C2 actuals", () => {
@@ -21,7 +21,7 @@ test("D6 admits the sealed Pythia authority without changing C2 actuals", () => 
   assert.equal(manifest.deliveryRef, "Q-FINANCE-C2@v1");
   assert.equal(manifest.pythiaRef, "PYTHIA-D6@v1");
   assert.equal(manifest.actualsReportingVersionRef, "RV-NEXUS-GROUP-2026-06@v1");
-  assert.equal(manifest.pythiaControlCount, 10);
+  assert.equal(manifest.pythiaControlCount, 11);
   assert.equal(manifest.runtimeTables.length, 24);
   const actual = Object.fromEntries(
     manifest.runtimeTables
@@ -46,7 +46,7 @@ test("warm D6 snapshot preserves scenario approval boundaries", () => {
   assert.ok(readFileSync(resolve(publicData, "latest-planning-valuation.json")).length < 100_000);
   assert.equal(snapshot.valuations.length, 3);
   assert.equal(snapshot.sensitivities.length, 75);
-  assert.equal(snapshot.executionControls.length, 10);
+  assert.equal(snapshot.executionControls.length, 11);
   const base = snapshot.scenarios.find((row) => row.scenario_code === "BASE");
   assert.equal(base.scenario_approval_status, "APPROVED");
   assert.equal(base.scenario_locked_flag, true);
@@ -68,8 +68,9 @@ test("every warm annual close balances while monthly authority remains queryable
   assert.equal(snapshot.executionControls.every((row) => row.result_status === "PASS"), true);
 });
 
-test("Pythia exposes funding failure and withholds unsupported terminal values", () => {
-  for (const row of snapshot.valuations) {
+test("Pythia preserves blocked cases while publishing one viable draft valuation", () => {
+  const blocked = snapshot.valuations.filter((row) => row.scenario_code !== "BULL");
+  for (const row of blocked) {
     assert.equal(row.valuation_status, "BLOCKED_NEGATIVE_TERMINAL_FCF");
     assert.equal(row.terminal_value_minor, null);
     assert.equal(row.present_value_terminal_minor, null);
@@ -77,8 +78,14 @@ test("Pythia exposes funding failure and withholds unsupported terminal values",
     assert.ok(row.first_funding_gap_period);
     assert.ok(row.peak_funding_requirement_minor > 0);
   }
-  assert.equal(snapshot.sensitivities.every((row) => row.valuation_status === "BLOCKED_NEGATIVE_TERMINAL_FCF"), true);
-  assert.equal(snapshot.sensitivities.every((row) => row.enterprise_value_minor === null), true);
+  const bull = snapshot.valuations.find((row) => row.scenario_code === "BULL");
+  assert.equal(bull.scenario_approval_status, "DRAFT");
+  assert.equal(bull.valuation_status, "READY");
+  assert.equal(bull.decision_status, "WITHIN_FACILITY");
+  assert.equal(bull.first_funding_gap_period, null);
+  assert.ok(bull.terminal_value_minor > 0);
+  assert.equal(snapshot.sensitivities.filter((row) => row.scenario_code === "BULL").every((row) => row.valuation_status === "READY"), true);
+  assert.equal(snapshot.sensitivities.filter((row) => row.scenario_code !== "BULL").every((row) => row.enterprise_value_minor === null), true);
 });
 
 test("D6 route queries Pythia results and does not recreate model mechanics", () => {

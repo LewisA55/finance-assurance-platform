@@ -115,5 +115,5 @@ test("runtime registers only explicitly required tables for each query", () => {
   const runtime = readFileSync(resolve(webRoot, "app", "lib", "finance-runtime", "client.ts"), "utf8");
   assert.match(runtime, /Runtime table is not authorised/);
   assert.match(runtime, /ensureRuntimeTables\(tableNames\)/);
-  assert.match(runtime, /registeredTables/);
+  assert.match(runtime, /registeredTableFiles/);
 });

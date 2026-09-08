@@ -22,9 +22,19 @@ import type {
   RevenueSaasWarmSnapshot,
   RevenueSaasWorkspace,
 } from "../../lib/finance-runtime/contracts";
+import type { RuntimeProgress } from "../../lib/finance-runtime/client";
 
 type RuntimeStatus = "starting" | "ready" | "error";
 type FinanceView = "command-centre" | "financial-performance" | "cash-capital" | "revenue-saas" | "assurance" | "planning-valuation";
+
+const initialRuntimeProgress: RuntimeProgress = {
+  phase: "manifest",
+  label: "Reading governed runtime authority",
+  loadedFiles: 0,
+  totalFiles: 0,
+  loadedBytes: 0,
+  totalBytes: 0,
+};
 
 const number = new Intl.NumberFormat("en-GB", { maximumFractionDigits: 0 });
 
@@ -168,11 +178,12 @@ interface KpiProps {
   change?: number | null;
   inverse?: boolean;
   context: string;
+  onInspect?: () => void;
 }
 
-function KpiCard({ label, value, change, inverse, context }: KpiProps) {
+function KpiCard({ label, value, change, inverse, context, onInspect }: KpiProps) {
   return (
-    <article className="fi-kpi-card">
+    <button className="fi-kpi-card" type="button" onClick={onInspect} aria-label={`Inspect ${label} evidence`}>
       <p>{label}</p>
       <strong>{value}</strong>
       <div className="fi-kpi-meta">
@@ -183,7 +194,47 @@ function KpiCard({ label, value, change, inverse, context }: KpiProps) {
         )}
         <small>{context}</small>
       </div>
-    </article>
+      <em>Inspect evidence <span aria-hidden="true">&rarr;</span></em>
+    </button>
+  );
+}
+
+function IntegratedFinanceBridge({
+  row,
+  onInspect,
+}: {
+  row: CommandCentreRow;
+  onInspect: (metric: string) => void;
+}) {
+  const stages = [
+    { label: "Revenue", value: row.revenue_minor, basis: "Income statement" },
+    { label: "EBITDA", value: row.ebitda_minor, basis: "Operating result" },
+    { label: "Operating cash flow", value: row.operating_cash_flow_minor, basis: "Cash conversion" },
+    { label: "Closing cash", value: row.closing_cash_minor, basis: "Balance sheet" },
+    { label: "Net debt", value: row.net_debt_minor, basis: "Capital structure" },
+  ];
+  return (
+    <section className="fi-integrated-bridge" aria-label="Integrated financial statement bridge">
+      <div className="fi-panel-head">
+        <div>
+          <p className="fi-eyebrow">Integrated finance bridge</p>
+          <h3>Performance through cash conversion to capital position</h3>
+        </div>
+        <span>Click any state to inspect authority</span>
+      </div>
+      <div className="fi-bridge-stages">
+        {stages.map((stage, index) => (
+          <div className="fi-bridge-step" key={stage.label}>
+            <button type="button" onClick={() => onInspect(stage.label)}>
+              <small>{stage.basis}</small>
+              <strong>{formatMoney(stage.value)}</strong>
+              <span>{stage.label}</span>
+            </button>
+            {index < stages.length - 1 && <i aria-hidden="true" />}
+          </div>
+        ))}
+      </div>
+    </section>
   );
 }
 
@@ -263,11 +314,31 @@ export function FinanceIntelligenceExperience({
   const [selectedScope, setSelectedScope] = useState("NEXUS-GROUP");
   const [runtimeStatus, setRuntimeStatus] = useState<RuntimeStatus>("starting");
   const [runtimeError, setRuntimeError] = useState<string | null>(null);
+  const [runtimeProgress, setRuntimeProgress] =
+    useState<RuntimeProgress>(initialRuntimeProgress);
   const [drawerOpen, setDrawerOpen] = useState(false);
+  const [selectedMetricEvidence, setSelectedMetricEvidence] = useState<string | null>(null);
+
+  const openDataState = () => {
+    setSelectedMetricEvidence(null);
+    setDrawerOpen(true);
+  };
+  const openMetricEvidence = (metric: string) => {
+    setSelectedMetricEvidence(metric);
+    setDrawerOpen(true);
+  };
 
   useEffect(() => {
     let current = true;
-    const manifestRequest = fetch("/finance-data/runtime-manifest.json").then(
+    let unsubscribeRuntime = () => {};
+    const controller = new AbortController();
+    void import("../../lib/finance-runtime/client").then(({ subscribeRuntimeProgress }) => {
+      if (!current) return;
+      unsubscribeRuntime = subscribeRuntimeProgress((progress) => {
+        if (current) setRuntimeProgress(progress);
+      });
+    });
+    const manifestRequest = fetch("/finance-data/runtime-manifest.json", { signal: controller.signal }).then(
       async (response) => {
         if (!response.ok) throw new Error("C2 runtime manifest unavailable");
         return (await response.json()) as FinanceRuntimeManifest;
@@ -276,7 +347,7 @@ export function FinanceIntelligenceExperience({
 
     if (initialView === "financial-performance") {
       Promise.all([
-        fetch("/finance-data/latest-financial-performance.json").then(async (response) => {
+        fetch("/finance-data/latest-financial-performance.json", { signal: controller.signal }).then(async (response) => {
           if (!response.ok) throw new Error("C2 financial-performance snapshot unavailable");
           return (await response.json()) as FinancialPerformanceRow[];
         }),
@@ -319,7 +390,7 @@ export function FinanceIntelligenceExperience({
         });
     } else if (initialView === "cash-capital") {
       Promise.all([
-        fetch("/finance-data/latest-cash-capital.json").then(async (response) => {
+        fetch("/finance-data/latest-cash-capital.json", { signal: controller.signal }).then(async (response) => {
           if (!response.ok) throw new Error("C2 cash-capital snapshot unavailable");
           return (await response.json()) as CashCapitalWarmSnapshot;
         }),
@@ -354,7 +425,7 @@ export function FinanceIntelligenceExperience({
         });
     } else if (initialView === "revenue-saas") {
       Promise.all([
-        fetch("/finance-data/latest-revenue-saas.json").then(async (response) => {
+        fetch("/finance-data/latest-revenue-saas.json", { signal: controller.signal }).then(async (response) => {
           if (!response.ok) throw new Error("C2 revenue and SaaS snapshot unavailable");
           return (await response.json()) as RevenueSaasWarmSnapshot;
         }),
@@ -387,7 +458,7 @@ export function FinanceIntelligenceExperience({
         });
     } else if (initialView === "planning-valuation") {
       Promise.all([
-        fetch("/finance-data/latest-planning-valuation.json").then(async (response) => {
+        fetch("/finance-data/latest-planning-valuation.json", { signal: controller.signal }).then(async (response) => {
           if (!response.ok) throw new Error("Pythia planning and valuation snapshot unavailable");
           return (await response.json()) as PlanningValuationWarmSnapshot;
         }),
@@ -417,7 +488,7 @@ export function FinanceIntelligenceExperience({
         });
     } else if (initialView === "assurance") {
       Promise.all([
-        fetch("/finance-data/latest-assurance.json").then(async (response) => {
+        fetch("/finance-data/latest-assurance.json", { signal: controller.signal }).then(async (response) => {
           if (!response.ok) throw new Error("C2 assurance snapshot unavailable");
           return (await response.json()) as AssuranceWarmSnapshot;
         }),
@@ -450,7 +521,7 @@ export function FinanceIntelligenceExperience({
         });
     } else {
       Promise.all([
-        fetch("/finance-data/latest-command-centre.json").then(async (response) => {
+        fetch("/finance-data/latest-command-centre.json", { signal: controller.signal }).then(async (response) => {
           if (!response.ok) throw new Error("C2 command-centre snapshot unavailable");
           return (await response.json()) as CommandCentreRow;
         }),
@@ -485,6 +556,8 @@ export function FinanceIntelligenceExperience({
     }
     return () => {
       current = false;
+      controller.abort();
+      unsubscribeRuntime();
     };
   }, [initialView]);
 
@@ -599,8 +672,19 @@ export function FinanceIntelligenceExperience({
     const contract = activeWorkspace.manifest.runtimeTables.find(
       (table) => table.tableName === population.table_name,
     );
+    if (
+      initialView === "financial-performance" &&
+      population.table_name === "mart_planning_performance_monthly"
+    ) {
+      return population.actual_rows > 0 && population.actual_rows <= (contract?.expectedRows ?? 0);
+    }
     return contract?.expectedRows === population.actual_rows;
   });
+  const runtimePercent = runtimeProgress.totalBytes > 0
+    ? Math.min(100, Math.round((runtimeProgress.loadedBytes / runtimeProgress.totalBytes) * 100))
+    : runtimeProgress.totalFiles > 0
+      ? Math.min(100, Math.round((runtimeProgress.loadedFiles / runtimeProgress.totalFiles) * 100))
+      : 8;
 
   return (
     <div className="fi-app">
@@ -633,11 +717,11 @@ export function FinanceIntelligenceExperience({
             <span>Assurance Casework</span>
             <strong>Open assurance journeys</strong>
           </Link>
-          <button className="fi-runtime-button" type="button" onClick={() => setDrawerOpen(true)}>
+          <button className="fi-runtime-button" type="button" onClick={openDataState}>
             <i className={runtimeStatus} />
             <span role="status" aria-live="polite">
               <strong>{runtimeStatus === "ready" ? "Local query ready" : runtimeStatus === "error" ? "Local query unavailable" : "Local query starting"}</strong>
-              <small>DuckDB-Wasm / governed Parquet</small>
+              <small>{runtimeStatus === "starting" ? runtimeProgress.label : "DuckDB-Wasm / governed Parquet"}</small>
             </span>
           </button>
         </div>
@@ -695,7 +779,7 @@ export function FinanceIntelligenceExperience({
               <div><span>Scope</span><strong>{contextRow.scope_id}</strong></div>
             )}
             <div><span>Currency</span><strong>{contextRow.currency}</strong></div>
-            <button type="button" onClick={() => setDrawerOpen(true)}>
+            <button type="button" onClick={openDataState}>
               <span>Reporting version</span>
               <strong>{contextRow.reporting_version_ref.replace(/^RV-NEXUS-(GROUP|UK|US)-/, "")}</strong>
             </button>
@@ -703,6 +787,19 @@ export function FinanceIntelligenceExperience({
         </header>
 
         <main id="finance-main" className="fi-main" tabIndex={-1}>
+          {runtimeStatus !== "ready" && (
+            <section className={`fi-runtime-readiness ${runtimeStatus}`} role="status" aria-live="polite">
+              <div>
+                <p className="fi-eyebrow">Runtime readiness</p>
+                <strong>{runtimeStatus === "error" ? "Governed warm view retained" : "Governed warm view available"}</strong>
+                <span>{runtimeStatus === "error" ? "The browser-local query layer could not be verified." : runtimeProgress.label}</span>
+              </div>
+              <div className="fi-runtime-progress" aria-label={`Local query preparation ${runtimePercent}% complete`}>
+                <span><i style={{ width: `${runtimePercent}%` }} /></span>
+                <small>{runtimeStatus === "error" ? "Local query unavailable" : `${runtimePercent}% / integrity checks in progress`}</small>
+              </div>
+            </section>
+          )}
           {initialView === "financial-performance" && selectedFinancial ? (
             <FinancialPerformanceView
               rows={performanceSeries}
@@ -716,7 +813,7 @@ export function FinanceIntelligenceExperience({
               runtimeReady={runtimeStatus === "ready"}
               populationsMatch={populationsMatch}
               packageControlCount={manifest?.packageControlCount ?? 36}
-              onInspectData={() => setDrawerOpen(true)}
+              onInspectData={openDataState}
             />
           ) : initialView === "cash-capital" && selectedCashFlow ? (
             <CashCapitalView
@@ -727,7 +824,7 @@ export function FinanceIntelligenceExperience({
               runtimeReady={runtimeStatus === "ready"}
               populationsMatch={populationsMatch}
               packageControlCount={manifest?.packageControlCount ?? 36}
-              onInspectData={() => setDrawerOpen(true)}
+              onInspectData={openDataState}
             />
           ) : initialView === "revenue-saas" && selectedRevenue ? (
             <RevenueSaasView
@@ -779,6 +876,7 @@ export function FinanceIntelligenceExperience({
               value={formatMoney(selected.revenue_minor)}
               change={percentageChange(selected.revenue_minor, prior?.revenue_minor)}
               context="Statutory statement"
+              onInspect={() => openMetricEvidence("Revenue")}
             />
             <KpiCard
               label="Gross margin"
@@ -789,24 +887,28 @@ export function FinanceIntelligenceExperience({
                   : null
               }
               context="Revenue less cost of sales"
+              onInspect={() => openMetricEvidence("Gross margin")}
             />
             <KpiCard
               label="EBITDA"
               value={formatMoney(selected.ebitda_minor)}
               change={percentageChange(selected.ebitda_minor, prior?.ebitda_minor)}
               context="Statutory presentation"
+              onInspect={() => openMetricEvidence("EBITDA")}
             />
             <KpiCard
               label="Closing cash"
               value={formatMoney(selected.closing_cash_minor)}
               change={percentageChange(selected.closing_cash_minor, prior?.closing_cash_minor)}
               context="Reconciled cash flow"
+              onInspect={() => openMetricEvidence("Closing cash")}
             />
             <KpiCard
               label="Ending ARR"
               value={formatMoney(selected.ending_arr_minor)}
               change={percentageChange(selected.ending_arr_minor, prior?.ending_arr_minor)}
               context="Subscription state"
+              onInspect={() => openMetricEvidence("Ending ARR")}
             />
             <KpiCard
               label="Net revenue retention"
@@ -817,8 +919,11 @@ export function FinanceIntelligenceExperience({
                   : null
               }
               context="Governed cohort movement"
+              onInspect={() => openMetricEvidence("Net revenue retention")}
             />
           </section>
+
+          <IntegratedFinanceBridge row={selected} onInspect={openMetricEvidence} />
 
           <section className="fi-analysis-grid">
             <article className="fi-panel fi-trend-panel">
@@ -857,7 +962,7 @@ export function FinanceIntelligenceExperience({
                 <div><dt>Runtime replay</dt><dd>{populationsMatch === false ? "Mismatch" : "Reconciled"}</dd></div>
                 <div><dt>Not-ready metrics</dt><dd>{selected.not_ready_metric_count}</dd></div>
               </dl>
-              <button type="button" onClick={() => setDrawerOpen(true)}>Inspect data state</button>
+              <button type="button" onClick={openDataState}>Inspect data state</button>
             </article>
           </section>
 
@@ -919,8 +1024,8 @@ export function FinanceIntelligenceExperience({
           >
             <div className="fi-drawer-head">
               <div>
-                <p className="fi-eyebrow">Governed data state</p>
-                <h2 id="data-state-title">Why this view can be trusted</h2>
+                <p className="fi-eyebrow">{selectedMetricEvidence ? "Metric evidence" : "Governed data state"}</p>
+                <h2 id="data-state-title">{selectedMetricEvidence ? `${selectedMetricEvidence} authority` : "Why this view can be trusted"}</h2>
               </div>
               <button type="button" aria-label="Close data state" onClick={() => setDrawerOpen(false)}>Close</button>
             </div>
@@ -929,8 +1034,10 @@ export function FinanceIntelligenceExperience({
               <div><strong>{contextRow.reliability_status.replaceAll("_", " ")}</strong><small>{contextRow.reliability_purpose.replaceAll("_", " ")}</small></div>
             </div>
             <dl className="fi-state-list">
+              {selectedMetricEvidence && <div><dt>Selected metric</dt><dd>{selectedMetricEvidence}</dd></div>}
               <div><dt>Selected reporting version</dt><dd>{contextRow.reporting_version_ref}</dd></div>
               <div><dt>Value authority</dt><dd>{contextRow.value_authority.replaceAll("_", " ")}</dd></div>
+              {selectedMetricEvidence && <div><dt>Drill-through relation</dt><dd>{selected.drill_through_relation}</dd></div>}
               <div><dt>Source state</dt><dd>{contextRow._source_data_ref}</dd></div>
               <div><dt>Source digest</dt><dd><code>{shortDigest(contextRow.source_package_digest)}</code></dd></div>
               <div><dt>Delivery</dt><dd>{manifest?.deliveryRef ?? "Q-FINANCE-C2@v1"}</dd></div>

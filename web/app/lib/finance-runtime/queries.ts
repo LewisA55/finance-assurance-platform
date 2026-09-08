@@ -79,6 +79,12 @@ const D2_RUNTIME_TABLES = [
   "dim_reporting_version",
 ];
 
+const D2_RUNTIME_REQUESTS = D2_RUNTIME_TABLES.map((tableName) =>
+  tableName === "mart_planning_performance_monthly"
+    ? { tableName, throughYear: 2026 }
+    : { tableName },
+);
+
 const COMMAND_CENTRE_SQL = `
   select
     period_id,
@@ -781,7 +787,7 @@ export async function loadFinancialPerformanceWorkspace(): Promise<FinancialPerf
         _source_data_ref
       from mart_planning_performance_monthly
       order by period_id, statement_line, department_id, account_id
-    `, ["mart_planning_performance_monthly"]),
+    `, [{ tableName: "mart_planning_performance_monthly", throughYear: 2026 }]),
     runQuery<ReportingScopeRow>(`
       select
         scope_id,
@@ -813,7 +819,7 @@ export async function loadFinancialPerformanceWorkspace(): Promise<FinancialPerf
       from dim_reporting_version
       order by scope_id, period_id
     `, ["dim_reporting_version"]),
-    runQuery<RuntimePopulation>(populationSql, D2_RUNTIME_TABLES),
+    runQuery<RuntimePopulation>(populationSql, D2_RUNTIME_REQUESTS),
   ]);
 
   return {

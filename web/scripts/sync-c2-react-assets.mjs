@@ -32,6 +32,14 @@ const duckdbWorkerSource = join(
   "duckdb-browser-eh.worker.js",
 );
 const DUCKDB_CHUNK_BYTES = 12 * 1024 * 1024;
+const PARQUET_EXTENSION = {
+  version: "v1.5.4",
+  platform: "wasm_eh",
+  sourceUrl: "https://extensions.duckdb.org/v1.5.4/wasm_eh/parquet.duckdb_extension.wasm",
+  url: "/duckdb/extensions/v1.5.4/wasm_eh/parquet.duckdb_extension.wasm",
+  bytes: 3218307,
+  digest: "sha256:4845705bbd69fc9ad52878d96a505c73cae4a6c509822079cc2413e5eb437f95",
+};
 
 const D1_TABLES = [
   "mart_executive_cfo_command_center",
@@ -613,6 +621,7 @@ async function main() {
       sourceDigest: `sha256:${createHash("sha256").update(duckdbWasm).digest("hex")}`,
       parts: duckdbParts,
     },
+    parquetExtension: PARQUET_EXTENSION,
     runtimeTables,
   };
 

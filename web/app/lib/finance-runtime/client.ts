@@ -6,8 +6,59 @@ let runtimePromise: Promise<{
   database: duckdb.AsyncDuckDB;
   connection: duckdb.AsyncDuckDBConnection;
 }> | null = null;
-const registeredTables = new Set<string>();
+const registeredTableFiles = new Map<string, Map<string, string>>();
 let queryQueue: Promise<void> = Promise.resolve();
+let runtimeWorker: Worker | null = null;
+let runtimeModuleUrl: string | null = null;
+
+export type RuntimePhase =
+  | "manifest"
+  | "wasm"
+  | "authenticating"
+  | "registering"
+  | "querying"
+  | "ready"
+  | "error";
+
+export interface RuntimeProgress {
+  phase: RuntimePhase;
+  label: string;
+  loadedFiles: number;
+  totalFiles: number;
+  loadedBytes: number;
+  totalBytes: number;
+}
+
+export interface RuntimeTableRequest {
+  tableName: string;
+  fromYear?: number;
+  throughYear?: number;
+  years?: number[];
+}
+
+type RuntimeTableInput = string | RuntimeTableRequest;
+type RuntimeProgressListener = (progress: RuntimeProgress) => void;
+
+const progressListeners = new Set<RuntimeProgressListener>();
+let latestProgress: RuntimeProgress = {
+  phase: "manifest",
+  label: "Reading governed runtime authority",
+  loadedFiles: 0,
+  totalFiles: 0,
+  loadedBytes: 0,
+  totalBytes: 0,
+};
+
+function publishProgress(progress: RuntimeProgress): void {
+  latestProgress = progress;
+  for (const listener of progressListeners) listener(progress);
+}
+
+export function subscribeRuntimeProgress(listener: RuntimeProgressListener): () => void {
+  progressListeners.add(listener);
+  listener(latestProgress);
+  return () => progressListeners.delete(listener);
+}
 
 async function sha256Digest(bytes: ArrayBuffer): Promise<string> {
   const digest = await crypto.subtle.digest("SHA-256", bytes);
@@ -28,12 +79,29 @@ async function assertIntegrity(
 
 export function getRuntimeManifest(): Promise<FinanceRuntimeManifest> {
   if (!manifestPromise) {
+    publishProgress({
+      phase: "manifest",
+      label: "Reading governed runtime authority",
+      loadedFiles: 0,
+      totalFiles: 1,
+      loadedBytes: 0,
+      totalBytes: 0,
+    });
     manifestPromise = fetch("/finance-data/runtime-manifest.json").then(
       async (response) => {
         if (!response.ok) {
           throw new Error(`Finance runtime manifest unavailable (${response.status})`);
         }
-        return (await response.json()) as FinanceRuntimeManifest;
+        const manifest = (await response.json()) as FinanceRuntimeManifest;
+        publishProgress({
+          phase: "wasm",
+          label: "Preparing local DuckDB-Wasm",
+          loadedFiles: 1,
+          totalFiles: 1,
+          loadedBytes: 0,
+          totalBytes: manifest.duckdbWasm.sourceBytes,
+        });
+        return manifest;
       },
     );
   }
@@ -41,12 +109,24 @@ export function getRuntimeManifest(): Promise<FinanceRuntimeManifest> {
 }
 
 async function assembleWasmModule(manifest: FinanceRuntimeManifest): Promise<string> {
+  let loadedBytes = 0;
+  let loadedParts = 0;
   const parts = await Promise.all(
     manifest.duckdbWasm.parts.map(async (part) => {
       const response = await fetch(part.url);
       if (!response.ok) throw new Error(`DuckDB-Wasm chunk unavailable (${response.status})`);
       const bytes = await response.arrayBuffer();
       await assertIntegrity(bytes, part.bytes, part.digest, "DuckDB-Wasm chunk");
+      loadedBytes += bytes.byteLength;
+      loadedParts += 1;
+      publishProgress({
+        phase: "wasm",
+        label: "Authenticating local query engine",
+        loadedFiles: loadedParts,
+        totalFiles: manifest.duckdbWasm.parts.length,
+        loadedBytes,
+        totalBytes: manifest.duckdbWasm.sourceBytes,
+      });
       return bytes;
     }),
   );
@@ -61,7 +141,15 @@ async function createDatabase(manifest: FinanceRuntimeManifest): Promise<duckdb.
   const worker = new Worker("/duckdb/duckdb-browser-eh.worker.js");
   const logger = new duckdb.ConsoleLogger(duckdb.LogLevel.WARNING);
   const database = new duckdb.AsyncDuckDB(logger, worker);
-  await database.instantiate(mainModule);
+  try {
+    await database.instantiate(mainModule);
+  } catch (error) {
+    worker.terminate();
+    URL.revokeObjectURL(mainModule);
+    throw error;
+  }
+  runtimeWorker = worker;
+  runtimeModuleUrl = mainModule;
   return database;
 }
 
@@ -75,14 +163,43 @@ async function registerRuntimeTable(
   database: duckdb.AsyncDuckDB,
   connection: duckdb.AsyncDuckDBConnection,
   manifest: FinanceRuntimeManifest,
-  tableName: string,
+  request: RuntimeTableRequest,
 ): Promise<void> {
+  const { tableName } = request;
   assertTableName(tableName);
-  if (registeredTables.has(tableName)) return;
   const table = manifest.runtimeTables.find((row) => row.tableName === tableName);
   if (!table) throw new Error(`Runtime table is not authorised: ${tableName}`);
+  const requestedYears = request.years ? new Set(request.years) : null;
+  const selectedFiles = table.files.filter((url) => {
+    const match = url.match(/period_year=(\d{4})/);
+    if (!match) return true;
+    const year = Number(match[1]);
+    if (requestedYears && !requestedYears.has(year)) return false;
+    if (request.fromYear != null && year < request.fromYear) return false;
+    if (request.throughYear != null && year > request.throughYear) return false;
+    return true;
+  });
+  if (selectedFiles.length === 0) {
+    throw new Error(`${tableName} has no authorised partitions for the requested horizon`);
+  }
+  const registeredFiles = registeredTableFiles.get(tableName) ?? new Map<string, string>();
+  const pendingFiles = selectedFiles.filter((url) => !registeredFiles.has(url));
+  if (pendingFiles.length === 0) return;
+  const totalBytes = pendingFiles.reduce((sum, url) => {
+    return sum + (table.fileIntegrity.find((item) => item.url === url)?.bytes ?? 0);
+  }, 0);
+  let loadedBytes = 0;
+  let loadedFiles = 0;
+  publishProgress({
+    phase: "authenticating",
+    label: `Authenticating ${tableName.replaceAll("_", " ")}`,
+    loadedFiles,
+    totalFiles: pendingFiles.length,
+    loadedBytes,
+    totalBytes,
+  });
   const buffers = await Promise.all(
-    table.files.map(async (url, index) => {
+    pendingFiles.map(async (url) => {
       const integrity = table.fileIntegrity.find((item) => item.url === url);
       if (!integrity) throw new Error(`${table.tableName} partition integrity unavailable`);
       const response = await fetch(url);
@@ -96,8 +213,20 @@ async function registerRuntimeTable(
         integrity.digest,
         `${table.tableName} partition`,
       );
+      loadedFiles += 1;
+      loadedBytes += bytes.byteLength;
+      publishProgress({
+        phase: "authenticating",
+        label: `Authenticating ${tableName.replaceAll("_", " ")}`,
+        loadedFiles,
+        totalFiles: pendingFiles.length,
+        loadedBytes,
+        totalBytes,
+      });
+      const sourceIndex = table.files.indexOf(url);
       return {
-        name: `${table.tableName}__${index}.parquet`,
+        url,
+        name: `${table.tableName}__${sourceIndex}.parquet`,
         bytes: new Uint8Array(bytes),
       };
     }),
@@ -105,12 +234,28 @@ async function registerRuntimeTable(
 
   for (const file of buffers) {
     await database.registerFileBuffer(file.name, file.bytes);
+    registeredFiles.set(file.url, file.name);
   }
-  const fileList = buffers.map((file) => `'${file.name}'`).join(", ");
-  await connection.query(
-    `create or replace view "${table.tableName}" as select * from read_parquet([${fileList}])`,
-  );
-  registeredTables.add(tableName);
+  registeredTableFiles.set(tableName, registeredFiles);
+  const partitionQuery = [...registeredFiles.values()]
+    .map((name) => `select * from read_parquet('${name}')`)
+    .join(" union all ");
+  publishProgress({
+    phase: "registering",
+    label: `Registering ${tableName.replaceAll("_", " ")}`,
+    loadedFiles: pendingFiles.length,
+    totalFiles: pendingFiles.length,
+    loadedBytes: totalBytes,
+    totalBytes,
+  });
+  try {
+    await connection.query(
+      `create or replace view "${table.tableName}" as ${partitionQuery}`,
+    );
+  } catch (error) {
+    const message = error instanceof Error ? error.message : "unknown DuckDB error";
+    throw new Error(`${tableName} registration failed: ${message}`);
+  }
 }
 
 async function getRuntime(): Promise<{
@@ -122,10 +267,31 @@ async function getRuntime(): Promise<{
       const manifest = await getRuntimeManifest();
       const database = await createDatabase(manifest);
       const connection = await database.connect();
+      const extensionResponse = await fetch(manifest.parquetExtension.url);
+      if (!extensionResponse.ok) {
+        throw new Error(`Local Parquet extension unavailable (${extensionResponse.status})`);
+      }
+      const extensionBytes = await extensionResponse.arrayBuffer();
+      await assertIntegrity(
+        extensionBytes,
+        manifest.parquetExtension.bytes,
+        manifest.parquetExtension.digest,
+        "Local Parquet extension",
+      );
+      const extensionRepository = `${window.location.origin}/duckdb/extensions`;
+      await connection.query(`set custom_extension_repository = '${extensionRepository}'`);
+      await connection.query("load parquet");
+      await connection.query("set autoinstall_known_extensions = false");
+      await connection.query("set allow_community_extensions = false");
       return { database, connection };
     })().catch((error) => {
       runtimePromise = null;
-      registeredTables.clear();
+      runtimeWorker?.terminate();
+      if (runtimeModuleUrl) URL.revokeObjectURL(runtimeModuleUrl);
+      runtimeWorker = null;
+      runtimeModuleUrl = null;
+      registeredTableFiles.clear();
+      publishProgress({ ...latestProgress, phase: "error", label: "Local runtime unavailable" });
       throw error;
     });
   }
@@ -136,15 +302,37 @@ export async function getConnection(): Promise<duckdb.AsyncDuckDBConnection> {
   return (await getRuntime()).connection;
 }
 
-async function ensureRuntimeTables(tableNames: string[]): Promise<void> {
+function normaliseTableRequest(input: RuntimeTableInput): RuntimeTableRequest {
+  return typeof input === "string" ? { tableName: input } : input;
+}
+
+async function ensureRuntimeTables(tableInputs: RuntimeTableInput[]): Promise<void> {
   const manifest = await getRuntimeManifest();
   const { database, connection } = await getRuntime();
-  for (const tableName of [...new Set(tableNames)]) {
-    await registerRuntimeTable(database, connection, manifest, tableName);
+  const requests = new Map<string, RuntimeTableRequest>();
+  for (const input of tableInputs) {
+    const request = normaliseTableRequest(input);
+    requests.set(JSON.stringify(request), request);
+  }
+  for (const request of requests.values()) {
+    await registerRuntimeTable(database, connection, manifest, request);
   }
 }
 
-export async function runQuery<T>(sql: string, tableNames: string[] = []): Promise<T[]> {
+function toSafeJsonRecord(row: { toJSON(): unknown }): Record<string, unknown> {
+  const record = row.toJSON() as Record<string, unknown>;
+  for (const key of Object.keys(record)) {
+    const value = record[key];
+    if (typeof value !== "bigint") continue;
+    if (value > BigInt(Number.MAX_SAFE_INTEGER) || value < BigInt(Number.MIN_SAFE_INTEGER)) {
+      throw new Error(`Unsafe integer conversion rejected for ${key}; cast explicitly in governed SQL`);
+    }
+    record[key] = Number(value);
+  }
+  return record;
+}
+
+export async function runQuery<T>(sql: string, tableNames: RuntimeTableInput[] = []): Promise<T[]> {
   let release: () => void = () => {};
   const previous = queryQueue;
   queryQueue = new Promise<void>((resolve) => {
@@ -154,15 +342,45 @@ export async function runQuery<T>(sql: string, tableNames: string[] = []): Promi
   try {
     await ensureRuntimeTables(tableNames);
     const connection = await getConnection();
-    const result = await connection.query(sql);
-    return result.toArray().map((row) => {
-      const record = row.toJSON() as Record<string, unknown>;
-      for (const key of Object.keys(record)) {
-        if (typeof record[key] === "bigint") record[key] = Number(record[key]);
-      }
-      return record as T;
-    });
+    publishProgress({ ...latestProgress, phase: "querying", label: "Querying authenticated Parquet" });
+    let result;
+    try {
+      result = await connection.query(sql);
+    } catch (error) {
+      const message = error instanceof Error ? error.message : "unknown DuckDB error";
+      const authorities = tableNames.map((input) => normaliseTableRequest(input).tableName).join(", ");
+      throw new Error(`Governed query failed for ${authorities || "runtime metadata"}: ${message}`);
+    }
+    const rows = result.toArray().map((row) => toSafeJsonRecord(row) as T);
+    publishProgress({ ...latestProgress, phase: "ready", label: "Governed local query ready" });
+    return rows;
   } finally {
     release();
   }
+}
+
+export async function disposeRuntime(): Promise<void> {
+  const runtime = await runtimePromise?.catch(() => null);
+  try {
+    if (runtime) {
+      try {
+        await runtime.connection.close();
+      } finally {
+        await runtime.database.terminate();
+      }
+    }
+  } finally {
+    runtimeWorker?.terminate();
+    if (runtimeModuleUrl) URL.revokeObjectURL(runtimeModuleUrl);
+    runtimePromise = null;
+    runtimeWorker = null;
+    runtimeModuleUrl = null;
+    registeredTableFiles.clear();
+  }
+}
+
+if (typeof window !== "undefined") {
+  window.addEventListener("pagehide", () => {
+    void disposeRuntime();
+  }, { once: true });
 }

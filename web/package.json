@@ -22,6 +22,7 @@
     "pretest:finance": "npm run prepare:duckdb",
     "test:finance": "node --test tests/d1-finance-runtime.test.mjs tests/d2-financial-performance.test.mjs tests/d3-cash-capital.test.mjs tests/d4-revenue-saas.test.mjs tests/d5-assurance-readiness.test.mjs tests/d6-planning-valuation.test.mjs",
     "test": "npm run build && node --test tests/rendered-html.test.mjs tests/phase6-hardening.test.mjs",
+    "test:e2e": "node scripts/run-e2e.mjs",
     "audit:dependencies": "npm audit --audit-level=high",
     "lint": "eslint app scripts tests",
     "typecheck": "tsc --noEmit"
@@ -35,6 +36,7 @@
     "@cloudflare/vite-plugin": "1.54.2",
     "@eslint/js": "9.39.4",
     "@next/eslint-plugin-next": "16.2.6",
+    "@playwright/test": "1.62.1",
     "@tailwindcss/postcss": "4.2.1",
     "@types/node": "22.19.19",
     "@types/react": "19.2.14",
@@ -55,6 +57,9 @@
     "vinext": "1.0.0-beta.8",
     "vite": "8.2.2",
     "wrangler": "4.127.1"
+  },
+  "overrides": {
+    "qs": "6.16.0"
   },
   "type": "module"
 }

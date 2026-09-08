@@ -15,6 +15,8 @@ target/
 .vinext/
 .wrangler/
 *.tsbuildinfo
+web/test-results/
+web/playwright-report/
 
 # Local data and generated artifacts
 data/raw/
@@ -29,13 +31,13 @@ outputs/
 # The small, governed browser runtime is a versioned v0.1 release fixture.
 !web/public/finance-data/**/*.parquet
 
-# Rebuilt from the pinned @duckdb/duckdb-wasm dependency.
+# Rebuilt from the pinned DuckDB-Wasm dependency and digest-pinned signed extension.
 web/public/duckdb/
 
 # Local consumer-product authoring and release binaries.
 consumer-products/*/work/
 consumer-products/*/exports/
-consumer-products/power-bi/model/.pbi/
+consumer-products/power-bi/**/.pbi/
 temp cover page tests/
 local-notes/
 
