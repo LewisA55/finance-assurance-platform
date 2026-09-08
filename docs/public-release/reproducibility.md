@@ -72,6 +72,12 @@ The sync process republishes only after reading exact expected package reference
 and digests. Runtime tests independently replay row populations, financial
 equations and physical file hashes.
 
+The two Python Pythia build integration tests execute when the complete C2
+delivery package exists at its documented build path. A fresh clone skips those
+two full-package tests because generated C2 artifacts are intentionally excluded
+from Git; the committed Pythia results remain covered by the authenticated
+finance-runtime tests and critical browser journeys.
+
 ## Determinism boundary
 
 Package digests cover canonical records and declared metadata. Build outputs are

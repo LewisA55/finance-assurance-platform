@@ -4,6 +4,7 @@ import json
 from pathlib import Path
 
 import pyarrow.parquet as pq
+import pytest
 
 from finance_assurance.pythia import (
     PythiaBuildRequest,
@@ -13,6 +14,10 @@ from finance_assurance.pythia import (
 
 ROOT = Path(__file__).resolve().parents[2]
 DELIVERY = ROOT / "build" / "finance-delivery" / "Q-FINANCE-C2-V1"
+pytestmark = pytest.mark.skipif(
+    not (DELIVERY / "finance-delivery.digest").is_file(),
+    reason="requires the fully regenerated Q-FINANCE-C2 delivery package",
+)
 
 
 def _delivery_digest() -> str:
