@@ -24,6 +24,7 @@
     "test": "npm run build && node --test tests/rendered-html.test.mjs tests/phase6-hardening.test.mjs",
     "test:e2e": "node scripts/run-e2e.mjs",
     "audit:dependencies": "npm audit --audit-level=high",
+    "capture:linkedin": "node scripts/capture-linkedin-assets.mjs",
     "lint": "eslint app scripts tests",
     "typecheck": "tsc --noEmit"
   },
@@ -33,7 +34,7 @@
     "react-dom": "19.2.8"
   },
   "devDependencies": {
-    "@cloudflare/vite-plugin": "1.54.2",
+    "@cloudflare/vite-plugin": "1.60.2",
     "@eslint/js": "9.39.4",
     "@next/eslint-plugin-next": "16.2.6",
     "@playwright/test": "1.62.1",
@@ -56,7 +57,7 @@
     "typescript-eslint": "8.59.3",
     "vinext": "1.0.0-beta.8",
     "vite": "8.2.2",
-    "wrangler": "4.127.1"
+    "wrangler": "4.141.0"
   },
   "overrides": {
     "qs": "6.16.0"

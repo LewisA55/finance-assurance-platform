@@ -186,4 +186,5 @@ synthetic portfolio environment rather than production software. External
 contributions are not currently accepted; responsible security reports are
 welcome through GitHub's private reporting channel.
 
-Copyright 2026 Lewis Andrews. All rights reserved. See [LICENSE.md](LICENSE.md).
+Released under the [MIT License](LICENSE). See the
+[portfolio and data disclaimer](DISCLAIMER.md) for the synthetic-use boundary.

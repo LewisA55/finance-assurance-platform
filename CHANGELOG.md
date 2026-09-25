@@ -8,3 +8,6 @@
 - Added governed Pythia scenario, liquidity and valuation-readiness outputs.
 - Added the six-page React finance intelligence product and product guide over browser-local DuckDB-Wasm and authenticated Parquet.
 - Added public-release hygiene, documentation, artifact policy and CI gates.
+- Added reproducible LinkedIn portfolio captures for all seven public product views.
+- Adopted the MIT License with a separate synthetic portfolio and data disclaimer.
+- Refreshed the Cloudflare development runtime to keep the locked web dependency audit clean.
