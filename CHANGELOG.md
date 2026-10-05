@@ -11,3 +11,5 @@
 - Added reproducible LinkedIn portfolio captures for all seven public product views.
 - Adopted the MIT License with a separate synthetic portfolio and data disclaimer.
 - Refreshed the Cloudflare development runtime to keep the locked web dependency audit clean.
+- Reframed the README opening for finance and audit readers, mapping the five module lenses to the reporting problems they model before introducing internal names.
+- Repointed the README hero to a committed product capture; `web/public/og.png` is still absent, so the deployed Open Graph and Twitter card images remain unresolved.
