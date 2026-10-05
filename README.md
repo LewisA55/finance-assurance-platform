@@ -1,8 +1,15 @@
 # Finance & Assurance Platform
 
-An executable, synthetic finance operating environment showing how fragmented
-business events become accounting records, governed management information,
-continuous assurance, forecasts and decisions.
+A synthetic company's finance function, built end to end, so the whole chain an
+auditor tests can be seen at once: source systems that disagree, transactions
+that arrive twice or arrive late, the journals derived from them, the period
+close, the controls, the evidence, and the decisions management takes from the
+result.
+
+I built it because a junior auditor sees a narrow slice - a sample of 25 items,
+one reconciliation, one control walkthrough - and rarely the system those slices
+came out of. This is that system, with every defect placed deliberately so its
+effect can be followed all the way downstream.
 
 **Release target:** `v0.1 - Governed Finance Platform + React Intelligence Product`
 
@@ -10,9 +17,41 @@ continuous assurance, forecasts and decisions.
 > portfolio and engineering demonstration; it is not an audit opinion,
 > investment recommendation or production accounting system.
 
-![Nexus Technologies finance intelligence product](web/public/og.png)
+![Nexus Technologies CFO command centre, the governed finance intelligence product](docs/public-release/cfo-command-centre.png)
 
-## What this demonstrates
+## What it is, in familiar terms
+
+The five module names are internal shorthand. In the language of the work, they
+model problems most finance and audit people meet every year:
+
+| Familiar problem | Where it lives here |
+|---|---|
+| Completeness and accuracy of system-generated data | 78 source datasets and 4.2m rows carrying planted duplicates, late arrivals and reconciliation breaks, with source identity and lineage fixed on ingestion (Hermes) |
+| The audit trail from transaction to financial statement | Every journal derived from a business event by versioned posting rules, through subledgers, to 66 months of reconciled income statement, balance sheet and cash flow (Atlas) |
+| Immutability and period close | Posted journal headers and lines cannot be altered, and a hard-closed period cannot be silently reopened to fix history (Atlas) |
+| Correction against prior period adjustment | Reversal runs through an open correction path; restatement republishes a reporting version while the original reporting state stays intact. The two are deliberately not the same mechanism (Atlas) |
+| Controls testing and exception follow-up | 64 independent finance controls executed over the governed data, each producing retained evidence rather than a pass mark (Argus) |
+| Findings, management letter points and remediation | Exception, finding, issue, remediation, readiness and sign-off are separate states with a journey between them, not one status field (Aegis) |
+| The forward view behind a going concern or sustainability judgement | Scenario, liquidity and valuation-readiness runs over governed actuals, 360 scenario-months, sealed so a published figure cannot drift (Pythia) |
+| Management information you can actually rely on | 99 governed datasets, 189 measure specifications and 387 automated tests, so a number on screen traces back to a rule version and a source row |
+
+The point of separating these is that most reporting problems are not arithmetic
+errors. They are a number that is correct in one layer and wrong in another, and
+nobody can say which layer owns it. Here each layer owns its own truth and has to
+reconcile to the next one.
+
+## Where to look first
+
+- **Want to see what a user gets?** The product views below, or run it locally
+  with the quick start. Six management screens over browser-local data.
+- **Care about data quality and reconciliation?** Start with the architecture
+  note, then the source and Bronze layer.
+- **Care about close, reversal and restatement?** The Assurance Casework view
+  walks the immutable reporting history and a governed restatement.
+- **Want to know whether it genuinely works?** The validation commands run the
+  same gates CI runs on every push, including 387 data tests.
+
+## Engineering inventory
 
 - realistic multi-system finance event generation with defects, duplicates and late-arriving records;
 - immutable Bronze ingestion and source identity through Hermes;
