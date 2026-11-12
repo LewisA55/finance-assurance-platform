@@ -1,0 +1,18 @@
+{
+  "name": "nexus-rollforward-bridge",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "test": "tsx --test test/*.test.ts",
+    "package": "pbiviz package"
+  },
+  "devDependencies": {
+    "powerbi-visuals-tools": "7.2.1",
+    "powerbi-visuals-api": "5.11.1",
+    "typescript": "5.9.3",
+    "tsx": "4.20.6",
+    "jsdom": "26.1.0",
+    "@types/node": "24.0.0"
+  }
+}

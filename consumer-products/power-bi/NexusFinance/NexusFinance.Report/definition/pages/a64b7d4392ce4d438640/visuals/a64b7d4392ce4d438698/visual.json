@@ -1,0 +1,37 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json",
+  "name": "a64b7d4392ce4d438698",
+  "position": {
+    "x": 760,
+    "y": 12,
+    "width": 490,
+    "height": 90,
+    "z": 0,
+    "tabOrder": 0
+  },
+  "visual": {
+    "visualType": "slicer",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "KPI Purpose"
+                    }
+                  },
+                  "Property": "Purpose"
+                }
+              },
+              "queryRef": "KPI Purpose.Purpose",
+              "nativeQueryRef": "Purpose"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

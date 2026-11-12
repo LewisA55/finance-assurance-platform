@@ -1,0 +1,177 @@
+table 'KPI Claims'
+
+	measure 'Selected Purpose' = IF ( ISEMPTY ( 'KPI Claims' ), BLANK(), IF ( NOT ISFILTERED ( 'KPI Purpose'[Purpose] ), "CFO_EXECUTIVE_REVIEW", SELECTEDVALUE ( 'KPI Purpose'[Purpose], "AMBIGUOUS" ) ) )
+
+	measure 'Claim Count' = IF ( ISEMPTY ( 'KPI Claims' ), BLANK(), COUNTROWS ( CALCULATETABLE ( 'KPI Claims', ALLSELECTED ( 'KPI Claims' ), ALLSELECTED ( 'Reporting Version' ) ) ) )
+
+	measure 'Eligibility State' = IF ( ISEMPTY ( 'KPI Claims' ), BLANK(), SWITCH ( TRUE(), [Claim Count] <> 1, "INVALID_CONTEXT", [Selected Purpose] <> "CFO_EXECUTIVE_REVIEW", "WITHHELD", SELECTEDVALUE ( 'KPI Claims'[baseState], "UNASSESSED" ) ) )
+
+	measure 'Display Value' = IF ( ISEMPTY ( 'KPI Claims' ), BLANK(), IF ( [Eligibility State] = "ELIGIBLE", SELECTEDVALUE ( 'KPI Claims'[rawValue] ), BLANK() ) )
+
+	measure 'Failure Reason' = IF ( ISEMPTY ( 'KPI Claims' ), BLANK(), SWITCH ( TRUE(), [Claim Count] <> 1, "Select exactly one metric, period and version.", [Selected Purpose] <> "CFO_EXECUTIVE_REVIEW", "This metric is not assessed for the selected purpose.", SELECTEDVALUE ( 'KPI Claims'[baseReason] ) ) )
+
+	measure 'Context State' = IF ( ISEMPTY ( 'KPI Claims' ), BLANK(), IF ( [Claim Count] = 1, "VALID", "AMBIGUOUS" ) )
+
+	column claimKey
+		dataType: string
+		sourceColumn: claimKey
+		summarizeBy: none
+		isHidden
+
+	column metricId
+		dataType: string
+		sourceColumn: metricId
+		summarizeBy: none
+		isHidden
+
+	column metricLabel
+		dataType: string
+		sourceColumn: metricLabel
+		summarizeBy: none
+		isHidden
+
+	column purpose
+		dataType: string
+		sourceColumn: purpose
+		summarizeBy: none
+		isHidden
+
+	column authority
+		dataType: string
+		sourceColumn: authority
+		summarizeBy: none
+		isHidden
+
+	column deliveryRef
+		dataType: string
+		sourceColumn: deliveryRef
+		summarizeBy: none
+		isHidden
+
+	column deliveryDigest
+		dataType: string
+		sourceColumn: deliveryDigest
+		summarizeBy: none
+		isHidden
+
+	column sourceDigest
+		dataType: string
+		sourceColumn: sourceDigest
+		summarizeBy: none
+		isHidden
+
+	column evidenceRef
+		dataType: string
+		sourceColumn: evidenceRef
+		summarizeBy: none
+		isHidden
+
+	column evidenceDigest
+		dataType: string
+		sourceColumn: evidenceDigest
+		summarizeBy: none
+		isHidden
+
+	column unit
+		dataType: string
+		sourceColumn: unit
+		summarizeBy: none
+		isHidden
+
+	column period
+		dataType: string
+		sourceColumn: period
+		summarizeBy: none
+		isHidden
+
+	column scope
+		dataType: string
+		sourceColumn: scope
+		summarizeBy: none
+		isHidden
+
+	column version
+		dataType: string
+		sourceColumn: version
+		summarizeBy: none
+		isHidden
+
+	column reliabilityStatus
+		dataType: string
+		sourceColumn: reliabilityStatus
+		summarizeBy: none
+		isHidden
+
+	column reliabilityPurpose
+		dataType: string
+		sourceColumn: reliabilityPurpose
+		summarizeBy: none
+		isHidden
+
+	column policyVersion
+		dataType: string
+		sourceColumn: policyVersion
+		summarizeBy: none
+		isHidden
+
+	column readinessStatus
+		dataType: string
+		sourceColumn: readinessStatus
+		summarizeBy: none
+		isHidden
+
+	column rawValue
+		dataType: int64
+		sourceColumn: rawValue
+		summarizeBy: none
+		isHidden
+
+	column baseState
+		dataType: string
+		sourceColumn: baseState
+		summarizeBy: none
+		isHidden
+
+	column baseReason
+		dataType: string
+		sourceColumn: baseReason
+		summarizeBy: none
+		isHidden
+
+	partition 'KPI Claims' = m
+		mode: import
+		source =
+			let
+			    Readiness = ReadC2("mart_cfo_metric_readiness"),
+			    Build = (id as text, label as text, tableName as text, valueField as text, authority as text, assessmentAuthority as text, status as text, sourcePurpose as text) as table =>
+			        let
+			            Source = Table.SelectRows(ReadC2(tableName), each [scope_id] = "NEXUS-GROUP" and (id <> "ENDING_ARR" or Record.FieldOrDefault(_, "metric_id", "") = id)),
+			            Assessment = Table.SelectRows(Readiness, each [metric_id] = id),
+			            Unique = Table.RowCount(Assessment) = 1,
+			            R = if Unique then Assessment{0} else null,
+			            Rows = List.Transform(Table.ToRecords(Source), (s) =>
+			                let
+			                    Count = Table.RowCount(Table.SelectRows(Source, each [period_id] = s[period_id])),
+			                    Reason = if Count <> 1 then "Duplicate metric period."
+			                        else if s[reporting_version_ref] <> "RV-NEXUS-GROUP-" & s[period_id] & "@v1" or s[currency] <> "GBP" then "Unsupported reporting context."
+			                        else if s[source_package_digest] <> "sha256:39af66f379d5497399f89e3956e601b6fb99a070146d8c6d378bb684f288b7e5" then "Source digest mismatch."
+			                        else if s[value_authority] <> authority or s[reliability_status] <> status or s[reliability_purpose] <> sourcePurpose then "Source reliability or authority mismatch."
+			                        else if not Unique then "Missing or duplicate readiness assessment."
+			                        else if R[source_package_digest] <> s[source_package_digest] or R[value_authority] <> assessmentAuthority or R[readiness_authority] <> "VALIDATOR_PRODUCED" or R[reliability_status] <> "RELIABLE_FOR_EXECUTIVE_PRESENTATION" or R[reliability_purpose] <> "CFO_METRIC_READINESS" then "Readiness authority mismatch."
+			                        else if R[readiness_status] <> "READY" then (R[first_failure_reason] ?? "Readiness assessment has not passed.")
+			                        else if R[first_failure_reason] <> null then "Readiness result conflicts with a failure reason."
+			                        else if s[period_id] < R[first_period] or s[period_id] > R[last_period] or R[period_count] < R[minimum_period_count] or R[null_value_count] > R[acceptable_null_value_count] then "Readiness coverage does not support this period."
+			                        else if Record.Field(s,valueField) = null then "Value is missing." else null
+			                in [claimKey = id & "|" & s[reporting_version_ref], metricId=id, metricLabel=label,
+			                    rawValue=Record.Field(s,valueField), baseState=if Reason=null then "ELIGIBLE" else "WITHHELD", baseReason=Reason,
+			                    period=s[period_id], scope=s[scope_id], version=s[reporting_version_ref], unit="GBP_MINOR",
+			                    purpose="CFO_EXECUTIVE_REVIEW", authority=s[value_authority], reliabilityStatus=s[reliability_status], reliabilityPurpose=s[reliability_purpose],
+			                    readinessStatus=if Unique then R[readiness_status] else "UNASSESSED", policyVersion="NEXUS-KPI-ELIGIBILITY@v1",
+			                    deliveryRef="Q-FINANCE-C2@v1",deliveryDigest="sha256:7538132e08ea2b7e8c20f339db10e6c138cd2a08c71c4708c47c378d7c1b0141", sourceDigest=s[source_package_digest],
+			                    evidenceRef=tableName & " / " & id & " / " & s[reporting_version_ref] & " / " & s[drill_through_relation], evidenceDigest=null]),
+			            Result = Table.FromRecords(Rows)
+			        in Result,
+			    Combined = Table.Combine({Build("REVENUE", "Revenue", "mart_financial_performance_monthly", "revenue_minor", "STATUTORY_STATEMENT", "STATUTORY_STATEMENT", "RELIABLE_FOR_STATUTORY_ACTUALS", "EXECUTIVE_FINANCIAL_PERFORMANCE"),
+			        Build("CLOSING_CASH", "Closing cash", "mart_cash_flow_liquidity_monthly", "closing_cash_minor", "STATUTORY_CASH_FLOW_AND_SUBLEDGER", "STATUTORY_CASH_FLOW", "RELIABLE_FOR_STATUTORY_ACTUALS", "EXECUTIVE_CASH_FLOW_AND_LIQUIDITY"),
+			        Build("ENDING_ARR", "Ending ARR", "mart_cfo_presented_operating_metrics", "metric_value_minor", "SUBSCRIPTION_STATE", "SUBSCRIPTION_STATE", "RELIABLE_FOR_EXECUTIVE_PRESENTATION", "CFO_PRESENTED_OPERATING_METRICS")})
+			in Table.TransformColumnTypes(Combined, {{"rawValue", Int64.Type}})

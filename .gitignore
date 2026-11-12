@@ -38,6 +38,7 @@ web/public/duckdb/
 consumer-products/*/work/
 consumer-products/*/exports/
 consumer-products/power-bi/**/.pbi/
+consumer-products/power-bi/NexusFinance/NexusFinance.Report/CustomVisuals/
 temp cover page tests/
 local-notes/
 

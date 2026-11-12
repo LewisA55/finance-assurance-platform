@@ -1,0 +1,197 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/page/2.1.0/schema.json",
+  "name": "45d6c278b45d4f468959",
+  "displayName": "Close Assurance",
+  "displayOption": "FitToPage",
+  "height": 720,
+  "width": 1280,
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "Filter_b0d69c9826117b39",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Reporting Version"
+              }
+            },
+            "Property": "Period ID"
+          }
+        },
+        "type": "Categorical",
+        "howCreated": "User",
+        "isLockedInViewMode": true,
+        "isHiddenInViewMode": true,
+        "filter": {
+          "Version": 2,
+          "From": [
+            {
+              "Name": "p",
+              "Entity": "Reporting Version",
+              "Type": 0
+            }
+          ],
+          "Where": [
+            {
+              "Condition": {
+                "In": {
+                  "Expressions": [
+                    {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Source": "p"
+                          }
+                        },
+                        "Property": "Period ID"
+                      }
+                    }
+                  ],
+                  "Values": [
+                    [
+                      {
+                        "Literal": {
+                          "Value": "'2025-07'"
+                        }
+                      }
+                    ],
+                    [
+                      {
+                        "Literal": {
+                          "Value": "'2025-08'"
+                        }
+                      }
+                    ],
+                    [
+                      {
+                        "Literal": {
+                          "Value": "'2025-09'"
+                        }
+                      }
+                    ],
+                    [
+                      {
+                        "Literal": {
+                          "Value": "'2025-10'"
+                        }
+                      }
+                    ],
+                    [
+                      {
+                        "Literal": {
+                          "Value": "'2025-11'"
+                        }
+                      }
+                    ],
+                    [
+                      {
+                        "Literal": {
+                          "Value": "'2025-12'"
+                        }
+                      }
+                    ],
+                    [
+                      {
+                        "Literal": {
+                          "Value": "'2026-01'"
+                        }
+                      }
+                    ],
+                    [
+                      {
+                        "Literal": {
+                          "Value": "'2026-02'"
+                        }
+                      }
+                    ],
+                    [
+                      {
+                        "Literal": {
+                          "Value": "'2026-03'"
+                        }
+                      }
+                    ],
+                    [
+                      {
+                        "Literal": {
+                          "Value": "'2026-04'"
+                        }
+                      }
+                    ],
+                    [
+                      {
+                        "Literal": {
+                          "Value": "'2026-05'"
+                        }
+                      }
+                    ],
+                    [
+                      {
+                        "Literal": {
+                          "Value": "'2026-06'"
+                        }
+                      }
+                    ]
+                  ]
+                }
+              }
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "visualInteractions": [
+    {
+      "source": "00000000000000000015",
+      "target": "0000000000000000000b",
+      "type": "NoFilter"
+    },
+    {
+      "source": "00000000000000000015",
+      "target": "0000000000000000000c",
+      "type": "NoFilter"
+    },
+    {
+      "source": "00000000000000000015",
+      "target": "0000000000000000000d",
+      "type": "NoFilter"
+    },
+    {
+      "source": "00000000000000000015",
+      "target": "0000000000000000000e",
+      "type": "NoFilter"
+    },
+    {
+      "source": "00000000000000000015",
+      "target": "00000000000000000016",
+      "type": "NoFilter"
+    },
+    {
+      "source": "00000000000000000016",
+      "target": "0000000000000000000b",
+      "type": "NoFilter"
+    },
+    {
+      "source": "00000000000000000016",
+      "target": "0000000000000000000c",
+      "type": "NoFilter"
+    },
+    {
+      "source": "00000000000000000016",
+      "target": "0000000000000000000d",
+      "type": "NoFilter"
+    },
+    {
+      "source": "00000000000000000016",
+      "target": "0000000000000000000e",
+      "type": "NoFilter"
+    },
+    {
+      "source": "00000000000000000016",
+      "target": "00000000000000000015",
+      "type": "NoFilter"
+    }
+  ]
+}

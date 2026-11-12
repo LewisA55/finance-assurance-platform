@@ -1,0 +1,484 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json",
+  "name": "e7c34d918b2a4f67905e00",
+  "position": {
+    "x": 24,
+    "y": 96,
+    "width": 1232,
+    "height": 1380,
+    "z": 0,
+    "tabOrder": 0
+  },
+  "visual": {
+    "visualType": "NexusCloseGridE7C34D918B2A4F67905E81D2A6C4B30F",
+    "query": {
+      "queryState": {
+        "claimKey": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Close Grid"
+                    }
+                  },
+                  "Property": "claimKey"
+                }
+              },
+              "queryRef": "Close Grid.claimKey",
+              "nativeQueryRef": "claimKey"
+            }
+          ]
+        },
+        "period": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Close Grid"
+                    }
+                  },
+                  "Property": "period"
+                }
+              },
+              "queryRef": "Close Grid.period",
+              "nativeQueryRef": "period"
+            }
+          ]
+        },
+        "scope": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Close Grid"
+                    }
+                  },
+                  "Property": "scope"
+                }
+              },
+              "queryRef": "Close Grid.scope",
+              "nativeQueryRef": "scope"
+            }
+          ]
+        },
+        "scopeType": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Close Grid"
+                    }
+                  },
+                  "Property": "scopeType"
+                }
+              },
+              "queryRef": "Close Grid.scopeType",
+              "nativeQueryRef": "scopeType"
+            }
+          ]
+        },
+        "version": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Close Grid"
+                    }
+                  },
+                  "Property": "version"
+                }
+              },
+              "queryRef": "Close Grid.version",
+              "nativeQueryRef": "version"
+            }
+          ]
+        },
+        "purpose": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Close Grid"
+                    }
+                  },
+                  "Property": "purpose"
+                }
+              },
+              "queryRef": "Close Grid.purpose",
+              "nativeQueryRef": "purpose"
+            }
+          ]
+        },
+        "authority": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Close Grid"
+                    }
+                  },
+                  "Property": "authority"
+                }
+              },
+              "queryRef": "Close Grid.authority",
+              "nativeQueryRef": "authority"
+            }
+          ]
+        },
+        "deliveryRef": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Close Grid"
+                    }
+                  },
+                  "Property": "deliveryRef"
+                }
+              },
+              "queryRef": "Close Grid.deliveryRef",
+              "nativeQueryRef": "deliveryRef"
+            }
+          ]
+        },
+        "deliveryDigest": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Close Grid"
+                    }
+                  },
+                  "Property": "deliveryDigest"
+                }
+              },
+              "queryRef": "Close Grid.deliveryDigest",
+              "nativeQueryRef": "deliveryDigest"
+            }
+          ]
+        },
+        "sourceDigest": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Close Grid"
+                    }
+                  },
+                  "Property": "sourceDigest"
+                }
+              },
+              "queryRef": "Close Grid.sourceDigest",
+              "nativeQueryRef": "sourceDigest"
+            }
+          ]
+        },
+        "evidenceRef": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Close Grid"
+                    }
+                  },
+                  "Property": "evidenceRef"
+                }
+              },
+              "queryRef": "Close Grid.evidenceRef",
+              "nativeQueryRef": "evidenceRef"
+            }
+          ]
+        },
+        "evidenceDigest": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Close Grid"
+                    }
+                  },
+                  "Property": "evidenceDigest"
+                }
+              },
+              "queryRef": "Close Grid.evidenceDigest",
+              "nativeQueryRef": "evidenceDigest"
+            }
+          ]
+        },
+        "contextState": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Close Grid"
+                    }
+                  },
+                  "Property": "Close Context State"
+                }
+              },
+              "queryRef": "Close Grid.Close Context State",
+              "nativeQueryRef": "Close Context State"
+            }
+          ]
+        },
+        "subledgerStatus": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Close Grid"
+                    }
+                  },
+                  "Property": "subledgerStatus"
+                }
+              },
+              "queryRef": "Close Grid.subledgerStatus",
+              "nativeQueryRef": "subledgerStatus"
+            }
+          ]
+        },
+        "bankStatus": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Close Grid"
+                    }
+                  },
+                  "Property": "bankStatus"
+                }
+              },
+              "queryRef": "Close Grid.bankStatus",
+              "nativeQueryRef": "bankStatus"
+            }
+          ]
+        },
+        "intercompanyStatus": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Close Grid"
+                    }
+                  },
+                  "Property": "intercompanyStatus"
+                }
+              },
+              "queryRef": "Close Grid.intercompanyStatus",
+              "nativeQueryRef": "intercompanyStatus"
+            }
+          ]
+        },
+        "trialBalanceStatus": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Close Grid"
+                    }
+                  },
+                  "Property": "trialBalanceStatus"
+                }
+              },
+              "queryRef": "Close Grid.trialBalanceStatus",
+              "nativeQueryRef": "trialBalanceStatus"
+            }
+          ]
+        },
+        "statementStatus": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Close Grid"
+                    }
+                  },
+                  "Property": "statementStatus"
+                }
+              },
+              "queryRef": "Close Grid.statementStatus",
+              "nativeQueryRef": "statementStatus"
+            }
+          ]
+        },
+        "closeStatus": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Close Grid"
+                    }
+                  },
+                  "Property": "closeStatus"
+                }
+              },
+              "queryRef": "Close Grid.closeStatus",
+              "nativeQueryRef": "closeStatus"
+            }
+          ]
+        },
+        "closedAt": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Close Grid"
+                    }
+                  },
+                  "Property": "closedAt"
+                }
+              },
+              "queryRef": "Close Grid.closedAt",
+              "nativeQueryRef": "closedAt"
+            }
+          ]
+        },
+        "softCloseEvent": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Close Grid"
+                    }
+                  },
+                  "Property": "softCloseEvent"
+                }
+              },
+              "queryRef": "Close Grid.softCloseEvent",
+              "nativeQueryRef": "softCloseEvent"
+            }
+          ]
+        },
+        "hardCloseEvent": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Close Grid"
+                    }
+                  },
+                  "Property": "hardCloseEvent"
+                }
+              },
+              "queryRef": "Close Grid.hardCloseEvent",
+              "nativeQueryRef": "hardCloseEvent"
+            }
+          ]
+        },
+        "publicationEvent": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Close Grid"
+                    }
+                  },
+                  "Property": "publicationEvent"
+                }
+              },
+              "queryRef": "Close Grid.publicationEvent",
+              "nativeQueryRef": "publicationEvent"
+            }
+          ]
+        },
+        "gridPolicyRef": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Close Grid"
+                    }
+                  },
+                  "Property": "gridPolicyRef"
+                }
+              },
+              "queryRef": "Close Grid.gridPolicyRef",
+              "nativeQueryRef": "gridPolicyRef"
+            }
+          ]
+        },
+        "expectedRowCount": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Close Grid"
+                    }
+                  },
+                  "Property": "Close Cell Count"
+                }
+              },
+              "queryRef": "Close Grid.Close Cell Count",
+              "nativeQueryRef": "Close Cell Count"
+            }
+          ]
+        }
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

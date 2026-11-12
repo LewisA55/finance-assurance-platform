@@ -1,0 +1,373 @@
+{
+  "privileges": [],
+  "dataRoles": [
+    {
+      "name": "claimKey",
+      "displayName": "claimKey",
+      "kind": "Grouping"
+    },
+    {
+      "name": "metricId",
+      "displayName": "metricId",
+      "kind": "Grouping"
+    },
+    {
+      "name": "metricLabel",
+      "displayName": "metricLabel",
+      "kind": "Grouping"
+    },
+    {
+      "name": "purpose",
+      "displayName": "purpose",
+      "kind": "GroupingOrMeasure"
+    },
+    {
+      "name": "authority",
+      "displayName": "authority",
+      "kind": "GroupingOrMeasure"
+    },
+    {
+      "name": "deliveryRef",
+      "displayName": "deliveryRef",
+      "kind": "GroupingOrMeasure"
+    },
+    {
+      "name": "deliveryDigest",
+      "displayName": "deliveryDigest",
+      "kind": "GroupingOrMeasure"
+    },
+    {
+      "name": "sourceDigest",
+      "displayName": "sourceDigest",
+      "kind": "GroupingOrMeasure"
+    },
+    {
+      "name": "evidenceRef",
+      "displayName": "evidenceRef",
+      "kind": "GroupingOrMeasure"
+    },
+    {
+      "name": "evidenceDigest",
+      "displayName": "evidenceDigest",
+      "kind": "GroupingOrMeasure"
+    },
+    {
+      "name": "contextState",
+      "displayName": "contextState",
+      "kind": "GroupingOrMeasure"
+    },
+    {
+      "name": "unit",
+      "displayName": "unit",
+      "kind": "GroupingOrMeasure"
+    },
+    {
+      "name": "period",
+      "displayName": "period",
+      "kind": "GroupingOrMeasure"
+    },
+    {
+      "name": "scope",
+      "displayName": "scope",
+      "kind": "GroupingOrMeasure"
+    },
+    {
+      "name": "version",
+      "displayName": "version",
+      "kind": "GroupingOrMeasure"
+    },
+    {
+      "name": "selectedPurpose",
+      "displayName": "selectedPurpose",
+      "kind": "GroupingOrMeasure"
+    },
+    {
+      "name": "reliabilityStatus",
+      "displayName": "reliabilityStatus",
+      "kind": "GroupingOrMeasure"
+    },
+    {
+      "name": "reliabilityPurpose",
+      "displayName": "reliabilityPurpose",
+      "kind": "GroupingOrMeasure"
+    },
+    {
+      "name": "eligibilityState",
+      "displayName": "eligibilityState",
+      "kind": "GroupingOrMeasure"
+    },
+    {
+      "name": "policyVersion",
+      "displayName": "policyVersion",
+      "kind": "GroupingOrMeasure"
+    },
+    {
+      "name": "readinessStatus",
+      "displayName": "readinessStatus",
+      "kind": "GroupingOrMeasure"
+    },
+    {
+      "name": "failureReason",
+      "displayName": "failureReason",
+      "kind": "GroupingOrMeasure"
+    },
+    {
+      "name": "displayValue",
+      "displayName": "displayValue",
+      "kind": "Measure"
+    },
+    {
+      "name": "expectedRowCount",
+      "displayName": "expectedRowCount",
+      "kind": "Measure"
+    }
+  ],
+  "dataViewMappings": [
+    {
+      "conditions": [
+        {
+          "claimKey": {
+            "min": 1,
+            "max": 1
+          },
+          "metricId": {
+            "min": 1,
+            "max": 1
+          },
+          "metricLabel": {
+            "min": 1,
+            "max": 1
+          },
+          "purpose": {
+            "min": 1,
+            "max": 1
+          },
+          "authority": {
+            "min": 1,
+            "max": 1
+          },
+          "deliveryRef": {
+            "min": 1,
+            "max": 1
+          },
+          "deliveryDigest": {
+            "min": 1,
+            "max": 1
+          },
+          "sourceDigest": {
+            "min": 1,
+            "max": 1
+          },
+          "evidenceRef": {
+            "min": 1,
+            "max": 1
+          },
+          "evidenceDigest": {
+            "min": 0,
+            "max": 1
+          },
+          "contextState": {
+            "min": 1,
+            "max": 1
+          },
+          "unit": {
+            "min": 1,
+            "max": 1
+          },
+          "period": {
+            "min": 1,
+            "max": 1
+          },
+          "scope": {
+            "min": 1,
+            "max": 1
+          },
+          "version": {
+            "min": 1,
+            "max": 1
+          },
+          "selectedPurpose": {
+            "min": 1,
+            "max": 1
+          },
+          "reliabilityStatus": {
+            "min": 1,
+            "max": 1
+          },
+          "reliabilityPurpose": {
+            "min": 1,
+            "max": 1
+          },
+          "eligibilityState": {
+            "min": 1,
+            "max": 1
+          },
+          "policyVersion": {
+            "min": 1,
+            "max": 1
+          },
+          "readinessStatus": {
+            "min": 1,
+            "max": 1
+          },
+          "failureReason": {
+            "min": 0,
+            "max": 1
+          },
+          "displayValue": {
+            "min": 1,
+            "max": 1
+          },
+          "expectedRowCount": {
+            "min": 1,
+            "max": 1
+          }
+        }
+      ],
+      "table": {
+        "rows": {
+          "select": [
+            {
+              "for": {
+                "in": "claimKey"
+              }
+            },
+            {
+              "for": {
+                "in": "metricId"
+              }
+            },
+            {
+              "for": {
+                "in": "metricLabel"
+              }
+            },
+            {
+              "for": {
+                "in": "purpose"
+              }
+            },
+            {
+              "for": {
+                "in": "authority"
+              }
+            },
+            {
+              "for": {
+                "in": "deliveryRef"
+              }
+            },
+            {
+              "for": {
+                "in": "deliveryDigest"
+              }
+            },
+            {
+              "for": {
+                "in": "sourceDigest"
+              }
+            },
+            {
+              "for": {
+                "in": "evidenceRef"
+              }
+            },
+            {
+              "for": {
+                "in": "evidenceDigest"
+              }
+            },
+            {
+              "for": {
+                "in": "contextState"
+              }
+            },
+            {
+              "for": {
+                "in": "unit"
+              }
+            },
+            {
+              "for": {
+                "in": "period"
+              }
+            },
+            {
+              "for": {
+                "in": "scope"
+              }
+            },
+            {
+              "for": {
+                "in": "version"
+              }
+            },
+            {
+              "for": {
+                "in": "selectedPurpose"
+              }
+            },
+            {
+              "for": {
+                "in": "reliabilityStatus"
+              }
+            },
+            {
+              "for": {
+                "in": "reliabilityPurpose"
+              }
+            },
+            {
+              "for": {
+                "in": "eligibilityState"
+              }
+            },
+            {
+              "for": {
+                "in": "policyVersion"
+              }
+            },
+            {
+              "for": {
+                "in": "readinessStatus"
+              }
+            },
+            {
+              "for": {
+                "in": "failureReason"
+              }
+            },
+            {
+              "for": {
+                "in": "displayValue"
+              }
+            },
+            {
+              "for": {
+                "in": "expectedRowCount"
+              }
+            }
+          ],
+          "dataReductionAlgorithm": {
+            "window": {
+              "count": 2
+            }
+          }
+        }
+      }
+    }
+  ],
+  "objects": {},
+  "supportsEmptyDataView": true,
+  "supportsLandingPage": true,
+  "supportsKeyboardFocus": true,
+  "supportsHighlight": false,
+  "sorting": {
+    "custom": {}
+  },
+  "tooltips": {
+    "supportedTypes": {
+      "default": true
+    }
+  }
+}

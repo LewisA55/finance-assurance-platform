@@ -1,0 +1,10 @@
+table 'KPI Purpose'
+
+	column Purpose
+		dataType: string
+		sourceColumn: [Purpose]
+		summarizeBy: none
+
+	partition 'KPI Purpose' = calculated
+		mode: import
+		source = DATATABLE ( "Purpose", STRING, { { "CFO_EXECUTIVE_REVIEW" }, { "STATUTORY_SIGN_OFF" } } )

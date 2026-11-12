@@ -1,0 +1,116 @@
+table 'SaaS Movements'
+
+	measure 'New MRR GBP' = DIVIDE ( SUM ( 'SaaS Movements'[New MRR Minor] ), 100 )
+		formatString: """£""#,##0.00;(""£""#,##0.00);""-"""
+
+	measure 'Expansion MRR GBP' = DIVIDE ( SUM ( 'SaaS Movements'[Expansion MRR Minor] ), 100 )
+		formatString: """£""#,##0.00;(""£""#,##0.00);""-"""
+
+	measure 'Contraction MRR GBP' = DIVIDE ( SUM ( 'SaaS Movements'[Contraction MRR Minor] ), 100 )
+		formatString: """£""#,##0.00;(""£""#,##0.00);""-"""
+
+	measure 'Churn MRR GBP' = DIVIDE ( SUM ( 'SaaS Movements'[Churn MRR Minor] ), 100 )
+		formatString: """£""#,##0.00;(""£""#,##0.00);""-"""
+
+	measure 'FX Remeasurement MRR GBP' = DIVIDE ( SUM ( 'SaaS Movements'[FX Remeasurement MRR Minor] ), 100 )
+		formatString: """£""#,##0.00;(""£""#,##0.00);""-"""
+
+	measure 'Beginning MRR GBP' = 
+			VAR FirstPeriod = MIN ( 'SaaS Movements'[Period ID] )
+			RETURN
+			    IF ( NOT ISBLANK ( FirstPeriod ), CALCULATE ( DIVIDE ( SUM ( 'SaaS Movements'[Beginning MRR Minor] ), 100 ),
+			        KEEPFILTERS ( 'SaaS Movements'[Period ID] = FirstPeriod ) ) )
+		formatString: """£""#,##0.00;(""£""#,##0.00);""-"""
+
+	measure 'Ending MRR GBP' = 
+			VAR LastPeriod = MAX ( 'SaaS Movements'[Period ID] )
+			RETURN
+			    IF ( NOT ISBLANK ( LastPeriod ), CALCULATE ( DIVIDE ( SUM ( 'SaaS Movements'[Ending MRR Minor] ), 100 ),
+			        KEEPFILTERS ( 'SaaS Movements'[Period ID] = LastPeriod ) ) )
+		formatString: """£""#,##0.00;(""£""#,##0.00);""-"""
+
+	measure 'Product Ending ARR GBP' = 
+			VAR LastPeriod = MAX ( 'SaaS Movements'[Period ID] )
+			RETURN
+			    IF ( NOT ISBLANK ( LastPeriod ), CALCULATE ( DIVIDE ( SUM ( 'SaaS Movements'[Product Ending ARR Minor] ), 100 ),
+			        KEEPFILTERS ( 'SaaS Movements'[Period ID] = LastPeriod ) ) )
+		formatString: """£""#,##0.00;(""£""#,##0.00);""-"""
+
+	column 'Period ID'
+		dataType: string
+		sourceColumn: period_id
+		summarizeBy: none
+		isHidden
+
+	column 'Reporting Version Ref'
+		dataType: string
+		sourceColumn: reporting_version_ref
+		summarizeBy: none
+		isHidden
+
+	column 'Product'
+		dataType: string
+		sourceColumn: product_name
+		summarizeBy: none
+
+	column 'New MRR Minor'
+		dataType: int64
+		sourceColumn: new_mrr_minor
+		summarizeBy: none
+		isHidden
+
+	column 'Expansion MRR Minor'
+		dataType: int64
+		sourceColumn: expansion_mrr_minor
+		summarizeBy: none
+		isHidden
+
+	column 'Contraction MRR Minor'
+		dataType: int64
+		sourceColumn: contraction_mrr_minor
+		summarizeBy: none
+		isHidden
+
+	column 'Churn MRR Minor'
+		dataType: int64
+		sourceColumn: churn_mrr_minor
+		summarizeBy: none
+		isHidden
+
+	column 'FX Remeasurement MRR Minor'
+		dataType: int64
+		sourceColumn: fx_remeasurement_mrr_minor
+		summarizeBy: none
+		isHidden
+
+	column 'Beginning MRR Minor'
+		dataType: int64
+		sourceColumn: beginning_mrr_minor
+		summarizeBy: none
+		isHidden
+
+	column 'Ending MRR Minor'
+		dataType: int64
+		sourceColumn: ending_mrr_minor
+		summarizeBy: none
+		isHidden
+
+	column 'Product Ending ARR Minor'
+		dataType: int64
+		sourceColumn: ending_arr_minor
+		summarizeBy: none
+		isHidden
+
+	partition 'SaaS Movements' = m
+		mode: import
+		source =
+			let
+				Source = ReadC2("mart_saas_performance_monthly"),
+				Invalid = Table.SelectRows(Source, each [reporting_version_ref] <> "RV-NEXUS-GROUP-" & [period_id] & "@v1"
+					or [currency] <> "GBP" or [reliability_status] <> "RELIABLE_FOR_SAAS_ANALYTICS"),
+				Valid = Table.RowCount(Source) = 3720 and Table.RowCount(Table.Distinct(Source, {"saas_performance_hk"})) = 3720
+					and Table.RowCount(Table.Distinct(Source, {"period_id"})) = 66 and Table.IsEmpty(Invalid),
+				Group = if Valid then Source else error "Expected the sealed GBP Nexus Group SaaS movements.",
+				Selected = Table.SelectColumns(Group, {"period_id", "reporting_version_ref", "product_name", "new_mrr_minor", "expansion_mrr_minor", "contraction_mrr_minor", "churn_mrr_minor", "fx_remeasurement_mrr_minor", "beginning_mrr_minor", "ending_mrr_minor", "ending_arr_minor"})
+			in
+				Selected

@@ -1,0 +1,12 @@
+{
+  "version": "NEXUS-KPI-ELIGIBILITY@v1",
+  "purpose": "CFO_EXECUTIVE_REVIEW",
+  "deliveryRef": "Q-FINANCE-C2@v1",
+  "deliveryDigest": "sha256:7538132e08ea2b7e8c20f339db10e6c138cd2a08c71c4708c47c378d7c1b0141",
+  "sourceDigest": "sha256:39af66f379d5497399f89e3956e601b6fb99a070146d8c6d378bb684f288b7e5",
+  "metrics": {
+    "REVENUE": {"label":"Revenue","table":"mart_financial_performance_monthly","value":"revenue_minor","authority":"STATUTORY_STATEMENT","readinessAuthority":"STATUTORY_STATEMENT","status":"RELIABLE_FOR_STATUTORY_ACTUALS","purpose":"EXECUTIVE_FINANCIAL_PERFORMANCE"},
+    "CLOSING_CASH": {"label":"Closing cash","table":"mart_cash_flow_liquidity_monthly","value":"closing_cash_minor","authority":"STATUTORY_CASH_FLOW_AND_SUBLEDGER","readinessAuthority":"STATUTORY_CASH_FLOW","status":"RELIABLE_FOR_STATUTORY_ACTUALS","purpose":"EXECUTIVE_CASH_FLOW_AND_LIQUIDITY"},
+    "ENDING_ARR": {"label":"Ending ARR","table":"mart_cfo_presented_operating_metrics","value":"metric_value_minor","authority":"SUBSCRIPTION_STATE","readinessAuthority":"SUBSCRIPTION_STATE","status":"RELIABLE_FOR_EXECUTIVE_PRESENTATION","purpose":"CFO_PRESENTED_OPERATING_METRICS"}
+  }
+}

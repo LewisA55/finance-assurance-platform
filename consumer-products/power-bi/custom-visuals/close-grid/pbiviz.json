@@ -1,0 +1,25 @@
+{
+  "visual": {
+    "name": "nexusCloseGrid",
+    "displayName": "Nexus Close Grid",
+    "guid": "NexusCloseGridE7C34D918B2A4F67905E81D2A6C4B30F",
+    "visualClassName": "Visual",
+    "version": "0.1.0.0",
+    "description": "Reporting-version close register with per-dimension statuses and lifecycle event evidence.",
+    "supportUrl": "https://github.com",
+    "gitHubUrl": ""
+  },
+  "apiVersion": "5.11.1",
+  "author": {
+    "name": "Finance Assurance Platform (local development)",
+    "email": "development@example.invalid"
+  },
+  "assets": {
+    "icon": "assets/icon.png"
+  },
+  "externalJS": null,
+  "style": "style/visual.less",
+  "capabilities": "capabilities.json",
+  "dependencies": null,
+  "stringResources": []
+}

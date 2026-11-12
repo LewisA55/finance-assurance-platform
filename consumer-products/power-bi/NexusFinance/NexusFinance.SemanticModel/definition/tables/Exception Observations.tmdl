@@ -1,0 +1,146 @@
+table 'Exception Observations'
+
+	measure 'Observation Count' = COUNTROWS ( 'Exception Observations' )
+		formatString: 0
+
+	column 'Observation ID'
+		dataType: string
+		sourceColumn: observationId
+		summarizeBy: none
+
+	column 'Rule'
+		dataType: string
+		sourceColumn: ruleRef
+		summarizeBy: none
+
+	column 'Class'
+		dataType: string
+		sourceColumn: observationClass
+		summarizeBy: none
+
+	column 'Observation'
+		dataType: string
+		sourceColumn: observationLabel
+		summarizeBy: none
+
+	column 'Source relation'
+		dataType: string
+		sourceColumn: sourceRelation
+		summarizeBy: none
+
+	column 'Source row'
+		dataType: string
+		sourceColumn: sourceRowKey
+		summarizeBy: none
+
+	column 'Period'
+		dataType: string
+		sourceColumn: period
+		summarizeBy: none
+
+	column 'Scope'
+		dataType: string
+		sourceColumn: scope
+		summarizeBy: none
+
+	column 'Reporting version'
+		dataType: string
+		sourceColumn: version
+		summarizeBy: none
+
+	column 'Metric'
+		dataType: string
+		sourceColumn: metric
+		summarizeBy: none
+
+	column 'Observed'
+		dataType: int64
+		sourceColumn: observedValue
+		summarizeBy: none
+
+	column 'Unit'
+		dataType: string
+		sourceColumn: unit
+		summarizeBy: none
+
+	column 'Operator'
+		dataType: string
+		sourceColumn: operator
+		summarizeBy: none
+
+	column 'Expected'
+		dataType: int64
+		sourceColumn: expectedValue
+		summarizeBy: none
+
+	column 'Machine result'
+		dataType: string
+		sourceColumn: machineResult
+		summarizeBy: none
+
+	column 'Reason'
+		dataType: string
+		sourceColumn: resultReason
+		summarizeBy: none
+
+	column 'Evidence'
+		dataType: string
+		sourceColumn: evidenceRef
+		summarizeBy: none
+
+	column 'Affected purpose'
+		dataType: string
+		sourceColumn: affectedPurpose
+		summarizeBy: none
+
+	column 'Governance links'
+		dataType: string
+		sourceColumn: governanceLinks
+		summarizeBy: none
+
+	partition 'Exception Observations' = m
+		mode: import
+		source =
+			let
+			    // One row per rule hit. A rule that is satisfied everywhere contributes
+			    // nothing: an empty class is a legitimate passing state, not a gap.
+			    Observe = (rule as text, cls as text, label as text, tableName as text, field as text, metric as text,
+			               unit as text, operator as nullable text, expected as nullable number,
+			               affectedPurpose as text, relation as text) as list =>
+			        let
+			            Rows = Table.ToRecords(ReadC2(tableName)),
+			            Baseline = if expected = null then 0 else expected,
+			            Hits = List.Select(Rows, (r) =>
+			                Record.Field(r, field) <> null and Number.From(Record.Field(r, field)) <> Baseline)
+			        in
+			            List.Transform(List.Positions(Hits), (i) =>
+			                let
+			                    r = Hits{i},
+			                    version = r[reporting_version_ref],
+			                    period = r[period_id],
+			                    scope = Text.Replace(Text.Replace(version, "RV-", ""), "-" & period & "@v1", ""),
+			                    ordinal = Text.PadStart(Text.From(i + 1), 5, "0")
+			                in [
+			                    observationId = rule & "#" & ordinal,
+			                    ruleRef = rule, observationClass = cls, observationLabel = label,
+			                    sourceRelation = relation, sourceRowKey = version & " / " & field & " #" & ordinal,
+			                    period = period, scope = scope, version = version,
+			                    metric = metric, observedValue = Number.From(Record.Field(r, field)), unit = unit,
+			                    operator = operator, expectedValue = expected,
+			                    // An exposure indicator has no registered threshold, so it is
+			                    // recorded and left unassessed rather than called a failure.
+			                    machineResult = if cls = "CONTROL" then "FAIL" else "NOT_ASSESSED",
+			                    resultReason = if cls = "CONTROL"
+			                        then "Observed value differs from the registered expected value."
+			                        else "An exposure indicator has no named, versioned threshold in this delivery, so it is recorded as an observation and is not assessed as a control failure.",
+			                    evidenceRef = tableName & " / " & version & " / " & field,
+			                    affectedPurpose = affectedPurpose, governanceLinks = "NONE_SUPPLIED"
+			                ]),
+			    All = List.Combine({Observe("NEXUS-OBS-BALANCE-SHEET@v1", "CONTROL", "Balance sheet difference", "mart_balance_sheet_monthly", "balance_sheet_difference_minor", "BALANCE_SHEET_DIFFERENCE", "GBP_MINOR", "EQUAL", 0, "EXECUTIVE_FINANCIAL_REVIEW", "gold.fct_statutory_statement_lines"),
+			        Observe("NEXUS-OBS-CASH@v1", "CONTROL", "Cash unreconciled difference", "mart_cash_flow_liquidity_monthly", "unreconciled_difference_minor", "CASH_UNRECONCILED_DIFFERENCE", "GBP_MINOR", "EQUAL", 0, "EXECUTIVE_CASH_FLOW_AND_LIQUIDITY", "gold.fct_cash_flow_reconciliation"),
+			        Observe("NEXUS-OBS-DEFERRED-REVENUE@v1", "CONTROL", "Deferred revenue rollforward difference", "mart_revenue_waterfall_monthly", "rollforward_difference_minor", "DEFERRED_REVENUE_ROLLFORWARD_DIFFERENCE", "GBP_MINOR", "EQUAL", 0, "EXECUTIVE_REVENUE_WATERFALL", "gold.fct_deferred_revenue_rollforward"),
+			        Observe("NEXUS-OBS-GHOST-HEADCOUNT@v1", "CONTROL", "Ghost headcount", "mart_workforce_cost_monthly", "ghost_headcount_count", "GHOST_HEADCOUNT", "COUNT", "EQUAL", 0, "EXECUTIVE_WORKFORCE_COST", "gold.fct_workforce_cost"),
+			        Observe("NEXUS-OBS-UNAPPLIED-CASH@v1", "EXPOSURE", "Unapplied cash balance", "mart_balance_sheet_monthly", "unapplied_cash_minor", "UNAPPLIED_CASH", "GBP_MINOR", null, null, "EXECUTIVE_FINANCIAL_REVIEW", "gold.fct_statutory_statement_lines"),
+			        Observe("NEXUS-OBS-OVERDUE-AP@v1", "EXPOSURE", "Overdue accounts payable", "mart_ap_working_capital_monthly", "overdue_ap_bps", "OVERDUE_AP_BPS", "BPS", null, null, "EXECUTIVE_WORKING_CAPITAL", "gold.fct_ap_working_capital")})
+			in
+			    Table.FromRecords(All, type table [observationId = text, ruleRef = text, observationClass = text, observationLabel = text, sourceRelation = text, sourceRowKey = text, period = text, scope = text, version = text, metric = text, observedValue = Int64.Type, unit = text, operator = nullable text, expectedValue = nullable Int64.Type, machineResult = text, resultReason = text, evidenceRef = text, affectedPurpose = text, governanceLinks = text])

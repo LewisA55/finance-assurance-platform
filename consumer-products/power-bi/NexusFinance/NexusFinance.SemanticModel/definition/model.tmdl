@@ -1,0 +1,33 @@
+model Model
+	culture: en-GB
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: en-GB
+
+	annotation C2Delivery = Q-FINANCE-C2@v1
+	annotation C2DeliveryDigest = sha256:7538132e08ea2b7e8c20f339db10e6c138cd2a08c71c4708c47c378d7c1b0141
+	annotation PBI_QueryOrder = ["C2Root","ReadC2","ReadGroupActuals","Period","Reporting Version","Financial Performance","Liquidity","SaaS KPIs","SaaS Movements","Readiness Controls"]
+	annotation __PBI_TimeIntelligenceEnabled = 0
+
+ref table Period
+ref table 'Reporting Version'
+ref table 'Financial Performance'
+ref table Liquidity
+ref table 'SaaS KPIs'
+ref table 'SaaS Movements'
+ref table 'Readiness Controls'
+
+ref table 'KPI Claims'
+
+ref table 'KPI Purpose'
+
+ref table 'Bridge Steps'
+
+ref table 'Statement Cells'
+
+ref table 'Assertions'
+
+ref table 'Exception Observations'
+
+ref table 'Rule Inventory'
+
+ref table 'Close Grid'

@@ -1,0 +1,614 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json",
+  "name": "c3a9f57e1b6d4a28b900",
+  "position": {
+    "x": 24,
+    "y": 96,
+    "width": 604,
+    "height": 760,
+    "z": 0,
+    "tabOrder": 0
+  },
+  "visual": {
+    "visualType": "NexusStatementMatrixC3A9F57E1B6D4A28B904E7D63F15C8B2",
+    "query": {
+      "queryState": {
+        "claimKey": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Statement Cells"
+                    }
+                  },
+                  "Property": "claimKey"
+                }
+              },
+              "queryRef": "Statement Cells.claimKey",
+              "nativeQueryRef": "claimKey"
+            }
+          ]
+        },
+        "rowKey": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Statement Cells"
+                    }
+                  },
+                  "Property": "rowKey"
+                }
+              },
+              "queryRef": "Statement Cells.rowKey",
+              "nativeQueryRef": "rowKey"
+            }
+          ]
+        },
+        "rowLabel": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Statement Cells"
+                    }
+                  },
+                  "Property": "rowLabel"
+                }
+              },
+              "queryRef": "Statement Cells.rowLabel",
+              "nativeQueryRef": "rowLabel"
+            }
+          ]
+        },
+        "rowOrder": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Statement Cells"
+                    }
+                  },
+                  "Property": "rowOrder"
+                }
+              },
+              "queryRef": "Statement Cells.rowOrder",
+              "nativeQueryRef": "rowOrder"
+            }
+          ]
+        },
+        "rowKind": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Statement Cells"
+                    }
+                  },
+                  "Property": "rowKind"
+                }
+              },
+              "queryRef": "Statement Cells.rowKind",
+              "nativeQueryRef": "rowKind"
+            }
+          ]
+        },
+        "indentLevel": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Statement Cells"
+                    }
+                  },
+                  "Property": "indentLevel"
+                }
+              },
+              "queryRef": "Statement Cells.indentLevel",
+              "nativeQueryRef": "indentLevel"
+            }
+          ]
+        },
+        "ruleStyle": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Statement Cells"
+                    }
+                  },
+                  "Property": "ruleStyle"
+                }
+              },
+              "queryRef": "Statement Cells.ruleStyle",
+              "nativeQueryRef": "ruleStyle"
+            }
+          ]
+        },
+        "columnKey": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Statement Cells"
+                    }
+                  },
+                  "Property": "columnKey"
+                }
+              },
+              "queryRef": "Statement Cells.columnKey",
+              "nativeQueryRef": "columnKey"
+            }
+          ]
+        },
+        "columnLabel": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Statement Cells"
+                    }
+                  },
+                  "Property": "columnLabel"
+                }
+              },
+              "queryRef": "Statement Cells.columnLabel",
+              "nativeQueryRef": "columnLabel"
+            }
+          ]
+        },
+        "columnOrder": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Statement Cells"
+                    }
+                  },
+                  "Property": "columnOrder"
+                }
+              },
+              "queryRef": "Statement Cells.columnOrder",
+              "nativeQueryRef": "columnOrder"
+            }
+          ]
+        },
+        "purpose": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Statement Cells"
+                    }
+                  },
+                  "Property": "purpose"
+                }
+              },
+              "queryRef": "Statement Cells.purpose",
+              "nativeQueryRef": "purpose"
+            }
+          ]
+        },
+        "authority": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Statement Cells"
+                    }
+                  },
+                  "Property": "authority"
+                }
+              },
+              "queryRef": "Statement Cells.authority",
+              "nativeQueryRef": "authority"
+            }
+          ]
+        },
+        "deliveryRef": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Statement Cells"
+                    }
+                  },
+                  "Property": "deliveryRef"
+                }
+              },
+              "queryRef": "Statement Cells.deliveryRef",
+              "nativeQueryRef": "deliveryRef"
+            }
+          ]
+        },
+        "deliveryDigest": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Statement Cells"
+                    }
+                  },
+                  "Property": "deliveryDigest"
+                }
+              },
+              "queryRef": "Statement Cells.deliveryDigest",
+              "nativeQueryRef": "deliveryDigest"
+            }
+          ]
+        },
+        "sourceDigest": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Statement Cells"
+                    }
+                  },
+                  "Property": "sourceDigest"
+                }
+              },
+              "queryRef": "Statement Cells.sourceDigest",
+              "nativeQueryRef": "sourceDigest"
+            }
+          ]
+        },
+        "evidenceRef": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Statement Cells"
+                    }
+                  },
+                  "Property": "evidenceRef"
+                }
+              },
+              "queryRef": "Statement Cells.evidenceRef",
+              "nativeQueryRef": "evidenceRef"
+            }
+          ]
+        },
+        "evidenceDigest": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Statement Cells"
+                    }
+                  },
+                  "Property": "evidenceDigest"
+                }
+              },
+              "queryRef": "Statement Cells.evidenceDigest",
+              "nativeQueryRef": "evidenceDigest"
+            }
+          ]
+        },
+        "contextState": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Statement Cells"
+                    }
+                  },
+                  "Property": "Statement Context State"
+                }
+              },
+              "queryRef": "Statement Cells.Statement Context State",
+              "nativeQueryRef": "Statement Context State"
+            }
+          ]
+        },
+        "statementClass": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Statement Cells"
+                    }
+                  },
+                  "Property": "statementClass"
+                }
+              },
+              "queryRef": "Statement Cells.statementClass",
+              "nativeQueryRef": "statementClass"
+            }
+          ]
+        },
+        "period": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Statement Cells"
+                    }
+                  },
+                  "Property": "period"
+                }
+              },
+              "queryRef": "Statement Cells.period",
+              "nativeQueryRef": "period"
+            }
+          ]
+        },
+        "scope": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Statement Cells"
+                    }
+                  },
+                  "Property": "scope"
+                }
+              },
+              "queryRef": "Statement Cells.scope",
+              "nativeQueryRef": "scope"
+            }
+          ]
+        },
+        "version": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Statement Cells"
+                    }
+                  },
+                  "Property": "version"
+                }
+              },
+              "queryRef": "Statement Cells.version",
+              "nativeQueryRef": "version"
+            }
+          ]
+        },
+        "currency": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Statement Cells"
+                    }
+                  },
+                  "Property": "currency"
+                }
+              },
+              "queryRef": "Statement Cells.currency",
+              "nativeQueryRef": "currency"
+            }
+          ]
+        },
+        "signConvention": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Statement Cells"
+                    }
+                  },
+                  "Property": "signConvention"
+                }
+              },
+              "queryRef": "Statement Cells.signConvention",
+              "nativeQueryRef": "signConvention"
+            }
+          ]
+        },
+        "presentationPolicyRef": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Statement Cells"
+                    }
+                  },
+                  "Property": "presentationPolicyRef"
+                }
+              },
+              "queryRef": "Statement Cells.presentationPolicyRef",
+              "nativeQueryRef": "presentationPolicyRef"
+            }
+          ]
+        },
+        "lineEligibility": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Statement Cells"
+                    }
+                  },
+                  "Property": "lineEligibility"
+                }
+              },
+              "queryRef": "Statement Cells.lineEligibility",
+              "nativeQueryRef": "lineEligibility"
+            }
+          ]
+        },
+        "lineFailureReason": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Statement Cells"
+                    }
+                  },
+                  "Property": "lineFailureReason"
+                }
+              },
+              "queryRef": "Statement Cells.lineFailureReason",
+              "nativeQueryRef": "lineFailureReason"
+            }
+          ]
+        },
+        "amountMinor": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Statement Cells"
+                    }
+                  },
+                  "Property": "Statement Amount Minor"
+                }
+              },
+              "queryRef": "Statement Cells.Statement Amount Minor",
+              "nativeQueryRef": "Statement Amount Minor"
+            }
+          ]
+        },
+        "expectedRowCount": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Statement Cells"
+                    }
+                  },
+                  "Property": "Statement Cell Count"
+                }
+              },
+              "queryRef": "Statement Cells.Statement Cell Count",
+              "nativeQueryRef": "Statement Cell Count"
+            }
+          ]
+        }
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "Statement Cells_statementClass_INCOME_STATEMENT",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Statement Cells"
+              }
+            },
+            "Property": "statementClass"
+          }
+        },
+        "type": "Categorical",
+        "howCreated": "User",
+        "filter": {
+          "Version": 2,
+          "From": [
+            {
+              "Name": "s",
+              "Entity": "Statement Cells",
+              "Type": 0
+            }
+          ],
+          "Where": [
+            {
+              "Condition": {
+                "In": {
+                  "Expressions": [
+                    {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Source": "s"
+                          }
+                        },
+                        "Property": "statementClass"
+                      }
+                    }
+                  ],
+                  "Values": [
+                    [
+                      {
+                        "Literal": {
+                          "Value": "'INCOME_STATEMENT'"
+                        }
+                      }
+                    ]
+                  ]
+                }
+              }
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

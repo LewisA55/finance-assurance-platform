@@ -1,0 +1,524 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json",
+  "name": "a64b7d4392ce4d438600",
+  "position": {
+    "x": 24,
+    "y": 120,
+    "width": 400,
+    "height": 540,
+    "z": 0,
+    "tabOrder": 0
+  },
+  "visual": {
+    "visualType": "NexusReliabilityTileA64B7D4392CE4D438640AA814394A621",
+    "query": {
+      "queryState": {
+        "claimKey": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "KPI Claims"
+                    }
+                  },
+                  "Property": "claimKey"
+                }
+              },
+              "queryRef": "KPI Claims.claimKey",
+              "nativeQueryRef": "claimKey"
+            }
+          ]
+        },
+        "metricId": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "KPI Claims"
+                    }
+                  },
+                  "Property": "metricId"
+                }
+              },
+              "queryRef": "KPI Claims.metricId",
+              "nativeQueryRef": "metricId"
+            }
+          ]
+        },
+        "metricLabel": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "KPI Claims"
+                    }
+                  },
+                  "Property": "metricLabel"
+                }
+              },
+              "queryRef": "KPI Claims.metricLabel",
+              "nativeQueryRef": "metricLabel"
+            }
+          ]
+        },
+        "purpose": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "KPI Claims"
+                    }
+                  },
+                  "Property": "purpose"
+                }
+              },
+              "queryRef": "KPI Claims.purpose",
+              "nativeQueryRef": "purpose"
+            }
+          ]
+        },
+        "authority": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "KPI Claims"
+                    }
+                  },
+                  "Property": "authority"
+                }
+              },
+              "queryRef": "KPI Claims.authority",
+              "nativeQueryRef": "authority"
+            }
+          ]
+        },
+        "deliveryRef": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "KPI Claims"
+                    }
+                  },
+                  "Property": "deliveryRef"
+                }
+              },
+              "queryRef": "KPI Claims.deliveryRef",
+              "nativeQueryRef": "deliveryRef"
+            }
+          ]
+        },
+        "deliveryDigest": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "KPI Claims"
+                    }
+                  },
+                  "Property": "deliveryDigest"
+                }
+              },
+              "queryRef": "KPI Claims.deliveryDigest",
+              "nativeQueryRef": "deliveryDigest"
+            }
+          ]
+        },
+        "sourceDigest": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "KPI Claims"
+                    }
+                  },
+                  "Property": "sourceDigest"
+                }
+              },
+              "queryRef": "KPI Claims.sourceDigest",
+              "nativeQueryRef": "sourceDigest"
+            }
+          ]
+        },
+        "evidenceRef": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "KPI Claims"
+                    }
+                  },
+                  "Property": "evidenceRef"
+                }
+              },
+              "queryRef": "KPI Claims.evidenceRef",
+              "nativeQueryRef": "evidenceRef"
+            }
+          ]
+        },
+        "evidenceDigest": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "KPI Claims"
+                    }
+                  },
+                  "Property": "evidenceDigest"
+                }
+              },
+              "queryRef": "KPI Claims.evidenceDigest",
+              "nativeQueryRef": "evidenceDigest"
+            }
+          ]
+        },
+        "contextState": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "KPI Claims"
+                    }
+                  },
+                  "Property": "Context State"
+                }
+              },
+              "queryRef": "KPI Claims.Context State",
+              "nativeQueryRef": "Context State"
+            }
+          ]
+        },
+        "unit": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "KPI Claims"
+                    }
+                  },
+                  "Property": "unit"
+                }
+              },
+              "queryRef": "KPI Claims.unit",
+              "nativeQueryRef": "unit"
+            }
+          ]
+        },
+        "period": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "KPI Claims"
+                    }
+                  },
+                  "Property": "period"
+                }
+              },
+              "queryRef": "KPI Claims.period",
+              "nativeQueryRef": "period"
+            }
+          ]
+        },
+        "scope": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "KPI Claims"
+                    }
+                  },
+                  "Property": "scope"
+                }
+              },
+              "queryRef": "KPI Claims.scope",
+              "nativeQueryRef": "scope"
+            }
+          ]
+        },
+        "version": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Reporting Version"
+                    }
+                  },
+                  "Property": "Reporting Version Ref"
+                }
+              },
+              "queryRef": "Reporting Version.Reporting Version Ref",
+              "nativeQueryRef": "Reporting Version Ref"
+            }
+          ]
+        },
+        "selectedPurpose": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "KPI Claims"
+                    }
+                  },
+                  "Property": "Selected Purpose"
+                }
+              },
+              "queryRef": "KPI Claims.Selected Purpose",
+              "nativeQueryRef": "Selected Purpose"
+            }
+          ]
+        },
+        "reliabilityStatus": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "KPI Claims"
+                    }
+                  },
+                  "Property": "reliabilityStatus"
+                }
+              },
+              "queryRef": "KPI Claims.reliabilityStatus",
+              "nativeQueryRef": "reliabilityStatus"
+            }
+          ]
+        },
+        "reliabilityPurpose": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "KPI Claims"
+                    }
+                  },
+                  "Property": "reliabilityPurpose"
+                }
+              },
+              "queryRef": "KPI Claims.reliabilityPurpose",
+              "nativeQueryRef": "reliabilityPurpose"
+            }
+          ]
+        },
+        "eligibilityState": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "KPI Claims"
+                    }
+                  },
+                  "Property": "Eligibility State"
+                }
+              },
+              "queryRef": "KPI Claims.Eligibility State",
+              "nativeQueryRef": "Eligibility State"
+            }
+          ]
+        },
+        "policyVersion": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "KPI Claims"
+                    }
+                  },
+                  "Property": "policyVersion"
+                }
+              },
+              "queryRef": "KPI Claims.policyVersion",
+              "nativeQueryRef": "policyVersion"
+            }
+          ]
+        },
+        "readinessStatus": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "KPI Claims"
+                    }
+                  },
+                  "Property": "readinessStatus"
+                }
+              },
+              "queryRef": "KPI Claims.readinessStatus",
+              "nativeQueryRef": "readinessStatus"
+            }
+          ]
+        },
+        "failureReason": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "KPI Claims"
+                    }
+                  },
+                  "Property": "Failure Reason"
+                }
+              },
+              "queryRef": "KPI Claims.Failure Reason",
+              "nativeQueryRef": "Failure Reason"
+            }
+          ]
+        },
+        "displayValue": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "KPI Claims"
+                    }
+                  },
+                  "Property": "Display Value"
+                }
+              },
+              "queryRef": "KPI Claims.Display Value",
+              "nativeQueryRef": "Display Value"
+            }
+          ]
+        },
+        "expectedRowCount": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "KPI Claims"
+                    }
+                  },
+                  "Property": "Claim Count"
+                }
+              },
+              "queryRef": "KPI Claims.Claim Count",
+              "nativeQueryRef": "Claim Count"
+            }
+          ]
+        }
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "KPI Claims_metricId_REVENUE",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "KPI Claims"
+              }
+            },
+            "Property": "metricId"
+          }
+        },
+        "type": "Categorical",
+        "howCreated": "User",
+        "filter": {
+          "Version": 2,
+          "From": [
+            {
+              "Name": "s",
+              "Entity": "KPI Claims",
+              "Type": 0
+            }
+          ],
+          "Where": [
+            {
+              "Condition": {
+                "In": {
+                  "Expressions": [
+                    {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Source": "s"
+                          }
+                        },
+                        "Property": "metricId"
+                      }
+                    }
+                  ],
+                  "Values": [
+                    [
+                      {
+                        "Literal": {
+                          "Value": "'REVENUE'"
+                        }
+                      }
+                    ]
+                  ]
+                }
+              }
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

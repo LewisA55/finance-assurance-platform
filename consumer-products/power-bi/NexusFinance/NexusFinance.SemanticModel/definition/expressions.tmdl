@@ -1,0 +1,30 @@
+expression C2Root = "C:\C2\Q-FINANCE-C2-V1" meta [IsParameterQuery=true, Type="Text", IsParameterQueryRequired=true]
+
+expression ReadC2 =
+		(tableName as text) as table =>
+		let
+			Root = Text.TrimEnd(Text.Trim(C2Root), {"\", "/"}),
+			Manifest = Json.Document(File.Contents(Root & "/delivery-manifest.json")),
+			Seal = Text.Trim(Text.FromBinary(File.Contents(Root & "/finance-delivery.digest"), TextEncoding.Utf8)),
+			Matches = Manifest[delivery_ref] = "Q-FINANCE-C2@v1"
+				and Manifest[status] = "PUBLISHED"
+				and Seal = "sha256:7538132e08ea2b7e8c20f339db10e6c138cd2a08c71c4708c47c378d7c1b0141",
+			Result = if Matches then Parquet.Document(File.Contents(Root & "/powerbi/parquet/" & tableName & ".parquet"))
+				else error "C2 package identity differs. Set C2Root to the verified Q-FINANCE-C2@v1 directory."
+		in
+			Result
+
+expression ReadGroupActuals =
+		(tableName as text, requiresCurrency as logical, optional reliability as nullable text) as table =>
+		let
+			ExpectedReliability = reliability ?? "RELIABLE_FOR_STATUTORY_ACTUALS",
+			Source = ReadC2(tableName),
+			Group = Table.SelectRows(Source, each [scope_id] = "NEXUS-GROUP"),
+			Invalid = Table.SelectRows(Group, each [reporting_version_ref] <> "RV-NEXUS-GROUP-" & [period_id] & "@v1"
+				or [reliability_status] <> ExpectedReliability
+				or (requiresCurrency and [currency] <> "GBP")),
+			Valid = Table.RowCount(Group) = 66 and Table.RowCount(Table.Distinct(Group, {"period_id"})) = 66
+				and Table.IsEmpty(Invalid),
+			Result = if Valid then Group else error "Expected 66 exact, reliable Nexus Group reporting versions."
+		in
+			Result

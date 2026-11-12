@@ -1,0 +1,225 @@
+table 'Bridge Steps'
+
+	measure 'Amount Minor' = IF ( ISEMPTY ( 'Bridge Steps' ), BLANK(), SUM ( 'Bridge Steps'[amountMinor] ) )
+
+	measure 'Tolerance Minor' = IF ( ISEMPTY ( 'Bridge Steps' ), BLANK(), MAX ( 'Bridge Steps'[toleranceMinor] ) )
+
+	measure 'Failed Component Count' = IF ( ISEMPTY ( 'Bridge Steps' ), BLANK(), MAX ( 'Bridge Steps'[failedComponentCount] ) )
+
+	measure 'Source Difference Minor' = IF ( ISEMPTY ( 'Bridge Steps' ), BLANK(), MAX ( 'Bridge Steps'[sourceDifferenceMinor] ) )
+
+	measure 'Step Count' = IF ( ISEMPTY ( 'Bridge Steps' ), BLANK(), COUNTROWS ( CALCULATETABLE ( 'Bridge Steps', ALLSELECTED ( 'Bridge Steps' ), ALLSELECTED ( 'Reporting Version' ) ) ) )
+
+	measure 'Bridge Context State' = IF ( ISEMPTY ( 'Bridge Steps' ), BLANK(), VAR Selected = CALCULATETABLE ( 'Bridge Steps', ALLSELECTED ( 'Bridge Steps' ), ALLSELECTED ( 'Reporting Version' ) ) VAR Claims = COUNTROWS ( DISTINCT ( SELECTCOLUMNS ( Selected, "c", 'Bridge Steps'[claimKey] ) ) ) VAR Invalid = COUNTROWS ( FILTER ( Selected, 'Bridge Steps'[contextState] <> "VALID" ) ) RETURN IF ( Claims = 1 && ISBLANK ( Invalid ), "VALID", "AMBIGUOUS" ) )
+
+	column claimKey
+		dataType: string
+		sourceColumn: claimKey
+		summarizeBy: none
+		isHidden
+
+	column bridgeKey
+		dataType: string
+		sourceColumn: bridgeKey
+		summarizeBy: none
+		isHidden
+
+	column stepKey
+		dataType: string
+		sourceColumn: stepKey
+		summarizeBy: none
+		isHidden
+
+	column stepLabel
+		dataType: string
+		sourceColumn: stepLabel
+		summarizeBy: none
+		isHidden
+
+	column stepOrder
+		dataType: int64
+		sourceColumn: stepOrder
+		summarizeBy: none
+		isHidden
+
+	column stepKind
+		dataType: string
+		sourceColumn: stepKind
+		summarizeBy: none
+		isHidden
+
+	column amountMinor
+		dataType: int64
+		sourceColumn: amountMinor
+		summarizeBy: none
+		isHidden
+
+	column period
+		dataType: string
+		sourceColumn: period
+		summarizeBy: none
+		isHidden
+
+	column scope
+		dataType: string
+		sourceColumn: scope
+		summarizeBy: none
+		isHidden
+
+	column version
+		dataType: string
+		sourceColumn: version
+		summarizeBy: none
+		isHidden
+
+	column currency
+		dataType: string
+		sourceColumn: currency
+		summarizeBy: none
+		isHidden
+
+	column sourceDifferenceMinor
+		dataType: int64
+		sourceColumn: sourceDifferenceMinor
+		summarizeBy: none
+		isHidden
+
+	column sourceStatus
+		dataType: string
+		sourceColumn: sourceStatus
+		summarizeBy: none
+		isHidden
+
+	column toleranceMinor
+		dataType: int64
+		sourceColumn: toleranceMinor
+		summarizeBy: none
+		isHidden
+
+	column assertionPolicyRef
+		dataType: string
+		sourceColumn: assertionPolicyRef
+		summarizeBy: none
+		isHidden
+
+	column failedComponentCount
+		dataType: int64
+		sourceColumn: failedComponentCount
+		summarizeBy: none
+		isHidden
+
+	column purpose
+		dataType: string
+		sourceColumn: purpose
+		summarizeBy: none
+		isHidden
+
+	column authority
+		dataType: string
+		sourceColumn: authority
+		summarizeBy: none
+		isHidden
+
+	column deliveryRef
+		dataType: string
+		sourceColumn: deliveryRef
+		summarizeBy: none
+		isHidden
+
+	column deliveryDigest
+		dataType: string
+		sourceColumn: deliveryDigest
+		summarizeBy: none
+		isHidden
+
+	column sourceDigest
+		dataType: string
+		sourceColumn: sourceDigest
+		summarizeBy: none
+		isHidden
+
+	column evidenceRef
+		dataType: string
+		sourceColumn: evidenceRef
+		summarizeBy: none
+		isHidden
+
+	column evidenceDigest
+		dataType: string
+		sourceColumn: evidenceDigest
+		summarizeBy: none
+		isHidden
+
+	column contextState
+		dataType: string
+		sourceColumn: contextState
+		summarizeBy: none
+		isHidden
+
+	partition 'Bridge Steps' = m
+		mode: import
+		source =
+			let
+			    Build = (bridgeKey as text, tableName as text, scopeId as text, scopeField as nullable text, authority as text,
+			             openingField as text, openingLabel as text, movements as list,
+			             closingField as text, closingLabel as text,
+			             differenceField as nullable text, statusField as nullable text) as table =>
+			        let
+			            Raw = ReadC2(tableName),
+			            // Buffered once: every period below re-reads this table, and an
+			            // unbuffered parquet source is fetched again for each of them.
+			            Scoped = Table.Buffer(
+			                if scopeField = null then Raw else Table.SelectRows(Raw, each Record.Field(_, scopeField) = scopeId)),
+			            Closes = (r as record) as logical =>
+			                Record.Field(r, openingField)
+			                    + List.Sum(List.Transform(movements, (m) => m{2} * Record.Field(r, m{0})))
+			                    = Record.Field(r, closingField),
+			            Periods = List.Sort(List.Distinct(Table.Column(Scoped, "period_id"))),
+			            PeriodSteps = (p as text) as list =>
+			                let
+			                    Recs = Table.ToRecords(Table.SelectRows(Scoped, each [period_id] = p)),
+			                    First = Recs{0},
+			                    Version = "RV-" & scopeId & "-" & p & "@v1",
+			                    Total = (f as text) as number => List.Sum(List.Transform(Recs, (r) => Record.Field(r, f))),
+			                    Failed = List.Count(List.Select(Recs, (r) => not Closes(r))),
+			                    Agrees = List.AllTrue(List.Transform(Recs, (r) =>
+			                        r[reporting_version_ref] = Version and r[currency] = "GBP"
+			                        and r[value_authority] = authority and r[source_package_digest] = "sha256:39af66f379d5497399f89e3956e601b6fb99a070146d8c6d378bb684f288b7e5")),
+			                    Context = if List.Count(Recs) > 0 and Agrees then "VALID" else "AMBIGUOUS",
+			                    Difference = if differenceField = null then null else Total(differenceField),
+			                    Statuses = if statusField = null then null
+			                        else List.Distinct(List.Transform(Recs, (r) => Record.Field(r, statusField))),
+			                    Status = if Statuses = null then null
+			                        else if List.Count(Statuses) = 1 then Statuses{0} else "MIXED",
+			                    Defs = List.Combine({
+			                        {{openingField, openingLabel, "OPENING", Total(openingField)}},
+			                        List.Transform(movements, (m) => {m{0}, m{1}, "MOVEMENT", m{2} * Total(m{0})}),
+			                        {{closingField, closingLabel, "CLOSING", Total(closingField)}}}),
+			                    Rows = List.Transform(List.Positions(Defs), (i) =>
+			                        let d = Defs{i} in [
+			                            claimKey = bridgeKey & "|" & Version, bridgeKey = bridgeKey,
+			                            stepKey = d{0}, stepLabel = d{1}, stepOrder = i, stepKind = d{2}, amountMinor = d{3},
+			                            period = p, scope = scopeId, version = Version, currency = "GBP",
+			                            sourceDifferenceMinor = Difference, sourceStatus = Status,
+			                            toleranceMinor = 0, assertionPolicyRef = "NEXUS-ROLLFORWARD-ASSERTION@v1",
+			                            failedComponentCount = Failed, purpose = "EXECUTIVE_SCHEDULE_REVIEW", authority = authority,
+			                            deliveryRef = "Q-FINANCE-C2@v1", deliveryDigest = "sha256:7538132e08ea2b7e8c20f339db10e6c138cd2a08c71c4708c47c378d7c1b0141",
+			                            sourceDigest = First[source_package_digest],
+			                            evidenceRef = tableName & " / " & bridgeKey & " / " & Version & " / "
+			                                & First[drill_through_relation],
+			                            evidenceDigest = null, contextState = Context])
+			                in Rows
+			        in
+			            Table.FromRecords(List.Combine(List.Transform(Periods, PeriodSteps))),
+			    Combined = Table.Combine({Build("CASH", "mart_cash_flow_liquidity_monthly", "NEXUS-GROUP", "scope_id", "STATUTORY_CASH_FLOW_AND_SUBLEDGER", "opening_cash_minor", "Opening cash", {{"operating_cash_flow_minor", "Operating", 1}, {"investing_cash_flow_minor", "Investing", 1}, {"financing_cash_flow_minor", "Financing", 1}, {"fx_and_other_movement_minor", "FX and other", 1}}, "closing_cash_minor", "Closing cash", "unreconciled_difference_minor", "reconciliation_status"),
+			        Build("DEFERRED_REVENUE", "mart_revenue_waterfall_monthly", "NEXUS-GROUP", null, "REVENUE_SUBLEDGER", "opening_deferred_revenue_minor", "Opening deferred revenue", {{"new_billings_minor", "New billings", 1}, {"recognised_revenue_minor", "Recognised revenue", -1}}, "closing_deferred_revenue_minor", "Closing deferred revenue", "rollforward_difference_minor", null),
+			        Build("MRR", "mart_saas_performance_monthly", "NEXUS-GROUP", null, "SUBSCRIPTION_EVENT_AND_STATE", "beginning_mrr_minor", "Beginning MRR", {{"new_mrr_minor", "New", 1}, {"expansion_mrr_minor", "Expansion", 1}, {"contraction_mrr_minor", "Contraction", 1}, {"churn_mrr_minor", "Churn", 1}, {"fx_remeasurement_mrr_minor", "FX remeasurement", 1}}, "ending_mrr_minor", "Ending MRR", null, null),
+			        Build("DEBT", "mart_capital_structure_monthly", "NEXUS-GROUP", "scope_id", "TREASURY_AND_LEASE_SUBLEDGER", "opening_debt_minor", "Opening debt", {{"debt_drawdown_minor", "Drawdowns", 1}, {"debt_repayment_minor", "Repayments", -1}}, "closing_debt_minor", "Closing debt", null, null),
+			        Build("LEASE", "mart_capital_structure_monthly", "NEXUS-GROUP", "scope_id", "TREASURY_AND_LEASE_SUBLEDGER", "opening_lease_liability_minor", "Opening lease", {{"lease_addition_minor", "Additions", 1}, {"lease_interest_minor", "Interest", 1}, {"lease_cash_payment_minor", "Cash payments", -1}}, "closing_lease_liability_minor", "Closing lease", null, null),
+			        Build("GROSS_ASSETS", "mart_fixed_asset_capex_monthly", "NEXUS-UK", null, "FIXED_ASSET_SUBLEDGER", "opening_gross_book_value_minor", "Opening gross", {{"capex_additions_minor", "Capex additions", 1}, {"gross_disposals_minor", "Disposals", -1}}, "closing_gross_book_value_minor", "Closing gross", null, null),
+			        Build("ACCUMULATED_DEPRECIATION", "mart_fixed_asset_capex_monthly", "NEXUS-UK", null, "FIXED_ASSET_SUBLEDGER", "opening_accumulated_depreciation_minor", "Opening balance", {{"depreciation_minor", "Depreciation", 1}, {"amortisation_minor", "Amortisation", 1}, {"impairment_minor", "Impairment", 1}, {"accumulated_depreciation_disposal_minor", "Disposals", -1}}, "closing_accumulated_depreciation_minor", "Closing balance", null, null),
+			        Build("TAX_PAYABLE", "mart_tax_equity_monthly", "NEXUS-GROUP", "scope_id", "TAX_EQUITY_AND_STATUTORY_ROLLFORWARD", "opening_tax_payable_minor", "Opening tax", {{"current_tax_expense_minor", "Current tax", 1}, {"cash_tax_paid_minor", "Tax paid", -1}}, "closing_tax_payable_minor", "Closing tax", null, "reconciliation_status"),
+			        Build("RETAINED_EARNINGS", "mart_tax_equity_monthly", "NEXUS-GROUP", "scope_id", "TAX_EQUITY_AND_STATUTORY_ROLLFORWARD", "opening_retained_earnings_minor", "Opening retained", {{"net_income_minor", "Net income", 1}, {"dividends_minor", "Dividends", -1}, {"other_equity_movements_minor", "Other movements", 1}}, "closing_retained_earnings_minor", "Closing retained", null, "reconciliation_status")})
+			in
+			    Table.TransformColumnTypes(Combined, {{"stepOrder", Int64.Type}, {"amountMinor", Int64.Type},
+			        {"sourceDifferenceMinor", Int64.Type}, {"toleranceMinor", Int64.Type}, {"failedComponentCount", Int64.Type}})

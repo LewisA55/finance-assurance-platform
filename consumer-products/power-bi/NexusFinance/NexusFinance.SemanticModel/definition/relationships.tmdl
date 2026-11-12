@@ -1,0 +1,59 @@
+relationship a8fe12fd-5608-4a19-912b-8f19501482fa
+	fromColumn: 'Financial Performance'.'Period ID'
+	toColumn: Period.'Period ID'
+
+relationship ea31192a-6543-4d11-a91c-293bb7f99dd0
+	fromColumn: 'Financial Performance'.'Reporting Version Ref'
+	toColumn: 'Reporting Version'.'Reporting Version Ref'
+
+relationship 839ee341-452e-4d12-b3fb-087318c58cb5
+	fromColumn: Liquidity.'Period ID'
+	toColumn: Period.'Period ID'
+
+relationship 0994f86a-6fd6-4389-9034-5395ed9dc363
+	fromColumn: Liquidity.'Reporting Version Ref'
+	toColumn: 'Reporting Version'.'Reporting Version Ref'
+
+relationship 5d3fd8b1-58b7-40a7-8927-e720c06ee635
+	fromColumn: 'SaaS KPIs'.'Period ID'
+	toColumn: 'Period'.'Period ID'
+
+relationship 59970f2a-b7d9-424b-8f5d-3ba3df80b3e7
+	fromColumn: 'SaaS KPIs'.'Reporting Version Ref'
+	toColumn: 'Reporting Version'.'Reporting Version Ref'
+
+relationship 84526cc0-ef48-4cc6-ad95-0fdcfbeecfe9
+	fromColumn: 'SaaS Movements'.'Period ID'
+	toColumn: 'Period'.'Period ID'
+
+relationship 493ec1e5-46d9-416a-b722-f2e19605de4c
+	fromColumn: 'SaaS Movements'.'Reporting Version Ref'
+	toColumn: 'Reporting Version'.'Reporting Version Ref'
+
+relationship f5377584-7eb2-4338-bcc5-e29060540001
+	fromColumn: 'KPI Claims'.period
+	toColumn: 'Period'.'Period ID'
+
+relationship f5377584-7eb2-4338-bcc5-e29060540002
+	fromColumn: 'KPI Claims'.version
+	toColumn: 'Reporting Version'.'Reporting Version Ref'
+
+relationship b7e4c1a9-d3f8-4e2b-9065-c7d18a34f001
+	fromColumn: 'Bridge Steps'.period
+	toColumn: 'Period'.'Period ID'
+
+relationship b7e4c1a9-d3f8-4e2b-9065-c7d18a34f002
+	fromColumn: 'Bridge Steps'.version
+	toColumn: 'Reporting Version'.'Reporting Version Ref'
+
+relationship c3a9f57e-1b6d-4a28-b904-e7d63f15c801
+	fromColumn: 'Statement Cells'.asOfPeriod
+	toColumn: 'Period'.'Period ID'
+
+relationship d4b82e6a-1c7f-4953-8a0d-2e95b7461c01
+	fromColumn: 'Exception Observations'.Rule
+	toColumn: 'Rule Inventory'.'Rule'
+
+relationship e7c34d91-8b2a-4f67-905e-81d2a6c4b301
+	fromColumn: 'Close Grid'.period
+	toColumn: 'Period'.'Period ID'
