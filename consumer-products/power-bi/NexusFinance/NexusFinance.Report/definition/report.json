@@ -1,0 +1,90 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/report/3.3.0/schema.json",
+  "themeCollection": {
+    "baseTheme": {
+      "name": "Fluent2-CY26SU10",
+      "reportVersionAtImport": {
+        "visual": "2.11.0",
+        "report": "3.4.0",
+        "page": "2.3.1"
+      },
+      "type": "SharedResources"
+    }
+  },
+  "resourcePackages": [
+    {
+      "name": "SharedResources",
+      "type": "SharedResources",
+      "items": [
+        {
+          "name": "Fluent2-CY26SU10",
+          "path": "BaseThemes/Fluent2-CY26SU10.json",
+          "type": "BaseTheme"
+        }
+      ]
+    },
+    {
+      "name": "NexusReliabilityTileA64B7D4392CE4D438640AA814394A621",
+      "type": "CustomVisual",
+      "items": [
+        {
+          "name": "NexusReliabilityTileA64B7D4392CE4D438640AA814394A621.pbiviz.json",
+          "path": "NexusReliabilityTileA64B7D4392CE4D438640AA814394A621.pbiviz.json",
+          "type": "CustomVisualMetadata"
+        }
+      ]
+    },
+    {
+      "name": "NexusRollforwardBridgeB7E4C1A9D3F84E2B9065C7D18A34F052",
+      "type": "CustomVisual",
+      "items": [
+        {
+          "name": "NexusRollforwardBridgeB7E4C1A9D3F84E2B9065C7D18A34F052.pbiviz.json",
+          "path": "NexusRollforwardBridgeB7E4C1A9D3F84E2B9065C7D18A34F052.pbiviz.json",
+          "type": "CustomVisualMetadata"
+        }
+      ]
+    },
+    {
+      "name": "NexusStatementMatrixC3A9F57E1B6D4A28B904E7D63F15C8B2",
+      "type": "CustomVisual",
+      "items": [
+        {
+          "name": "NexusStatementMatrixC3A9F57E1B6D4A28B904E7D63F15C8B2.pbiviz.json",
+          "path": "NexusStatementMatrixC3A9F57E1B6D4A28B904E7D63F15C8B2.pbiviz.json",
+          "type": "CustomVisualMetadata"
+        }
+      ]
+    },
+    {
+      "name": "NexusTieOutPanelD4B82E6A1C7F49538A0D2E95B7461FC3",
+      "type": "CustomVisual",
+      "items": [
+        {
+          "name": "NexusTieOutPanelD4B82E6A1C7F49538A0D2E95B7461FC3.pbiviz.json",
+          "path": "NexusTieOutPanelD4B82E6A1C7F49538A0D2E95B7461FC3.pbiviz.json",
+          "type": "CustomVisualMetadata"
+        }
+      ]
+    },
+    {
+      "name": "NexusCloseGridE7C34D918B2A4F67905E81D2A6C4B30F",
+      "type": "CustomVisual",
+      "items": [
+        {
+          "name": "NexusCloseGridE7C34D918B2A4F67905E81D2A6C4B30F.pbiviz.json",
+          "path": "NexusCloseGridE7C34D918B2A4F67905E81D2A6C4B30F.pbiviz.json",
+          "type": "CustomVisualMetadata"
+        }
+      ]
+    }
+  ],
+  "settings": {
+    "useStylableVisualContainerHeader": true,
+    "exportDataMode": "AllowSummarized",
+    "defaultDrillFilterOtherVisuals": true,
+    "allowChangeFilterTypes": true,
+    "useEnhancedTooltips": true,
+    "useDefaultAggregateDisplayName": true
+  }
+}

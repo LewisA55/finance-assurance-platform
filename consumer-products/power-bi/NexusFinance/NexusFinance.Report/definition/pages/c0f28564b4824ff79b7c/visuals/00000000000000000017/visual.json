@@ -1,0 +1,283 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json",
+  "name": "00000000000000000017",
+  "position": {
+    "x": 28,
+    "y": 520,
+    "width": 1224,
+    "height": 144,
+    "z": 2300,
+    "tabOrder": 2300
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "SaaS Movements"
+                    }
+                  },
+                  "Property": "Beginning MRR GBP"
+                }
+              },
+              "queryRef": "SaaS Movements.Beginning MRR GBP",
+              "nativeQueryRef": "Beginning MRR GBP",
+              "displayName": "Beginning"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "SaaS Movements"
+                    }
+                  },
+                  "Property": "New MRR GBP"
+                }
+              },
+              "queryRef": "SaaS Movements.New MRR GBP",
+              "nativeQueryRef": "New MRR GBP",
+              "displayName": "New"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "SaaS Movements"
+                    }
+                  },
+                  "Property": "Expansion MRR GBP"
+                }
+              },
+              "queryRef": "SaaS Movements.Expansion MRR GBP",
+              "nativeQueryRef": "Expansion MRR GBP",
+              "displayName": "Expansion"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "SaaS Movements"
+                    }
+                  },
+                  "Property": "Contraction MRR GBP"
+                }
+              },
+              "queryRef": "SaaS Movements.Contraction MRR GBP",
+              "nativeQueryRef": "Contraction MRR GBP",
+              "displayName": "Contraction"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "SaaS Movements"
+                    }
+                  },
+                  "Property": "Churn MRR GBP"
+                }
+              },
+              "queryRef": "SaaS Movements.Churn MRR GBP",
+              "nativeQueryRef": "Churn MRR GBP",
+              "displayName": "Churn"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "SaaS Movements"
+                    }
+                  },
+                  "Property": "FX Remeasurement MRR GBP"
+                }
+              },
+              "queryRef": "SaaS Movements.FX Remeasurement MRR GBP",
+              "nativeQueryRef": "FX Remeasurement MRR GBP",
+              "displayName": "FX Remeasurement"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "SaaS Movements"
+                    }
+                  },
+                  "Property": "Ending MRR GBP"
+                }
+              },
+              "queryRef": "SaaS Movements.Ending MRR GBP",
+              "nativeQueryRef": "Ending MRR GBP",
+              "displayName": "Ending"
+            }
+          ]
+        }
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'June MRR bridge (GBP)'"
+                }
+              }
+            },
+            "fontColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#132841'"
+                    }
+                  }
+                }
+              }
+            },
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "13D"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "general": [
+        {
+          "properties": {
+            "altText": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Beginning MRR plus signed subscription and FX movements equals ending MRR.'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "objects": {
+      "total": [
+        {
+          "properties": {
+            "totals": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "columnHeaders": [
+        {
+          "properties": {
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "10D"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "values": [
+        {
+          "properties": {
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "10D"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "Filter_86d47bd094a3009f",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Period"
+              }
+            },
+            "Property": "Period ID"
+          }
+        },
+        "type": "Categorical",
+        "howCreated": "User",
+        "isLockedInViewMode": true,
+        "isHiddenInViewMode": true,
+        "filter": {
+          "Version": 2,
+          "From": [
+            {
+              "Name": "p",
+              "Entity": "Period",
+              "Type": 0
+            }
+          ],
+          "Where": [
+            {
+              "Condition": {
+                "In": {
+                  "Expressions": [
+                    {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Source": "p"
+                          }
+                        },
+                        "Property": "Period ID"
+                      }
+                    }
+                  ],
+                  "Values": [
+                    [
+                      {
+                        "Literal": {
+                          "Value": "'2026-06'"
+                        }
+                      }
+                    ]
+                  ]
+                }
+              }
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

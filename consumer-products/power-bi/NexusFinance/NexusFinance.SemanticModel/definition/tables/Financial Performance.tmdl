@@ -1,0 +1,59 @@
+table 'Financial Performance'
+
+	measure 'Revenue GBP' = DIVIDE ( SUM ( 'Financial Performance'[Revenue Minor] ), 100 )
+		formatString: """£""#,##0.00;(""£""#,##0.00);""-"""
+
+	measure 'EBITDA GBP' = DIVIDE ( SUM ( 'Financial Performance'[EBITDA Minor] ), 100 )
+		formatString: """£""#,##0.00;(""£""#,##0.00);""-"""
+
+	measure 'Net Income GBP' = DIVIDE ( SUM ( 'Financial Performance'[Net Income Minor] ), 100 )
+		formatString: """£""#,##0.00;(""£""#,##0.00);""-"""
+
+	measure 'June Revenue GBP' = CALCULATE ( [Revenue GBP], FILTER ( ALL ( 'Period' ), 'Period'[Period ID] = "2026-06" ) )
+		formatString: """£""#,##0.00;(""£""#,##0.00);""-"""
+
+	measure 'June EBITDA GBP' = CALCULATE ( [EBITDA GBP], FILTER ( ALL ( 'Period' ), 'Period'[Period ID] = "2026-06" ) )
+		formatString: """£""#,##0.00;(""£""#,##0.00);""-"""
+
+	measure 'LTM Revenue GBP' = CALCULATE ( [Revenue GBP], FILTER ( ALL ( 'Period' ), 'Period'[Month End] > DATE ( 2025, 6, 30 ) && 'Period'[Month End] <= DATE ( 2026, 6, 30 ) ) )
+		formatString: """£""#,##0.00;(""£""#,##0.00);""-"""
+
+	column 'Period ID'
+		dataType: string
+		sourceColumn: period_id
+		summarizeBy: none
+		isHidden
+
+	column 'Reporting Version Ref'
+		dataType: string
+		sourceColumn: reporting_version_ref
+		summarizeBy: none
+		isHidden
+
+	column 'Revenue Minor'
+		dataType: int64
+		sourceColumn: revenue_minor
+		summarizeBy: none
+		isHidden
+
+	column 'EBITDA Minor'
+		dataType: int64
+		sourceColumn: ebitda_minor
+		summarizeBy: none
+		isHidden
+
+	column 'Net Income Minor'
+		dataType: int64
+		sourceColumn: net_income_minor
+		summarizeBy: none
+		isHidden
+
+	partition 'Financial Performance' = m
+		mode: import
+		source =
+			let
+				Source = ReadGroupActuals("mart_financial_performance_monthly", true),
+				Selected = Table.SelectColumns(Source, {"period_id", "reporting_version_ref", "revenue_minor",
+					"ebitda_minor", "net_income_minor"})
+			in
+				Selected

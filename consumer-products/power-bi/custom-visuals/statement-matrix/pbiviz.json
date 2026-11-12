@@ -1,0 +1,25 @@
+{
+  "visual": {
+    "name": "nexusStatementMatrix",
+    "displayName": "Nexus Statement Matrix",
+    "guid": "NexusStatementMatrixC3A9F57E1B6D4A28B904E7D63F15C8B2",
+    "visualClassName": "Visual",
+    "version": "0.1.0.0",
+    "description": "Finance statement layout over delivered lines, with replayed subtotals and preserved source totals.",
+    "supportUrl": "https://github.com",
+    "gitHubUrl": ""
+  },
+  "apiVersion": "5.11.1",
+  "author": {
+    "name": "Finance Assurance Platform (local development)",
+    "email": "development@example.invalid"
+  },
+  "assets": {
+    "icon": "assets/icon.png"
+  },
+  "externalJS": null,
+  "style": "style/visual.less",
+  "capabilities": "capabilities.json",
+  "dependencies": null,
+  "stringResources": []
+}

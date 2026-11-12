@@ -1,0 +1,193 @@
+{
+  "version": "NEXUS-ROLLFORWARD-ASSERTION@v1",
+  "purpose": "EXECUTIVE_SCHEDULE_REVIEW",
+  "deliveryRef": "Q-FINANCE-C2@v1",
+  "deliveryDigest": "sha256:7538132e08ea2b7e8c20f339db10e6c138cd2a08c71c4708c47c378d7c1b0141",
+  "sourceDigest": "sha256:39af66f379d5497399f89e3956e601b6fb99a070146d8c6d378bb684f288b7e5",
+  "currency": "GBP",
+  "toleranceMinor": 0,
+  "firstPeriod": "2021-01",
+  "lastPeriod": "2026-06",
+  "bridges": {
+    "CASH": {
+      "label": "Cash",
+      "table": "mart_cash_flow_liquidity_monthly",
+      "scope": "NEXUS-GROUP",
+      "scopeField": "scope_id",
+      "authority": "STATUTORY_CASH_FLOW_AND_SUBLEDGER",
+      "status": "RELIABLE_FOR_STATUTORY_ACTUALS",
+      "sourcePurpose": "EXECUTIVE_CASH_FLOW_AND_LIQUIDITY",
+      "rowCount": 66,
+      "opening": {"field": "opening_cash_minor", "label": "Opening cash"},
+      "movements": [
+        {"field": "operating_cash_flow_minor", "label": "Operating", "sign": 1},
+        {"field": "investing_cash_flow_minor", "label": "Investing", "sign": 1},
+        {"field": "financing_cash_flow_minor", "label": "Financing", "sign": 1},
+        {"field": "fx_and_other_movement_minor", "label": "FX and other", "sign": 1}
+      ],
+      "closing": {"field": "closing_cash_minor", "label": "Closing cash"},
+      "differenceField": "unreconciled_difference_minor",
+      "statusField": "reconciliation_status",
+      "assertionNote": "Supplied unreconciled difference is a separate source assertion; its definition is not assumed to be this component equation."
+    },
+    "DEFERRED_REVENUE": {
+      "label": "Deferred revenue",
+      "table": "mart_revenue_waterfall_monthly",
+      "scope": "NEXUS-GROUP",
+      "scopeField": null,
+      "authority": "REVENUE_SUBLEDGER",
+      "status": "RELIABLE_FOR_REVENUE_ANALYTICS",
+      "sourcePurpose": "EXECUTIVE_REVENUE_WATERFALL",
+      "rowCount": 66,
+      "opening": {"field": "opening_deferred_revenue_minor", "label": "Opening deferred revenue"},
+      "movements": [
+        {"field": "new_billings_minor", "label": "New billings", "sign": 1},
+        {"field": "recognised_revenue_minor", "label": "Recognised revenue", "sign": -1}
+      ],
+      "closing": {"field": "closing_deferred_revenue_minor", "label": "Closing deferred revenue"},
+      "differenceField": "rollforward_difference_minor",
+      "statusField": null,
+      "assertionNote": "schedule_difference_minor compares recognised with scheduled revenue and is reported as a separate assertion, not as this rollforward difference."
+    },
+    "MRR": {
+      "label": "Monthly recurring revenue",
+      "table": "mart_saas_performance_monthly",
+      "scope": "NEXUS-GROUP",
+      "scopeField": null,
+      "authority": "SUBSCRIPTION_EVENT_AND_STATE",
+      "status": "RELIABLE_FOR_SAAS_ANALYTICS",
+      "sourcePurpose": "EXECUTIVE_SAAS_PERFORMANCE",
+      "rowCount": 3720,
+      "opening": {"field": "beginning_mrr_minor", "label": "Beginning MRR"},
+      "movements": [
+        {"field": "new_mrr_minor", "label": "New", "sign": 1},
+        {"field": "expansion_mrr_minor", "label": "Expansion", "sign": 1},
+        {"field": "contraction_mrr_minor", "label": "Contraction", "sign": 1},
+        {"field": "churn_mrr_minor", "label": "Churn", "sign": 1},
+        {"field": "fx_remeasurement_mrr_minor", "label": "FX remeasurement", "sign": 1}
+      ],
+      "closing": {"field": "ending_mrr_minor", "label": "Ending MRR"},
+      "differenceField": null,
+      "statusField": null,
+      "assertionNote": "Contraction, churn and FX movements are already signed in source; no second sign flip is applied. This is an aggregated schedule, so component coverage and failed-component count accompany the net tie-out."
+    },
+    "DEBT": {
+      "label": "Debt",
+      "table": "mart_capital_structure_monthly",
+      "scope": "NEXUS-GROUP",
+      "scopeField": "scope_id",
+      "authority": "TREASURY_AND_LEASE_SUBLEDGER",
+      "status": "RELIABLE_FOR_STATUTORY_ACTUALS",
+      "sourcePurpose": "EXECUTIVE_CAPITAL_STRUCTURE",
+      "rowCount": 66,
+      "opening": {"field": "opening_debt_minor", "label": "Opening debt"},
+      "movements": [
+        {"field": "debt_drawdown_minor", "label": "Drawdowns", "sign": 1},
+        {"field": "debt_repayment_minor", "label": "Repayments", "sign": -1}
+      ],
+      "closing": {"field": "closing_debt_minor", "label": "Closing debt"},
+      "differenceField": null,
+      "statusField": null,
+      "assertionNote": "Cash and accrued interest are reported separately in the source and are deliberately not part of this principal rollforward."
+    },
+    "LEASE": {
+      "label": "Lease liability",
+      "table": "mart_capital_structure_monthly",
+      "scope": "NEXUS-GROUP",
+      "scopeField": "scope_id",
+      "authority": "TREASURY_AND_LEASE_SUBLEDGER",
+      "status": "RELIABLE_FOR_STATUTORY_ACTUALS",
+      "sourcePurpose": "EXECUTIVE_CAPITAL_STRUCTURE",
+      "rowCount": 66,
+      "opening": {"field": "opening_lease_liability_minor", "label": "Opening lease"},
+      "movements": [
+        {"field": "lease_addition_minor", "label": "Additions", "sign": 1},
+        {"field": "lease_interest_minor", "label": "Interest", "sign": 1},
+        {"field": "lease_cash_payment_minor", "label": "Cash payments", "sign": -1}
+      ],
+      "closing": {"field": "closing_lease_liability_minor", "label": "Closing lease"},
+      "differenceField": null,
+      "statusField": null,
+      "assertionNote": "Additions, interest and cash payment form this equation. Principal reduction is the alternative presentation and is deliberately not combined with interest and cash payment."
+    },
+    "GROSS_ASSETS": {
+      "label": "Gross book value",
+      "table": "mart_fixed_asset_capex_monthly",
+      "scope": "NEXUS-UK",
+      "scopeField": null,
+      "authority": "FIXED_ASSET_SUBLEDGER",
+      "status": "RELIABLE_FOR_STATUTORY_ACTUALS",
+      "sourcePurpose": "EXECUTIVE_FIXED_ASSET_AND_CAPEX",
+      "rowCount": 330,
+      "opening": {"field": "opening_gross_book_value_minor", "label": "Opening gross"},
+      "movements": [
+        {"field": "capex_additions_minor", "label": "Capex additions", "sign": 1},
+        {"field": "gross_disposals_minor", "label": "Disposals", "sign": -1}
+      ],
+      "closing": {"field": "closing_gross_book_value_minor", "label": "Closing gross"},
+      "differenceField": null,
+      "statusField": null,
+      "assertionNote": "Entity-scoped to NEXUS-UK and aggregated across five asset classes, so component coverage and failed-component count accompany the net tie-out. It is not a Group claim, and the accepted reporting-version dimension holds Group versions only, so no evidence drill-through is offered here."
+    },
+    "ACCUMULATED_DEPRECIATION": {
+      "label": "Accumulated depreciation",
+      "table": "mart_fixed_asset_capex_monthly",
+      "scope": "NEXUS-UK",
+      "scopeField": null,
+      "authority": "FIXED_ASSET_SUBLEDGER",
+      "status": "RELIABLE_FOR_STATUTORY_ACTUALS",
+      "sourcePurpose": "EXECUTIVE_FIXED_ASSET_AND_CAPEX",
+      "rowCount": 330,
+      "opening": {"field": "opening_accumulated_depreciation_minor", "label": "Opening balance"},
+      "movements": [
+        {"field": "depreciation_minor", "label": "Depreciation", "sign": 1},
+        {"field": "amortisation_minor", "label": "Amortisation", "sign": 1},
+        {"field": "impairment_minor", "label": "Impairment", "sign": 1},
+        {"field": "accumulated_depreciation_disposal_minor", "label": "Disposals", "sign": -1}
+      ],
+      "closing": {"field": "closing_accumulated_depreciation_minor", "label": "Closing balance"},
+      "differenceField": null,
+      "statusField": null,
+      "assertionNote": "A rising accumulated depreciation balance is not an adverse outcome in itself. Entity-scoped to NEXUS-UK and aggregated across five asset classes; it is not a Group claim, and the accepted reporting-version dimension holds Group versions only, so no evidence drill-through is offered here."
+    },
+    "TAX_PAYABLE": {
+      "label": "Tax payable",
+      "table": "mart_tax_equity_monthly",
+      "scope": "NEXUS-GROUP",
+      "scopeField": "scope_id",
+      "authority": "TAX_EQUITY_AND_STATUTORY_ROLLFORWARD",
+      "status": "RELIABLE_FOR_STATUTORY_ACTUALS",
+      "sourcePurpose": "EXECUTIVE_TAX_AND_EQUITY",
+      "rowCount": 66,
+      "opening": {"field": "opening_tax_payable_minor", "label": "Opening tax"},
+      "movements": [
+        {"field": "current_tax_expense_minor", "label": "Current tax", "sign": 1},
+        {"field": "cash_tax_paid_minor", "label": "Tax paid", "sign": -1}
+      ],
+      "closing": {"field": "closing_tax_payable_minor", "label": "Closing tax"},
+      "differenceField": null,
+      "statusField": "reconciliation_status",
+      "assertionNote": "The supplied reconciliation status covers the tax and equity mart's presence and source binding. It is not an independent replay of this component equation."
+    },
+    "RETAINED_EARNINGS": {
+      "label": "Retained earnings",
+      "table": "mart_tax_equity_monthly",
+      "scope": "NEXUS-GROUP",
+      "scopeField": "scope_id",
+      "authority": "TAX_EQUITY_AND_STATUTORY_ROLLFORWARD",
+      "status": "RELIABLE_FOR_STATUTORY_ACTUALS",
+      "sourcePurpose": "EXECUTIVE_TAX_AND_EQUITY",
+      "rowCount": 66,
+      "opening": {"field": "opening_retained_earnings_minor", "label": "Opening retained"},
+      "movements": [
+        {"field": "net_income_minor", "label": "Net income", "sign": 1},
+        {"field": "dividends_minor", "label": "Dividends", "sign": -1},
+        {"field": "other_equity_movements_minor", "label": "Other movements", "sign": 1}
+      ],
+      "closing": {"field": "closing_retained_earnings_minor", "label": "Closing retained"},
+      "differenceField": null,
+      "statusField": "reconciliation_status",
+      "assertionNote": "The supplied reconciliation status covers the tax and equity mart's presence and source binding. It is not an independent replay of this component equation."
+    }
+  }
+}

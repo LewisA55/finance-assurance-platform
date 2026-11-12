@@ -1,0 +1,61 @@
+table 'SaaS KPIs'
+
+	measure 'Group Ending ARR GBP' = 
+			VAR LastPeriod = MAX ( 'SaaS KPIs'[Period ID] )
+			RETURN
+			    IF ( NOT ISBLANK ( LastPeriod ), CALCULATE ( DIVIDE ( SUM ( 'SaaS KPIs'[Ending ARR Minor] ), 100 ),
+			        KEEPFILTERS ( 'SaaS KPIs'[Period ID] = LastPeriod ) ) )
+		formatString: """£""#,##0.00;(""£""#,##0.00);""-"""
+
+	measure 'Group Active Customers' = 
+			VAR LastPeriod = MAX ( 'SaaS KPIs'[Period ID] )
+			RETURN
+			    IF ( NOT ISBLANK ( LastPeriod ), CALCULATE ( SUM ( 'SaaS KPIs'[Active Customer Count] ),
+			        KEEPFILTERS ( 'SaaS KPIs'[Period ID] = LastPeriod ) ) )
+		formatString: #,##0
+
+	measure 'Group Net Revenue Retention' = 
+			VAR LastPeriod = MAX ( 'SaaS KPIs'[Period ID] )
+			RETURN
+			    IF ( NOT ISBLANK ( LastPeriod ), CALCULATE ( DIVIDE ( SUM ( 'SaaS KPIs'[Net Revenue Retention BPS] ), 10000 ),
+			        KEEPFILTERS ( 'SaaS KPIs'[Period ID] = LastPeriod ) ) )
+		formatString: 0.00%
+
+	column 'Period ID'
+		dataType: string
+		sourceColumn: period_id
+		summarizeBy: none
+		isHidden
+
+	column 'Reporting Version Ref'
+		dataType: string
+		sourceColumn: reporting_version_ref
+		summarizeBy: none
+		isHidden
+
+	column 'Ending ARR Minor'
+		dataType: int64
+		sourceColumn: ending_arr_minor
+		summarizeBy: none
+		isHidden
+
+	column 'Active Customer Count'
+		dataType: int64
+		sourceColumn: active_customer_count
+		summarizeBy: none
+		isHidden
+
+	column 'Net Revenue Retention BPS'
+		dataType: int64
+		sourceColumn: net_revenue_retention_bps
+		summarizeBy: none
+		isHidden
+
+	partition 'SaaS KPIs' = m
+		mode: import
+		source =
+			let
+				Source = ReadGroupActuals("mart_executive_cfo_command_center", true, "RELIABLE_FOR_EXECUTIVE_PRESENTATION"),
+				Selected = Table.SelectColumns(Source, {"period_id", "reporting_version_ref", "ending_arr_minor", "active_customer_count", "net_revenue_retention_bps"})
+			in
+				Selected

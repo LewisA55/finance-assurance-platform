@@ -1,0 +1,184 @@
+table 'Close Grid'
+
+	measure 'Close Cell Count' = IF ( ISEMPTY ( 'Close Grid' ), BLANK(), COUNTROWS ( CALCULATETABLE ( 'Close Grid', ALLSELECTED ( 'Close Grid' ) ) ) )
+
+	measure 'Close Context State' = IF ( ISEMPTY ( 'Close Grid' ), BLANK(), VAR Selected = CALCULATETABLE ( 'Close Grid', ALLSELECTED ( 'Close Grid' ) ) VAR Claims = COUNTROWS ( DISTINCT ( SELECTCOLUMNS ( Selected, "c", 'Close Grid'[claimKey] ) ) ) VAR Invalid = COUNTROWS ( FILTER ( Selected, 'Close Grid'[contextState] <> "VALID" ) ) RETURN IF ( Claims = 1 && ISBLANK ( Invalid ), "VALID", "AMBIGUOUS" ) )
+
+	column claimKey
+		dataType: string
+		sourceColumn: claimKey
+		summarizeBy: none
+		isHidden
+
+	column period
+		dataType: string
+		sourceColumn: period
+		summarizeBy: none
+		isHidden
+
+	column scope
+		dataType: string
+		sourceColumn: scope
+		summarizeBy: none
+		isHidden
+
+	column scopeType
+		dataType: string
+		sourceColumn: scopeType
+		summarizeBy: none
+		isHidden
+
+	column version
+		dataType: string
+		sourceColumn: version
+		summarizeBy: none
+		isHidden
+
+	column subledgerStatus
+		dataType: string
+		sourceColumn: subledgerStatus
+		summarizeBy: none
+		isHidden
+
+	column bankStatus
+		dataType: string
+		sourceColumn: bankStatus
+		summarizeBy: none
+		isHidden
+
+	column intercompanyStatus
+		dataType: string
+		sourceColumn: intercompanyStatus
+		summarizeBy: none
+		isHidden
+
+	column trialBalanceStatus
+		dataType: string
+		sourceColumn: trialBalanceStatus
+		summarizeBy: none
+		isHidden
+
+	column statementStatus
+		dataType: string
+		sourceColumn: statementStatus
+		summarizeBy: none
+		isHidden
+
+	column closeStatus
+		dataType: string
+		sourceColumn: closeStatus
+		summarizeBy: none
+		isHidden
+
+	column closedAt
+		dataType: string
+		sourceColumn: closedAt
+		summarizeBy: none
+		isHidden
+
+	column softCloseEvent
+		dataType: string
+		sourceColumn: softCloseEvent
+		summarizeBy: none
+		isHidden
+
+	column hardCloseEvent
+		dataType: string
+		sourceColumn: hardCloseEvent
+		summarizeBy: none
+		isHidden
+
+	column publicationEvent
+		dataType: string
+		sourceColumn: publicationEvent
+		summarizeBy: none
+		isHidden
+
+	column gridPolicyRef
+		dataType: string
+		sourceColumn: gridPolicyRef
+		summarizeBy: none
+		isHidden
+
+	column purpose
+		dataType: string
+		sourceColumn: purpose
+		summarizeBy: none
+		isHidden
+
+	column authority
+		dataType: string
+		sourceColumn: authority
+		summarizeBy: none
+		isHidden
+
+	column deliveryRef
+		dataType: string
+		sourceColumn: deliveryRef
+		summarizeBy: none
+		isHidden
+
+	column deliveryDigest
+		dataType: string
+		sourceColumn: deliveryDigest
+		summarizeBy: none
+		isHidden
+
+	column sourceDigest
+		dataType: string
+		sourceColumn: sourceDigest
+		summarizeBy: none
+		isHidden
+
+	column evidenceRef
+		dataType: string
+		sourceColumn: evidenceRef
+		summarizeBy: none
+		isHidden
+
+	column evidenceDigest
+		dataType: string
+		sourceColumn: evidenceDigest
+		summarizeBy: none
+		isHidden
+
+	column contextState
+		dataType: string
+		sourceColumn: contextState
+		summarizeBy: none
+		isHidden
+
+	partition 'Close Grid' = m
+		mode: import
+		source =
+			let
+			    Source = ReadC2("dim_reporting_version"),
+			    Rows = List.Transform(Table.ToRecords(Source), (r) => [
+			            claimKey = "CLOSE_GRID|Q-FINANCE-C2@v1",
+			            period = r[period_id], scope = r[scope_id], scopeType = r[scope_type],
+			            version = r[reporting_version_ref],
+			            subledgerStatus = r[subledger_reconciliation_status],
+			            bankStatus = r[bank_reconciliation_status],
+			            intercompanyStatus = r[intercompany_reconciliation_status],
+			            trialBalanceStatus = r[trial_balance_status],
+			            statementStatus = r[statement_status],
+			            closeStatus = r[close_status],
+			            // Delivered as an offset timestamp; shown with its zone named.
+			            closedAt = try DateTime.ToText(
+			                    DateTimeZone.RemoveZone(DateTimeZone.ToUtc(r[closed_at])), "yyyy-MM-dd HH:mm") & " UTC"
+			                otherwise Text.From(r[closed_at]),
+			            softCloseEvent = r[soft_close_accounting_event_ref],
+			            hardCloseEvent = r[hard_close_accounting_event_ref],
+			            publicationEvent = r[reporting_publication_accounting_event_ref],
+			            gridPolicyRef = "NEXUS-CLOSE-GOVERNANCE@v1",
+			            purpose = "EXECUTIVE_CLOSE_REVIEW", authority = "GOVERNED_REPORTING_VERSION_REGISTER",
+			            deliveryRef = "Q-FINANCE-C2@v1", deliveryDigest = "sha256:7538132e08ea2b7e8c20f339db10e6c138cd2a08c71c4708c47c378d7c1b0141",
+			            sourceDigest = r[source_package_digest],
+			            evidenceRef = "dim_reporting_version / " & r[reporting_version_ref],
+			            evidenceDigest = null,
+			            contextState = if r[source_package_digest] = "sha256:39af66f379d5497399f89e3956e601b6fb99a070146d8c6d378bb684f288b7e5"
+			                and r[reliability_status] = "RELIABLE_FOR_STATUTORY_ACTUALS" and r[reliability_purpose] = "STATUTORY_ACTUALS"
+			                then "VALID" else "AMBIGUOUS"
+			        ])
+			in
+			    Table.FromRecords(Rows)

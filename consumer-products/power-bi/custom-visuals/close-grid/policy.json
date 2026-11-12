@@ -1,0 +1,42 @@
+{
+  "version": "NEXUS-CLOSE-GOVERNANCE@v1",
+  "purpose": "EXECUTIVE_CLOSE_REVIEW",
+  "deliveryRef": "Q-FINANCE-C2@v1",
+  "deliveryDigest": "sha256:7538132e08ea2b7e8c20f339db10e6c138cd2a08c71c4708c47c378d7c1b0141",
+  "sourceDigest": "sha256:39af66f379d5497399f89e3956e601b6fb99a070146d8c6d378bb684f288b7e5",
+  "table": "dim_reporting_version",
+  "authority": "GOVERNED_REPORTING_VERSION_REGISTER",
+  "status": "RELIABLE_FOR_STATUTORY_ACTUALS",
+  "sourcePurpose": "STATUTORY_ACTUALS",
+  "expectedCellCount": 198,
+  "timezone": "UTC",
+  "dimensions": [
+    {"key": "subledgerStatus", "initial": "S", "label": "Subledger", "field": "subledger_reconciliation_status"},
+    {"key": "bankStatus", "initial": "B", "label": "Bank", "field": "bank_reconciliation_status"},
+    {"key": "intercompanyStatus", "initial": "I", "label": "Intercompany", "field": "intercompany_reconciliation_status"},
+    {"key": "trialBalanceStatus", "initial": "T", "label": "Trial balance", "field": "trial_balance_status"},
+    {"key": "statementStatus", "initial": "P", "label": "Statements", "field": "statement_status"}
+  ],
+  "dictionary": {
+    "subledgerStatus": {"RECONCILED": "SATISFIED"},
+    "bankStatus": {"RECONCILED": "SATISFIED", "CONSOLIDATED": "SATISFIED", "NOT_APPLICABLE": "NOT_APPLICABLE"},
+    "intercompanyStatus": {"CONFIRMED": "SATISFIED", "NOT_APPLICABLE": "NOT_APPLICABLE"},
+    "trialBalanceStatus": {"BALANCED": "SATISFIED"},
+    "statementStatus": {"PUBLISHED": "SATISFIED"}
+  },
+  "closeStates": {
+    "HARD_CLOSED": {"label": "Hard closed", "requires": ["softCloseEvent", "hardCloseEvent"]},
+    "SOFT_CLOSED": {"label": "Soft closed", "requires": ["softCloseEvent"]},
+    "OPEN": {"label": "Open", "requires": []}
+  },
+  "publicationStates": {
+    "PUBLISHED": {"label": "Published", "requires": ["publicationEvent"]},
+    "DRAFT": {"label": "Draft", "requires": []}
+  },
+  "notes": {
+    "consolidated": "A consolidated bank status is a group-level presentation, not a failed bank reconciliation. Not applicable is a declared scope outcome, not a failure.",
+    "signOff": "This register carries no reviewer sign-off identity, and none is inferred from close status or publication.",
+    "progress": "No percent complete is computed: counting satisfied markers would not describe close progress.",
+    "fixtures": "Every delivered row is hard closed and published. Soft close, blocked, stale and republished cases require separately labelled fixtures."
+  }
+}

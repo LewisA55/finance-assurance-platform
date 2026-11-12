@@ -1,0 +1,97 @@
+table 'Reporting Version'
+
+	measure 'Hard Closed Versions' = CALCULATE ( COUNTROWS ( 'Reporting Version' ), 'Reporting Version'[Close Status] = "HARD_CLOSED" )
+		formatString: 0
+
+	measure 'Published Versions' = CALCULATE ( COUNTROWS ( 'Reporting Version' ), 'Reporting Version'[Statements] = "PUBLISHED" )
+		formatString: 0
+
+	column 'Reporting Version Ref'
+		dataType: string
+		sourceColumn: reporting_version_ref
+		summarizeBy: none
+
+	column 'Period ID'
+		dataType: string
+		sourceColumn: period_id
+		summarizeBy: none
+
+	column Scope
+		dataType: string
+		sourceColumn: scope_id
+		summarizeBy: none
+
+	column 'Close Status'
+		dataType: string
+		sourceColumn: close_status
+		summarizeBy: none
+
+	column 'Closed At'
+		dataType: dateTime
+		sourceColumn: closed_at
+		summarizeBy: none
+		formatString: dd MMM yyyy HH:mm
+
+	column 'Publication Event'
+		dataType: string
+		sourceColumn: reporting_publication_accounting_event_ref
+		summarizeBy: none
+
+	column 'Hard Close Event'
+		dataType: string
+		sourceColumn: hard_close_accounting_event_ref
+		summarizeBy: none
+
+	column Subledger
+		dataType: string
+		sourceColumn: subledger_reconciliation_status
+		summarizeBy: none
+
+	column Bank
+		dataType: string
+		sourceColumn: bank_reconciliation_status
+		summarizeBy: none
+
+	column Intercompany
+		dataType: string
+		sourceColumn: intercompany_reconciliation_status
+		summarizeBy: none
+
+	column 'Trial Balance'
+		dataType: string
+		sourceColumn: trial_balance_status
+		summarizeBy: none
+
+	column Statements
+		dataType: string
+		sourceColumn: statement_status
+		summarizeBy: none
+
+	column 'Reliability Status'
+		dataType: string
+		sourceColumn: reliability_status
+		summarizeBy: none
+
+	column 'Reliability Purpose'
+		dataType: string
+		sourceColumn: reliability_purpose
+		summarizeBy: none
+
+	column 'Source Package Digest'
+		dataType: string
+		sourceColumn: source_package_digest
+		summarizeBy: none
+
+	partition 'Reporting Version' = m
+		mode: import
+		source =
+			let
+				Source = ReadGroupActuals("dim_reporting_version", false),
+				Closed = Table.SelectRows(Source, each [close_status] = "HARD_CLOSED"),
+				Selected = Table.SelectColumns(Closed, {"reporting_version_ref", "period_id", "scope_id",
+					"close_status", "closed_at", "reporting_publication_accounting_event_ref",
+					"hard_close_accounting_event_ref", "subledger_reconciliation_status", "bank_reconciliation_status",
+					"intercompany_reconciliation_status", "trial_balance_status", "statement_status",
+					"reliability_status", "reliability_purpose", "source_package_digest"})
+			in
+				if Table.RowCount(Selected) = 66 then Selected else error "Group reporting versions are not all hard-closed."

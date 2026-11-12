@@ -1,0 +1,387 @@
+{
+  "privileges": [],
+  "dataRoles": [
+    {
+      "name": "claimKey",
+      "displayName": "claimKey",
+      "kind": "Grouping"
+    },
+    {
+      "name": "bridgeKey",
+      "displayName": "bridgeKey",
+      "kind": "Grouping"
+    },
+    {
+      "name": "stepKey",
+      "displayName": "stepKey",
+      "kind": "Grouping"
+    },
+    {
+      "name": "stepLabel",
+      "displayName": "stepLabel",
+      "kind": "Grouping"
+    },
+    {
+      "name": "stepOrder",
+      "displayName": "stepOrder",
+      "kind": "Grouping"
+    },
+    {
+      "name": "stepKind",
+      "displayName": "stepKind",
+      "kind": "Grouping"
+    },
+    {
+      "name": "purpose",
+      "displayName": "purpose",
+      "kind": "GroupingOrMeasure"
+    },
+    {
+      "name": "authority",
+      "displayName": "authority",
+      "kind": "GroupingOrMeasure"
+    },
+    {
+      "name": "deliveryRef",
+      "displayName": "deliveryRef",
+      "kind": "GroupingOrMeasure"
+    },
+    {
+      "name": "deliveryDigest",
+      "displayName": "deliveryDigest",
+      "kind": "GroupingOrMeasure"
+    },
+    {
+      "name": "sourceDigest",
+      "displayName": "sourceDigest",
+      "kind": "GroupingOrMeasure"
+    },
+    {
+      "name": "evidenceRef",
+      "displayName": "evidenceRef",
+      "kind": "GroupingOrMeasure"
+    },
+    {
+      "name": "evidenceDigest",
+      "displayName": "evidenceDigest",
+      "kind": "GroupingOrMeasure"
+    },
+    {
+      "name": "contextState",
+      "displayName": "contextState",
+      "kind": "GroupingOrMeasure"
+    },
+    {
+      "name": "period",
+      "displayName": "period",
+      "kind": "GroupingOrMeasure"
+    },
+    {
+      "name": "scope",
+      "displayName": "scope",
+      "kind": "GroupingOrMeasure"
+    },
+    {
+      "name": "version",
+      "displayName": "version",
+      "kind": "GroupingOrMeasure"
+    },
+    {
+      "name": "currency",
+      "displayName": "currency",
+      "kind": "GroupingOrMeasure"
+    },
+    {
+      "name": "sourceStatus",
+      "displayName": "sourceStatus",
+      "kind": "GroupingOrMeasure"
+    },
+    {
+      "name": "assertionPolicyRef",
+      "displayName": "assertionPolicyRef",
+      "kind": "GroupingOrMeasure"
+    },
+    {
+      "name": "amountMinor",
+      "displayName": "amountMinor",
+      "kind": "Measure"
+    },
+    {
+      "name": "sourceDifferenceMinor",
+      "displayName": "sourceDifferenceMinor",
+      "kind": "Measure"
+    },
+    {
+      "name": "toleranceMinor",
+      "displayName": "toleranceMinor",
+      "kind": "Measure"
+    },
+    {
+      "name": "failedComponentCount",
+      "displayName": "failedComponentCount",
+      "kind": "Measure"
+    },
+    {
+      "name": "expectedRowCount",
+      "displayName": "expectedRowCount",
+      "kind": "Measure"
+    }
+  ],
+  "dataViewMappings": [
+    {
+      "conditions": [
+        {
+          "claimKey": {
+            "min": 1,
+            "max": 1
+          },
+          "bridgeKey": {
+            "min": 1,
+            "max": 1
+          },
+          "stepKey": {
+            "min": 1,
+            "max": 1
+          },
+          "stepLabel": {
+            "min": 1,
+            "max": 1
+          },
+          "stepOrder": {
+            "min": 1,
+            "max": 1
+          },
+          "stepKind": {
+            "min": 1,
+            "max": 1
+          },
+          "purpose": {
+            "min": 1,
+            "max": 1
+          },
+          "authority": {
+            "min": 1,
+            "max": 1
+          },
+          "deliveryRef": {
+            "min": 1,
+            "max": 1
+          },
+          "deliveryDigest": {
+            "min": 1,
+            "max": 1
+          },
+          "sourceDigest": {
+            "min": 1,
+            "max": 1
+          },
+          "evidenceRef": {
+            "min": 1,
+            "max": 1
+          },
+          "evidenceDigest": {
+            "min": 0,
+            "max": 1
+          },
+          "contextState": {
+            "min": 1,
+            "max": 1
+          },
+          "period": {
+            "min": 1,
+            "max": 1
+          },
+          "scope": {
+            "min": 1,
+            "max": 1
+          },
+          "version": {
+            "min": 1,
+            "max": 1
+          },
+          "currency": {
+            "min": 1,
+            "max": 1
+          },
+          "sourceStatus": {
+            "min": 0,
+            "max": 1
+          },
+          "assertionPolicyRef": {
+            "min": 1,
+            "max": 1
+          },
+          "amountMinor": {
+            "min": 1,
+            "max": 1
+          },
+          "sourceDifferenceMinor": {
+            "min": 0,
+            "max": 1
+          },
+          "toleranceMinor": {
+            "min": 1,
+            "max": 1
+          },
+          "failedComponentCount": {
+            "min": 1,
+            "max": 1
+          },
+          "expectedRowCount": {
+            "min": 1,
+            "max": 1
+          }
+        }
+      ],
+      "table": {
+        "rows": {
+          "select": [
+            {
+              "for": {
+                "in": "claimKey"
+              }
+            },
+            {
+              "for": {
+                "in": "bridgeKey"
+              }
+            },
+            {
+              "for": {
+                "in": "stepKey"
+              }
+            },
+            {
+              "for": {
+                "in": "stepLabel"
+              }
+            },
+            {
+              "for": {
+                "in": "stepOrder"
+              }
+            },
+            {
+              "for": {
+                "in": "stepKind"
+              }
+            },
+            {
+              "for": {
+                "in": "purpose"
+              }
+            },
+            {
+              "for": {
+                "in": "authority"
+              }
+            },
+            {
+              "for": {
+                "in": "deliveryRef"
+              }
+            },
+            {
+              "for": {
+                "in": "deliveryDigest"
+              }
+            },
+            {
+              "for": {
+                "in": "sourceDigest"
+              }
+            },
+            {
+              "for": {
+                "in": "evidenceRef"
+              }
+            },
+            {
+              "for": {
+                "in": "evidenceDigest"
+              }
+            },
+            {
+              "for": {
+                "in": "contextState"
+              }
+            },
+            {
+              "for": {
+                "in": "period"
+              }
+            },
+            {
+              "for": {
+                "in": "scope"
+              }
+            },
+            {
+              "for": {
+                "in": "version"
+              }
+            },
+            {
+              "for": {
+                "in": "currency"
+              }
+            },
+            {
+              "for": {
+                "in": "sourceStatus"
+              }
+            },
+            {
+              "for": {
+                "in": "assertionPolicyRef"
+              }
+            },
+            {
+              "for": {
+                "in": "amountMinor"
+              }
+            },
+            {
+              "for": {
+                "in": "sourceDifferenceMinor"
+              }
+            },
+            {
+              "for": {
+                "in": "toleranceMinor"
+              }
+            },
+            {
+              "for": {
+                "in": "failedComponentCount"
+              }
+            },
+            {
+              "for": {
+                "in": "expectedRowCount"
+              }
+            }
+          ],
+          "dataReductionAlgorithm": {
+            "window": {
+              "count": 32
+            }
+          }
+        }
+      }
+    }
+  ],
+  "objects": {},
+  "supportsEmptyDataView": true,
+  "supportsLandingPage": true,
+  "supportsKeyboardFocus": true,
+  "supportsHighlight": false,
+  "sorting": {
+    "custom": {}
+  },
+  "tooltips": {
+    "supportedTypes": {
+      "default": true
+    }
+  }
+}

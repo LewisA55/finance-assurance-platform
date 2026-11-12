@@ -1,0 +1,524 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json",
+  "name": "d4b82e6a1c7f49538a01",
+  "position": {
+    "x": 664,
+    "y": 96,
+    "width": 592,
+    "height": 820,
+    "z": 0,
+    "tabOrder": 0
+  },
+  "visual": {
+    "visualType": "NexusTieOutPanelD4B82E6A1C7F49538A0D2E95B7461FC3",
+    "query": {
+      "queryState": {
+        "claimKey": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Assertions"
+                    }
+                  },
+                  "Property": "claimKey"
+                }
+              },
+              "queryRef": "Assertions.claimKey",
+              "nativeQueryRef": "claimKey"
+            }
+          ]
+        },
+        "assertionId": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Assertions"
+                    }
+                  },
+                  "Property": "assertionId"
+                }
+              },
+              "queryRef": "Assertions.assertionId",
+              "nativeQueryRef": "assertionId"
+            }
+          ]
+        },
+        "assertionLabel": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Assertions"
+                    }
+                  },
+                  "Property": "assertionLabel"
+                }
+              },
+              "queryRef": "Assertions.assertionLabel",
+              "nativeQueryRef": "assertionLabel"
+            }
+          ]
+        },
+        "assertionType": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Assertions"
+                    }
+                  },
+                  "Property": "assertionType"
+                }
+              },
+              "queryRef": "Assertions.assertionType",
+              "nativeQueryRef": "assertionType"
+            }
+          ]
+        },
+        "purpose": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Assertions"
+                    }
+                  },
+                  "Property": "purpose"
+                }
+              },
+              "queryRef": "Assertions.purpose",
+              "nativeQueryRef": "purpose"
+            }
+          ]
+        },
+        "authority": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Assertions"
+                    }
+                  },
+                  "Property": "authority"
+                }
+              },
+              "queryRef": "Assertions.authority",
+              "nativeQueryRef": "authority"
+            }
+          ]
+        },
+        "deliveryRef": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Assertions"
+                    }
+                  },
+                  "Property": "deliveryRef"
+                }
+              },
+              "queryRef": "Assertions.deliveryRef",
+              "nativeQueryRef": "deliveryRef"
+            }
+          ]
+        },
+        "deliveryDigest": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Assertions"
+                    }
+                  },
+                  "Property": "deliveryDigest"
+                }
+              },
+              "queryRef": "Assertions.deliveryDigest",
+              "nativeQueryRef": "deliveryDigest"
+            }
+          ]
+        },
+        "sourceDigest": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Assertions"
+                    }
+                  },
+                  "Property": "sourceDigest"
+                }
+              },
+              "queryRef": "Assertions.sourceDigest",
+              "nativeQueryRef": "sourceDigest"
+            }
+          ]
+        },
+        "evidenceRef": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Assertions"
+                    }
+                  },
+                  "Property": "evidenceRef"
+                }
+              },
+              "queryRef": "Assertions.evidenceRef",
+              "nativeQueryRef": "evidenceRef"
+            }
+          ]
+        },
+        "evidenceDigest": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Assertions"
+                    }
+                  },
+                  "Property": "evidenceDigest"
+                }
+              },
+              "queryRef": "Assertions.evidenceDigest",
+              "nativeQueryRef": "evidenceDigest"
+            }
+          ]
+        },
+        "contextState": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Assertions"
+                    }
+                  },
+                  "Property": "Assertion Context State"
+                }
+              },
+              "queryRef": "Assertions.Assertion Context State",
+              "nativeQueryRef": "Assertion Context State"
+            }
+          ]
+        },
+        "assertionSource": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Assertions"
+                    }
+                  },
+                  "Property": "assertionSource"
+                }
+              },
+              "queryRef": "Assertions.assertionSource",
+              "nativeQueryRef": "assertionSource"
+            }
+          ]
+        },
+        "operator": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Assertions"
+                    }
+                  },
+                  "Property": "operator"
+                }
+              },
+              "queryRef": "Assertions.operator",
+              "nativeQueryRef": "operator"
+            }
+          ]
+        },
+        "unit": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Assertions"
+                    }
+                  },
+                  "Property": "unit"
+                }
+              },
+              "queryRef": "Assertions.unit",
+              "nativeQueryRef": "unit"
+            }
+          ]
+        },
+        "publishedResult": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Assertions"
+                    }
+                  },
+                  "Property": "publishedResult"
+                }
+              },
+              "queryRef": "Assertions.publishedResult",
+              "nativeQueryRef": "publishedResult"
+            }
+          ]
+        },
+        "assertionPolicyRef": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Assertions"
+                    }
+                  },
+                  "Property": "assertionPolicyRef"
+                }
+              },
+              "queryRef": "Assertions.assertionPolicyRef",
+              "nativeQueryRef": "assertionPolicyRef"
+            }
+          ]
+        },
+        "actualEvidenceRef": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Assertions"
+                    }
+                  },
+                  "Property": "actualEvidenceRef"
+                }
+              },
+              "queryRef": "Assertions.actualEvidenceRef",
+              "nativeQueryRef": "actualEvidenceRef"
+            }
+          ]
+        },
+        "expectedEvidenceRef": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Assertions"
+                    }
+                  },
+                  "Property": "expectedEvidenceRef"
+                }
+              },
+              "queryRef": "Assertions.expectedEvidenceRef",
+              "nativeQueryRef": "expectedEvidenceRef"
+            }
+          ]
+        },
+        "failureRef": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Assertions"
+                    }
+                  },
+                  "Property": "failureRef"
+                }
+              },
+              "queryRef": "Assertions.failureRef",
+              "nativeQueryRef": "failureRef"
+            }
+          ]
+        },
+        "actualValue": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Assertions"
+                    }
+                  },
+                  "Property": "Actual Value"
+                }
+              },
+              "queryRef": "Assertions.Actual Value",
+              "nativeQueryRef": "Actual Value"
+            }
+          ]
+        },
+        "expectedValue": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Assertions"
+                    }
+                  },
+                  "Property": "Expected Value"
+                }
+              },
+              "queryRef": "Assertions.Expected Value",
+              "nativeQueryRef": "Expected Value"
+            }
+          ]
+        },
+        "sourceDifference": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Assertions"
+                    }
+                  },
+                  "Property": "Source Difference"
+                }
+              },
+              "queryRef": "Assertions.Source Difference",
+              "nativeQueryRef": "Source Difference"
+            }
+          ]
+        },
+        "expectedRowCount": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Assertions"
+                    }
+                  },
+                  "Property": "Assertion Count"
+                }
+              },
+              "queryRef": "Assertions.Assertion Count",
+              "nativeQueryRef": "Assertion Count"
+            }
+          ]
+        }
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "Assertions_assertionSource_C1_READINESS",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Assertions"
+              }
+            },
+            "Property": "assertionSource"
+          }
+        },
+        "type": "Categorical",
+        "howCreated": "User",
+        "filter": {
+          "Version": 2,
+          "From": [
+            {
+              "Name": "s",
+              "Entity": "Assertions",
+              "Type": 0
+            }
+          ],
+          "Where": [
+            {
+              "Condition": {
+                "In": {
+                  "Expressions": [
+                    {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Source": "s"
+                          }
+                        },
+                        "Property": "assertionSource"
+                      }
+                    }
+                  ],
+                  "Values": [
+                    [
+                      {
+                        "Literal": {
+                          "Value": "'C1_READINESS'"
+                        }
+                      }
+                    ]
+                  ]
+                }
+              }
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

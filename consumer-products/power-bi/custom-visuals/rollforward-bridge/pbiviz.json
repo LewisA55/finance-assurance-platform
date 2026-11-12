@@ -1,0 +1,25 @@
+{
+  "visual": {
+    "name": "nexusRollforwardBridge",
+    "displayName": "Nexus Rollforward Bridge",
+    "guid": "NexusRollforwardBridgeB7E4C1A9D3F84E2B9065C7D18A34F052",
+    "visualClassName": "Visual",
+    "version": "0.1.0.0",
+    "description": "Opening to closing schedule with replayed arithmetic closure and separate source assertions.",
+    "supportUrl": "https://github.com",
+    "gitHubUrl": ""
+  },
+  "apiVersion": "5.11.1",
+  "author": {
+    "name": "Finance Assurance Platform (local development)",
+    "email": "development@example.invalid"
+  },
+  "assets": {
+    "icon": "assets/icon.png"
+  },
+  "externalJS": null,
+  "style": "style/visual.less",
+  "capabilities": "capabilities.json",
+  "dependencies": null,
+  "stringResources": []
+}

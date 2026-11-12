@@ -1,0 +1,415 @@
+{
+  "privileges": [],
+  "dataRoles": [
+    {
+      "name": "claimKey",
+      "displayName": "claimKey",
+      "kind": "Grouping"
+    },
+    {
+      "name": "assertionId",
+      "displayName": "assertionId",
+      "kind": "Grouping"
+    },
+    {
+      "name": "assertionLabel",
+      "displayName": "assertionLabel",
+      "kind": "Grouping"
+    },
+    {
+      "name": "assertionType",
+      "displayName": "assertionType",
+      "kind": "Grouping"
+    },
+    {
+      "name": "purpose",
+      "displayName": "purpose",
+      "kind": "GroupingOrMeasure"
+    },
+    {
+      "name": "authority",
+      "displayName": "authority",
+      "kind": "GroupingOrMeasure"
+    },
+    {
+      "name": "deliveryRef",
+      "displayName": "deliveryRef",
+      "kind": "GroupingOrMeasure"
+    },
+    {
+      "name": "deliveryDigest",
+      "displayName": "deliveryDigest",
+      "kind": "GroupingOrMeasure"
+    },
+    {
+      "name": "sourceDigest",
+      "displayName": "sourceDigest",
+      "kind": "GroupingOrMeasure"
+    },
+    {
+      "name": "evidenceRef",
+      "displayName": "evidenceRef",
+      "kind": "GroupingOrMeasure"
+    },
+    {
+      "name": "evidenceDigest",
+      "displayName": "evidenceDigest",
+      "kind": "GroupingOrMeasure"
+    },
+    {
+      "name": "contextState",
+      "displayName": "contextState",
+      "kind": "GroupingOrMeasure"
+    },
+    {
+      "name": "assertionSource",
+      "displayName": "assertionSource",
+      "kind": "GroupingOrMeasure"
+    },
+    {
+      "name": "operator",
+      "displayName": "operator",
+      "kind": "GroupingOrMeasure"
+    },
+    {
+      "name": "unit",
+      "displayName": "unit",
+      "kind": "GroupingOrMeasure"
+    },
+    {
+      "name": "publishedResult",
+      "displayName": "publishedResult",
+      "kind": "GroupingOrMeasure"
+    },
+    {
+      "name": "assertionPolicyRef",
+      "displayName": "assertionPolicyRef",
+      "kind": "GroupingOrMeasure"
+    },
+    {
+      "name": "actualEvidenceRef",
+      "displayName": "actualEvidenceRef",
+      "kind": "GroupingOrMeasure"
+    },
+    {
+      "name": "expectedEvidenceRef",
+      "displayName": "expectedEvidenceRef",
+      "kind": "GroupingOrMeasure"
+    },
+    {
+      "name": "failureRef",
+      "displayName": "failureRef",
+      "kind": "GroupingOrMeasure"
+    },
+    {
+      "name": "period",
+      "displayName": "period",
+      "kind": "GroupingOrMeasure"
+    },
+    {
+      "name": "scope",
+      "displayName": "scope",
+      "kind": "GroupingOrMeasure"
+    },
+    {
+      "name": "version",
+      "displayName": "version",
+      "kind": "GroupingOrMeasure"
+    },
+    {
+      "name": "actualValue",
+      "displayName": "actualValue",
+      "kind": "Measure"
+    },
+    {
+      "name": "expectedValue",
+      "displayName": "expectedValue",
+      "kind": "Measure"
+    },
+    {
+      "name": "sourceDifference",
+      "displayName": "sourceDifference",
+      "kind": "Measure"
+    },
+    {
+      "name": "expectedRowCount",
+      "displayName": "expectedRowCount",
+      "kind": "Measure"
+    }
+  ],
+  "dataViewMappings": [
+    {
+      "conditions": [
+        {
+          "claimKey": {
+            "min": 1,
+            "max": 1
+          },
+          "assertionId": {
+            "min": 1,
+            "max": 1
+          },
+          "assertionLabel": {
+            "min": 1,
+            "max": 1
+          },
+          "assertionType": {
+            "min": 1,
+            "max": 1
+          },
+          "purpose": {
+            "min": 1,
+            "max": 1
+          },
+          "authority": {
+            "min": 1,
+            "max": 1
+          },
+          "deliveryRef": {
+            "min": 1,
+            "max": 1
+          },
+          "deliveryDigest": {
+            "min": 1,
+            "max": 1
+          },
+          "sourceDigest": {
+            "min": 1,
+            "max": 1
+          },
+          "evidenceRef": {
+            "min": 1,
+            "max": 1
+          },
+          "evidenceDigest": {
+            "min": 0,
+            "max": 1
+          },
+          "contextState": {
+            "min": 1,
+            "max": 1
+          },
+          "assertionSource": {
+            "min": 1,
+            "max": 1
+          },
+          "operator": {
+            "min": 1,
+            "max": 1
+          },
+          "unit": {
+            "min": 1,
+            "max": 1
+          },
+          "publishedResult": {
+            "min": 1,
+            "max": 1
+          },
+          "assertionPolicyRef": {
+            "min": 1,
+            "max": 1
+          },
+          "actualEvidenceRef": {
+            "min": 0,
+            "max": 1
+          },
+          "expectedEvidenceRef": {
+            "min": 0,
+            "max": 1
+          },
+          "failureRef": {
+            "min": 0,
+            "max": 1
+          },
+          "period": {
+            "min": 0,
+            "max": 1
+          },
+          "scope": {
+            "min": 0,
+            "max": 1
+          },
+          "version": {
+            "min": 0,
+            "max": 1
+          },
+          "actualValue": {
+            "min": 1,
+            "max": 1
+          },
+          "expectedValue": {
+            "min": 1,
+            "max": 1
+          },
+          "sourceDifference": {
+            "min": 0,
+            "max": 1
+          },
+          "expectedRowCount": {
+            "min": 1,
+            "max": 1
+          }
+        }
+      ],
+      "table": {
+        "rows": {
+          "select": [
+            {
+              "for": {
+                "in": "claimKey"
+              }
+            },
+            {
+              "for": {
+                "in": "assertionId"
+              }
+            },
+            {
+              "for": {
+                "in": "assertionLabel"
+              }
+            },
+            {
+              "for": {
+                "in": "assertionType"
+              }
+            },
+            {
+              "for": {
+                "in": "purpose"
+              }
+            },
+            {
+              "for": {
+                "in": "authority"
+              }
+            },
+            {
+              "for": {
+                "in": "deliveryRef"
+              }
+            },
+            {
+              "for": {
+                "in": "deliveryDigest"
+              }
+            },
+            {
+              "for": {
+                "in": "sourceDigest"
+              }
+            },
+            {
+              "for": {
+                "in": "evidenceRef"
+              }
+            },
+            {
+              "for": {
+                "in": "evidenceDigest"
+              }
+            },
+            {
+              "for": {
+                "in": "contextState"
+              }
+            },
+            {
+              "for": {
+                "in": "assertionSource"
+              }
+            },
+            {
+              "for": {
+                "in": "operator"
+              }
+            },
+            {
+              "for": {
+                "in": "unit"
+              }
+            },
+            {
+              "for": {
+                "in": "publishedResult"
+              }
+            },
+            {
+              "for": {
+                "in": "assertionPolicyRef"
+              }
+            },
+            {
+              "for": {
+                "in": "actualEvidenceRef"
+              }
+            },
+            {
+              "for": {
+                "in": "expectedEvidenceRef"
+              }
+            },
+            {
+              "for": {
+                "in": "failureRef"
+              }
+            },
+            {
+              "for": {
+                "in": "period"
+              }
+            },
+            {
+              "for": {
+                "in": "scope"
+              }
+            },
+            {
+              "for": {
+                "in": "version"
+              }
+            },
+            {
+              "for": {
+                "in": "actualValue"
+              }
+            },
+            {
+              "for": {
+                "in": "expectedValue"
+              }
+            },
+            {
+              "for": {
+                "in": "sourceDifference"
+              }
+            },
+            {
+              "for": {
+                "in": "expectedRowCount"
+              }
+            }
+          ],
+          "dataReductionAlgorithm": {
+            "window": {
+              "count": 128
+            }
+          }
+        }
+      }
+    }
+  ],
+  "objects": {},
+  "supportsEmptyDataView": true,
+  "supportsLandingPage": true,
+  "supportsKeyboardFocus": true,
+  "supportsHighlight": false,
+  "sorting": {
+    "custom": {}
+  },
+  "tooltips": {
+    "supportedTypes": {
+      "default": true
+    }
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "visual": {
+    "name": "nexusReliabilityTile",
+    "displayName": "Nexus Reliability Tile",
+    "guid": "NexusReliabilityTileA64B7D4392CE4D438640AA814394A621",
+    "visualClassName": "Visual",
+    "version": "0.1.0.0",
+    "description": "Purpose-gated finance KPI with explicit authority and evidence.",
+    "supportUrl": "https://github.com",
+    "gitHubUrl": ""
+  },
+  "apiVersion": "5.11.1",
+  "author": {
+    "name": "Finance Assurance Platform (local development)",
+    "email": "development@example.invalid"
+  },
+  "assets": {
+    "icon": "assets/icon.png"
+  },
+  "externalJS": null,
+  "style": "style/visual.less",
+  "capabilities": "capabilities.json",
+  "dependencies": null,
+  "stringResources": []
+}

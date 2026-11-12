@@ -1,0 +1,270 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json",
+  "name": "d4b82e6a1c7f49538a10",
+  "position": {
+    "x": 24,
+    "y": 936,
+    "width": 892,
+    "height": 420,
+    "z": 0,
+    "tabOrder": 0
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Exception Observations"
+                    }
+                  },
+                  "Property": "Class"
+                }
+              },
+              "queryRef": "Exception Observations.Class",
+              "nativeQueryRef": "Class",
+              "displayName": "Class"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Exception Observations"
+                    }
+                  },
+                  "Property": "Rule"
+                }
+              },
+              "queryRef": "Exception Observations.Rule",
+              "nativeQueryRef": "Rule",
+              "displayName": "Rule"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Exception Observations"
+                    }
+                  },
+                  "Property": "Period"
+                }
+              },
+              "queryRef": "Exception Observations.Period",
+              "nativeQueryRef": "Period",
+              "displayName": "Period"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Exception Observations"
+                    }
+                  },
+                  "Property": "Scope"
+                }
+              },
+              "queryRef": "Exception Observations.Scope",
+              "nativeQueryRef": "Scope",
+              "displayName": "Scope"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Exception Observations"
+                    }
+                  },
+                  "Property": "Metric"
+                }
+              },
+              "queryRef": "Exception Observations.Metric",
+              "nativeQueryRef": "Metric",
+              "displayName": "Metric"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Exception Observations"
+                    }
+                  },
+                  "Property": "Observed"
+                }
+              },
+              "queryRef": "Exception Observations.Observed",
+              "nativeQueryRef": "Observed",
+              "displayName": "Observed"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Exception Observations"
+                    }
+                  },
+                  "Property": "Unit"
+                }
+              },
+              "queryRef": "Exception Observations.Unit",
+              "nativeQueryRef": "Unit",
+              "displayName": "Unit"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Exception Observations"
+                    }
+                  },
+                  "Property": "Machine result"
+                }
+              },
+              "queryRef": "Exception Observations.Machine result",
+              "nativeQueryRef": "Machine result",
+              "displayName": "Machine result"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Exception Observations"
+                    }
+                  },
+                  "Property": "Affected purpose"
+                }
+              },
+              "queryRef": "Exception Observations.Affected purpose",
+              "nativeQueryRef": "Affected purpose",
+              "displayName": "Affected purpose"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "Exception Observations"
+                  }
+                },
+                "Property": "Class"
+              }
+            },
+            "direction": "Ascending"
+          }
+        ],
+        "isDefaultSort": false
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Exception register'"
+                }
+              }
+            },
+            "fontColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#132841'"
+                    }
+                  }
+                }
+              }
+            },
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "13D"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "general": [
+        {
+          "properties": {
+            "altText": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Observations emitted by the registered exception rules. Exposure indicators are recorded, not assessed.'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "objects": {
+      "total": [
+        {
+          "properties": {
+            "totals": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "columnHeaders": [
+        {
+          "properties": {
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "10D"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "values": [
+        {
+          "properties": {
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "10D"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}
