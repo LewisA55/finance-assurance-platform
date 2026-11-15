@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/page/2.1.0/schema.json",
+  "name": "f18d6c40a932e5b74c81",
+  "displayName": "Dataset Lineage",
+  "displayOption": "FitToWidth",
+  "width": 1280,
+  "height": 1180,
+  "filterConfig": {
+    "filters": []
+  }
+}

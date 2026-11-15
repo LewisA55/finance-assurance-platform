@@ -77,6 +77,17 @@
           "type": "CustomVisualMetadata"
         }
       ]
+    },
+    {
+      "name": "NexusLineageDagF18D6C40A932E5B74C81036FD2E9A5B7",
+      "type": "CustomVisual",
+      "items": [
+        {
+          "name": "NexusLineageDagF18D6C40A932E5B74C81036FD2E9A5B7.pbiviz.json",
+          "path": "NexusLineageDagF18D6C40A932E5B74C81036FD2E9A5B7.pbiviz.json",
+          "type": "CustomVisualMetadata"
+        }
+      ]
     }
   ],
   "settings": {

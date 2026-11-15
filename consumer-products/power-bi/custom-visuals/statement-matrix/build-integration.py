@@ -147,6 +147,8 @@ for token, value in sorted({
     m_source = m_source.replace(token, value)
 
 # ---------------------------------------------------------------- measures ---
+nb.assert_balanced(m_source, TABLE)
+
 selected = f"CALCULATETABLE ( '{TABLE}', ALLSELECTED ( '{TABLE}' ) )"
 measures = {
     'Statement Amount Minor': f"SUM ( '{TABLE}'[amountMinor] )",

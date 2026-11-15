@@ -71,6 +71,8 @@ for token, value in sorted({
 }.items(), key=lambda kv: -len(kv[0])):
     m_source = m_source.replace(token, value)
 
+nb.assert_balanced(m_source, TABLE)
+
 selected = f"CALCULATETABLE ( '{TABLE}', ALLSELECTED ( '{TABLE}' ) )"
 measures = {
     'Close Cell Count': f"COUNTROWS ( {selected} )",

@@ -1,0 +1,183 @@
+table 'Lineage Edges'
+
+	measure 'Lineage Edge Count' = IF ( ISEMPTY ( 'Lineage Edges' ), BLANK(), COUNTROWS ( CALCULATETABLE ( 'Lineage Edges', ALLSELECTED ( 'Lineage Edges' ) ) ) )
+
+	measure 'Lineage Context State' = IF ( ISEMPTY ( 'Lineage Edges' ), BLANK(), VAR Selected = CALCULATETABLE ( 'Lineage Edges', ALLSELECTED ( 'Lineage Edges' ) ) VAR Claims = COUNTROWS ( DISTINCT ( SELECTCOLUMNS ( Selected, "c", 'Lineage Edges'[claimKey] ) ) ) VAR Invalid = COUNTROWS ( FILTER ( Selected, 'Lineage Edges'[contextState] <> "VALID" ) ) RETURN IF ( Claims = 1 && ISBLANK ( Invalid ), "VALID", "AMBIGUOUS" ) )
+
+	column claimKey
+		dataType: string
+		sourceColumn: claimKey
+		summarizeBy: none
+		isHidden
+
+	column edgeId
+		dataType: string
+		sourceColumn: edgeId
+		summarizeBy: none
+		isHidden
+
+	column fromNodeId
+		dataType: string
+		sourceColumn: fromNodeId
+		summarizeBy: none
+		isHidden
+
+	column toNodeId
+		dataType: string
+		sourceColumn: toNodeId
+		summarizeBy: none
+		isHidden
+
+	column fromLabel
+		dataType: string
+		sourceColumn: fromLabel
+		summarizeBy: none
+		isHidden
+
+	column toLabel
+		dataType: string
+		sourceColumn: toLabel
+		summarizeBy: none
+		isHidden
+
+	column fromKind
+		dataType: string
+		sourceColumn: fromKind
+		summarizeBy: none
+		isHidden
+
+	column toKind
+		dataType: string
+		sourceColumn: toKind
+		summarizeBy: none
+		isHidden
+
+	column edgeKind
+		dataType: string
+		sourceColumn: edgeKind
+		summarizeBy: none
+		isHidden
+
+	column transformationClass
+		dataType: string
+		sourceColumn: transformationClass
+		summarizeBy: none
+		isHidden
+
+	column datasetId
+		dataType: string
+		sourceColumn: datasetId
+		summarizeBy: none
+		isHidden
+
+	column declaredBronzeSources
+		dataType: string
+		sourceColumn: declaredBronzeSources
+		summarizeBy: none
+		isHidden
+
+	column evidenceDepth
+		dataType: string
+		sourceColumn: evidenceDepth
+		summarizeBy: none
+		isHidden
+
+	column lineagePolicyRef
+		dataType: string
+		sourceColumn: lineagePolicyRef
+		summarizeBy: none
+		isHidden
+
+	column purpose
+		dataType: string
+		sourceColumn: purpose
+		summarizeBy: none
+		isHidden
+
+	column authority
+		dataType: string
+		sourceColumn: authority
+		summarizeBy: none
+		isHidden
+
+	column deliveryRef
+		dataType: string
+		sourceColumn: deliveryRef
+		summarizeBy: none
+		isHidden
+
+	column deliveryDigest
+		dataType: string
+		sourceColumn: deliveryDigest
+		summarizeBy: none
+		isHidden
+
+	column sourceDigest
+		dataType: string
+		sourceColumn: sourceDigest
+		summarizeBy: none
+		isHidden
+
+	column evidenceRef
+		dataType: string
+		sourceColumn: evidenceRef
+		summarizeBy: none
+		isHidden
+
+	column evidenceDigest
+		dataType: string
+		sourceColumn: evidenceDigest
+		summarizeBy: none
+		isHidden
+
+	column contextState
+		dataType: string
+		sourceColumn: contextState
+		summarizeBy: none
+		isHidden
+
+	partition 'Lineage Edges' = m
+		mode: import
+		source =
+			let
+			    Root = Text.TrimEnd(Text.Trim(C2Root), {"\", "/"}),
+			    Manifest = Json.Document(File.Contents(Root & "/delivery-manifest.json")),
+			    Seal = Text.Trim(Text.FromBinary(File.Contents(Root & "/finance-delivery.digest"), TextEncoding.Utf8)),
+			    Verified = Manifest[delivery_ref] = "Q-FINANCE-C2@v1" and Manifest[status] = "PUBLISHED"
+			        and Seal = "sha256:7538132e08ea2b7e8c20f339db10e6c138cd2a08c71c4708c47c378d7c1b0141",
+			    Lineage = if Verified then Json.Document(File.Contents(Root & "/metadata/lineage.json"))
+			        else error "C2 package identity differs. Set C2Root to the verified Q-FINANCE-C2@v1 directory.",
+			    ContractOk = Lineage[contract_version] = "q-finance-c2-lineage@v1",
+			    Rows = Lineage[rows],
+			    Golds = List.Distinct(List.Transform(Rows, each _[gold_model])),
+			    Symbolic = {"C1_MARTS", "EXECUTIVE_C1_MARTS"},
+			    // A node with no dataset row of its own is a boundary, not a gap to fill.
+			    KindOf = (id as text) as text =>
+			        if List.Contains(Symbolic, id) then "SYMBOLIC_COLLECTION"
+			        else if List.Contains(Golds, id) then "GOLD_MODEL"
+			        else "BOUNDARY",
+			    Edges = List.Combine(List.Transform(Rows, (r) =>
+			        let
+			            Deps = List.Select(List.Transform(Text.Split(r[direct_dependencies], "|"), Text.Trim), each _ <> "")
+			        in
+			            List.Transform(Deps, (d) => [
+			                edgeId = d & " -> " & r[gold_model],
+			                fromNodeId = d, toNodeId = r[gold_model],
+			                fromLabel = d, toLabel = r[gold_model],
+			                fromKind = KindOf(d), toKind = "GOLD_MODEL",
+			                edgeKind = "DECLARED_DEPENDENCY",
+			                transformationClass = r[transformation_class],
+			                datasetId = r[dataset_id],
+			                declaredBronzeSources = r[a24_bronze_sources],
+			                evidenceDepth = "DATASET_DEPENDENCY",
+			                claimKey = "LINEAGE|Q-FINANCE-C2@v1",
+			                lineagePolicyRef = "NEXUS-LINEAGE-DATASET@v1",
+			                purpose = "EXECUTIVE_LINEAGE_REVIEW", authority = "DELIVERY_LINEAGE_METADATA",
+			                deliveryRef = "Q-FINANCE-C2@v1", deliveryDigest = "sha256:7538132e08ea2b7e8c20f339db10e6c138cd2a08c71c4708c47c378d7c1b0141",
+			                sourceDigest = "sha256:39af66f379d5497399f89e3956e601b6fb99a070146d8c6d378bb684f288b7e5",
+			                evidenceRef = "metadata/lineage.json / " & r[dataset_id],
+			                evidenceDigest = null,
+			                contextState = if ContractOk then "VALID" else "AMBIGUOUS"
+			            ])))
+			in
+			    Table.Distinct(Table.FromRecords(Edges), {"edgeId"})
