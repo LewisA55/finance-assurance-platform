@@ -105,6 +105,7 @@ for token, value in sorted({
     'SOURCE_BINDING_IDS': m_list(m_text(i) for i in C2['sourceBindingIds']),
 }.items(), key=lambda kv: -len(kv[0])):
     assertions_m = assertions_m.replace(token, value)
+nb.assert_balanced(assertions_m, TABLE)
 
 # -------------------------------------------------- exception observations ---
 rules = [
@@ -165,6 +166,7 @@ for token, value in sorted({
     'EXPOSURE_NOTE': POLICY['exposureNote'], 'GOVERNANCE_LINKS': POLICY['governanceLinkState'],
 }.items(), key=lambda kv: -len(kv[0])):
     observations_m = observations_m.replace(token, value)
+nb.assert_balanced(observations_m, OBS)
 
 # ----------------------------------------------------------------- tables ---
 selected = f"CALCULATETABLE ( '{TABLE}', ALLSELECTED ( '{TABLE}' ) )"

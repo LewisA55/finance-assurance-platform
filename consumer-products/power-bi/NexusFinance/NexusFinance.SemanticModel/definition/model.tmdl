@@ -31,3 +31,5 @@ ref table 'Exception Observations'
 ref table 'Rule Inventory'
 
 ref table 'Close Grid'
+
+ref table 'Lineage Edges'

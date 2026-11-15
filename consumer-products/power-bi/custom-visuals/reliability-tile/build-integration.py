@@ -63,6 +63,7 @@ m_source='''let
 in Table.TransformColumnTypes(Combined, {{"rawValue", Int64.Type}})'''
 for a,b in {'SOURCE_DIGEST':POLICY['sourceDigest'],'POLICY_VERSION':POLICY['version'],'DELIVERY_REF':POLICY['deliveryRef'],'DELIVERY_DIGEST':POLICY['deliveryDigest'],'METRIC_SOURCES':',\n        '.join(metric_sources)}.items():
     m_source=m_source.replace(a,b)
+nb.assert_balanced(m_source, 'KPI Claims')
 
 measures={
  'Selected Purpose':'IF ( NOT ISFILTERED ( \'KPI Purpose\'[Purpose] ), "CFO_EXECUTIVE_REVIEW", SELECTEDVALUE ( \'KPI Purpose\'[Purpose], "AMBIGUOUS" ) )',

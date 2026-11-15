@@ -1,0 +1,48 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json",
+  "name": "f18d6c40a932e5b74c8199",
+  "position": {
+    "x": 24,
+    "y": 12,
+    "width": 1000,
+    "height": 70,
+    "z": 0,
+    "tabOrder": 0
+  },
+  "visual": {
+    "visualType": "textbox",
+    "objects": {
+      "general": [
+        {
+          "properties": {
+            "paragraphs": [
+              {
+                "textRuns": [
+                  {
+                    "value": "NEXUS / DATASET LINEAGE",
+                    "textStyle": {
+                      "fontSize": "22px",
+                      "fontFamily": "Segoe UI Semibold",
+                      "color": "#162c43"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "Declared dependencies only | Symbolic collections left unresolved | Boundary nodes marked | Dataset depth, no row-level proof",
+                    "textStyle": {
+                      "fontSize": "12px",
+                      "color": "#566879"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    }
+  }
+}

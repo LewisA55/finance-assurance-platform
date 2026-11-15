@@ -28,6 +28,42 @@ COMMON_CONTEXT = ['purpose', 'authority', 'deliveryRef', 'deliveryDigest', 'sour
 COMMON_MEASURE = ['expectedRowCount']
 
 
+def assert_balanced(m_source, label):
+    """Fail at generation time if emitted M has unbalanced brackets.
+
+    Power BI only reports this as a parser error when the project is opened,
+    long after the generator has exited, so the check runs here instead.
+    """
+    closers = {')': '(', ']': '[', '}': '{'}
+    stack = []
+    i, n = 0, len(m_source)
+    while i < n:
+        c = m_source[i]
+        if c == '"':  # M escapes a quote by doubling it
+            i += 1
+            while i < n:
+                if m_source[i] == '"':
+                    if i + 1 < n and m_source[i + 1] == '"':
+                        i += 2
+                        continue
+                    break
+                i += 1
+        elif c == '/' and m_source[i + 1:i + 2] == '/':
+            while i < n and m_source[i] != '\n':
+                i += 1
+        elif c in '([{':
+            stack.append((c, i))
+        elif c in closers:
+            if not stack or stack[-1][0] != closers[c]:
+                raise AssertionError(
+                    f"{label}: unexpected {c!r} on line {m_source.count(chr(10), 0, i) + 1}")
+            stack.pop()
+        i += 1
+    if stack:
+        opener, at = stack[-1]
+        raise AssertionError(f"{label}: unclosed {opener!r} opened on line {m_source.count(chr(10), 0, at) + 1}")
+
+
 def write_json(path, data):
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(json.dumps(data, indent=2) + '\n', encoding='utf-8')

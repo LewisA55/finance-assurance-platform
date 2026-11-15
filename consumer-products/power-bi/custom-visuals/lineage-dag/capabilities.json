@@ -1,0 +1,359 @@
+{
+  "privileges": [],
+  "dataRoles": [
+    {
+      "name": "claimKey",
+      "displayName": "claimKey",
+      "kind": "Grouping"
+    },
+    {
+      "name": "edgeId",
+      "displayName": "edgeId",
+      "kind": "Grouping"
+    },
+    {
+      "name": "fromNodeId",
+      "displayName": "fromNodeId",
+      "kind": "Grouping"
+    },
+    {
+      "name": "toNodeId",
+      "displayName": "toNodeId",
+      "kind": "Grouping"
+    },
+    {
+      "name": "fromLabel",
+      "displayName": "fromLabel",
+      "kind": "Grouping"
+    },
+    {
+      "name": "toLabel",
+      "displayName": "toLabel",
+      "kind": "Grouping"
+    },
+    {
+      "name": "fromKind",
+      "displayName": "fromKind",
+      "kind": "Grouping"
+    },
+    {
+      "name": "toKind",
+      "displayName": "toKind",
+      "kind": "Grouping"
+    },
+    {
+      "name": "purpose",
+      "displayName": "purpose",
+      "kind": "GroupingOrMeasure"
+    },
+    {
+      "name": "authority",
+      "displayName": "authority",
+      "kind": "GroupingOrMeasure"
+    },
+    {
+      "name": "deliveryRef",
+      "displayName": "deliveryRef",
+      "kind": "GroupingOrMeasure"
+    },
+    {
+      "name": "deliveryDigest",
+      "displayName": "deliveryDigest",
+      "kind": "GroupingOrMeasure"
+    },
+    {
+      "name": "sourceDigest",
+      "displayName": "sourceDigest",
+      "kind": "GroupingOrMeasure"
+    },
+    {
+      "name": "evidenceRef",
+      "displayName": "evidenceRef",
+      "kind": "GroupingOrMeasure"
+    },
+    {
+      "name": "evidenceDigest",
+      "displayName": "evidenceDigest",
+      "kind": "GroupingOrMeasure"
+    },
+    {
+      "name": "contextState",
+      "displayName": "contextState",
+      "kind": "GroupingOrMeasure"
+    },
+    {
+      "name": "edgeKind",
+      "displayName": "edgeKind",
+      "kind": "GroupingOrMeasure"
+    },
+    {
+      "name": "transformationClass",
+      "displayName": "transformationClass",
+      "kind": "GroupingOrMeasure"
+    },
+    {
+      "name": "datasetId",
+      "displayName": "datasetId",
+      "kind": "GroupingOrMeasure"
+    },
+    {
+      "name": "declaredBronzeSources",
+      "displayName": "declaredBronzeSources",
+      "kind": "GroupingOrMeasure"
+    },
+    {
+      "name": "evidenceDepth",
+      "displayName": "evidenceDepth",
+      "kind": "GroupingOrMeasure"
+    },
+    {
+      "name": "lineagePolicyRef",
+      "displayName": "lineagePolicyRef",
+      "kind": "GroupingOrMeasure"
+    },
+    {
+      "name": "expectedRowCount",
+      "displayName": "expectedRowCount",
+      "kind": "Measure"
+    }
+  ],
+  "dataViewMappings": [
+    {
+      "conditions": [
+        {
+          "claimKey": {
+            "min": 1,
+            "max": 1
+          },
+          "edgeId": {
+            "min": 1,
+            "max": 1
+          },
+          "fromNodeId": {
+            "min": 1,
+            "max": 1
+          },
+          "toNodeId": {
+            "min": 1,
+            "max": 1
+          },
+          "fromLabel": {
+            "min": 1,
+            "max": 1
+          },
+          "toLabel": {
+            "min": 1,
+            "max": 1
+          },
+          "fromKind": {
+            "min": 1,
+            "max": 1
+          },
+          "toKind": {
+            "min": 1,
+            "max": 1
+          },
+          "purpose": {
+            "min": 1,
+            "max": 1
+          },
+          "authority": {
+            "min": 1,
+            "max": 1
+          },
+          "deliveryRef": {
+            "min": 1,
+            "max": 1
+          },
+          "deliveryDigest": {
+            "min": 1,
+            "max": 1
+          },
+          "sourceDigest": {
+            "min": 1,
+            "max": 1
+          },
+          "evidenceRef": {
+            "min": 1,
+            "max": 1
+          },
+          "evidenceDigest": {
+            "min": 0,
+            "max": 1
+          },
+          "contextState": {
+            "min": 1,
+            "max": 1
+          },
+          "edgeKind": {
+            "min": 1,
+            "max": 1
+          },
+          "transformationClass": {
+            "min": 1,
+            "max": 1
+          },
+          "datasetId": {
+            "min": 1,
+            "max": 1
+          },
+          "declaredBronzeSources": {
+            "min": 1,
+            "max": 1
+          },
+          "evidenceDepth": {
+            "min": 1,
+            "max": 1
+          },
+          "lineagePolicyRef": {
+            "min": 1,
+            "max": 1
+          },
+          "expectedRowCount": {
+            "min": 1,
+            "max": 1
+          }
+        }
+      ],
+      "table": {
+        "rows": {
+          "select": [
+            {
+              "for": {
+                "in": "claimKey"
+              }
+            },
+            {
+              "for": {
+                "in": "edgeId"
+              }
+            },
+            {
+              "for": {
+                "in": "fromNodeId"
+              }
+            },
+            {
+              "for": {
+                "in": "toNodeId"
+              }
+            },
+            {
+              "for": {
+                "in": "fromLabel"
+              }
+            },
+            {
+              "for": {
+                "in": "toLabel"
+              }
+            },
+            {
+              "for": {
+                "in": "fromKind"
+              }
+            },
+            {
+              "for": {
+                "in": "toKind"
+              }
+            },
+            {
+              "for": {
+                "in": "purpose"
+              }
+            },
+            {
+              "for": {
+                "in": "authority"
+              }
+            },
+            {
+              "for": {
+                "in": "deliveryRef"
+              }
+            },
+            {
+              "for": {
+                "in": "deliveryDigest"
+              }
+            },
+            {
+              "for": {
+                "in": "sourceDigest"
+              }
+            },
+            {
+              "for": {
+                "in": "evidenceRef"
+              }
+            },
+            {
+              "for": {
+                "in": "evidenceDigest"
+              }
+            },
+            {
+              "for": {
+                "in": "contextState"
+              }
+            },
+            {
+              "for": {
+                "in": "edgeKind"
+              }
+            },
+            {
+              "for": {
+                "in": "transformationClass"
+              }
+            },
+            {
+              "for": {
+                "in": "datasetId"
+              }
+            },
+            {
+              "for": {
+                "in": "declaredBronzeSources"
+              }
+            },
+            {
+              "for": {
+                "in": "evidenceDepth"
+              }
+            },
+            {
+              "for": {
+                "in": "lineagePolicyRef"
+              }
+            },
+            {
+              "for": {
+                "in": "expectedRowCount"
+              }
+            }
+          ],
+          "dataReductionAlgorithm": {
+            "window": {
+              "count": 256
+            }
+          }
+        }
+      }
+    }
+  ],
+  "objects": {},
+  "supportsEmptyDataView": true,
+  "supportsLandingPage": true,
+  "supportsKeyboardFocus": true,
+  "supportsHighlight": false,
+  "sorting": {
+    "custom": {}
+  },
+  "tooltips": {
+    "supportedTypes": {
+      "default": true
+    }
+  }
+}
