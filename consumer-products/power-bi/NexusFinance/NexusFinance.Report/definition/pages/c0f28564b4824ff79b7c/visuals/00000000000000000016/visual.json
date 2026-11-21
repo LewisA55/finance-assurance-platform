@@ -10,10 +10,10 @@
     "tabOrder": 2200
   },
   "visual": {
-    "visualType": "tableEx",
+    "visualType": "NexusReportDetail36313AD96E7F4E25A3F0C03834F7CFAA",
     "query": {
       "queryState": {
-        "Values": {
+        "fields": {
           "projections": [
             {
               "field": {
@@ -147,42 +147,14 @@
             }
           }
         }
-      ]
-    },
-    "objects": {
-      "total": [
+      ],
+      "subTitle": [
         {
           "properties": {
-            "totals": {
+            "show": {
               "expr": {
                 "Literal": {
                   "Value": "false"
-                }
-              }
-            }
-          }
-        }
-      ],
-      "columnHeaders": [
-        {
-          "properties": {
-            "fontSize": {
-              "expr": {
-                "Literal": {
-                  "Value": "10D"
-                }
-              }
-            }
-          }
-        }
-      ],
-      "values": [
-        {
-          "properties": {
-            "fontSize": {
-              "expr": {
-                "Literal": {
-                  "Value": "10D"
                 }
               }
             }

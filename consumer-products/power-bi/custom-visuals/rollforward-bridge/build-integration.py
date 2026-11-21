@@ -200,10 +200,7 @@ for i, key in enumerate(POLICY['bridges']):
     v['filterConfig'] = {'filters': [nb.filter_value(TABLE, 'bridgeKey', key)]}
     nb.write_visual(PAGE, v)
 
-v = nb.visual('b7e4c1a9d3f84e2b9099', 'textbox', 24, 12, 900, 70)
-v['visual']['objects'] = {'general': [{'properties': {'paragraphs': [
-    {'textRuns': [{'value': 'NEXUS / ROLLFORWARD ASSURANCE', 'textStyle': {'fontSize': '22px', 'fontFamily': 'Segoe UI Semibold', 'color': '#162c43'}}]},
-    {'textRuns': [{'value': 'Nine schedules | Arithmetic replayed at zero tolerance | Source assertions kept separate | Each card states its own reporting scope', 'textStyle': {'fontSize': '12px', 'color': '#566879'}}]}]}}]}
-nb.write_visual(PAGE, v)
+nb.write_visual(PAGE, nb.page_header('b7e4c1a9d3f84e2b9099', 'Rollforward Assurance',
+    'Check opening balances, movements and closing balances across nine schedules. Each bridge shows its reporting scope.'))
 
 print(f'Generated capabilities, {TABLE} adapter and the Rollforward Assurance page.')

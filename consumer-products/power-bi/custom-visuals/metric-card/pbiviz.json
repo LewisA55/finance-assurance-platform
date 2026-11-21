@@ -1,0 +1,25 @@
+{
+  "visual": {
+    "name": "nexusMetricCard",
+    "displayName": "Nexus Metric Card",
+    "guid": "NexusMetricCardA7F25B81D394C6E0472B9D53E18A6C4F",
+    "visualClassName": "Visual",
+    "version": "0.1.0.0",
+    "description": "Dashboard tile over a governed measure, stating its declared context and authority.",
+    "supportUrl": "https://github.com",
+    "gitHubUrl": ""
+  },
+  "apiVersion": "5.11.1",
+  "author": {
+    "name": "Finance Assurance Platform (local development)",
+    "email": "development@example.invalid"
+  },
+  "assets": {
+    "icon": "assets/icon.png"
+  },
+  "externalJS": null,
+  "style": "style/visual.less",
+  "capabilities": "capabilities.json",
+  "dependencies": null,
+  "stringResources": []
+}

@@ -142,6 +142,18 @@ def visual(vid, typ, x, y, w, h):
         'name': vid, 'position': {'x': x, 'y': y, 'width': w, 'height': h, 'z': 0, 'tabOrder': 0}, 'visual': {'visualType': typ}}
 
 
+def page_header(vid, title, subtitle, width=1232):
+    spec = visual(vid, 'textbox', 24, 12, width, 72)
+    spec['visual']['objects'] = {'general': [{'properties': {'paragraphs': [
+        {'textRuns': [{'value': 'NEXUS FINANCE', 'textStyle': {
+            'fontSize': '12px', 'fontFamily': 'Segoe UI Semibold', 'color': '#16776E'}}]},
+        {'textRuns': [{'value': title, 'textStyle': {
+            'fontSize': '24px', 'fontFamily': 'Segoe UI Semibold', 'color': '#162c43'}}]},
+        {'textRuns': [{'value': subtitle, 'textStyle': {'fontSize': '12px', 'color': '#566879'}}]},
+    ]}}]}
+    return spec
+
+
 def table_visual(vid, x, y, w, h, entity, columns, title, sort=None, alt_text=None):
     """A native table over one entity. `columns` are (property, display[, kind])."""
     def literal(value):
@@ -211,4 +223,4 @@ def add_relationships(rows):
 
 
 def write_table(name, tmdl):
-    (MODEL / 'tables' / f'{name}.tmdl').write_text(tmdl)
+    (MODEL / 'tables' / f'{name}.tmdl').write_text(tmdl, encoding='utf-8')

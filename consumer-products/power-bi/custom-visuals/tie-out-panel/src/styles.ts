@@ -14,6 +14,7 @@ export const styles=`
 .nexus-tieout table{width:100%;border-collapse:collapse;font-size:11px}
 .nexus-tieout th{text-align:left;font-weight:600;padding:4px 8px 6px 0;border-bottom:1px solid var(--muted);white-space:nowrap}
 .nexus-tieout th.num,.nexus-tieout td.num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap;padding-right:0;padding-left:12px}
+.nexus-tieout th.num+th:not(.num),.nexus-tieout td.num+td:not(.num){padding-left:12px}
 .nexus-tieout td{padding:4px 8px 4px 0;border-bottom:1px solid var(--rule);vertical-align:top}
 .nexus-tieout td.label{min-width:140px}
 .nexus-tieout td.type{color:var(--muted);white-space:nowrap}

@@ -1,0 +1,412 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json",
+  "name": "3092b6abee574a1a9006",
+  "position": {
+    "x": 24,
+    "y": 96,
+    "width": 1232,
+    "height": 596,
+    "z": 0,
+    "tabOrder": 0
+  },
+  "visual": {
+    "visualType": "NexusComparisonDE96413A903F4A7A8716560B4F2981C5",
+    "query": {
+      "queryState": {
+        "key": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Planning Variance Data"
+                    }
+                  },
+                  "Property": "key"
+                }
+              },
+              "queryRef": "Planning Variance Data.key",
+              "nativeQueryRef": "key"
+            }
+          ]
+        },
+        "mode": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Planning Variance Data"
+                    }
+                  },
+                  "Property": "mode"
+                }
+              },
+              "queryRef": "Planning Variance Data.mode",
+              "nativeQueryRef": "mode"
+            }
+          ]
+        },
+        "groupKey": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Planning Variance Data"
+                    }
+                  },
+                  "Property": "groupKey"
+                }
+              },
+              "queryRef": "Planning Variance Data.groupKey",
+              "nativeQueryRef": "groupKey"
+            }
+          ]
+        },
+        "groupLabel": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Planning Variance Data"
+                    }
+                  },
+                  "Property": "groupLabel"
+                }
+              },
+              "queryRef": "Planning Variance Data.groupLabel",
+              "nativeQueryRef": "groupLabel"
+            }
+          ]
+        },
+        "label": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Planning Variance Data"
+                    }
+                  },
+                  "Property": "label"
+                }
+              },
+              "queryRef": "Planning Variance Data.label",
+              "nativeQueryRef": "label"
+            }
+          ]
+        },
+        "period": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Planning Variance Data"
+                    }
+                  },
+                  "Property": "period"
+                }
+              },
+              "queryRef": "Planning Variance Data.period",
+              "nativeQueryRef": "period"
+            }
+          ]
+        },
+        "scope": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Planning Variance Data"
+                    }
+                  },
+                  "Property": "scope"
+                }
+              },
+              "queryRef": "Planning Variance Data.scope",
+              "nativeQueryRef": "scope"
+            }
+          ]
+        },
+        "currency": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Planning Variance Data"
+                    }
+                  },
+                  "Property": "currency"
+                }
+              },
+              "queryRef": "Planning Variance Data.currency",
+              "nativeQueryRef": "currency"
+            }
+          ]
+        },
+        "direction": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Planning Variance Data"
+                    }
+                  },
+                  "Property": "direction"
+                }
+              },
+              "queryRef": "Planning Variance Data.direction",
+              "nativeQueryRef": "direction"
+            }
+          ]
+        },
+        "baseRef": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Planning Variance Data"
+                    }
+                  },
+                  "Property": "baseRef"
+                }
+              },
+              "queryRef": "Planning Variance Data.baseRef",
+              "nativeQueryRef": "baseRef"
+            }
+          ]
+        },
+        "middleRef": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Planning Variance Data"
+                    }
+                  },
+                  "Property": "middleRef"
+                }
+              },
+              "queryRef": "Planning Variance Data.middleRef",
+              "nativeQueryRef": "middleRef"
+            }
+          ]
+        },
+        "endRef": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Planning Variance Data"
+                    }
+                  },
+                  "Property": "endRef"
+                }
+              },
+              "queryRef": "Planning Variance Data.endRef",
+              "nativeQueryRef": "endRef"
+            }
+          ]
+        },
+        "evidence": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Planning Variance Data"
+                    }
+                  },
+                  "Property": "evidence"
+                }
+              },
+              "queryRef": "Planning Variance Data.evidence",
+              "nativeQueryRef": "evidence"
+            }
+          ]
+        },
+        "adapterDigest": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Planning Variance Data"
+                    }
+                  },
+                  "Property": "adapterDigest"
+                }
+              },
+              "queryRef": "Planning Variance Data.adapterDigest",
+              "nativeQueryRef": "adapterDigest"
+            }
+          ]
+        },
+        "base": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Planning Variance Data"
+                    }
+                  },
+                  "Property": "base"
+                }
+              },
+              "queryRef": "Planning Variance Data.base",
+              "nativeQueryRef": "base"
+            }
+          ]
+        },
+        "middle": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Planning Variance Data"
+                    }
+                  },
+                  "Property": "middle"
+                }
+              },
+              "queryRef": "Planning Variance Data.middle",
+              "nativeQueryRef": "middle"
+            }
+          ]
+        },
+        "end": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Planning Variance Data"
+                    }
+                  },
+                  "Property": "end"
+                }
+              },
+              "queryRef": "Planning Variance Data.end",
+              "nativeQueryRef": "end"
+            }
+          ]
+        },
+        "firstDelta": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Planning Variance Data"
+                    }
+                  },
+                  "Property": "firstDelta"
+                }
+              },
+              "queryRef": "Planning Variance Data.firstDelta",
+              "nativeQueryRef": "firstDelta"
+            }
+          ]
+        },
+        "secondDelta": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Planning Variance Data"
+                    }
+                  },
+                  "Property": "secondDelta"
+                }
+              },
+              "queryRef": "Planning Variance Data.secondDelta",
+              "nativeQueryRef": "secondDelta"
+            }
+          ]
+        },
+        "netDelta": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Planning Variance Data"
+                    }
+                  },
+                  "Property": "netDelta"
+                }
+              },
+              "queryRef": "Planning Variance Data.netDelta",
+              "nativeQueryRef": "netDelta"
+            }
+          ]
+        },
+        "expected": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Planning Variance Data"
+                    }
+                  },
+                  "Property": "expected"
+                }
+              },
+              "queryRef": "Planning Variance Data.expected",
+              "nativeQueryRef": "expected"
+            }
+          ]
+        }
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

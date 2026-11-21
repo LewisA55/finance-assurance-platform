@@ -1,8 +1,10 @@
 # Power BI semantic model
 
-This directory will hold reviewable PBIP/TMDL source for the v0.3 semantic
-model: star schemas, conformed dimensions, explicit measures, calculation
-groups, hierarchies, formats, ownership metadata, perspectives and security.
+The [TMDL model](../NexusFinance/NexusFinance.SemanticModel/definition/model.tmdl)
+is part of the [NexusFinance PBIP](../NexusFinance/NexusFinance.pbip).
+It contains 19 tables and 15 relationships, including the two comparison
+adapters. See the [Power BI workspace](../README.md) for the model's C2
+manifest pin and Desktop refresh steps.
 
 The model must pin one exact C2 delivery manifest and must not create a second
 accounting or governed-truth authority.

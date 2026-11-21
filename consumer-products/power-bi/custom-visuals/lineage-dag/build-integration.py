@@ -134,10 +134,7 @@ v['visual']['query'] = {'queryState': query}
 v['visual']['visualContainerObjects'] = {'title': [{'properties': {'show': {'expr': {'Literal': {'Value': 'false'}}}}}]}
 nb.write_visual(PAGE, v)
 
-v = nb.visual('f18d6c40a932e5b74c8199', 'textbox', 24, 12, 1000, 70)
-v['visual']['objects'] = {'general': [{'properties': {'paragraphs': [
-    {'textRuns': [{'value': 'NEXUS / DATASET LINEAGE', 'textStyle': {'fontSize': '22px', 'fontFamily': 'Segoe UI Semibold', 'color': '#162c43'}}]},
-    {'textRuns': [{'value': 'Declared dependencies only | Symbolic collections left unresolved | Boundary nodes marked | Dataset depth, no row-level proof', 'textStyle': {'fontSize': '12px', 'color': '#566879'}}]}]}}]}
-nb.write_visual(PAGE, v)
+nb.write_visual(PAGE, nb.page_header('f18d6c40a932e5b74c8199', 'Dataset Lineage',
+    'Search for a dataset and select it to trace declared upstream and downstream dependencies.'))
 
 print(f'Generated capabilities, {TABLE} adapter and the Dataset Lineage page.')

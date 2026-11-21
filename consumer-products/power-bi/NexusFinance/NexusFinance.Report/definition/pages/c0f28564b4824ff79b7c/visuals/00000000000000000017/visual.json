@@ -5,120 +5,461 @@
     "x": 28,
     "y": 520,
     "width": 1224,
-    "height": 144,
+    "height": 480,
     "z": 2300,
     "tabOrder": 2300
   },
   "visual": {
-    "visualType": "tableEx",
+    "visualType": "NexusRollforwardBridgeB7E4C1A9D3F84E2B9065C7D18A34F052",
     "query": {
       "queryState": {
-        "Values": {
+        "claimKey": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Bridge Steps"
+                    }
+                  },
+                  "Property": "claimKey"
+                }
+              },
+              "queryRef": "Bridge Steps.claimKey",
+              "nativeQueryRef": "claimKey"
+            }
+          ]
+        },
+        "bridgeKey": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Bridge Steps"
+                    }
+                  },
+                  "Property": "bridgeKey"
+                }
+              },
+              "queryRef": "Bridge Steps.bridgeKey",
+              "nativeQueryRef": "bridgeKey"
+            }
+          ]
+        },
+        "stepKey": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Bridge Steps"
+                    }
+                  },
+                  "Property": "stepKey"
+                }
+              },
+              "queryRef": "Bridge Steps.stepKey",
+              "nativeQueryRef": "stepKey"
+            }
+          ]
+        },
+        "stepLabel": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Bridge Steps"
+                    }
+                  },
+                  "Property": "stepLabel"
+                }
+              },
+              "queryRef": "Bridge Steps.stepLabel",
+              "nativeQueryRef": "stepLabel"
+            }
+          ]
+        },
+        "stepOrder": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Bridge Steps"
+                    }
+                  },
+                  "Property": "stepOrder"
+                }
+              },
+              "queryRef": "Bridge Steps.stepOrder",
+              "nativeQueryRef": "stepOrder"
+            }
+          ]
+        },
+        "stepKind": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Bridge Steps"
+                    }
+                  },
+                  "Property": "stepKind"
+                }
+              },
+              "queryRef": "Bridge Steps.stepKind",
+              "nativeQueryRef": "stepKind"
+            }
+          ]
+        },
+        "purpose": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Bridge Steps"
+                    }
+                  },
+                  "Property": "purpose"
+                }
+              },
+              "queryRef": "Bridge Steps.purpose",
+              "nativeQueryRef": "purpose"
+            }
+          ]
+        },
+        "authority": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Bridge Steps"
+                    }
+                  },
+                  "Property": "authority"
+                }
+              },
+              "queryRef": "Bridge Steps.authority",
+              "nativeQueryRef": "authority"
+            }
+          ]
+        },
+        "deliveryRef": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Bridge Steps"
+                    }
+                  },
+                  "Property": "deliveryRef"
+                }
+              },
+              "queryRef": "Bridge Steps.deliveryRef",
+              "nativeQueryRef": "deliveryRef"
+            }
+          ]
+        },
+        "deliveryDigest": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Bridge Steps"
+                    }
+                  },
+                  "Property": "deliveryDigest"
+                }
+              },
+              "queryRef": "Bridge Steps.deliveryDigest",
+              "nativeQueryRef": "deliveryDigest"
+            }
+          ]
+        },
+        "sourceDigest": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Bridge Steps"
+                    }
+                  },
+                  "Property": "sourceDigest"
+                }
+              },
+              "queryRef": "Bridge Steps.sourceDigest",
+              "nativeQueryRef": "sourceDigest"
+            }
+          ]
+        },
+        "evidenceRef": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Bridge Steps"
+                    }
+                  },
+                  "Property": "evidenceRef"
+                }
+              },
+              "queryRef": "Bridge Steps.evidenceRef",
+              "nativeQueryRef": "evidenceRef"
+            }
+          ]
+        },
+        "evidenceDigest": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Bridge Steps"
+                    }
+                  },
+                  "Property": "evidenceDigest"
+                }
+              },
+              "queryRef": "Bridge Steps.evidenceDigest",
+              "nativeQueryRef": "evidenceDigest"
+            }
+          ]
+        },
+        "contextState": {
           "projections": [
             {
               "field": {
                 "Measure": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "SaaS Movements"
+                      "Entity": "Bridge Steps"
                     }
                   },
-                  "Property": "Beginning MRR GBP"
+                  "Property": "Bridge Context State"
                 }
               },
-              "queryRef": "SaaS Movements.Beginning MRR GBP",
-              "nativeQueryRef": "Beginning MRR GBP",
-              "displayName": "Beginning"
-            },
+              "queryRef": "Bridge Steps.Bridge Context State",
+              "nativeQueryRef": "Bridge Context State"
+            }
+          ]
+        },
+        "period": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Bridge Steps"
+                    }
+                  },
+                  "Property": "period"
+                }
+              },
+              "queryRef": "Bridge Steps.period",
+              "nativeQueryRef": "period"
+            }
+          ]
+        },
+        "scope": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Bridge Steps"
+                    }
+                  },
+                  "Property": "scope"
+                }
+              },
+              "queryRef": "Bridge Steps.scope",
+              "nativeQueryRef": "scope"
+            }
+          ]
+        },
+        "version": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Reporting Version"
+                    }
+                  },
+                  "Property": "Reporting Version Ref"
+                }
+              },
+              "queryRef": "Reporting Version.Reporting Version Ref",
+              "nativeQueryRef": "Reporting Version Ref"
+            }
+          ]
+        },
+        "currency": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Bridge Steps"
+                    }
+                  },
+                  "Property": "currency"
+                }
+              },
+              "queryRef": "Bridge Steps.currency",
+              "nativeQueryRef": "currency"
+            }
+          ]
+        },
+        "sourceStatus": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Bridge Steps"
+                    }
+                  },
+                  "Property": "sourceStatus"
+                }
+              },
+              "queryRef": "Bridge Steps.sourceStatus",
+              "nativeQueryRef": "sourceStatus"
+            }
+          ]
+        },
+        "assertionPolicyRef": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Bridge Steps"
+                    }
+                  },
+                  "Property": "assertionPolicyRef"
+                }
+              },
+              "queryRef": "Bridge Steps.assertionPolicyRef",
+              "nativeQueryRef": "assertionPolicyRef"
+            }
+          ]
+        },
+        "amountMinor": {
+          "projections": [
             {
               "field": {
                 "Measure": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "SaaS Movements"
+                      "Entity": "Bridge Steps"
                     }
                   },
-                  "Property": "New MRR GBP"
+                  "Property": "Amount Minor"
                 }
               },
-              "queryRef": "SaaS Movements.New MRR GBP",
-              "nativeQueryRef": "New MRR GBP",
-              "displayName": "New"
-            },
+              "queryRef": "Bridge Steps.Amount Minor",
+              "nativeQueryRef": "Amount Minor"
+            }
+          ]
+        },
+        "sourceDifferenceMinor": {
+          "projections": [
             {
               "field": {
                 "Measure": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "SaaS Movements"
+                      "Entity": "Bridge Steps"
                     }
                   },
-                  "Property": "Expansion MRR GBP"
+                  "Property": "Source Difference Minor"
                 }
               },
-              "queryRef": "SaaS Movements.Expansion MRR GBP",
-              "nativeQueryRef": "Expansion MRR GBP",
-              "displayName": "Expansion"
-            },
+              "queryRef": "Bridge Steps.Source Difference Minor",
+              "nativeQueryRef": "Source Difference Minor"
+            }
+          ]
+        },
+        "toleranceMinor": {
+          "projections": [
             {
               "field": {
                 "Measure": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "SaaS Movements"
+                      "Entity": "Bridge Steps"
                     }
                   },
-                  "Property": "Contraction MRR GBP"
+                  "Property": "Tolerance Minor"
                 }
               },
-              "queryRef": "SaaS Movements.Contraction MRR GBP",
-              "nativeQueryRef": "Contraction MRR GBP",
-              "displayName": "Contraction"
-            },
+              "queryRef": "Bridge Steps.Tolerance Minor",
+              "nativeQueryRef": "Tolerance Minor"
+            }
+          ]
+        },
+        "failedComponentCount": {
+          "projections": [
             {
               "field": {
                 "Measure": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "SaaS Movements"
+                      "Entity": "Bridge Steps"
                     }
                   },
-                  "Property": "Churn MRR GBP"
+                  "Property": "Failed Component Count"
                 }
               },
-              "queryRef": "SaaS Movements.Churn MRR GBP",
-              "nativeQueryRef": "Churn MRR GBP",
-              "displayName": "Churn"
-            },
+              "queryRef": "Bridge Steps.Failed Component Count",
+              "nativeQueryRef": "Failed Component Count"
+            }
+          ]
+        },
+        "expectedRowCount": {
+          "projections": [
             {
               "field": {
                 "Measure": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "SaaS Movements"
+                      "Entity": "Bridge Steps"
                     }
                   },
-                  "Property": "FX Remeasurement MRR GBP"
+                  "Property": "Step Count"
                 }
               },
-              "queryRef": "SaaS Movements.FX Remeasurement MRR GBP",
-              "nativeQueryRef": "FX Remeasurement MRR GBP",
-              "displayName": "FX Remeasurement"
-            },
-            {
-              "field": {
-                "Measure": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "SaaS Movements"
-                    }
-                  },
-                  "Property": "Ending MRR GBP"
-                }
-              },
-              "queryRef": "SaaS Movements.Ending MRR GBP",
-              "nativeQueryRef": "Ending MRR GBP",
-              "displayName": "Ending"
+              "queryRef": "Bridge Steps.Step Count",
+              "nativeQueryRef": "Step Count"
             }
           ]
         }
@@ -131,99 +472,73 @@
             "show": {
               "expr": {
                 "Literal": {
-                  "Value": "true"
-                }
-              }
-            },
-            "text": {
-              "expr": {
-                "Literal": {
-                  "Value": "'June MRR bridge (GBP)'"
-                }
-              }
-            },
-            "fontColor": {
-              "solid": {
-                "color": {
-                  "expr": {
-                    "Literal": {
-                      "Value": "'#132841'"
-                    }
-                  }
-                }
-              }
-            },
-            "fontSize": {
-              "expr": {
-                "Literal": {
-                  "Value": "13D"
-                }
-              }
-            }
-          }
-        }
-      ],
-      "general": [
-        {
-          "properties": {
-            "altText": {
-              "expr": {
-                "Literal": {
-                  "Value": "'Beginning MRR plus signed subscription and FX movements equals ending MRR.'"
-                }
-              }
-            }
-          }
-        }
-      ]
-    },
-    "objects": {
-      "total": [
-        {
-          "properties": {
-            "totals": {
-              "expr": {
-                "Literal": {
                   "Value": "false"
                 }
               }
             }
           }
         }
-      ],
-      "columnHeaders": [
-        {
-          "properties": {
-            "fontSize": {
-              "expr": {
-                "Literal": {
-                  "Value": "10D"
-                }
-              }
-            }
-          }
-        }
-      ],
-      "values": [
-        {
-          "properties": {
-            "fontSize": {
-              "expr": {
-                "Literal": {
-                  "Value": "10D"
-                }
-              }
-            }
-          }
-        }
       ]
-    },
-    "drillFilterOtherVisuals": true
+    }
   },
   "filterConfig": {
     "filters": [
       {
-        "name": "Filter_86d47bd094a3009f",
+        "name": "Bridge Steps_bridgeKey_MRR",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Bridge Steps"
+              }
+            },
+            "Property": "bridgeKey"
+          }
+        },
+        "type": "Categorical",
+        "howCreated": "User",
+        "filter": {
+          "Version": 2,
+          "From": [
+            {
+              "Name": "s",
+              "Entity": "Bridge Steps",
+              "Type": 0
+            }
+          ],
+          "Where": [
+            {
+              "Condition": {
+                "In": {
+                  "Expressions": [
+                    {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Source": "s"
+                          }
+                        },
+                        "Property": "bridgeKey"
+                      }
+                    }
+                  ],
+                  "Values": [
+                    [
+                      {
+                        "Literal": {
+                          "Value": "'MRR'"
+                        }
+                      }
+                    ]
+                  ]
+                }
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "Period_Period ID_2026-06",
         "field": {
           "Column": {
             "Expression": {
@@ -236,13 +551,11 @@
         },
         "type": "Categorical",
         "howCreated": "User",
-        "isLockedInViewMode": true,
-        "isHiddenInViewMode": true,
         "filter": {
           "Version": 2,
           "From": [
             {
-              "Name": "p",
+              "Name": "s",
               "Entity": "Period",
               "Type": 0
             }
@@ -256,7 +569,7 @@
                       "Column": {
                         "Expression": {
                           "SourceRef": {
-                            "Source": "p"
+                            "Source": "s"
                           }
                         },
                         "Property": "Period ID"

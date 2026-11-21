@@ -1,6 +1,6 @@
 table 'KPI Claims'
 
-	measure 'Selected Purpose' = IF ( ISEMPTY ( 'KPI Claims' ), BLANK(), IF ( NOT ISFILTERED ( 'KPI Purpose'[Purpose] ), "CFO_EXECUTIVE_REVIEW", SELECTEDVALUE ( 'KPI Purpose'[Purpose], "AMBIGUOUS" ) ) )
+	measure 'Selected Purpose' = IF ( ISEMPTY ( 'KPI Claims' ), BLANK(), IF ( NOT ISFILTERED ( 'KPI Purpose' ), "CFO_EXECUTIVE_REVIEW", SELECTEDVALUE ( 'KPI Purpose'[Purpose], "AMBIGUOUS" ) ) )
 
 	measure 'Claim Count' = IF ( ISEMPTY ( 'KPI Claims' ), BLANK(), COUNTROWS ( CALCULATETABLE ( 'KPI Claims', ALLSELECTED ( 'KPI Claims' ), ALLSELECTED ( 'Reporting Version' ) ) ) )
 

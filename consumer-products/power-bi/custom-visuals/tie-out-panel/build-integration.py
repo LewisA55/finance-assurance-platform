@@ -292,19 +292,16 @@ nb.write_visual(PAGE, nb.table_visual('d4b82e6a1c7f49538a10', 24, 936, 892, 420,
 
 nb.write_visual(PAGE, nb.table_visual('d4b82e6a1c7f49538a11', 940, 936, 316, 420, OBS,
     [('Class', 'Class'), ('Observation Count', 'Observations', 'Measure')],
-    'Counts by object class',
+    'Observations by class',
     alt_text='Observation counts by class. Control and exposure classes are counted separately.'))
 
 nb.write_visual(PAGE, nb.table_visual('d4b82e6a1c7f49538a12', 24, 1380, 1232, 260, INVENTORY,
     [('Rule class', 'Class'), ('Rule', 'Rule'), ('Rule label', 'Observation'),
      ('Observations', 'Observations emitted', 'Measure')],
     'Rules evaluated', sort=('Rule class', 'Ascending'),
-    alt_text='Every declared exception rule. A rule emitting no observations was evaluated and found clean.'))
+    alt_text='Every declared exception rule. Zero means the rule emitted no observations.'))
 
-v = nb.visual('d4b82e6a1c7f49538a99', 'textbox', 24, 12, 1000, 70)
-v['visual']['objects'] = {'general': [{'properties': {'paragraphs': [
-    {'textRuns': [{'value': 'NEXUS / ASSURANCE CONTROLS', 'textStyle': {'fontSize': '22px', 'fontFamily': 'Segoe UI Semibold', 'color': '#162c43'}}]},
-    {'textRuns': [{'value': 'Published results replayed against their operands | Assertion types kept distinct | Delivery-wide, not month-specific | Exposure is recorded, not failed', 'textStyle': {'fontSize': '12px', 'color': '#566879'}}]}]}}]}
-nb.write_visual(PAGE, v)
+nb.write_visual(PAGE, nb.page_header('d4b82e6a1c7f49538a99', 'Assurance Controls',
+    'Review delivery-wide checks above. Scroll down for period observations, exposure indicators and the rules evaluated.'))
 
 print(f'Generated capabilities, {TABLE} and {OBS} adapters, and the Assurance Controls page.')

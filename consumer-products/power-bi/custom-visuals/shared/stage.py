@@ -33,7 +33,14 @@ def stage(here, qa_folder):
         {'name': guid, 'type': 'CustomVisual', 'items': [{'name': metadata[0].name, 'path': metadata[0].name, 'type': 'CustomVisualMetadata'}]}]
     p.write_text(json.dumps(r, indent=2) + '\n')
     qa = POWERBI / 'work' / qa_folder
-    shutil.copytree(PBIP, qa, dirs_exist_ok=True, ignore=shutil.ignore_patterns('.pbi'))
+    registered = {pkg['name'] for pkg in r['resourcePackages'] if pkg['type'] == 'CustomVisual'}
+
+    def ignore(path, names):
+        if Path(path) == REPORT / 'CustomVisuals':
+            return set(names) - registered
+        return {'.pbi'} & set(names)
+
+    shutil.copytree(PBIP, qa, dirs_exist_ok=True, ignore=ignore)
     p = qa / 'NexusFinance.SemanticModel/definition/expressions.tmdl'
     p.write_text(p.read_text().replace(C2_PLACEHOLDER, str(DELIVERY)))
     return qa / 'NexusFinance.pbip'

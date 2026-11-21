@@ -66,7 +66,7 @@ for a,b in {'SOURCE_DIGEST':POLICY['sourceDigest'],'POLICY_VERSION':POLICY['vers
 nb.assert_balanced(m_source, 'KPI Claims')
 
 measures={
- 'Selected Purpose':'IF ( NOT ISFILTERED ( \'KPI Purpose\'[Purpose] ), "CFO_EXECUTIVE_REVIEW", SELECTEDVALUE ( \'KPI Purpose\'[Purpose], "AMBIGUOUS" ) )',
+ 'Selected Purpose':'IF ( NOT ISFILTERED ( \'KPI Purpose\' ), "CFO_EXECUTIVE_REVIEW", SELECTEDVALUE ( \'KPI Purpose\'[Purpose], "AMBIGUOUS" ) )',
  'Claim Count':"COUNTROWS ( CALCULATETABLE ( 'KPI Claims', ALLSELECTED ( 'KPI Claims' ), ALLSELECTED ( 'Reporting Version' ) ) )",
  'Eligibility State':'''SWITCH ( TRUE(), [Claim Count] <> 1, "INVALID_CONTEXT", [Selected Purpose] <> "CFO_EXECUTIVE_REVIEW", "WITHHELD", SELECTEDVALUE ( 'KPI Claims'[baseState], "UNASSESSED" ) )''',
  'Display Value':'''IF ( [Eligibility State] = "ELIGIBLE", SELECTEDVALUE ( 'KPI Claims'[rawValue] ), BLANK() )''',
@@ -92,10 +92,16 @@ nb.write_table('KPI Purpose', '''table 'KPI Purpose'
         dataType: string
         sourceColumn: [Purpose]
         summarizeBy: none
+        isHidden
+
+    column 'Intended Use'
+        dataType: string
+        sourceColumn: [Intended Use]
+        summarizeBy: none
 
     partition 'KPI Purpose' = calculated
         mode: import
-        source = DATATABLE ( "Purpose", STRING, { { "CFO_EXECUTIVE_REVIEW" }, { "STATUTORY_SIGN_OFF" } } )
+        source = DATATABLE ( "Purpose", STRING, "Intended Use", STRING, { { "CFO_EXECUTIVE_REVIEW", "CFO executive review" }, { "STATUTORY_SIGN_OFF", "Statutory sign-off" } } )
 '''.replace('    ','\t'))
 nb.ref_tables(['KPI Claims', 'KPI Purpose'])
 nb.add_relationships([
@@ -121,11 +127,11 @@ for i,(mid,_metric) in enumerate(POLICY['metrics'].items()):
     v['filterConfig']={'filters':[nb.filter_value('KPI Claims','metricId',mid)]}
     nb.write_visual(page, v)
 # Native title and purpose slicer; failure mode uses a real unsupported purpose.
-v=nb.visual('a64b7d4392ce4d438699','textbox',24,12,700,70)
-v['visual']['objects']={'general':[{'properties':{'paragraphs':[{'textRuns':[{'value':'NEXUS / GOVERNED KPI REVIEW','textStyle':{'fontSize':'22px','fontFamily':'Segoe UI Semibold','color':'#162c43'}}]},{'textRuns':[{'value':'Selected reporting period | Purpose-specific eligibility | Right-click evidence to drill through','textStyle':{'fontSize':'12px','color':'#566879'}}]}]}}]}
-nb.write_visual(page, v)
+nb.write_visual(page, nb.page_header('a64b7d4392ce4d438699', 'Governed KPI Review',
+    'Choose an intended use to see which figures are eligible. The default is CFO executive review.', width=700))
 v=nb.visual('a64b7d4392ce4d438698','slicer',760,12,490,90)
-v['visual']['query']={'queryState':{'Values':{'projections':[{'field':nb.field('KPI Purpose','Purpose'),'queryRef':'KPI Purpose.Purpose','nativeQueryRef':'Purpose'}]}}}
+v['visual']['query']={'queryState':{'Values':{'projections':[{
+    'field':nb.field('KPI Purpose','Intended Use'),'queryRef':'KPI Purpose.Intended Use','nativeQueryRef':'Intended Use'}]}}}
 nb.write_visual(page, v)
 # CustomVisual binaries are staged by stage-package.py after packaging.
 print('Generated capabilities, semantic adapter and Governed KPI Review page.')

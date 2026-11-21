@@ -1,0 +1,412 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json",
+  "name": "3092b6abee574a1a9006",
+  "position": {
+    "x": 24,
+    "y": 96,
+    "width": 1232,
+    "height": 596,
+    "z": 0,
+    "tabOrder": 0
+  },
+  "visual": {
+    "visualType": "NexusComparisonDE96413A903F4A7A8716560B4F2981C5",
+    "query": {
+      "queryState": {
+        "key": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Restatement Comparator Data"
+                    }
+                  },
+                  "Property": "key"
+                }
+              },
+              "queryRef": "Restatement Comparator Data.key",
+              "nativeQueryRef": "key"
+            }
+          ]
+        },
+        "mode": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Restatement Comparator Data"
+                    }
+                  },
+                  "Property": "mode"
+                }
+              },
+              "queryRef": "Restatement Comparator Data.mode",
+              "nativeQueryRef": "mode"
+            }
+          ]
+        },
+        "groupKey": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Restatement Comparator Data"
+                    }
+                  },
+                  "Property": "groupKey"
+                }
+              },
+              "queryRef": "Restatement Comparator Data.groupKey",
+              "nativeQueryRef": "groupKey"
+            }
+          ]
+        },
+        "groupLabel": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Restatement Comparator Data"
+                    }
+                  },
+                  "Property": "groupLabel"
+                }
+              },
+              "queryRef": "Restatement Comparator Data.groupLabel",
+              "nativeQueryRef": "groupLabel"
+            }
+          ]
+        },
+        "label": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Restatement Comparator Data"
+                    }
+                  },
+                  "Property": "label"
+                }
+              },
+              "queryRef": "Restatement Comparator Data.label",
+              "nativeQueryRef": "label"
+            }
+          ]
+        },
+        "period": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Restatement Comparator Data"
+                    }
+                  },
+                  "Property": "period"
+                }
+              },
+              "queryRef": "Restatement Comparator Data.period",
+              "nativeQueryRef": "period"
+            }
+          ]
+        },
+        "scope": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Restatement Comparator Data"
+                    }
+                  },
+                  "Property": "scope"
+                }
+              },
+              "queryRef": "Restatement Comparator Data.scope",
+              "nativeQueryRef": "scope"
+            }
+          ]
+        },
+        "currency": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Restatement Comparator Data"
+                    }
+                  },
+                  "Property": "currency"
+                }
+              },
+              "queryRef": "Restatement Comparator Data.currency",
+              "nativeQueryRef": "currency"
+            }
+          ]
+        },
+        "direction": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Restatement Comparator Data"
+                    }
+                  },
+                  "Property": "direction"
+                }
+              },
+              "queryRef": "Restatement Comparator Data.direction",
+              "nativeQueryRef": "direction"
+            }
+          ]
+        },
+        "baseRef": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Restatement Comparator Data"
+                    }
+                  },
+                  "Property": "baseRef"
+                }
+              },
+              "queryRef": "Restatement Comparator Data.baseRef",
+              "nativeQueryRef": "baseRef"
+            }
+          ]
+        },
+        "middleRef": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Restatement Comparator Data"
+                    }
+                  },
+                  "Property": "middleRef"
+                }
+              },
+              "queryRef": "Restatement Comparator Data.middleRef",
+              "nativeQueryRef": "middleRef"
+            }
+          ]
+        },
+        "endRef": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Restatement Comparator Data"
+                    }
+                  },
+                  "Property": "endRef"
+                }
+              },
+              "queryRef": "Restatement Comparator Data.endRef",
+              "nativeQueryRef": "endRef"
+            }
+          ]
+        },
+        "evidence": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Restatement Comparator Data"
+                    }
+                  },
+                  "Property": "evidence"
+                }
+              },
+              "queryRef": "Restatement Comparator Data.evidence",
+              "nativeQueryRef": "evidence"
+            }
+          ]
+        },
+        "adapterDigest": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Restatement Comparator Data"
+                    }
+                  },
+                  "Property": "adapterDigest"
+                }
+              },
+              "queryRef": "Restatement Comparator Data.adapterDigest",
+              "nativeQueryRef": "adapterDigest"
+            }
+          ]
+        },
+        "base": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Restatement Comparator Data"
+                    }
+                  },
+                  "Property": "base"
+                }
+              },
+              "queryRef": "Restatement Comparator Data.base",
+              "nativeQueryRef": "base"
+            }
+          ]
+        },
+        "middle": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Restatement Comparator Data"
+                    }
+                  },
+                  "Property": "middle"
+                }
+              },
+              "queryRef": "Restatement Comparator Data.middle",
+              "nativeQueryRef": "middle"
+            }
+          ]
+        },
+        "end": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Restatement Comparator Data"
+                    }
+                  },
+                  "Property": "end"
+                }
+              },
+              "queryRef": "Restatement Comparator Data.end",
+              "nativeQueryRef": "end"
+            }
+          ]
+        },
+        "firstDelta": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Restatement Comparator Data"
+                    }
+                  },
+                  "Property": "firstDelta"
+                }
+              },
+              "queryRef": "Restatement Comparator Data.firstDelta",
+              "nativeQueryRef": "firstDelta"
+            }
+          ]
+        },
+        "secondDelta": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Restatement Comparator Data"
+                    }
+                  },
+                  "Property": "secondDelta"
+                }
+              },
+              "queryRef": "Restatement Comparator Data.secondDelta",
+              "nativeQueryRef": "secondDelta"
+            }
+          ]
+        },
+        "netDelta": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Restatement Comparator Data"
+                    }
+                  },
+                  "Property": "netDelta"
+                }
+              },
+              "queryRef": "Restatement Comparator Data.netDelta",
+              "nativeQueryRef": "netDelta"
+            }
+          ]
+        },
+        "expected": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Restatement Comparator Data"
+                    }
+                  },
+                  "Property": "expected"
+                }
+              },
+              "queryRef": "Restatement Comparator Data.expected",
+              "nativeQueryRef": "expected"
+            }
+          ]
+        }
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

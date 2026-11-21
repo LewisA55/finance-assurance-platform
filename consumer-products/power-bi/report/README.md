@@ -1,8 +1,9 @@
 # Power BI report
 
-This directory will hold text-based report source and page specifications for
-the bounded reporting experiences: financial performance, cash and capital,
-revenue and SaaS economics, and close assurance.
+The [PBIR report source](../NexusFinance/NexusFinance.Report/definition.pbir)
+is part of the [NexusFinance PBIP](../NexusFinance/NexusFinance.pbip).
+Its 15 pages cover financial performance, cash and capital, SaaS economics,
+close and assurance evidence, lineage, planning variance and restatement.
 
-Page source should consume explicit semantic-model measures. Local PBIX drafts
-and Power BI Desktop cache remain under ignored paths.
+See the [Power BI workspace](../README.md) for the current Desktop export,
+refresh steps and navigation.
