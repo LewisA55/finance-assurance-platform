@@ -77,7 +77,7 @@ flowchart LR
     P --> W
     W --> UI[React and DuckDB-Wasm]
     W -. future products .-> X[Excel model]
-    W -. future products .-> B[Power BI semantic model]
+    W --> B[NexusFinance Power BI report]
 ```
 
 The platform keeps business-event truth, source-system truth, accounting truth
@@ -215,7 +215,7 @@ temporary evidence do not belong in source control. See the
 
 - `v0.1`: governed finance platform and React intelligence product
 - `v0.2`: integrated Excel three-statement and DCF model
-- `v0.3`: Power BI semantic and reporting product
+- `v0.3`: [NexusFinance Power BI report and semantic model](consumer-products/power-bi/README.md)
 - `v1.0`: complete cross-product portfolio release
 
 ## Project status and use

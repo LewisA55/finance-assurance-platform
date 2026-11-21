@@ -4,8 +4,8 @@
   "position": {
     "x": 24,
     "y": 12,
-    "width": 900,
-    "height": 70,
+    "width": 1232,
+    "height": 72,
     "z": 0,
     "tabOrder": 0
   },
@@ -19,9 +19,21 @@
               {
                 "textRuns": [
                   {
-                    "value": "NEXUS / STATUTORY STATEMENTS",
+                    "value": "NEXUS FINANCE",
                     "textStyle": {
-                      "fontSize": "22px",
+                      "fontSize": "12px",
+                      "fontFamily": "Segoe UI Semibold",
+                      "color": "#16776E"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "Statutory Statements",
+                    "textStyle": {
+                      "fontSize": "24px",
                       "fontFamily": "Segoe UI Semibold",
                       "color": "#162c43"
                     }
@@ -31,7 +43,7 @@
               {
                 "textRuns": [
                   {
-                    "value": "Selected month and prior month | Executive order over unchanged source lines | Supplied totals preserved, registered subtotals replayed",
+                    "value": "Nexus Group | GBP | Compare the selected month with the prior month. Expand evidence for subtotal checks.",
                     "textStyle": {
                       "fontSize": "12px",
                       "color": "#566879"

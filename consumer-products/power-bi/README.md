@@ -1,34 +1,43 @@
 # Power BI Product Workspace
 
-## Intended product
+## Current report
 
-The v0.3 Power BI product will demonstrate a governed semantic model and a
-small number of purposeful report experiences over the same C2 delivery
-package consumed by Excel and React.
+NexusFinance is the Power BI source for the v0.3 product. It has 15 report
+pages, a 19-table TMDL model and nine custom visual packages. It uses the same
+sealed C2 delivery as Excel and React, with separately identified forecast
+and accounting-replay inputs on the comparison pages.
 
-## Milestone 1
+- [NexusFinance.pbip](NexusFinance/NexusFinance.pbip) is the project to edit.
+  Git tracks the PBIR report definition and TMDL semantic model beside it.
+- `work/R2/NexusFinance.pbix` is the current local Desktop export with data
+  already imported. The [validation record](validation/README.md) records its
+  checksum and acceptance results.
 
-[NexusFinance.pbip](NexusFinance/NexusFinance.pbip) opens the TMDL semantic
-model and enhanced PBIR report. Financial Performance shows Nexus Group GBP
-statutory actuals from July 2025 through June 2026. Right-click a reporting
-version in the monthly table and select **Drill through** then
-**Reporting Version Evidence**. In Desktop edit mode, Ctrl+click **Back** to
-return to Financial Performance.
+## Open and refresh the source project
 
 1. Verify the published `Q-FINANCE-C2@v1` delivery against the expected
    digest `sha256:7538132e08ea2b7e8c20f339db10e6c138cd2a08c71c4708c47c378d7c1b0141`.
    The repository's `finance-assurance-finance-delivery verify` command checks
    the physical seal and the upstream C1 and A24 packages.
-2. Open the PBIP in Power BI Desktop. Under **Transform data** then
+2. After a clean checkout, build and stage the nine [custom visual
+   packages](custom-visuals/README.md).
+3. Open the PBIP in Power BI Desktop. Under **Transform data** then
    **Edit parameters**, set `C2Root` to the local verified delivery directory.
    The repository's usual build location is
    `build/finance-delivery/Q-FINANCE-C2-V1`.
-3. Apply the change and refresh. The model imports its tables from
+4. Apply the change and refresh. The model imports its C2 tables from
    `powerbi/parquet/` and checks the delivery reference, publication status
    and detached digest label. The physical checksum check is step 1.
 
-Desktop refresh and DAX Query View reconciled the four measures below. The
-report cards abbreviate the values in millions.
+## Financial Performance and evidence
+
+Financial Performance shows Nexus Group GBP statutory actuals from July 2025
+through June 2026. Select a reporting-version link in the monthly grid and
+choose **Drill through** then **Reporting Version Evidence**. In Desktop edit
+mode, Ctrl+click **Back** to return to the source page.
+
+The report cards abbreviate the amounts below in millions. Hover over a card
+for the full amount.
 
 | Measure | Expected GBP |
 | --- | ---: |
@@ -37,19 +46,12 @@ report cards abbreviate the values in millions.
 | June EBITDA | (1,773,205.99) |
 | June closing cash | 3,082,301.85 |
 
-The June row drilled into `RV-NEXUS-GROUP-2026-06@v1` and showed the
+The June row opens `RV-NEXUS-GROUP-2026-06@v1` and shows the
 hard-close and publication event references, five reconciliation statuses,
-statutory-actuals reliability and source digest. Ctrl+clicking **Back** in
-Desktop returned to Financial Performance. The drill-through uses the full
-version reference. For C-001, a later published restatement would
-retain its own version and require a separately governed delivery. For CT-1,
-an open-period reversal or replacement stays outside the hard-closed
-actuals in this delivery.
+statutory-actuals reliability and source digest. C-001's original and
+republished versions are available separately in Restatement Comparator.
 
-## Native page buildout
-
-The three additional pages use the same pinned delivery and the native
-Power BI canvas. Financial Performance remains the landing page.
+## Cash, SaaS and close dashboards
 
 | Page | Questions answered | C2 reconciliation |
 | --- | --- | --- |
@@ -68,31 +70,34 @@ reporting-version drill-through as Financial Performance. C1 readiness
 controls retain their delivery-wide scope, independent of the month and
 reporting version filters.
 
-Desktop refreshed all seven tables and rendered the three new pages. A
-live DAX query matched 17 of 17 checks, including the cash and MRR bridge
-deltas, Group and product ARR, the close and readiness counts, and the
-original LTM revenue. Cash & Capital opened June version evidence and
-Close Assurance opened May version evidence.
+## Navigation and comparison pages
 
-## Working boundary
+The report opens on the Nexus cover. **View objective** introduces the report
+and links to the statements, comparisons, controls and lineage. **Open report** goes
+directly to Financial Performance. The front pages use the checked-in artwork
+and native Power BI navigation. `showcase/build-showcase.py` regenerates their
+content from the source project.
 
-P5 development adds a **Governed KPI Review** page with Revenue, Closing Cash
-and Ending ARR. See the [implementation and acceptance record](custom-visuals/reliability-tile/README.md)
-for package generation, purpose gating and the isolated `work/NexusFinance-P5-QA`
-copy. Contract/browser/schema checks pass; Desktop acceptance of this new page
-is pending. The custom package must be built and staged after a clean checkout.
+The source project includes Statutory Statements, Rollforward Assurance,
+Governed KPI Review, Close Governance, Assurance Controls and Dataset Lineage.
+Financial Performance, Cash & Capital, SaaS Performance and Close Assurance
+use Nexus metric cards, detail grids and trends. Cash & Capital and SaaS
+Performance each include an asserted June rollforward. Reporting Version
+Evidence is a hidden drill-through page.
 
-- Keep model design, field roles, measure specifications, security design,
-  TMDL/PBIP text source and validation specifications in this tracked
-  directory when they are authored.
-- Keep active `.pbix` files, imported delivery copies, desktop cache and
-  rendered exports in `work/` or `exports/`; both are ignored.
-- Publish the reviewed PBIX/PBIP as a tagged release asset with the exact C2
-  manifest reference and reconciliation evidence.
+Planning Variance compares budget, a synthetic May forecast vintage and
+management actuals at department and account grain. Restatement Comparator
+shows the original and republished C-001 amounts and their adjustment
+evidence. The [comparison implementation](custom-visuals/comparison/README.md)
+documents the source and reproducible adapter for each page.
 
-The current `work/` directory is for private authoring only. It is deliberately
-outside the v0.1 source boundary. The active Desktop file is kept locally as
-`work/finance-assurance-platform.pbix` so future authoring has one stable home.
+## Source and local copies
 
-The reviewable PBIP text source lives under `NexusFinance/`. Power BI Desktop
-`.pbi/` cache directories remain ignored at any depth.
+Keep `NexusFinance/` as the editable project and `work/R2/` as the current
+local review copy. Earlier exports and QA projects under `work/` are optional
+local history. Staging a visual can recreate its QA project. Close any copy
+in Power BI Desktop before removing it. Keep the verified C2 package for
+future refreshes. Git ignores `work/`, `exports/` and Desktop `.pbi/` caches.
+
+For a tagged release, include the exact C2 manifest reference and the
+reconciliation evidence with the reviewed artifact.

@@ -4,7 +4,13 @@ table 'KPI Purpose'
 		dataType: string
 		sourceColumn: [Purpose]
 		summarizeBy: none
+		isHidden
+
+	column 'Intended Use'
+		dataType: string
+		sourceColumn: [Intended Use]
+		summarizeBy: none
 
 	partition 'KPI Purpose' = calculated
 		mode: import
-		source = DATATABLE ( "Purpose", STRING, { { "CFO_EXECUTIVE_REVIEW" }, { "STATUTORY_SIGN_OFF" } } )
+		source = DATATABLE ( "Purpose", STRING, "Intended Use", STRING, { { "CFO_EXECUTIVE_REVIEW", "CFO executive review" }, { "STATUTORY_SIGN_OFF", "Statutory sign-off" } } )

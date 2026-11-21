@@ -1,0 +1,105 @@
+{
+  "privileges": [],
+  "dataRoles": [
+    {
+      "name": "period",
+      "displayName": "period",
+      "kind": "Grouping"
+    },
+    {
+      "name": "fields",
+      "displayName": "fields",
+      "kind": "GroupingOrMeasure"
+    },
+    {
+      "name": "series",
+      "displayName": "series",
+      "kind": "Measure"
+    }
+  ],
+  "dataViewMappings": [
+    {
+      "conditions": [
+        {
+          "fields": {
+            "min": 1,
+            "max": 12
+          },
+          "period": {
+            "max": 0
+          },
+          "series": {
+            "max": 0
+          }
+        }
+      ],
+      "table": {
+        "rows": {
+          "select": [
+            {
+              "for": {
+                "in": "fields"
+              }
+            }
+          ],
+          "dataReductionAlgorithm": {
+            "window": {
+              "count": 3000
+            }
+          }
+        }
+      }
+    },
+    {
+      "conditions": [
+        {
+          "fields": {
+            "max": 0
+          },
+          "period": {
+            "min": 1,
+            "max": 1
+          },
+          "series": {
+            "min": 1,
+            "max": 3
+          }
+        }
+      ],
+      "table": {
+        "rows": {
+          "select": [
+            {
+              "for": {
+                "in": "period"
+              }
+            },
+            {
+              "for": {
+                "in": "series"
+              }
+            }
+          ],
+          "dataReductionAlgorithm": {
+            "window": {
+              "count": 3000
+            }
+          }
+        }
+      }
+    }
+  ],
+  "objects": {},
+  "supportsEmptyDataView": true,
+  "supportsLandingPage": true,
+  "supportsKeyboardFocus": true,
+  "supportsHighlight": false,
+  "sorting": {
+    "custom": {}
+  },
+  "tooltips": {
+    "supportedTypes": {
+      "default": true
+    }
+  }
+}

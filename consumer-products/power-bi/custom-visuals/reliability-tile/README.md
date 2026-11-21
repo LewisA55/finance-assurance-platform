@@ -1,6 +1,7 @@
 # Nexus Reliability Tile - P5 v0.1
 
-Implemented local development visual. Desktop acceptance is pending.
+Implemented local development visual. Desktop checks cover the June values,
+intended-use selection and reporting-version drill-through.
 
 This package renders one governed Revenue, Closing Cash or Ending ARR claim.
 `policy.json` pins the three source authority/reliability tuples, readiness
@@ -77,14 +78,12 @@ workbook-verification pass is claimed.
 Expected June values are Revenue GBP 2,288,009.65, Closing Cash GBP 3,082,301.85
 and Ending ARR GBP 26,800,564.68.
 
-Desktop was launched for acceptance, but Windows automation returned a black
-window without controls and failed activation, including a recovery attempt.
-No Desktop rendering, refresh, live DAX or evidence-navigation pass is claimed.
-Open the staged QA PBIP, refresh, select Governed KPI Review and verify the
-three values. Select the alternate purpose and verify all values disappear.
-Then restore CFO review and right-click the evidence button to check Reporting
-Version Evidence and Back. Also test a multi-period selection: it must withhold
-the values. The page defaults to June through a visible page filter.
+On 2026-11-15 the full review PBIP refreshed in Desktop. Governed KPI Review
+displayed the three June amounts. Selecting Statutory sign-off withheld all
+three with the intended-use reason, and clearing it restored the amounts.
+The Revenue tile opened `RV-NEXUS-GROUP-2026-06@v1` in Reporting Version
+Evidence. The page defaults to June through a visible page filter. The
+multi-period and missing-assessment cases are covered by local contract tests.
 
 ## Boundaries
 

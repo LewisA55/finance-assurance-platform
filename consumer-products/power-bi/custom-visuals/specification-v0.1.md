@@ -1,9 +1,9 @@
 # Purposeful Power BI custom visuals v0.1
 
-Status: Proposed design for review. No custom visual implementation or
-certification is asserted by this document.
-
-Date: 2026-11-08.
+This design record reflects the baseline and input gates at 2026-11-08.
+See the [current package inventory](README.md) and the
+[comparison implementation](comparison/README.md) for the delivered visuals
+and the supplemental inputs used for P7 and P8.
 
 ## 1. Product decision
 

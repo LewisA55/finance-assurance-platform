@@ -10,10 +10,10 @@
     "tabOrder": 2100
   },
   "visual": {
-    "visualType": "lineChart",
+    "visualType": "NexusReportDetail36313AD96E7F4E25A3F0C03834F7CFAA",
     "query": {
       "queryState": {
-        "Category": {
+        "period": {
           "projections": [
             {
               "field": {
@@ -32,7 +32,7 @@
             }
           ]
         },
-        "Y": {
+        "series": {
           "projections": [
             {
               "field": {
@@ -122,9 +122,21 @@
             }
           }
         }
+      ],
+      "subTitle": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
       ]
     },
-    "objects": {},
     "drillFilterOtherVisuals": true
   }
 }

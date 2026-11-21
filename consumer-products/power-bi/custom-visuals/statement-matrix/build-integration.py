@@ -208,10 +208,7 @@ for i, cls in enumerate(POLICY['statements']):
     v['filterConfig'] = {'filters': [nb.filter_value(TABLE, 'statementClass', cls)]}
     nb.write_visual(PAGE, v)
 
-v = nb.visual('c3a9f57e1b6d4a28b999', 'textbox', 24, 12, 900, 70)
-v['visual']['objects'] = {'general': [{'properties': {'paragraphs': [
-    {'textRuns': [{'value': 'NEXUS / STATUTORY STATEMENTS', 'textStyle': {'fontSize': '22px', 'fontFamily': 'Segoe UI Semibold', 'color': '#162c43'}}]},
-    {'textRuns': [{'value': 'Selected month and prior month | Executive order over unchanged source lines | Supplied totals preserved, registered subtotals replayed', 'textStyle': {'fontSize': '12px', 'color': '#566879'}}]}]}}]}
-nb.write_visual(PAGE, v)
+nb.write_visual(PAGE, nb.page_header('c3a9f57e1b6d4a28b999', 'Statutory Statements',
+    'Nexus Group | GBP | Compare the selected month with the prior month. Expand evidence for subtotal checks.'))
 
 print(f'Generated capabilities, {TABLE} adapter and the Statutory Statements page.')

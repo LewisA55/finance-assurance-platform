@@ -4,8 +4,8 @@
   "position": {
     "x": 24,
     "y": 12,
-    "width": 1000,
-    "height": 70,
+    "width": 1232,
+    "height": 72,
     "z": 0,
     "tabOrder": 0
   },
@@ -19,9 +19,21 @@
               {
                 "textRuns": [
                   {
-                    "value": "NEXUS / DATASET LINEAGE",
+                    "value": "NEXUS FINANCE",
                     "textStyle": {
-                      "fontSize": "22px",
+                      "fontSize": "12px",
+                      "fontFamily": "Segoe UI Semibold",
+                      "color": "#16776E"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "Dataset Lineage",
+                    "textStyle": {
+                      "fontSize": "24px",
                       "fontFamily": "Segoe UI Semibold",
                       "color": "#162c43"
                     }
@@ -31,7 +43,7 @@
               {
                 "textRuns": [
                   {
-                    "value": "Declared dependencies only | Symbolic collections left unresolved | Boundary nodes marked | Dataset depth, no row-level proof",
+                    "value": "Search for a dataset and select it to trace declared upstream and downstream dependencies.",
                     "textStyle": {
                       "fontSize": "12px",
                       "color": "#566879"

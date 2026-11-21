@@ -1,0 +1,139 @@
+table 'Restatement Comparator Data'
+
+	column 'key'
+		dataType: string
+		sourceColumn: key
+		summarizeBy: none
+		isHidden
+
+	column 'mode'
+		dataType: string
+		sourceColumn: mode
+		summarizeBy: none
+		isHidden
+
+	column 'groupKey'
+		dataType: string
+		sourceColumn: groupKey
+		summarizeBy: none
+		isHidden
+
+	column 'groupLabel'
+		dataType: string
+		sourceColumn: groupLabel
+		summarizeBy: none
+		isHidden
+
+	column 'label'
+		dataType: string
+		sourceColumn: label
+		summarizeBy: none
+		isHidden
+
+	column 'period'
+		dataType: string
+		sourceColumn: period
+		summarizeBy: none
+		isHidden
+
+	column 'scope'
+		dataType: string
+		sourceColumn: scope
+		summarizeBy: none
+		isHidden
+
+	column 'currency'
+		dataType: string
+		sourceColumn: currency
+		summarizeBy: none
+		isHidden
+
+	column 'direction'
+		dataType: string
+		sourceColumn: direction
+		summarizeBy: none
+		isHidden
+
+	column 'baseRef'
+		dataType: string
+		sourceColumn: baseRef
+		summarizeBy: none
+		isHidden
+
+	column 'middleRef'
+		dataType: string
+		sourceColumn: middleRef
+		summarizeBy: none
+		isHidden
+
+	column 'endRef'
+		dataType: string
+		sourceColumn: endRef
+		summarizeBy: none
+		isHidden
+
+	column 'evidence'
+		dataType: string
+		sourceColumn: evidence
+		summarizeBy: none
+		isHidden
+
+	column 'adapterDigest'
+		dataType: string
+		sourceColumn: adapterDigest
+		summarizeBy: none
+		isHidden
+
+	column 'base'
+		dataType: int64
+		sourceColumn: base
+		summarizeBy: none
+		isHidden
+
+	column 'middle'
+		dataType: int64
+		sourceColumn: middle
+		summarizeBy: none
+		isHidden
+
+	column 'end'
+		dataType: int64
+		sourceColumn: end
+		summarizeBy: none
+		isHidden
+
+	column 'firstDelta'
+		dataType: int64
+		sourceColumn: firstDelta
+		summarizeBy: none
+		isHidden
+
+	column 'secondDelta'
+		dataType: int64
+		sourceColumn: secondDelta
+		summarizeBy: none
+		isHidden
+
+	column 'netDelta'
+		dataType: int64
+		sourceColumn: netDelta
+		summarizeBy: none
+		isHidden
+
+	column 'expected'
+		dataType: int64
+		sourceColumn: expected
+		summarizeBy: none
+		isHidden
+
+	partition 'Restatement Comparator Data' = m
+		mode: import
+		source =
+			let
+			    Data = #table(type table [key = text, mode = text, groupKey = text, groupLabel = text, label = text, period = text, scope = text, currency = text, direction = text, baseRef = text, middleRef = text, endRef = text, evidence = text, adapterDigest = text, base = nullable number, middle = nullable number, end = nullable number, firstDelta = nullable number, secondDelta = nullable number, netDelta = nullable number, expected = nullable number], {
+			        {"subscription_revenue_minor", "restatement", "RC-001", "C-001 recognition correction", "Subscription revenue", "2026-06", "C-001 accounting replay", "GBP", "neutral", "RV-2026-06@v1 / sha256:3063f711a55ac58193d7c80072ff3bd24e18ba31a2fd9de0b7171d8c5cb120fd", "AE-C001-011 / RC-001", "RV-2026-06@v2 / sha256:4671f8ba1b80e250c39b50c9f4e15d5aa5efa82cc4b50ac3cc72e52758cbdfd5", "J-560-L2 | Ledger 2026-07 | Presented 2026-06 | sha256:3333333333333333333333333333333333333333333333333333333333333333 | C-001 replay sha256:009fa1fe98643e857542f545221b3e30ac45f5ecda0d82e4529b1650426a008d", "sha256:a1ad6f9a1230f8d6a1ca0a296724ecf33011ee741efcb5e462af5de9cf445f5f", 0, null, 1000000, null, null, 1000000, 2},
+			        {"deferred_revenue_minor", "restatement", "RC-001", "C-001 recognition correction", "Deferred revenue", "2026-06", "C-001 accounting replay", "GBP", "neutral", "RV-2026-06@v1 / sha256:3063f711a55ac58193d7c80072ff3bd24e18ba31a2fd9de0b7171d8c5cb120fd", "AE-C001-011 / RC-001", "RV-2026-06@v2 / sha256:4671f8ba1b80e250c39b50c9f4e15d5aa5efa82cc4b50ac3cc72e52758cbdfd5", "J-560-L1 | Ledger 2026-07 | Presented 2026-06 | sha256:3333333333333333333333333333333333333333333333333333333333333333 | C-001 replay sha256:009fa1fe98643e857542f545221b3e30ac45f5ecda0d82e4529b1650426a008d", "sha256:a1ad6f9a1230f8d6a1ca0a296724ecf33011ee741efcb5e462af5de9cf445f5f", 12000000, null, 11000000, null, null, -1000000, 2}
+			    }),
+			    Typed = Table.TransformColumnTypes(Data, {{"base", Int64.Type}, {"middle", Int64.Type}, {"end", Int64.Type}, {"firstDelta", Int64.Type}, {"secondDelta", Int64.Type}, {"netDelta", Int64.Type}, {"expected", Int64.Type}})
+			in
+			    Typed

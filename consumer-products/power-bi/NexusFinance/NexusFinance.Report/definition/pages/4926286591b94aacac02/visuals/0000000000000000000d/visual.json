@@ -3,17 +3,17 @@
   "name": "0000000000000000000d",
   "position": {
     "x": 28,
-    "y": 412,
+    "y": 442,
     "width": 1224,
-    "height": 126,
+    "height": 140,
     "z": 1300,
     "tabOrder": 1300
   },
   "visual": {
-    "visualType": "tableEx",
+    "visualType": "NexusReportDetail36313AD96E7F4E25A3F0C03834F7CFAA",
     "query": {
       "queryState": {
-        "Values": {
+        "fields": {
           "projections": [
             {
               "field": {
@@ -141,42 +141,14 @@
             }
           }
         }
-      ]
-    },
-    "objects": {
-      "total": [
+      ],
+      "subTitle": [
         {
           "properties": {
-            "totals": {
+            "show": {
               "expr": {
                 "Literal": {
                   "Value": "false"
-                }
-              }
-            }
-          }
-        }
-      ],
-      "columnHeaders": [
-        {
-          "properties": {
-            "fontSize": {
-              "expr": {
-                "Literal": {
-                  "Value": "10D"
-                }
-              }
-            }
-          }
-        }
-      ],
-      "values": [
-        {
-          "properties": {
-            "fontSize": {
-              "expr": {
-                "Literal": {
-                  "Value": "10D"
                 }
               }
             }

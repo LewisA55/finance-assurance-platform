@@ -117,10 +117,7 @@ v['visual']['query'] = {'queryState': query}
 v['visual']['visualContainerObjects'] = {'title': [{'properties': {'show': {'expr': {'Literal': {'Value': 'false'}}}}}]}
 nb.write_visual(PAGE, v)
 
-v = nb.visual('e7c34d918b2a4f67905e99', 'textbox', 24, 12, 1000, 70)
-v['visual']['objects'] = {'general': [{'properties': {'paragraphs': [
-    {'textRuns': [{'value': 'NEXUS / CLOSE GOVERNANCE', 'textStyle': {'fontSize': '22px', 'fontFamily': 'Segoe UI Semibold', 'color': '#162c43'}}]},
-    {'textRuns': [{'value': 'Periods by reporting scope | Five status dimensions kept separate | Lifecycle event evidence per version | Read-only review surface', 'textStyle': {'fontSize': '12px', 'color': '#566879'}}]}]}}]}
-nb.write_visual(PAGE, v)
+nb.write_visual(PAGE, nb.page_header('e7c34d918b2a4f67905e99', 'Close Governance',
+    'Compare close status by month and reporting scope. Select a cell for reconciliation checks and accounting event references.'))
 
 print(f'Generated capabilities, {TABLE} adapter and the Close Governance page.')

@@ -23,11 +23,11 @@
                       "Entity": "KPI Purpose"
                     }
                   },
-                  "Property": "Purpose"
+                  "Property": "Intended Use"
                 }
               },
-              "queryRef": "KPI Purpose.Purpose",
-              "nativeQueryRef": "Purpose"
+              "queryRef": "KPI Purpose.Intended Use",
+              "nativeQueryRef": "Intended Use"
             }
           ]
         }

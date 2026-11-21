@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/page/2.1.0/schema.json",
+  "name": "3092b6abee574a1a90a2",
+  "displayName": "Restatement Comparator",
+  "displayOption": "FitToPage",
+  "width": 1280,
+  "height": 720,
+  "filterConfig": {
+    "filters": []
+  }
+}

@@ -1,0 +1,331 @@
+{
+  "privileges": [],
+  "dataRoles": [
+    {
+      "name": "key",
+      "displayName": "key",
+      "kind": "Grouping"
+    },
+    {
+      "name": "mode",
+      "displayName": "mode",
+      "kind": "GroupingOrMeasure"
+    },
+    {
+      "name": "groupKey",
+      "displayName": "groupKey",
+      "kind": "GroupingOrMeasure"
+    },
+    {
+      "name": "groupLabel",
+      "displayName": "groupLabel",
+      "kind": "GroupingOrMeasure"
+    },
+    {
+      "name": "label",
+      "displayName": "label",
+      "kind": "GroupingOrMeasure"
+    },
+    {
+      "name": "period",
+      "displayName": "period",
+      "kind": "GroupingOrMeasure"
+    },
+    {
+      "name": "scope",
+      "displayName": "scope",
+      "kind": "GroupingOrMeasure"
+    },
+    {
+      "name": "currency",
+      "displayName": "currency",
+      "kind": "GroupingOrMeasure"
+    },
+    {
+      "name": "direction",
+      "displayName": "direction",
+      "kind": "GroupingOrMeasure"
+    },
+    {
+      "name": "baseRef",
+      "displayName": "baseRef",
+      "kind": "GroupingOrMeasure"
+    },
+    {
+      "name": "middleRef",
+      "displayName": "middleRef",
+      "kind": "GroupingOrMeasure"
+    },
+    {
+      "name": "endRef",
+      "displayName": "endRef",
+      "kind": "GroupingOrMeasure"
+    },
+    {
+      "name": "evidence",
+      "displayName": "evidence",
+      "kind": "GroupingOrMeasure"
+    },
+    {
+      "name": "adapterDigest",
+      "displayName": "adapterDigest",
+      "kind": "GroupingOrMeasure"
+    },
+    {
+      "name": "base",
+      "displayName": "base",
+      "kind": "GroupingOrMeasure"
+    },
+    {
+      "name": "middle",
+      "displayName": "middle",
+      "kind": "GroupingOrMeasure"
+    },
+    {
+      "name": "end",
+      "displayName": "end",
+      "kind": "GroupingOrMeasure"
+    },
+    {
+      "name": "firstDelta",
+      "displayName": "firstDelta",
+      "kind": "GroupingOrMeasure"
+    },
+    {
+      "name": "secondDelta",
+      "displayName": "secondDelta",
+      "kind": "GroupingOrMeasure"
+    },
+    {
+      "name": "netDelta",
+      "displayName": "netDelta",
+      "kind": "GroupingOrMeasure"
+    },
+    {
+      "name": "expected",
+      "displayName": "expected",
+      "kind": "GroupingOrMeasure"
+    }
+  ],
+  "dataViewMappings": [
+    {
+      "conditions": [
+        {
+          "key": {
+            "min": 1,
+            "max": 1
+          },
+          "mode": {
+            "min": 1,
+            "max": 1
+          },
+          "groupKey": {
+            "min": 1,
+            "max": 1
+          },
+          "groupLabel": {
+            "min": 1,
+            "max": 1
+          },
+          "label": {
+            "min": 1,
+            "max": 1
+          },
+          "period": {
+            "min": 1,
+            "max": 1
+          },
+          "scope": {
+            "min": 1,
+            "max": 1
+          },
+          "currency": {
+            "min": 1,
+            "max": 1
+          },
+          "direction": {
+            "min": 1,
+            "max": 1
+          },
+          "baseRef": {
+            "min": 1,
+            "max": 1
+          },
+          "middleRef": {
+            "min": 1,
+            "max": 1
+          },
+          "endRef": {
+            "min": 1,
+            "max": 1
+          },
+          "evidence": {
+            "min": 1,
+            "max": 1
+          },
+          "adapterDigest": {
+            "min": 1,
+            "max": 1
+          },
+          "base": {
+            "min": 1,
+            "max": 1
+          },
+          "middle": {
+            "min": 1,
+            "max": 1
+          },
+          "end": {
+            "min": 1,
+            "max": 1
+          },
+          "firstDelta": {
+            "min": 1,
+            "max": 1
+          },
+          "secondDelta": {
+            "min": 1,
+            "max": 1
+          },
+          "netDelta": {
+            "min": 1,
+            "max": 1
+          },
+          "expected": {
+            "min": 1,
+            "max": 1
+          }
+        }
+      ],
+      "table": {
+        "rows": {
+          "select": [
+            {
+              "for": {
+                "in": "key"
+              }
+            },
+            {
+              "for": {
+                "in": "mode"
+              }
+            },
+            {
+              "for": {
+                "in": "groupKey"
+              }
+            },
+            {
+              "for": {
+                "in": "groupLabel"
+              }
+            },
+            {
+              "for": {
+                "in": "label"
+              }
+            },
+            {
+              "for": {
+                "in": "period"
+              }
+            },
+            {
+              "for": {
+                "in": "scope"
+              }
+            },
+            {
+              "for": {
+                "in": "currency"
+              }
+            },
+            {
+              "for": {
+                "in": "direction"
+              }
+            },
+            {
+              "for": {
+                "in": "baseRef"
+              }
+            },
+            {
+              "for": {
+                "in": "middleRef"
+              }
+            },
+            {
+              "for": {
+                "in": "endRef"
+              }
+            },
+            {
+              "for": {
+                "in": "evidence"
+              }
+            },
+            {
+              "for": {
+                "in": "adapterDigest"
+              }
+            },
+            {
+              "for": {
+                "in": "base"
+              }
+            },
+            {
+              "for": {
+                "in": "middle"
+              }
+            },
+            {
+              "for": {
+                "in": "end"
+              }
+            },
+            {
+              "for": {
+                "in": "firstDelta"
+              }
+            },
+            {
+              "for": {
+                "in": "secondDelta"
+              }
+            },
+            {
+              "for": {
+                "in": "netDelta"
+              }
+            },
+            {
+              "for": {
+                "in": "expected"
+              }
+            }
+          ],
+          "dataReductionAlgorithm": {
+            "window": {
+              "count": 128
+            }
+          }
+        }
+      }
+    }
+  ],
+  "objects": {},
+  "supportsEmptyDataView": true,
+  "supportsLandingPage": true,
+  "supportsKeyboardFocus": true,
+  "supportsHighlight": false,
+  "sorting": {
+    "custom": {}
+  },
+  "tooltips": {
+    "supportedTypes": {
+      "default": true
+    }
+  }
+}

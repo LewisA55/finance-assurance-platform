@@ -88,6 +88,55 @@
           "type": "CustomVisualMetadata"
         }
       ]
+    },
+    {
+      "name": "RegisteredResources",
+      "type": "RegisteredResources",
+      "items": [
+        {
+          "name": "Financial_cover_mockups_(10)16310222408850283.png",
+          "path": "Financial_cover_mockups_(10)16310222408850283.png",
+          "type": "Image"
+        },
+        {
+          "name": "Untitled_design_(1)43718186192603703.png",
+          "path": "Untitled_design_(1)43718186192603703.png",
+          "type": "Image"
+        }
+      ]
+    },
+    {
+      "name": "NexusMetricCardA7F25B81D394C6E0472B9D53E18A6C4F",
+      "type": "CustomVisual",
+      "items": [
+        {
+          "name": "NexusMetricCardA7F25B81D394C6E0472B9D53E18A6C4F.pbiviz.json",
+          "path": "NexusMetricCardA7F25B81D394C6E0472B9D53E18A6C4F.pbiviz.json",
+          "type": "CustomVisualMetadata"
+        }
+      ]
+    },
+    {
+      "name": "NexusComparisonDE96413A903F4A7A8716560B4F2981C5",
+      "type": "CustomVisual",
+      "items": [
+        {
+          "name": "NexusComparisonDE96413A903F4A7A8716560B4F2981C5.pbiviz.json",
+          "path": "NexusComparisonDE96413A903F4A7A8716560B4F2981C5.pbiviz.json",
+          "type": "CustomVisualMetadata"
+        }
+      ]
+    },
+    {
+      "name": "NexusReportDetail36313AD96E7F4E25A3F0C03834F7CFAA",
+      "type": "CustomVisual",
+      "items": [
+        {
+          "name": "NexusReportDetail36313AD96E7F4E25A3F0C03834F7CFAA.pbiviz.json",
+          "path": "NexusReportDetail36313AD96E7F4E25A3F0C03834F7CFAA.pbiviz.json",
+          "type": "CustomVisualMetadata"
+        }
+      ]
     }
   ],
   "settings": {

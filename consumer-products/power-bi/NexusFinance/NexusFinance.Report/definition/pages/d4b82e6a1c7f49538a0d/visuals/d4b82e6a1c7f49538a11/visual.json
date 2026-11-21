@@ -2,18 +2,18 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json",
   "name": "d4b82e6a1c7f49538a11",
   "position": {
-    "x": 940,
+    "x": 24,
     "y": 936,
-    "width": 316,
-    "height": 420,
+    "width": 1232,
+    "height": 112,
     "z": 0,
     "tabOrder": 0
   },
   "visual": {
-    "visualType": "tableEx",
+    "visualType": "NexusReportDetail36313AD96E7F4E25A3F0C03834F7CFAA",
     "query": {
       "queryState": {
-        "Values": {
+        "fields": {
           "projections": [
             {
               "field": {
@@ -63,7 +63,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Counts by object class'"
+                  "Value": "'Observations by class'"
                 }
               }
             },
@@ -100,42 +100,14 @@
             }
           }
         }
-      ]
-    },
-    "objects": {
-      "total": [
+      ],
+      "subTitle": [
         {
           "properties": {
-            "totals": {
+            "show": {
               "expr": {
                 "Literal": {
                   "Value": "false"
-                }
-              }
-            }
-          }
-        }
-      ],
-      "columnHeaders": [
-        {
-          "properties": {
-            "fontSize": {
-              "expr": {
-                "Literal": {
-                  "Value": "10D"
-                }
-              }
-            }
-          }
-        }
-      ],
-      "values": [
-        {
-          "properties": {
-            "fontSize": {
-              "expr": {
-                "Literal": {
-                  "Value": "10D"
                 }
               }
             }

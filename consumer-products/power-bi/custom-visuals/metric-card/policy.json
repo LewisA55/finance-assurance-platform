@@ -1,0 +1,121 @@
+{
+  "version": "NEXUS-DASHBOARD-TILE@v1",
+  "purpose": "EXECUTIVE_DASHBOARD_PRESENTATION",
+  "deliveryRef": "Q-FINANCE-C2@v1",
+  "disclaimer": "A presentation tile over a governed measure. It states the measure's declared context and authority and makes no eligibility or assurance claim; purpose-gated claims use the reliability tile.",
+  "abbreviate": true,
+  "tiles": {
+    "FP_LTM_REVENUE": {
+      "label": "LTM revenue", "caption": "GOVERNED ACTUALS",
+      "context": "Jul 2025 to Jun 2026 | Nexus Group | GBP",
+      "authority": "STATUTORY_STATEMENT", "unit": "GBP",
+      "table": "Financial Performance", "measure": "LTM Revenue GBP",
+      "page": "8c5d16b8f8a74d18ac85", "visual": "0000000000000000000b"
+    },
+    "FP_JUNE_REVENUE": {
+      "label": "June revenue", "caption": "GOVERNED ACTUALS",
+      "context": "June 2026 | Nexus Group | GBP",
+      "authority": "STATUTORY_STATEMENT", "unit": "GBP",
+      "table": "Financial Performance", "measure": "June Revenue GBP",
+      "page": "8c5d16b8f8a74d18ac85", "visual": "0000000000000000000c"
+    },
+    "FP_JUNE_EBITDA": {
+      "label": "June EBITDA", "caption": "GOVERNED ACTUALS",
+      "context": "June 2026 | Nexus Group | GBP",
+      "authority": "STATUTORY_STATEMENT", "unit": "GBP",
+      "table": "Financial Performance", "measure": "June EBITDA GBP",
+      "page": "8c5d16b8f8a74d18ac85", "visual": "0000000000000000000d"
+    },
+    "FP_JUNE_CLOSING_CASH": {
+      "label": "June closing cash", "caption": "GOVERNED ACTUALS",
+      "context": "June 2026 | Nexus Group | GBP",
+      "authority": "STATUTORY_CASH_FLOW_AND_SUBLEDGER", "unit": "GBP",
+      "table": "Liquidity", "measure": "June Closing Cash GBP",
+      "page": "8c5d16b8f8a74d18ac85", "visual": "0000000000000000000e"
+    },
+    "CC_CLOSING_CASH": {
+      "label": "Closing cash", "caption": "TREASURY",
+      "context": "June 2026 close | Nexus Group | GBP",
+      "authority": "STATUTORY_CASH_FLOW_AND_SUBLEDGER", "unit": "GBP",
+      "table": "Liquidity", "measure": "Closing Cash GBP",
+      "page": "bc4784caea56418190a2", "visual": "0000000000000000000b"
+    },
+    "CC_GROSS_DEBT": {
+      "label": "Gross debt", "caption": "TREASURY",
+      "context": "June 2026 close | Nexus Group | GBP",
+      "authority": "STATUTORY_CASH_FLOW_AND_SUBLEDGER", "unit": "GBP",
+      "table": "Liquidity", "measure": "Gross Debt GBP",
+      "page": "bc4784caea56418190a2", "visual": "0000000000000000000c"
+    },
+    "CC_NET_DEBT": {
+      "label": "Net debt", "caption": "TREASURY",
+      "context": "June 2026 close | Nexus Group | GBP",
+      "authority": "STATUTORY_CASH_FLOW_AND_SUBLEDGER", "unit": "GBP",
+      "table": "Liquidity", "measure": "Net Debt GBP",
+      "page": "bc4784caea56418190a2", "visual": "0000000000000000000d"
+    },
+    "CLOSE_HARD_CLOSED": {
+      "label": "Hard-closed versions", "caption": "CLOSE ASSURANCE",
+      "context": "Jul 2025 to Jun 2026 | Nexus Group",
+      "authority": "REPORTING_VERSION_REGISTER", "unit": "COUNT",
+      "table": "Reporting Version", "measure": "Hard Closed Versions",
+      "page": "45d6c278b45d4f468959", "visual": "0000000000000000000b"
+    },
+    "CLOSE_PUBLISHED": {
+      "label": "Published versions", "caption": "CLOSE ASSURANCE",
+      "context": "Jul 2025 to Jun 2026 | Nexus Group",
+      "authority": "REPORTING_VERSION_REGISTER", "unit": "COUNT",
+      "table": "Reporting Version", "measure": "Published Versions",
+      "page": "45d6c278b45d4f468959", "visual": "0000000000000000000c"
+    },
+    "CLOSE_CHECKS_PASSED": {
+      "label": "Readiness checks passed", "caption": "DELIVERY-WIDE CHECKS",
+      "context": "Q-FINANCE-C2@v1 | Delivery-wide",
+      "authority": "C1_MODEL_READINESS_CONTROLS", "unit": "COUNT",
+      "table": "Readiness Controls", "measure": "Readiness Checks Passed",
+      "page": "45d6c278b45d4f468959", "visual": "0000000000000000000d"
+    },
+    "CLOSE_CHECKS_OPEN": {
+      "label": "Readiness checks not passed", "caption": "DELIVERY-WIDE CHECKS",
+      "context": "Q-FINANCE-C2@v1 | Delivery-wide",
+      "authority": "C1_MODEL_READINESS_CONTROLS", "unit": "COUNT",
+      "table": "Readiness Controls", "measure": "Readiness Checks Not Passed",
+      "page": "45d6c278b45d4f468959", "visual": "0000000000000000000e"
+    },
+    "SAAS_ARR": {
+      "label": "Ending ARR", "caption": "RECURRING REVENUE",
+      "context": "June 2026 | Nexus Group | GBP",
+      "authority": "PUBLISHED_GROUP_SAAS_KPI", "unit": "GBP",
+      "table": "SaaS KPIs", "measure": "Group Ending ARR GBP",
+      "page": "c0f28564b4824ff79b7c", "visual": "0000000000000000000b"
+    },
+    "SAAS_MRR": {
+      "label": "Ending MRR", "caption": "RECURRING REVENUE",
+      "context": "June 2026 | Nexus Group | GBP",
+      "authority": "SUBSCRIPTION_EVENT_AND_STATE", "unit": "GBP",
+      "table": "SaaS Movements", "measure": "Ending MRR GBP",
+      "page": "c0f28564b4824ff79b7c", "visual": "0000000000000000000c"
+    },
+    "SAAS_CUSTOMERS": {
+      "label": "Active customers", "caption": "CUSTOMER BASE",
+      "context": "June 2026 | Nexus Group",
+      "authority": "PUBLISHED_GROUP_SAAS_KPI", "unit": "COUNT",
+      "table": "SaaS KPIs", "measure": "Group Active Customers",
+      "page": "c0f28564b4824ff79b7c", "visual": "0000000000000000000d"
+    },
+    "SAAS_NRR": {
+      "label": "Net revenue retention", "caption": "CUSTOMER RETENTION",
+      "context": "June 2026 | Nexus Group",
+      "authority": "PUBLISHED_GROUP_SAAS_KPI", "unit": "PCT",
+      "table": "SaaS KPIs", "measure": "Group Net Revenue Retention",
+      "page": "c0f28564b4824ff79b7c", "visual": "0000000000000000000e"
+    },
+    "CC_AVAILABLE_LIQUIDITY": {
+      "label": "Available liquidity", "caption": "TREASURY",
+      "context": "June 2026 close | Nexus Group | GBP",
+      "authority": "STATUTORY_CASH_FLOW_AND_SUBLEDGER", "unit": "GBP",
+      "table": "Liquidity", "measure": "Available Liquidity GBP",
+      "page": "bc4784caea56418190a2", "visual": "0000000000000000000e"
+    }
+  }
+}

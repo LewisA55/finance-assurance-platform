@@ -5,15 +5,159 @@
     "x": 958,
     "y": 151,
     "width": 294,
-    "height": 106,
+    "height": 120,
     "z": 1400,
     "tabOrder": 1400
   },
   "visual": {
-    "visualType": "cardVisual",
+    "visualType": "NexusMetricCardA7F25B81D394C6E0472B9D53E18A6C4F",
     "query": {
       "queryState": {
-        "Data": {
+        "tileKey": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Dashboard Tiles"
+                    }
+                  },
+                  "Property": "Tile Key"
+                }
+              },
+              "queryRef": "Dashboard Tiles.Tile Key",
+              "nativeQueryRef": "Tile Key"
+            }
+          ]
+        },
+        "tileLabel": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Dashboard Tiles"
+                    }
+                  },
+                  "Property": "Tile Label"
+                }
+              },
+              "queryRef": "Dashboard Tiles.Tile Label",
+              "nativeQueryRef": "Tile Label"
+            }
+          ]
+        },
+        "caption": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Dashboard Tiles"
+                    }
+                  },
+                  "Property": "Tile Caption"
+                }
+              },
+              "queryRef": "Dashboard Tiles.Tile Caption",
+              "nativeQueryRef": "Tile Caption"
+            }
+          ]
+        },
+        "contextLine": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Dashboard Tiles"
+                    }
+                  },
+                  "Property": "Tile Context"
+                }
+              },
+              "queryRef": "Dashboard Tiles.Tile Context",
+              "nativeQueryRef": "Tile Context"
+            }
+          ]
+        },
+        "authority": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Dashboard Tiles"
+                    }
+                  },
+                  "Property": "Tile Authority"
+                }
+              },
+              "queryRef": "Dashboard Tiles.Tile Authority",
+              "nativeQueryRef": "Tile Authority"
+            }
+          ]
+        },
+        "unit": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Dashboard Tiles"
+                    }
+                  },
+                  "Property": "Tile Unit"
+                }
+              },
+              "queryRef": "Dashboard Tiles.Tile Unit",
+              "nativeQueryRef": "Tile Unit"
+            }
+          ]
+        },
+        "deliveryRef": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Dashboard Tiles"
+                    }
+                  },
+                  "Property": "Tile Delivery"
+                }
+              },
+              "queryRef": "Dashboard Tiles.Tile Delivery",
+              "nativeQueryRef": "Tile Delivery"
+            }
+          ]
+        },
+        "tilePolicyRef": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Dashboard Tiles"
+                    }
+                  },
+                  "Property": "Tile Policy"
+                }
+              },
+              "queryRef": "Dashboard Tiles.Tile Policy",
+              "nativeQueryRef": "Tile Policy"
+            }
+          ]
+        },
+        "value": {
           "projections": [
             {
               "field": {
@@ -40,32 +184,7 @@
             "show": {
               "expr": {
                 "Literal": {
-                  "Value": "true"
-                }
-              }
-            },
-            "text": {
-              "expr": {
-                "Literal": {
-                  "Value": "'Available Liquidity'"
-                }
-              }
-            },
-            "fontColor": {
-              "solid": {
-                "color": {
-                  "expr": {
-                    "Literal": {
-                      "Value": "'#132841'"
-                    }
-                  }
-                }
-              }
-            },
-            "fontSize": {
-              "expr": {
-                "Literal": {
-                  "Value": "13D"
+                  "Value": "false"
                 }
               }
             }
@@ -78,32 +197,71 @@
             "altText": {
               "expr": {
                 "Literal": {
-                  "Value": "'Closing cash plus undrawn facilities at the June close.'"
+                  "Value": "'Available liquidity. June 2026 close | Nexus Group | GBP. Hover for the full amount.'"
                 }
               }
             }
           }
         }
       ]
-    },
-    "objects": {
-      "label": [
-        {
-          "properties": {
-            "show": {
-              "expr": {
-                "Literal": {
-                  "Value": "false"
+    }
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "Dashboard Tiles_Tile Key_CC_AVAILABLE_LIQUIDITY",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Dashboard Tiles"
+              }
+            },
+            "Property": "Tile Key"
+          }
+        },
+        "type": "Categorical",
+        "howCreated": "User",
+        "filter": {
+          "Version": 2,
+          "From": [
+            {
+              "Name": "s",
+              "Entity": "Dashboard Tiles",
+              "Type": 0
+            }
+          ],
+          "Where": [
+            {
+              "Condition": {
+                "In": {
+                  "Expressions": [
+                    {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Source": "s"
+                          }
+                        },
+                        "Property": "Tile Key"
+                      }
+                    }
+                  ],
+                  "Values": [
+                    [
+                      {
+                        "Literal": {
+                          "Value": "'CC_AVAILABLE_LIQUIDITY'"
+                        }
+                      }
+                    ]
+                  ]
                 }
               }
             }
-          },
-          "selector": {
-            "id": "default"
-          }
+          ]
         }
-      ]
-    },
-    "drillFilterOtherVisuals": true
+      }
+    ]
   }
 }

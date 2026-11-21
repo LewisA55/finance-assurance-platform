@@ -33,3 +33,9 @@ ref table 'Rule Inventory'
 ref table 'Close Grid'
 
 ref table 'Lineage Edges'
+
+ref table 'Dashboard Tiles'
+
+ref table 'Planning Variance Data'
+
+ref table 'Restatement Comparator Data'
