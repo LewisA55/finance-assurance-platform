@@ -74,7 +74,9 @@ def build():
         nb.write_visual(page_id, v)
     registry = nb.REPORT / "definition/pages/pages.json"
     pages = json.loads(registry.read_text())
-    for (page_id, *_), after in zip(PAGES, ["8c5d16b8f8a74d18ac85", "e7c34d918b2a4f67905e"]):
+    for (page_id, *_), after in zip(
+        PAGES, ["8c5d16b8f8a74d18ac85", "e7c34d918b2a4f67905e"], strict=True
+    ):
         pages["pageOrder"].remove(page_id)
         pages["pageOrder"].insert(pages["pageOrder"].index(after) + 1, page_id)
     nb.write_json(registry, pages)

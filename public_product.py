@@ -25,12 +25,16 @@ WEB_ROOT = PROJECT_ROOT / "web"
 DEFAULT_HOST = "127.0.0.1"
 DEFAULT_API_PORT = 8000
 DEFAULT_WEB_PORT = 3000
-BUILD_ID_INPUTS = ("app", "public", "package-lock.json", "next.config.ts")
-GENERATED_RUNTIME_CHUNK = re.compile(
-    r"^server/_next/static/"
-    r"(app-page-cache|app-route-handler-dispatch|isr-cache|seed-cache)-"
-    r"[A-Za-z0-9_-]+\.js$"
+BUILD_ID_INPUTS = ("app", "public", "package-lock.json", "next.config.ts", "vite.config.ts")
+RUNTIME_CHUNK_NAME = (
+    r"(app-page-cache-render|app-page-cache|app-route-handler-dispatch|"
+    r"app-rsc-response-stage|cacheability-request|isr-cache|navigation-signal|"
+    r"request-error-log|seed-cache|text-stream)-[A-Za-z0-9_-]{8}\.js"
 )
+GENERATED_RUNTIME_CHUNK = re.compile(rf"^server/_next/static/{RUNTIME_CHUNK_NAME}$")
+GENERATED_RUNTIME_REFERENCE = re.compile(RUNTIME_CHUNK_NAME.encode("ascii"))
+RSC_BUILD_ID_PATH = "server/RSC_BUILD_ID"
+VINEXT_SERVER_CONFIG = "server/vinext-server.json"
 
 
 def _npm_executable() -> str:
@@ -49,11 +53,11 @@ def _node_executable() -> str:
     return resolved
 
 
-def _vinext_cli() -> Path:
-    cli = WEB_ROOT / "node_modules" / "vinext" / "dist" / "cli.js"
+def _vite_cli() -> Path:
+    cli = WEB_ROOT / "node_modules" / "vite" / "bin" / "vite.js"
     if not cli.is_file():
         raise RuntimeError(
-            "vinext is not installed; run `npm ci` in the web directory"
+            "Vite is not installed; run `npm ci` in the web directory"
         )
     return cli
 
@@ -63,9 +67,9 @@ def _web_dev_command(*, host: str, port: int) -> list[str]:
 
     return [
         _node_executable(),
-        str(_vinext_cli()),
+        str(_vite_cli()),
         "dev",
-        "--hostname",
+        "--host",
         host,
         "--port",
         str(port),
@@ -200,16 +204,22 @@ def _deterministic_build_identity(root: Path) -> bytes | None:
     return digest.hexdigest()[:32].encode("ascii")
 
 
-def _canonical_build_bytes(root: Path, path: Path) -> bytes:
+def _prerender_secret(payload: dict[str, object], relative_path: str) -> str:
+    secret = payload.get("prerenderSecret")
+    if not isinstance(secret, str) or not re.fullmatch(r"[0-9a-f]{64}", secret):
+        raise RuntimeError(f"unexpected prerender-secret shape in {relative_path}")
+    return secret
+
+
+def _canonical_build_bytes(root: Path, path: Path, rsc_build_id: bytes | None) -> bytes:
     relative_path = path.relative_to(root).as_posix()
     data = path.read_bytes()
     if relative_path in {
-        "server/vinext-server.json",
+        VINEXT_SERVER_CONFIG,
         "server/ssr/vinext-server.json",
     }:
         payload = json.loads(data)
-        if not re.fullmatch(r"[0-9a-f]{64}", payload.get("prerenderSecret", "")):
-            raise RuntimeError(f"unexpected prerender-secret shape in {relative_path}")
+        _prerender_secret(payload, relative_path)
         payload["prerenderSecret"] = "<generated-prerender-secret>"
         return json.dumps(payload, sort_keys=True, separators=(",", ":")).encode()
     if relative_path == "server/index.js":
@@ -226,30 +236,53 @@ def _canonical_build_bytes(root: Path, path: Path) -> bytes:
             b"`" + preview_identity + b"`",
             b"`<generated-preview-mode-id>`",
         )
-        canonical = re.sub(
-            rb"(app-page-cache|app-route-handler-dispatch|isr-cache|seed-cache)-"
-            rb"[A-Za-z0-9_-]+\.js",
-            lambda match: match.group(1) + b"-<generated-runtime-seed>.js",
-            canonical,
-        )
-        return canonical
+        if rsc_build_id is not None:
+            config = json.loads((root / VINEXT_SERVER_CONFIG).read_bytes())
+            prerender = _prerender_secret(config, VINEXT_SERVER_CONFIG).encode("ascii")
+            prerender_literal = b"`" + prerender + b"`"
+            if canonical.count(prerender_literal) != 1:
+                raise RuntimeError("unexpected prerender-secret reference in server/index.js")
+            canonical = canonical.replace(prerender_literal, b"`<generated-prerender-secret>`")
+            # Vinext inlines the on-demand revalidation secret in a getter.
+            canonical, count = re.subn(
+                rb"(function [a-zA-Z_$][\w$]*\(\)\{return)`[0-9a-f]{64}`",
+                rb"\1`<generated-revalidation-secret>`",
+                canonical,
+            )
+            if count != 1:
+                raise RuntimeError("unexpected revalidation-secret getter in server/index.js")
+        return GENERATED_RUNTIME_REFERENCE.sub(rb"\1.js", canonical)
+    if relative_path == RSC_BUILD_ID_PATH:
+        return b"<generated-rsc-build-id>"
+    if GENERATED_RUNTIME_CHUNK.fullmatch(relative_path):
+        if path.name.startswith("request-error-log-"):
+            if rsc_build_id is None or data.count(rsc_build_id) != 1:
+                raise RuntimeError("unexpected RSC build identity in request-error-log")
+            data = data.replace(rsc_build_id, b"<generated-rsc-build-id>")
+        return GENERATED_RUNTIME_REFERENCE.sub(rb"\1.js", data)
     return data
 
 
 def _tree_digest(root: Path) -> str:
     digest = hashlib.sha256()
-    files = sorted(
-        path
-        for path in root.rglob("*")
-        if path.is_file()
-        and not GENERATED_RUNTIME_CHUNK.fullmatch(path.relative_to(root).as_posix())
-    )
+    build_id_path = root / RSC_BUILD_ID_PATH
+    rsc_build_id = build_id_path.read_bytes() if build_id_path.is_file() else None
+    if rsc_build_id is not None and not re.fullmatch(rb"[0-9a-f]{32}", rsc_build_id):
+        raise RuntimeError("unexpected RSC build identity shape")
+    files: dict[str, Path] = {}
+    for path in root.rglob("*"):
+        if path.is_file():
+            relative_path = path.relative_to(root).as_posix()
+            name = GENERATED_RUNTIME_CHUNK.sub(r"server/_next/static/\1.js", relative_path)
+            if name in files:
+                raise RuntimeError(f"duplicate canonical build path: {name}")
+            files[name] = path
     if not files:
         raise RuntimeError(f"build produced no files under {root}")
-    for path in files:
-        digest.update(path.relative_to(root).as_posix().encode("utf-8"))
+    for name, path in sorted(files.items()):
+        digest.update(name.encode("utf-8"))
         digest.update(b"\0")
-        digest.update(_canonical_build_bytes(root, path))
+        digest.update(_canonical_build_bytes(root, path, rsc_build_id))
         digest.update(b"\0")
     return digest.hexdigest()
 
@@ -385,7 +418,7 @@ def verify(*, host: str, api_port: int, web_port: int) -> int:
 
     print(f"Deterministic application build: {first_digest}")
     print(
-        "Generated preview and prerender security salts: "
+        "Generated preview, prerender, revalidation and RSC identifiers: "
         "shape-checked and normalized"
     )
     print("Local startup: verified")

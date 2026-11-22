@@ -43,6 +43,34 @@ def test_build_digest_normalizes_only_vinext_security_entropy(tmp_path: Path) ->
     assert public_product._tree_digest(first) != public_product._tree_digest(second)
 
 
+def test_build_digest_checks_the_contents_of_renamed_rsc_chunks(tmp_path: Path) -> None:
+    for character in ("a", "b"):
+        root = tmp_path / character
+        prerender = character * 64
+        rsc_id = character * 32
+        chunk_name = f"request-error-log-{character * 8}.js"
+        preview_id = character * 31 + "f"
+        _write_build(root, preview=preview_id, prerender=prerender, value="product")
+        server = root / "server"
+        (server / "RSC_BUILD_ID").write_bytes(rsc_id.encode("ascii"))
+        index = server / "index.js"
+        index.write_text(
+            index.read_text(encoding="utf-8")
+            + f"const prerender=`{prerender}`;function revalidate(){{return`{character * 63}c`}}"
+            + f"import './_next/static/{chunk_name}';",
+            encoding="utf-8",
+        )
+        static = server / "_next" / "static"
+        static.mkdir(parents=True)
+        (static / chunk_name).write_text(f"const id='{rsc_id}';", encoding="utf-8")
+
+    assert public_product._tree_digest(tmp_path / "a") == public_product._tree_digest(tmp_path / "b")
+
+    chunk = tmp_path / "b/server/_next/static/request-error-log-bbbbbbbb.js"
+    chunk.write_text(chunk.read_text(encoding="utf-8") + "const changed=true;", encoding="utf-8")
+    assert public_product._tree_digest(tmp_path / "a") != public_product._tree_digest(tmp_path / "b")
+
+
 @pytest.mark.parametrize("secret", ["short", "g" * 64, "A" * 64])
 def test_build_digest_rejects_unexpected_prerender_secret(
     tmp_path: Path, secret: str
@@ -81,17 +109,17 @@ def test_web_dev_command_targets_the_owned_node_process(
     monkeypatch.setattr(public_product, "_node_executable", lambda: "node-test")
     monkeypatch.setattr(
         public_product,
-        "_vinext_cli",
-        lambda: Path("vinext-test.js"),
+        "_vite_cli",
+        lambda: Path("vite-test.js"),
     )
 
     command = public_product._web_dev_command(host="127.0.0.1", port=3000)
 
     assert command == [
         "node-test",
-        "vinext-test.js",
+        "vite-test.js",
         "dev",
-        "--hostname",
+        "--host",
         "127.0.0.1",
         "--port",
         "3000",

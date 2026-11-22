@@ -43,6 +43,10 @@ import {
   CorrectionReconciliationScreen,
   GovernedDecisionScreen,
 } from "./DecisionCorrectionViews";
+import { TransactionExplorer } from "./TransactionExplorer";
+import { loadExplorer, type ExplorerData } from "../lib/transaction-explorer";
+import { PeriodCloseCockpit } from "./PeriodCloseCockpit";
+import { loadPeriodCloseBasis, type CloseOutcome, type PeriodCloseBasis } from "../lib/period-close";
 
 function Link({ children, ...props }: ComponentProps<"a">) {
   return <a {...props}>{children}</a>;
@@ -50,6 +54,8 @@ function Link({ children, ...props }: ComponentProps<"a">) {
 
 type Screen =
   | { kind: "overview" }
+  | { kind: "explorer"; closeOutcome?: CloseOutcome }
+  | { kind: "period-close" }
   | { kind: "reconciliation"; productRef: string }
   | { kind: "history"; periodId: string }
   | { kind: "reporting"; periodId: string; versionRef: string }
@@ -70,6 +76,8 @@ type ProductExperienceProps = {
 
 type ScreenData =
   | { kind: "overview"; value: PlatformOverview }
+  | { kind: "explorer"; value: ExplorerData; closeOutcome?: CloseOutcome }
+  | { kind: "period-close"; value: PeriodCloseBasis }
   | { kind: "reconciliation"; value: SourceReconciliation }
   | { kind: "history"; value: ReportingHistory }
   | { kind: "reporting"; value: ReportingVersion }
@@ -101,6 +109,10 @@ function loadScreen(screen: Screen): Promise<ScreenData> {
   switch (screen.kind) {
     case "overview":
       return getPlatformOverview().then((value) => ({ kind: "overview", value }));
+    case "explorer":
+      return loadExplorer().then((value) => ({ kind: "explorer", value, closeOutcome: screen.closeOutcome }));
+    case "period-close":
+      return loadPeriodCloseBasis().then((value) => ({ kind: "period-close", value }));
     case "reconciliation":
       return getSourceReconciliation(screen.productRef).then((value) => ({ kind: "reconciliation", value }));
     case "history":
@@ -181,7 +193,7 @@ export function ProductExperience({ screen }: ProductExperienceProps) {
       <Sidebar screen={screen} />
       <div className="product-stage">
         <SyntheticBanner />
-        <Topbar loadState={loadState} />
+        <Topbar loadState={loadState} simulation={screen.kind === "period-close"} />
         <main
           id="main-content"
           className="content-canvas"
@@ -207,7 +219,9 @@ export function ProductExperience({ screen }: ProductExperienceProps) {
 
 function Sidebar({ screen }: { screen: Screen }) {
   const active =
-    screen.kind === "overview"
+    screen.kind === "explorer" || screen.kind === "period-close"
+      ? undefined
+      : screen.kind === "overview"
       ? "Overview"
       : screen.kind === "trace"
         ? "Trace"
@@ -297,6 +311,22 @@ function Sidebar({ screen }: { screen: Screen }) {
         )}
       </nav>
       <div className="sidebar-lower">
+        <Link
+          className={screen.kind === "period-close" ? "module-link active" : "module-link"}
+          href="/period-close"
+          aria-current={screen.kind === "period-close" ? "page" : undefined}
+        >
+          <span className="module-mark" aria-hidden="true">PC</span>
+          <span>Period-close cockpit</span>
+        </Link>
+        <Link
+          className={screen.kind === "explorer" ? "module-link active" : "module-link"}
+          href="/explorer"
+          aria-current={screen.kind === "explorer" ? "page" : undefined}
+        >
+          <span className="module-mark" aria-hidden="true">EX</span>
+          <span>Transaction explorer</span>
+        </Link>
         <Link className="casework-return" href="/assurance">
           <span aria-hidden="true">&larr;</span>
           <span><small>Reporting product</small><strong>Return to assurance</strong></span>
@@ -335,14 +365,16 @@ function SyntheticBanner() {
   );
 }
 
-function Topbar({ loadState }: { loadState: LoadState }) {
+function Topbar({ loadState, simulation }: { loadState: LoadState; simulation: boolean }) {
   const context =
     loadState.status === "ready"
       ? {
-          revision: loadState.screen.value.query_revision,
+          revision: loadState.screen.kind === "explorer" ? "Per case" : `r${loadState.screen.value.query_revision}`,
           verified: loadState.manifest.data.verification_status,
           scenario:
-            loadState.screen.value.scenario_ref === "DEMO-CT1-CORRECTION@v1"
+            loadState.screen.kind === "explorer"
+              ? "C-001 / CT-1"
+              : loadState.screen.value.scenario_ref === "DEMO-CT1-CORRECTION@v1"
               ? "CT-1"
               : "C-001",
         }
@@ -350,7 +382,7 @@ function Topbar({ loadState }: { loadState: LoadState }) {
   return (
     <header className="topbar">
       <div>
-        <p className="eyebrow">Nexus Group / June 2026 / Investigation mode</p>
+        <p className="eyebrow">Nexus Group / June 2026 / {simulation ? "Close simulation" : "Investigation mode"}</p>
         <h1>Assurance Casework</h1>
       </div>
       <div className="context-strip" aria-label="Current data context">
@@ -358,7 +390,7 @@ function Topbar({ loadState }: { loadState: LoadState }) {
         <ContextChip label="As of" value="14 Jul 2026 12:00 UTC" />
         <ContextChip
           label="Revision"
-          value={context ? `r${context.revision}` : "Loading"}
+          value={context?.revision ?? "Loading"}
         />
         <span className="verification-chip" role="status" aria-live="polite">
           <span className="status-dot" aria-hidden="true" />
@@ -384,6 +416,10 @@ function ContextChip({ label, value }: { label: string; value: string }) {
 
 function ScreenContent({ data }: { data: ScreenData }) {
   switch (data.kind) {
+    case "explorer":
+      return <TransactionExplorer cases={data.value} closeOutcome={data.closeOutcome} />;
+    case "period-close":
+      return <PeriodCloseCockpit basis={data.value} />;
     case "overview":
       return <OverviewScreen overview={data.value} />;
     case "reconciliation":

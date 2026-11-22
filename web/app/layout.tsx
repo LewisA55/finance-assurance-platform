@@ -18,9 +18,9 @@ export const metadata: Metadata = {
     images: [
       {
         url: "/og.png",
-        width: 1755,
-        height: 896,
-        alt: "Nexus Technologies finance intelligence",
+        width: 1440,
+        height: 810,
+        alt: "Nexus Technologies CFO command centre with synthetic financial results",
       },
     ],
   },

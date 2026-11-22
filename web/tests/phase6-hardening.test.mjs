@@ -49,6 +49,8 @@ test("renders every finite browser route with the shared accessible shell", asyn
     "/assurance",
     "/planning-valuation",
     "/product-guide",
+    "/explorer",
+    "/period-close",
     "/atlas/reporting/2026-06",
     "/atlas/reporting/2026-06/RV-2026-06%40v2",
     "/trace/reporting/RV-2026-06%40v2/subscription_revenue_minor",
@@ -142,6 +144,7 @@ test("has no paid-service, secret, telemetry, or external runtime boundary", asy
 
 test("publishes portfolio metadata without claiming hosted authority", async () => {
   const layout = await readFile(path.join(webRoot, "app", "layout.tsx"), "utf8");
+  const preview = await readFile(path.join(webRoot, "public", "og.png"));
   const experience = await readFile(
     path.join(webRoot, "app", "components", "ProductExperience.tsx"),
     "utf8",
@@ -153,6 +156,8 @@ test("publishes portfolio metadata without claiming hosted authority", async () 
   assert.match(layout, /summary_large_image/);
   assert.match(layout, /NEXT_PUBLIC_SITE_URL/);
   assert.match(layout, /url: "\/og\.png"/);
+  assert.equal(preview.toString("hex", 0, 8), "89504e470d0a1a0a");
+  assert.match(layout, new RegExp(`width: ${preview.readUInt32BE(16)},\\s*height: ${preview.readUInt32BE(20)}`));
   assert.match(experience, /no paid API required/i);
   assert.match(experience, /Exact-original reads/);
   assert.doesNotMatch(layout, /x-forwarded-host|x-forwarded-proto/i);
@@ -165,7 +170,7 @@ test("derives the build identity from versioned deployable inputs", async () => 
   assert.match(config, /createHash\("sha256"\)/);
   assert.match(config, /deploymentId:\s*buildIdentity/);
   assert.match(config, /generateBuildId:\s*async \(\) => buildIdentity/);
-  for (const input of ["app", "public", "package-lock.json", "next.config.ts"]) {
+  for (const input of ["app", "public", "package-lock.json", "next.config.ts", "vite.config.ts"]) {
     assert.match(config, new RegExp(`"${input.replace(".", "\\.")}"`));
   }
   assert.doesNotMatch(config, /randomUUID|Date\.now|Math\.random/);

@@ -8,6 +8,7 @@ import duckdb
 HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE.parent / "shared"))
 import nexus_build as nb
+
 from finance_assurance.finance_delivery.service import FinanceDeliveryService
 from finance_assurance.validation.canonical import canonical_sha256
 from finance_assurance.validation.h7_reporting import run_h7
@@ -41,7 +42,7 @@ def planning(root):
             order by period_id, account_id, department_id
         """, [path, POLICY["baselinePeriod"], POLICY["targetPeriod"]])
         names = [c[0] for c in cursor.description]
-        data = [dict(zip(names, values)) for values in cursor.fetchall()]
+        data = [dict(zip(names, values, strict=True)) for values in cursor.fetchall()]
     by_period = {}
     for r in data:
         require(r["currency"] == "GBP" and r["value_authority"] == "MANAGEMENT_SOURCE_REPORT"

@@ -1,9 +1,9 @@
 # Excel validation
 
-This directory will hold executable or reviewable controls for the v0.2 model,
-including statement balancing, cash-flow reconciliation, retained-earnings
-continuity, source-to-model totals, scenario integrity and DCF sensitivity
-checks.
+The [model builder](../build-model.mjs) recalculates all three cases, checks
+monthly statement and schedule reconciliations, independently recomputes the
+DCF, and tests changes to WACC and the final month revenue adjustment. The
+workbook's Checks tab exposes the monthly reconciliation differences.
 
 Rendered workbook evidence and temporary exports remain under the ignored
 `../exports/` directory.
