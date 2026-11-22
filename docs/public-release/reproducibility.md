@@ -2,7 +2,7 @@
 
 ## Fresh-clone product build
 
-The public v0.1 repository contains the compact governed React runtime. A fresh
+The repository contains the compact governed React runtime. A fresh
 clone therefore needs only locked dependencies to validate and build the product:
 
 ```bash

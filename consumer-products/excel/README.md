@@ -2,10 +2,18 @@
 
 ## Review model
 
-The v0.2 Excel review model integrates the three financial statements, scenario
-drivers and a DCF over one exact C2 delivery package. See the
-[model specification](specifications/v0.2-model.md) for the data binding,
-forecast conventions and rebuild command.
+`Nexus-Financial-Model.xlsx` is the completed and reviewed Nexus Group workbook.
+It integrates all three statements, scenario drivers and a DCF over one exact
+C2 delivery package. The model uses 66 months of governed actuals and projects
+60 monthly periods from July 2026. The XLSX is held in the local authoring
+workspace. [Model specification and rebuild command](specifications/v0.2-model.md)
+
+![Base-case DCF overview in the reviewed Excel workbook, showing the funding and terminal cash flow tests](../../docs/public-release/excel-model-valuation.png)
+
+In the preview, the base-case DCF withholds enterprise and equity values because
+terminal free cash flow is non-positive and the cash floor is unfunded. The
+workbook's Checks tab tests statement reconciliation separately.
+[Validation notes](validation/README.md)
 
 ## Working boundary
 
@@ -16,9 +24,8 @@ forecast conventions and rebuild command.
 - Publish a reviewed workbook as a tagged release asset with its input package
   reference, control totals and reconciliation statement.
 
-The C2 data-only Excel inspection pack is an input aid, not the model itself.
-Its governed facts, relationships and measure guidance remain the source of
-truth for the later workbook.
+The C2 data-only Excel inspection pack supports review of the governed facts,
+relationships and measures that feed the workbook.
 
 Tracked workbook specifications belong in `specifications/`; executable review
 and reconciliation definitions belong in `validation/`. The private workbook

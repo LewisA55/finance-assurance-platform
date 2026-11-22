@@ -4,7 +4,7 @@
 
 The repository tracks Python source, dbt SQL, schemas, tests, architecture and
 product contracts, React source and lockfile, the project-owned social preview,
-and the compact v0.1 React runtime under `web/public/finance-data/`.
+and the compact React runtime under `web/public/finance-data/`.
 
 The React runtime is a deliberately versioned release fixture. It contains about
 2.6 MB of compressed Parquet and JSON, binds the published C2 and Pythia digests,
@@ -24,13 +24,12 @@ The following are excluded from Git:
   mock-ups and private review notes; and
 - environment files, credentials and machine-specific paths.
 
-Excel and Power BI binaries will be attached to their own tagged releases when
-those products are complete. Their reproducible source, model metadata and
-validation evidence should remain in Git where practical.
+Excel and Power BI binaries are distributed as tagged release assets when
+published. Their source, previews, model metadata and validation evidence stay
+in Git where practical.
 
 The tracked [consumer-products workspace](../../consumer-products/README.md)
-separates future model documentation and text-based source from local desktop
-authoring and release binaries.
+contains the model documentation and source for the completed consumer products.
 
 ## Size limits
 
