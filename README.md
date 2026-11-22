@@ -3,55 +3,106 @@
 A synthetic company's finance function, built end to end, so the whole chain an
 auditor tests can be seen at once: source systems that disagree, transactions
 that arrive twice or arrive late, the journals derived from them, the period
-close, the controls, the evidence, and the decisions management takes from the
-result.
+close, the controls, the evidence, and the reporting management uses.
 
-I built it because a junior auditor sees a narrow slice - a sample of 25 items,
-one reconciliation, one control walkthrough - and rarely the system those slices
-came out of. This is that system, with every defect placed deliberately so its
-effect can be followed all the way downstream.
+I built it to understand the system behind individual audit tasks: how a source
+problem reaches the accounts, why a reconciliation can pass while reporting is
+still wrong, and how a correction should be investigated, approved and recorded.
+
+> **Scope:** all entities, transactions and results are fictional. This is a
+> portfolio demonstration, not an audit opinion, investment recommendation or
+> production accounting system.
+
+## Start with this example: a balanced ledger, an incomplete quarter
+
+In the subscription-revenue example, a GBP 10,000 recognition journal is not
+posted before the reporting period closes. The ledger still balances, but
+revenue is understated and deferred revenue is overstated.
+
+The walkthrough follows the unresolved recognition through evidence, review,
+approval and a revised reporting version. The original closed-period report is
+preserved rather than silently overwritten.
+
+| Reporting version | Subscription revenue | Deferred revenue |
+|---|---:|---:|
+| Original June report | GBP 0 | GBP 120,000 |
+| Revised June report | GBP 10,000 | GBP 110,000 |
+
+![Assurance Casework: a balanced ledger can still report an incomplete quarter, with original and revised reporting preserved](docs/public-release/assurance-casework.png)
+
+**What this demonstrates:** testing whether debits equal credits is not the same
+as establishing completeness. The investigation needs the expected recognition
+population, the posting history and evidence supporting the treatment of the
+unposted item.
+
+This written example and screenshot can be reviewed without installing the
+product. To inspect the interactive journey, expand the
+[local setup instructions](#technical-detail-and-local-setup) below; the
+[reproduction guide](docs/public-release/reproducibility.md)
+explains how the underlying outputs are checked.
+
+## What the work demonstrates
+
+| Familiar workstream | Demonstration in the platform |
+|---|---|
+| Source-data completeness and reconciliation | Retain the identity of records, distinguish duplicates and late arrivals, and trace discrepancies through the accounting process |
+| Revenue completeness and period close | Compare expected recognition with posted reporting, investigate an unposted item and preserve the original closed-period state |
+| Transaction-to-statement audit trail | Follow business events through posting rules, journals, subledgers and financial statements |
+| Corrections and reporting revisions | Keep an open-period correction distinct from a revised reporting version, with evidence and approvals retained |
+| Controls testing and exception follow-up | Produce reviewable evidence and distinguish an automated exception from a finding, remediation and sign-off |
+| Liquidity and financial analysis | Run scenarios over controlled actuals with stated assumptions and retain the published model results |
+
+These examples demonstrate work relevant to audit, data assurance and finance
+transformation: investigating discrepancies, documenting accounting consequences
+and making results reviewable. Automated checks support those tasks; they do not
+replace professional judgement or constitute an audit conclusion.
+
+## Where to look next
+
+- **Accounting and assurance:** the [subscription-revenue walkthrough above](#start-with-this-example-a-balanced-ledger-an-incomplete-quarter).
+- **Management reporting:** the [product views below](#management-reporting-views), showing financial performance and control readiness.
+- **Source-to-reporting controls:** the [architecture and ownership note](docs/public-release/architecture.md), explaining where each part of the process is responsible.
+- **Technical review or local use:** [setup and validation](#technical-detail-and-local-setup), with commands and repository structure.
+
+## Management reporting views
+
+The product contains six management screens: CFO overview, financial performance,
+cash and capital, revenue and subscription economics, assurance and control
+readiness, and planning and valuation.
+
+Reported actuals and scenario results keep separate histories. The interface
+presents those controlled outputs rather than calculating a second version of
+the accounts.
+
+### CFO command centre
+
+![CFO command centre showing financial performance, cash and subscription metrics](docs/public-release/cfo-command-centre.png)
+
+### Assurance and control readiness
+
+![Assurance and control readiness showing close and package controls](docs/public-release/assurance-control-readiness.png)
+
+## Executive briefing
+
+The June 2026 close as a twelve-slide deck: liquidity, the debt facility, cash
+movement, profitability, recurring revenue, working capital, close assurance and
+the decision requested of Treasury and FP&A. Every figure on a slide traces to a
+row in the evidence appendix, naming its source table and derivation.
+
+[Read the deck (PDF)](docs/public-release/Nexus-June-2026-Executive-Deck.pdf).
+It is rebuilt from the sealed delivery by
+[`consumer-products/executive-briefing`](consumer-products/executive-briefing/README.md),
+which asserts each claim the slides make and fails rather than print one the data
+no longer supports.
+
+## Technical detail and local setup
+
+<details>
+<summary>Open the engineering inventory, architecture, scale, setup and validation</summary>
 
 **Release target:** `v0.1 - Governed Finance Platform + React Intelligence Product`
 
-> All entities, transactions and results are fictional. The repository is a
-> portfolio and engineering demonstration; it is not an audit opinion,
-> investment recommendation or production accounting system.
-
-![Nexus Technologies CFO command centre, the governed finance intelligence product](docs/public-release/cfo-command-centre.png)
-
-## What it is, in familiar terms
-
-The five module names are internal shorthand. In the language of the work, they
-model problems most finance and audit people meet every year:
-
-| Familiar problem | Where it lives here |
-|---|---|
-| Completeness and accuracy of system-generated data | 78 source datasets and 4.2m rows carrying planted duplicates, late arrivals and reconciliation breaks, with source identity and lineage fixed on ingestion (Hermes) |
-| The audit trail from transaction to financial statement | Every journal derived from a business event by versioned posting rules, through subledgers, to 66 months of reconciled income statement, balance sheet and cash flow (Atlas) |
-| Immutability and period close | Posted journal headers and lines cannot be altered, and a hard-closed period cannot be silently reopened to fix history (Atlas) |
-| Correction against prior period adjustment | Reversal runs through an open correction path; restatement republishes a reporting version while the original reporting state stays intact. The two are deliberately not the same mechanism (Atlas) |
-| Controls testing and exception follow-up | 64 independent finance controls executed over the governed data, each producing retained evidence rather than a pass mark (Argus) |
-| Findings, management letter points and remediation | Exception, finding, issue, remediation, readiness and sign-off are separate states with a journey between them, not one status field (Aegis) |
-| The forward view behind a going concern or sustainability judgement | Scenario, liquidity and valuation-readiness runs over governed actuals, 360 scenario-months, sealed so a published figure cannot drift (Pythia) |
-| Management information you can actually rely on | 99 governed datasets, 189 measure specifications and 387 automated tests, so a number on screen traces back to a rule version and a source row |
-
-The point of separating these is that most reporting problems are not arithmetic
-errors. They are a number that is correct in one layer and wrong in another, and
-nobody can say which layer owns it. Here each layer owns its own truth and has to
-reconcile to the next one.
-
-## Where to look first
-
-- **Want to see what a user gets?** The product views below, or run it locally
-  with the quick start. Six management screens over browser-local data.
-- **Care about data quality and reconciliation?** Start with the architecture
-  note, then the source and Bronze layer.
-- **Care about close, reversal and restatement?** The Assurance Casework view
-  walks the immutable reporting history and a governed restatement.
-- **Want to know whether it genuinely works?** The validation commands run the
-  same gates CI runs on every push, including 387 data tests.
-
-## Engineering inventory
+### Engineering inventory
 
 - realistic multi-system finance event generation with defects, duplicates and late-arriving records;
 - immutable Bronze ingestion and source identity through Hermes;
@@ -63,7 +114,7 @@ reconcile to the next one.
 - governed Pythia scenario, liquidity and valuation-readiness outputs; and
 - a serverless React product querying authenticated Parquet locally with DuckDB-Wasm.
 
-## Architecture
+### Architecture
 
 ```mermaid
 flowchart LR
@@ -88,37 +139,7 @@ accounting lifecycle events never re-enter the posting engine.
 [Artifact policy](docs/public-release/artifact-policy.md) ·
 [Reproducibility](docs/public-release/reproducibility.md)
 
-## v0.1 product surface
-
-The React product contains six finite management experiences and a product guide:
-
-1. CFO command centre
-2. Financial performance
-3. Cash and capital
-4. Revenue and SaaS economics
-5. Assurance and control readiness
-6. Planning and valuation
-
-The interface calculates no alternative accounting or DCF authority. Actuals
-come from Atlas reporting versions; planning results come from sealed Pythia
-model runs; each downloaded Parquet partition is authenticated before local
-DuckDB registration.
-
-## Product views
-
-### CFO command centre
-
-![CFO command centre showing governed financial and operating performance](docs/public-release/cfo-command-centre.png)
-
-### Assurance and control readiness
-
-![Assurance and control readiness showing close and package controls](docs/public-release/assurance-control-readiness.png)
-
-### Assurance Casework
-
-![Assurance Casework showing immutable reporting history and the governed restatement journey](docs/public-release/assurance-casework.png)
-
-## Scale and governed state
+### Scale and governed state
 
 | Layer | v0.1 position |
 |---|---:|
@@ -134,7 +155,7 @@ DuckDB registration.
 | React runtime Parquet partitions | 114 |
 | Pythia forecast results | 360 scenario-months |
 
-## Quick start
+### Quick start
 
 Prerequisites:
 
@@ -169,7 +190,7 @@ The repository includes the compact, governed v0.1 browser dataset. The pinned
 DuckDB-Wasm module is prepared from `node_modules`; no hosted database, API key
 or external company dataset is required.
 
-## Validation
+### Validation
 
 ```bash
 uv run ruff check .
@@ -187,7 +208,7 @@ npm test
 GitHub Actions executes the same Python, public-hygiene and web gates on every
 push and pull request.
 
-## Repository map
+### Repository map
 
 ```text
 src/finance_assurance/   Python domain, runtime, generators and services
@@ -211,19 +232,22 @@ Generated warehouses, complete source populations, local Excel/PBIX files and
 temporary evidence do not belong in source control. See the
 [artifact policy](docs/public-release/artifact-policy.md).
 
-## Roadmap
+### Roadmap
 
-- `v0.1`: governed finance platform and React intelligence product
-- `v0.2`: integrated Excel three-statement and DCF model
-- `v0.3`: [NexusFinance Power BI report and semantic model](consumer-products/power-bi/README.md)
+- `v0.1` **delivered**: governed finance platform and React intelligence product
+- `v0.2` in progress: integrated Excel three-statement and DCF model
+- `v0.3` **delivered**: [NexusFinance Power BI report and semantic model](consumer-products/power-bi/README.md), with 15 report pages, a 19-table semantic model and nine custom visuals over the same sealed delivery
 - `v1.0`: complete cross-product portfolio release
+
+</details>
 
 ## Project status and use
 
 The v0.1 implementation is deterministic and extensively tested, but remains a
-synthetic portfolio environment rather than production software. External
-contributions are not currently accepted; responsible security reports are
-welcome through GitHub's private reporting channel.
+synthetic portfolio environment rather than production software. The examples
+demonstrate capability, not use by a client team. External contributions are not
+currently accepted; responsible security reports are welcome through GitHub's
+private reporting channel.
 
 Released under the [MIT License](LICENSE). See the
 [portfolio and data disclaimer](DISCLAIMER.md) for the synthetic-use boundary.
