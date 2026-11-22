@@ -1,0 +1,233 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Nexus Group June 2026 close: liquidity, performance, working capital and close assurance, with an evidence trace. Synthetic portfolio demonstration.">
+  <title>Nexus Group | June 2026 Executive Deck</title>
+  <style>$css</style>
+</head>
+<body data-slides="$slides">
+<main>
+
+  <!-- 1 · Cover -->
+  <section class="slide cover" id="s1" aria-label="Cover">
+    <p class="synthetic">Synthetic data · Demonstrative purposes only</p>
+    <div class="wordmark">Nexus Group <span>Finance</span></div>
+    <div class="lockup">
+      <p class="eyebrow">Executive briefing</p>
+      <h1>June 2026 close</h1>
+      <p class="subtitle">Liquidity, performance, working capital and close assurance for the Group, with a decision for Treasury and FP&amp;A.</p>
+      <div class="rule"></div>
+      <div class="meta">
+        <div><strong>Reporting version</strong><code>$version</code></div>
+        <div><strong>Delivery</strong><code>$delivery_ref</code></div>
+        <div><strong>Delivery seal</strong><code>$delivery_seal_short</code></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2 · At a glance -->
+  <section class="slide" id="s2" aria-labelledby="t2">
+    <p class="kicker"><span>02</span> At a glance</p>
+    <h2 class="title" id="t2">Cash covers $cover_range weeks at observed outflow rates. Draw terms need verification.</h2>
+    <div class="glance">
+      <div class="tiles">
+        <div class="tile"><p class="label">Closing cash</p><p class="value">$cash</p><p class="context">$cash_year_ago a year earlier</p>$spark_cash</div>
+        <div class="tile"><p class="label">Cash cover</p><p class="value">$cover_range wks</p><p class="context">At observed outflow rates; cash alone runs out $cover_dates</p><div class="meter" role="img" aria-label="Cash cover of $cover_range weeks against $quarter_weeks weeks to the 30 September quarter-end."><span class="fill" style="width:$meter_low"></span><span class="range" style="width:$meter_high"></span></div><p class="meter-key"><span>30 June</span><span>30 Sep · $quarter_weeks wks</span></p></div>
+        <div class="tile"><p class="label">Undrawn facility</p><p class="value">$facility</p><p class="context">Capacity, not cash</p><p class="flag">Draw terms not evidenced</p></div>
+        <div class="tile"><p class="label">Revenue, June</p><p class="value">$revenue</p><p class="context">Flat on May ($revenue_change)</p>$spark_revenue</div>
+        <div class="tile"><p class="label">EBITDA, June</p><p class="value">$ebitda</p><p class="context">$ebitda_margin margin</p>$spark_ebitda</div>
+        <div class="tile"><p class="label">Ending ARR</p><p class="value">$arr</p><p class="context">$arr_yoy on a year earlier · NRR $nrr</p>$spark_arr</div>
+      </div>
+      <aside class="ask" aria-label="Decision requested">
+        <h3>Decision requested</h3>
+        <p>Verify drawable capacity and lead time, forecast cash through $quarter_end, and bring back a minimum cash buffer and escalation trigger.</p>
+        <div class="owners"><strong>Treasury</strong> verifies the facility<br><strong>FP&amp;A</strong> forecasts to quarter-end<br><strong>CFO</strong> approves buffer and trigger<br>Detail on slide 10</div>
+      </aside>
+    </div>
+    <footer class="slide-foot"><span class="source">Group, June 2026. Sparklines: June 2025 to June 2026. <a class="ev" href="#e-liquidity">E1</a> <a class="ev" href="#e-cover">E2</a> <a class="ev" href="#e-performance">E5</a> <a class="ev" href="#e-recurring">E6</a></span><span class="brand">Nexus Group · June 2026 close · Synthetic data</span><span class="num">2</span></footer>
+  </section>
+
+  <!-- 3 · Liquidity -->
+  <section class="slide" id="s3" aria-labelledby="t3">
+    <p class="kicker"><span>03</span> Liquidity</p>
+    <h2 class="title" id="t3">$cash is cash. $facility is undrawn facility capacity.</h2>
+    <div class="liquidity" style="--cash-width:$cash_width">
+      <div class="split-labels">
+        <div class="cash"><p class="amount">$cash</p><p class="name">Cash · $cash_share</p></div>
+        <div class="undrawn"><p class="amount">$facility</p><p class="name">Undrawn facility capacity · $undrawn_share</p></div>
+      </div>
+      <div class="segments" role="img" aria-label="Available liquidity of $total: $cash cash and $facility undrawn facility."><span class="cash"></span><span class="undrawn"></span></div>
+      <p class="total-line"><span><strong>$total</strong> reported available liquidity</span></p>
+    </div>
+    <div class="row-callouts">
+      <div class="callout"><p class="figure">$outflow</p><p class="what">June net outflow</p><p class="why">Cash fell from $cash_year_ago a year earlier. June included the $payment quarterly debt repayment.</p></div>
+      <div class="callout"><p class="figure">$cover_range weeks</p><p class="what">Cash cover at observed rates</p><p class="why">At June’s rate and the January–June average, cash alone runs out $cover_dates. A sensitivity, not a forecast.</p></div>
+      <div class="callout"><p class="figure">Not evidenced</p><p class="what">Draw terms</p><p class="why">The delivery reports undrawn balances only. Drawable capacity, conditions and lead time need the facility agreement.</p></div>
+    </div>
+    <footer class="slide-foot"><span class="source">Group, 30 June 2026. Hatching marks capacity whose draw terms are not evidenced. <a class="ev" href="#e-liquidity">E1</a> <a class="ev" href="#e-cover">E2</a></span><span class="brand">Nexus Group · June 2026 close · Synthetic data</span><span class="num">3</span></footer>
+  </section>
+
+  <!-- 4 · Facility -->
+  <section class="slide" id="s4" aria-labelledby="t4">
+    <p class="kicker"><span>04</span> Facility</p>
+    <h2 class="title" id="t4">Fourteen quarter-end repayments total $restored. Redraw rights need confirmation.</h2>
+    <div class="body">
+      <figure>$chart_facility</figure>
+      <div class="callouts">
+        <div class="callout"><p class="figure">$first_draw</p><p class="what">Term loan drawn, January 2021</p><p class="why">The only drawdown in 66 months of history. The revolving credit facility has never been drawn.</p></div>
+        <div class="callout"><p class="figure">$restored</p><p class="what">Term loan repaid since $first_repayment</p><p class="why">$payment at each of $repayment_count quarter-ends. $closing_debt remains drawn.</p></div>
+        <div class="callout"><p class="figure">$facility</p><p class="what">Undrawn across two instruments</p><p class="why">$revolver_undrawn on the revolver and $restored recorded as undrawn on the term loan as it was repaid. Treasury needs the revolver’s draw terms and whether repaid term-loan amounts can be redrawn.</p></div>
+      </div>
+    </div>
+    <footer class="slide-foot"><span class="source">Group, quarter-ends March 2021 to June 2026. Both instruments are held by NEXUS-UK. <a class="ev" href="#e-facility">E3</a></span><span class="brand">Nexus Group · June 2026 close · Synthetic data</span><span class="num">4</span></footer>
+  </section>
+
+  <!-- 5 · Cash movement -->
+  <section class="slide" id="s5" aria-labelledby="t5">
+    <p class="kicker"><span>05</span> Cash movement</p>
+    <h2 class="title" id="t5">A $payment repayment drove a $outflow_delta rise in net outflow.</h2>
+    <div class="body">
+      <figure>$chart_bridge</figure>
+      <div class="callouts">
+        <div class="callout"><p class="figure">+$payment</p><p class="what">Quarterly debt repayment</p><p class="why">Paid at the June quarter-end. May had no repayment.</p></div>
+        <div class="callout"><p class="figure">$offset</p><p class="what">Offset by other movements</p><p class="why">No investing outflow in June ($may_investing in May), partly offset by a $operating_delta larger operating outflow: $prior_operating to $operating.</p></div>
+        <div class="callout"><p class="figure">$outflow</p><p class="what">June net outflow</p><p class="why">Up from $prior_outflow in May. Closing cash fell to $cash.</p></div>
+      </div>
+    </div>
+    <footer class="slide-foot"><span class="source">Group, May and June 2026. Amber adds to outflow; teal reduces it. <a class="ev" href="#e-movement">E4</a></span><span class="brand">Nexus Group · June 2026 close · Synthetic data</span><span class="num">5</span></footer>
+  </section>
+
+  <!-- 6 · Profitability -->
+  <section class="slide" id="s6" aria-labelledby="t6">
+    <p class="kicker"><span>06</span> Profitability</p>
+    <h2 class="title" id="t6">Revenue is broadly flat. EBITDA has lost between $ebitda_low and $ebitda_high in every month of the last year.</h2>
+    <div class="body">
+      <figure>$chart_pl</figure>
+      <div class="callouts">
+        <div class="callout"><p class="figure">$revenue</p><p class="what">June revenue</p><p class="why">Flat on May ($revenue_change) and $revenue_year_change on July 2025. $ltm_revenue over twelve months.</p></div>
+        <div class="callout"><p class="figure">$ebitda</p><p class="what">June EBITDA</p><p class="why">A $ebitda_margin margin. $ltm_ebitda over twelve months.</p></div>
+        <div class="callout"><p class="figure">$ebitda_low–$ebitda_high</p><p class="what">Monthly EBITDA loss range</p><p class="why">Losses of this size drive the operating cash outflow on slide 5.</p></div>
+      </div>
+    </div>
+    <footer class="slide-foot"><span class="source">Group, July 2025 to June 2026. <a class="ev" href="#e-performance">E5</a></span><span class="brand">Nexus Group · June 2026 close · Synthetic data</span><span class="num">6</span></footer>
+  </section>
+
+  <!-- 7 · Recurring revenue -->
+  <section class="slide" id="s7" aria-labelledby="t7">
+    <p class="kicker"><span>07</span> Recurring revenue</p>
+    <h2 class="title" id="t7">ARR is down $arr_yoy_abs in a year, and June churn was the highest of the twelve months.</h2>
+    <div class="body">
+      <figure>$chart_arr</figure>
+      <div class="callouts">
+        <div class="callout"><p class="figure">$arr</p><p class="what">Ending ARR</p><p class="why">$arr_yoy_pct on June 2025 ($arr_year_ago).</p></div>
+        <div class="callout"><p class="figure">$june_churn</p><p class="what">June MRR churn</p><p class="why">The largest monthly churn in the period.</p></div>
+        <div class="callout"><p class="figure">$nrr</p><p class="what">Net revenue retention, June</p><p class="why">The lowest of the twelve months.</p></div>
+        <p class="note">New, expansion and contraction MRR are zero from July 2025 to June 2026, so churn and FX are the only movements in this window. The ARR axis does not start at zero.</p>
+      </div>
+    </div>
+    <footer class="slide-foot"><span class="source">Group, June 2025 to June 2026. <a class="ev" href="#e-recurring">E6</a></span><span class="brand">Nexus Group · June 2026 close · Synthetic data</span><span class="num">7</span></footer>
+  </section>
+
+  <!-- 8 · Working capital -->
+  <section class="slide" id="s8" aria-labelledby="t8">
+    <p class="kicker"><span>08</span> Working capital</p>
+    <h2 class="title" id="t8">Overdue receivables are twice closing cash.</h2>
+    <div class="body">
+      <figure>$chart_wc</figure>
+      <div class="callouts">
+        <div class="callout"><p class="figure">$overdue_ar</p><p class="what">Overdue receivables · $ar_percent of receivables</p><p class="why">$ar_yoy on a year earlier. Debtor days $dso, from $dso_year_ago.</p></div>
+        <div class="callout"><p class="figure">$overdue_ap</p><p class="what">Overdue payables · $ap_percent of payables</p><p class="why">Creditor days $dpo.</p></div>
+        <div class="callout"><p class="figure">$unapplied</p><p class="what">Unapplied cash</p><p class="why">Up every month since January ($unapplied_jan).</p></div>
+        <p class="note">No registered control tests payment timing. These are exposures without thresholds.</p>
+      </div>
+    </div>
+    <footer class="slide-foot"><span class="source">Group, month-ends June 2025 to June 2026. <a class="ev" href="#e-working-capital">E9</a></span><span class="brand">Nexus Group · June 2026 close · Synthetic data</span><span class="num">8</span></footer>
+  </section>
+
+  <!-- 9 · Close and assurance -->
+  <section class="slide" id="s9" aria-labelledby="t9">
+    <p class="kicker"><span>09</span> Close and assurance</p>
+    <h2 class="title" id="t9">June was published, and none of the four registered control rules triggered.</h2>
+    <div class="status-strip">
+      <div><p class="figure">Hard-closed</p><p class="what">June Group close status</p></div>
+      <div><p class="figure">Published</p><p class="what">Statement status</p></div>
+      <div><p class="figure">0 of 4</p><p class="what">Control rules triggered</p></div>
+      <div><p class="figure">51 of 51</p><p class="what">Automated checks passed</p></div>
+    </div>
+    <div class="controls-body">
+      <div>
+        <p class="panel-title">Registered control rules · June hits</p>
+        <div class="rules">$control_tiles</div>
+        <p class="panel-note">Each rule expects a difference of zero across the delivered June scopes.</p>
+      </div>
+      <div>
+        <p class="panel-title">Automated checks · 51 passed</p>
+        <div class="checks">
+          <div class="bar" role="img" aria-label="51 checks: 29 delivery parity, 2 source binding, 5 replayed difference and 15 readiness.">
+            <span style="flex:29;background:#00806b">29</span><span style="flex:2;background:#5f707a"></span><span style="flex:5;background:#b86f2e">5</span><span style="flex:15;background:#172f43">15</span>
+          </div>
+          <div class="legend">
+            <div><i style="background:#00806b"></i><span><b>29</b> cross-format delivery parity checks</span></div>
+            <div><i style="background:#5f707a"></i><span><b>2</b> source-binding checks</span></div>
+            <div><i style="background:#b86f2e"></i><span><b>5</b> replayed-difference checks</span></div>
+            <div><i style="background:#172f43"></i><span><b>15</b> model-readiness checks</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p class="scope"><strong>Scope.</strong> None of the 51 checks is an independent reconciliation. Unapplied cash and overdue payables are registered exposures with no threshold (<code>NOT_ASSESSED</code>).</p>
+    <footer class="slide-foot"><span class="source">June 2026 Group, hard-closed and published. Checks are delivery-wide. <a class="ev" href="#e-close">E7</a> <a class="ev" href="#e-controls">E8</a></span><span class="brand">Nexus Group · June 2026 close · Synthetic data</span><span class="num">9</span></footer>
+  </section>
+
+  <!-- 10 · Decision -->
+  <section class="slide" id="s10" aria-labelledby="t10">
+    <p class="kicker"><span>10</span> Decision requested</p>
+    <h2 class="title" id="t10">Confirm the facility and forecast to quarter-end before August.</h2>
+    <figure class="timeline">$chart_timeline</figure>
+    <div class="owners-row">
+      <div class="owner-card"><p class="who">Treasury · proposed $treasury_date</p><p>Verify drawable capacity, conditions and lead time on the $revolver_undrawn revolver, and whether the $restored repaid on the term loan can be redrawn.</p></div>
+      <div class="owner-card"><p class="who">FP&amp;A · proposed $fpa_date</p><p>Forecast cash through $quarter_end, with the $payment repayment as a scenario from the quarterly history, and a delayed draw.</p></div>
+      <div class="owner-card"><p class="who">CFO review · proposed $review_date</p><p>Approve a minimum cash buffer and an escalation trigger for drawing on the facility.</p></div>
+    </div>
+    <p class="decision-bar"><strong>Decision</strong>Verify drawable capacity and lead time, forecast cash through $quarter_end, and bring back a minimum cash buffer and escalation trigger.</p>
+    <footer class="slide-foot"><span class="source">Dates are proposed. A 13-week view from close ends on $horizon, a day before the quarter-end. <a class="ev" href="#e-cover">E2</a> <a class="ev" href="#e-facility">E3</a></span><span class="brand">Nexus Group · June 2026 close · Synthetic data</span><span class="num">10</span></footer>
+  </section>
+
+  <!-- 11 · Evidence trace, figures -->
+  <section class="slide appendix" id="s11" aria-labelledby="t11">
+    <p class="kicker"><span>11</span> Appendix</p>
+    <h2 class="title" id="t11">Evidence trace: liquidity, cash and performance</h2>
+    <table class="trace">
+      <colgroup><col class="figure-col"><col class="value-col"><col class="basis-col"><col class="scope-col"></colgroup>
+      <thead><tr><th scope="col">Figure</th><th scope="col">Exact value</th><th scope="col">Source and derivation</th><th scope="col">Scope</th></tr></thead>
+      <tbody>
+        $trace_a
+      </tbody>
+    </table>
+    <footer class="slide-foot"><span class="source">June Group is <code>$version</code>; earlier Group months follow the same pattern. Amounts in GBP.</span><span class="brand">Nexus Group · June 2026 close · Synthetic data</span><span class="num">11</span></footer>
+  </section>
+
+  <!-- 12 · Evidence trace, assurance -->
+  <section class="slide appendix" id="s12" aria-labelledby="t12">
+    <p class="kicker"><span>12</span> Appendix</p>
+    <h2 class="title" id="t12">Evidence trace: close, controls and working capital</h2>
+    <table class="trace">
+      <colgroup><col class="figure-col"><col class="value-col"><col class="basis-col"><col class="scope-col"></colgroup>
+      <thead><tr><th scope="col">Figure</th><th scope="col">Exact value</th><th scope="col">Source and derivation</th><th scope="col">Scope</th></tr></thead>
+      <tbody>
+        $trace_b
+      </tbody>
+    </table>
+    <div class="notes">
+      <section><h3>Not in the delivery</h3><p>Facility terms: no agreement, draw conditions, notice period or covenants. No cash forecast; the planning data covers the income statement only. Cover figures are run-rate sensitivities, not forecasts.</p></section>
+      <section><h3>Assurance scope</h3><p>An independent reconciliation needs two independently evidenced figures, so none of the 51 checks is one. Overdue receivables are not a registered exposure.</p></section>
+      <section><h3>Delivery identity</h3><p>June UK is <code>$uk_version</code>. Seal <code>$delivery_seal</code>. Source package <code>$source_digest</code>.</p></section>
+    </div>
+    <footer class="slide-foot"><span class="source">Delivery <code>$delivery_ref</code>. Amounts in GBP.</span><span class="brand">Nexus Group · June 2026 close · Synthetic data</span><span class="num">12</span></footer>
+  </section>
+
+</main>
+</body>
+</html>
