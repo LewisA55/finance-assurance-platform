@@ -769,3 +769,65 @@ generated, ignored build input; its version, platform, source URL, size, and
 digest remain tracked in source and the published runtime manifest. A missing or
 mismatched extension is a visible runtime failure rather than permission to
 fall back to an external download.
+
+## ADR-029: Propose Evidence-Bound Power BI Visual Primitives
+
+Proposed for review, 2026-11-08. Implementation and ratification remain pending.
+
+The Power BI custom-visual specification proposes eight focused renderers over
+typed semantic adapters, with shared context, purpose-specific eligibility,
+assertion and evidence contracts. Financial computation and governance authority
+remain in the semantic model and platform. Renderers cannot approve a close,
+promote an exception, post a journal or alter a reporting version.
+
+The first proposed deliveries are the Reliability-Gated KPI Tile, Rollforward
+Bridge and Statement Matrix. Arithmetic closure is labelled separately from
+independent reconciliation. Missing data, incomplete selections, mixed versions
+and unknown purpose eligibility cannot produce an affirmative claim. Original
+reporting versions remain preserved through restatement; a reversal does not
+imply republication.
+
+The current C2 delivery contains only reporting v1 and no co-temporal
+budget/forecast/actual trio. Full restatement and two-stage variance demonstrations
+therefore require additional governed inputs. Failing demonstrations use
+separately labelled fixtures, never edits to the sealed delivery.
+
+The [proposed specification](../../consumer-products/power-bi/custom-visuals/specification-v0.1.md)
+records field roles, capability mappings and design checks against C-001 and CT-1.
+It leaves the accepted native PBIP baseline unchanged.
+
+## ADR-030: Implement the First Purpose-Gated Power BI Claims
+
+Accepted for local development, 2026-11-09. Desktop acceptance remains pending.
+
+P5 implements the first three metric policies from ADR-029: Revenue, Closing
+Cash and Ending ARR for CFO executive review. Power Query owns source and
+readiness validation; DAX owns purpose and selection eligibility and returns
+BLANK for withheld values. The renderer validates the supplied claim again
+and clears prior content on every update. Formatting cannot override eligibility.
+
+The implementation adds an isolated review page and preserves native pages.
+Generated private visual bytes remain ignored and are recreated by the build
+and staging scripts. A labelled browser harness tests failure presentation;
+it does not claim a live Desktop, C-001 or CT-1 runtime acceptance pass. No
+governance write actions or change to the sealed C2 delivery are introduced.
+
+## ADR-031: Materialise Comparison Inputs with Their Own Evidence
+
+Implemented for the local Power BI showcase, 2026-11-21.
+
+The two-stage bridge joins the sealed June 2026 management actual and budget
+rows to a versioned synthetic forecast vintage at department and account grain.
+The vintage uses June 2025 management actuals and account-specific factors.
+The source period precedes the vintage and outcome period. The forecast has a
+separate identity and cannot be presented as the approved C2 rolling forecast.
+The account policy also fixes favourable movement for positive revenue and
+positive costs.
+
+The restatement comparator projects the original and republished C-001
+snapshots after the C-001 and CT-1 runtime acceptance checks pass. Each delta
+must reconcile to a line in the approved presentation adjustment manifest.
+The July ledger and June presentation periods remain explicit. CT-1 does not
+supply a republication edge. The sealed C2 publication and shared reporting
+version dimension are unchanged. Comparison tables are embedded in the PBIP
+and retain source references and a reproducible adapter digest.

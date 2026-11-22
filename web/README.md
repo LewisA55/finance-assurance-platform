@@ -1,7 +1,7 @@
 # Finance intelligence web product
 
-The `web/` directory contains the React/vinext product for the public v0.1
-Finance & Assurance Platform release.
+The `web/` directory contains the React/vinext product for the Finance &
+Assurance Platform portfolio.
 
 Its primary routes are:
 
@@ -11,10 +11,15 @@ Its primary routes are:
 - `/revenue-saas`
 - `/assurance`
 - `/planning-valuation`
+- `/explorer` - search record references and trace the C-001 and CT-1 evidence chains
+- `/period-close` - simulate close decisions on C-001 and inspect the outcome in the explorer
 - `/product-guide`
 
 The repository also retains finite evidence journeys for reporting lineage,
 reconciliation, exceptions, remediation, readiness and governed decisions.
+The cockpit presents simulated decisions alongside the recorded close and
+restatement path. Running a simulation leaves published versions and evidence
+intact.
 
 ## Runtime contract
 
@@ -23,7 +28,7 @@ There is no application database. The client authenticates each Parquet file
 and DuckDB-Wasm chunk against the versioned runtime manifest before query
 registration.
 
-`public/finance-data/` is the compact v0.1 release fixture. It binds the exact
+`public/finance-data/` is the compact browser runtime fixture. It binds the exact
 C2 actuals delivery and Pythia model-run authority. `public/duckdb/` is generated
 from the pinned npm dependency and is not tracked.
 

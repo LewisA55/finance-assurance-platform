@@ -1,0 +1,24 @@
+table Period
+
+	column 'Period ID'
+		dataType: string
+		sourceColumn: period_id
+		summarizeBy: none
+
+	column 'Month End'
+		dataType: dateTime
+		sourceColumn: month_end
+		summarizeBy: none
+		formatString: dd MMM yyyy
+
+	partition Period = m
+		mode: import
+		source =
+			let
+				Source = ReadC2("dim_period"),
+				Actual = Table.SelectRows(Source, each [is_actual_period] = true),
+				Valid = Table.RowCount(Actual) = 66 and Table.RowCount(Table.Distinct(Actual, {"period_id"})) = 66,
+				Result = if Valid then Table.SelectColumns(Actual, {"period_id", "month_end"})
+					else error "Expected 66 unique actual periods."
+			in
+				Result

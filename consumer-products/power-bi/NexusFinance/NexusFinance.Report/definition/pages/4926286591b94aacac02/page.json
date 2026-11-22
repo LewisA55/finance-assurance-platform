@@ -1,0 +1,48 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/page/2.1.0/schema.json",
+  "name": "4926286591b94aacac02",
+  "displayName": "Reporting Version Evidence",
+  "displayOption": "FitToPage",
+  "height": 780,
+  "width": 1280,
+  "visibility": "HiddenInViewMode",
+  "pageBinding": {
+    "name": "PageBinding_4926286591b94aac",
+    "type": "Drillthrough",
+    "parameters": [
+      {
+        "name": "Param_9c028a40257144a5",
+        "boundFilter": "Filter_9c028a40257144a5",
+        "fieldExpr": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Reporting Version"
+              }
+            },
+            "Property": "Reporting Version Ref"
+          }
+        }
+      }
+    ]
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "Filter_9c028a40257144a5",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Reporting Version"
+              }
+            },
+            "Property": "Reporting Version Ref"
+          }
+        },
+        "type": "Categorical",
+        "howCreated": "Drillthrough"
+      }
+    ]
+  }
+}

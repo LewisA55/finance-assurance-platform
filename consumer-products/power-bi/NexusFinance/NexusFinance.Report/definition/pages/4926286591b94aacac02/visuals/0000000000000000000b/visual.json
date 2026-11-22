@@ -1,0 +1,164 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json",
+  "name": "0000000000000000000b",
+  "position": {
+    "x": 28,
+    "y": 150,
+    "width": 1224,
+    "height": 140,
+    "z": 1100,
+    "tabOrder": 1100
+  },
+  "visual": {
+    "visualType": "NexusReportDetail36313AD96E7F4E25A3F0C03834F7CFAA",
+    "query": {
+      "queryState": {
+        "fields": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Reporting Version"
+                    }
+                  },
+                  "Property": "Reporting Version Ref"
+                }
+              },
+              "queryRef": "Reporting Version.Reporting Version Ref",
+              "nativeQueryRef": "Reporting Version Ref",
+              "displayName": "Version"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Reporting Version"
+                    }
+                  },
+                  "Property": "Period ID"
+                }
+              },
+              "queryRef": "Reporting Version.Period ID",
+              "nativeQueryRef": "Period ID",
+              "displayName": "Period"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Reporting Version"
+                    }
+                  },
+                  "Property": "Scope"
+                }
+              },
+              "queryRef": "Reporting Version.Scope",
+              "nativeQueryRef": "Scope"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Reporting Version"
+                    }
+                  },
+                  "Property": "Close Status"
+                }
+              },
+              "queryRef": "Reporting Version.Close Status",
+              "nativeQueryRef": "Close Status",
+              "displayName": "Close status"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Reporting Version"
+                    }
+                  },
+                  "Property": "Closed At"
+                }
+              },
+              "queryRef": "Reporting Version.Closed At",
+              "nativeQueryRef": "Closed At",
+              "displayName": "Close timestamp (UTC)"
+            }
+          ]
+        }
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Reporting version'"
+                }
+              }
+            },
+            "fontColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#132841'"
+                    }
+                  }
+                }
+              }
+            },
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "13D"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "general": [
+        {
+          "properties": {
+            "altText": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Reporting version'"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "subTitle": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

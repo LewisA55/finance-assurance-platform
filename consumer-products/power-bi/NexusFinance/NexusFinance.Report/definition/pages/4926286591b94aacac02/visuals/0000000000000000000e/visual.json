@@ -1,0 +1,135 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json",
+  "name": "0000000000000000000e",
+  "position": {
+    "x": 28,
+    "y": 588,
+    "width": 1224,
+    "height": 140,
+    "z": 1400,
+    "tabOrder": 1400
+  },
+  "visual": {
+    "visualType": "NexusReportDetail36313AD96E7F4E25A3F0C03834F7CFAA",
+    "query": {
+      "queryState": {
+        "fields": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Reporting Version"
+                    }
+                  },
+                  "Property": "Reliability Status"
+                }
+              },
+              "queryRef": "Reporting Version.Reliability Status",
+              "nativeQueryRef": "Reliability Status",
+              "displayName": "Reliability status"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Reporting Version"
+                    }
+                  },
+                  "Property": "Reliability Purpose"
+                }
+              },
+              "queryRef": "Reporting Version.Reliability Purpose",
+              "nativeQueryRef": "Reliability Purpose",
+              "displayName": "Reliability purpose"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Reporting Version"
+                    }
+                  },
+                  "Property": "Source Package Digest"
+                }
+              },
+              "queryRef": "Reporting Version.Source Package Digest",
+              "nativeQueryRef": "Source Package Digest",
+              "displayName": "Source package digest"
+            }
+          ]
+        }
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Reliability and provenance'"
+                }
+              }
+            },
+            "fontColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#132841'"
+                    }
+                  }
+                }
+              }
+            },
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "13D"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "general": [
+        {
+          "properties": {
+            "altText": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Reliability and provenance'"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "subTitle": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

@@ -1,0 +1,120 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json",
+  "name": "0000000000000000000c",
+  "position": {
+    "x": 28,
+    "y": 296,
+    "width": 1224,
+    "height": 140,
+    "z": 1200,
+    "tabOrder": 1200
+  },
+  "visual": {
+    "visualType": "NexusReportDetail36313AD96E7F4E25A3F0C03834F7CFAA",
+    "query": {
+      "queryState": {
+        "fields": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Reporting Version"
+                    }
+                  },
+                  "Property": "Publication Event"
+                }
+              },
+              "queryRef": "Reporting Version.Publication Event",
+              "nativeQueryRef": "Publication Event",
+              "displayName": "Publication event"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Reporting Version"
+                    }
+                  },
+                  "Property": "Hard Close Event"
+                }
+              },
+              "queryRef": "Reporting Version.Hard Close Event",
+              "nativeQueryRef": "Hard Close Event",
+              "displayName": "Hard-close event"
+            }
+          ]
+        }
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Accounting lifecycle'"
+                }
+              }
+            },
+            "fontColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#132841'"
+                    }
+                  }
+                }
+              }
+            },
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "13D"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "general": [
+        {
+          "properties": {
+            "altText": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Accounting lifecycle'"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "subTitle": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

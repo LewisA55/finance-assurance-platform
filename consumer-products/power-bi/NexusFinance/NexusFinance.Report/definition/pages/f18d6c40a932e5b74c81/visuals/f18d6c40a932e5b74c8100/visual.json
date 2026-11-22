@@ -1,0 +1,448 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json",
+  "name": "f18d6c40a932e5b74c8100",
+  "position": {
+    "x": 24,
+    "y": 96,
+    "width": 1232,
+    "height": 1060,
+    "z": 0,
+    "tabOrder": 0
+  },
+  "visual": {
+    "visualType": "NexusLineageDagF18D6C40A932E5B74C81036FD2E9A5B7",
+    "query": {
+      "queryState": {
+        "claimKey": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Lineage Edges"
+                    }
+                  },
+                  "Property": "claimKey"
+                }
+              },
+              "queryRef": "Lineage Edges.claimKey",
+              "nativeQueryRef": "claimKey"
+            }
+          ]
+        },
+        "edgeId": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Lineage Edges"
+                    }
+                  },
+                  "Property": "edgeId"
+                }
+              },
+              "queryRef": "Lineage Edges.edgeId",
+              "nativeQueryRef": "edgeId"
+            }
+          ]
+        },
+        "fromNodeId": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Lineage Edges"
+                    }
+                  },
+                  "Property": "fromNodeId"
+                }
+              },
+              "queryRef": "Lineage Edges.fromNodeId",
+              "nativeQueryRef": "fromNodeId"
+            }
+          ]
+        },
+        "toNodeId": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Lineage Edges"
+                    }
+                  },
+                  "Property": "toNodeId"
+                }
+              },
+              "queryRef": "Lineage Edges.toNodeId",
+              "nativeQueryRef": "toNodeId"
+            }
+          ]
+        },
+        "fromLabel": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Lineage Edges"
+                    }
+                  },
+                  "Property": "fromLabel"
+                }
+              },
+              "queryRef": "Lineage Edges.fromLabel",
+              "nativeQueryRef": "fromLabel"
+            }
+          ]
+        },
+        "toLabel": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Lineage Edges"
+                    }
+                  },
+                  "Property": "toLabel"
+                }
+              },
+              "queryRef": "Lineage Edges.toLabel",
+              "nativeQueryRef": "toLabel"
+            }
+          ]
+        },
+        "fromKind": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Lineage Edges"
+                    }
+                  },
+                  "Property": "fromKind"
+                }
+              },
+              "queryRef": "Lineage Edges.fromKind",
+              "nativeQueryRef": "fromKind"
+            }
+          ]
+        },
+        "toKind": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Lineage Edges"
+                    }
+                  },
+                  "Property": "toKind"
+                }
+              },
+              "queryRef": "Lineage Edges.toKind",
+              "nativeQueryRef": "toKind"
+            }
+          ]
+        },
+        "purpose": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Lineage Edges"
+                    }
+                  },
+                  "Property": "purpose"
+                }
+              },
+              "queryRef": "Lineage Edges.purpose",
+              "nativeQueryRef": "purpose"
+            }
+          ]
+        },
+        "authority": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Lineage Edges"
+                    }
+                  },
+                  "Property": "authority"
+                }
+              },
+              "queryRef": "Lineage Edges.authority",
+              "nativeQueryRef": "authority"
+            }
+          ]
+        },
+        "deliveryRef": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Lineage Edges"
+                    }
+                  },
+                  "Property": "deliveryRef"
+                }
+              },
+              "queryRef": "Lineage Edges.deliveryRef",
+              "nativeQueryRef": "deliveryRef"
+            }
+          ]
+        },
+        "deliveryDigest": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Lineage Edges"
+                    }
+                  },
+                  "Property": "deliveryDigest"
+                }
+              },
+              "queryRef": "Lineage Edges.deliveryDigest",
+              "nativeQueryRef": "deliveryDigest"
+            }
+          ]
+        },
+        "sourceDigest": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Lineage Edges"
+                    }
+                  },
+                  "Property": "sourceDigest"
+                }
+              },
+              "queryRef": "Lineage Edges.sourceDigest",
+              "nativeQueryRef": "sourceDigest"
+            }
+          ]
+        },
+        "evidenceRef": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Lineage Edges"
+                    }
+                  },
+                  "Property": "evidenceRef"
+                }
+              },
+              "queryRef": "Lineage Edges.evidenceRef",
+              "nativeQueryRef": "evidenceRef"
+            }
+          ]
+        },
+        "evidenceDigest": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Lineage Edges"
+                    }
+                  },
+                  "Property": "evidenceDigest"
+                }
+              },
+              "queryRef": "Lineage Edges.evidenceDigest",
+              "nativeQueryRef": "evidenceDigest"
+            }
+          ]
+        },
+        "contextState": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Lineage Edges"
+                    }
+                  },
+                  "Property": "Lineage Context State"
+                }
+              },
+              "queryRef": "Lineage Edges.Lineage Context State",
+              "nativeQueryRef": "Lineage Context State"
+            }
+          ]
+        },
+        "edgeKind": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Lineage Edges"
+                    }
+                  },
+                  "Property": "edgeKind"
+                }
+              },
+              "queryRef": "Lineage Edges.edgeKind",
+              "nativeQueryRef": "edgeKind"
+            }
+          ]
+        },
+        "transformationClass": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Lineage Edges"
+                    }
+                  },
+                  "Property": "transformationClass"
+                }
+              },
+              "queryRef": "Lineage Edges.transformationClass",
+              "nativeQueryRef": "transformationClass"
+            }
+          ]
+        },
+        "datasetId": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Lineage Edges"
+                    }
+                  },
+                  "Property": "datasetId"
+                }
+              },
+              "queryRef": "Lineage Edges.datasetId",
+              "nativeQueryRef": "datasetId"
+            }
+          ]
+        },
+        "declaredBronzeSources": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Lineage Edges"
+                    }
+                  },
+                  "Property": "declaredBronzeSources"
+                }
+              },
+              "queryRef": "Lineage Edges.declaredBronzeSources",
+              "nativeQueryRef": "declaredBronzeSources"
+            }
+          ]
+        },
+        "evidenceDepth": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Lineage Edges"
+                    }
+                  },
+                  "Property": "evidenceDepth"
+                }
+              },
+              "queryRef": "Lineage Edges.evidenceDepth",
+              "nativeQueryRef": "evidenceDepth"
+            }
+          ]
+        },
+        "lineagePolicyRef": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Lineage Edges"
+                    }
+                  },
+                  "Property": "lineagePolicyRef"
+                }
+              },
+              "queryRef": "Lineage Edges.lineagePolicyRef",
+              "nativeQueryRef": "lineagePolicyRef"
+            }
+          ]
+        },
+        "expectedRowCount": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Lineage Edges"
+                    }
+                  },
+                  "Property": "Lineage Edge Count"
+                }
+              },
+              "queryRef": "Lineage Edges.Lineage Edge Count",
+              "nativeQueryRef": "Lineage Edge Count"
+            }
+          ]
+        }
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

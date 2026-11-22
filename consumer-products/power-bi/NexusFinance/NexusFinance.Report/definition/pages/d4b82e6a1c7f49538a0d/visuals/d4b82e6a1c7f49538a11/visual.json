@@ -1,0 +1,119 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json",
+  "name": "d4b82e6a1c7f49538a11",
+  "position": {
+    "x": 24,
+    "y": 936,
+    "width": 1232,
+    "height": 112,
+    "z": 0,
+    "tabOrder": 0
+  },
+  "visual": {
+    "visualType": "NexusReportDetail36313AD96E7F4E25A3F0C03834F7CFAA",
+    "query": {
+      "queryState": {
+        "fields": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Exception Observations"
+                    }
+                  },
+                  "Property": "Class"
+                }
+              },
+              "queryRef": "Exception Observations.Class",
+              "nativeQueryRef": "Class",
+              "displayName": "Class"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Exception Observations"
+                    }
+                  },
+                  "Property": "Observation Count"
+                }
+              },
+              "queryRef": "Exception Observations.Observation Count",
+              "nativeQueryRef": "Observation Count",
+              "displayName": "Observations"
+            }
+          ]
+        }
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Observations by class'"
+                }
+              }
+            },
+            "fontColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#132841'"
+                    }
+                  }
+                }
+              }
+            },
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "13D"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "general": [
+        {
+          "properties": {
+            "altText": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Observation counts by class. Control and exposure classes are counted separately.'"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "subTitle": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

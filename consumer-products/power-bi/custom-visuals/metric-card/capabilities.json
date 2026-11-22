@@ -1,0 +1,163 @@
+{
+  "privileges": [],
+  "dataRoles": [
+    {
+      "name": "tileKey",
+      "displayName": "tileKey",
+      "kind": "Grouping"
+    },
+    {
+      "name": "tileLabel",
+      "displayName": "tileLabel",
+      "kind": "Grouping"
+    },
+    {
+      "name": "caption",
+      "displayName": "caption",
+      "kind": "GroupingOrMeasure"
+    },
+    {
+      "name": "contextLine",
+      "displayName": "contextLine",
+      "kind": "GroupingOrMeasure"
+    },
+    {
+      "name": "authority",
+      "displayName": "authority",
+      "kind": "GroupingOrMeasure"
+    },
+    {
+      "name": "unit",
+      "displayName": "unit",
+      "kind": "GroupingOrMeasure"
+    },
+    {
+      "name": "deliveryRef",
+      "displayName": "deliveryRef",
+      "kind": "GroupingOrMeasure"
+    },
+    {
+      "name": "tilePolicyRef",
+      "displayName": "tilePolicyRef",
+      "kind": "GroupingOrMeasure"
+    },
+    {
+      "name": "value",
+      "displayName": "value",
+      "kind": "Measure"
+    }
+  ],
+  "dataViewMappings": [
+    {
+      "conditions": [
+        {
+          "tileKey": {
+            "min": 1,
+            "max": 1
+          },
+          "tileLabel": {
+            "min": 1,
+            "max": 1
+          },
+          "caption": {
+            "min": 1,
+            "max": 1
+          },
+          "contextLine": {
+            "min": 1,
+            "max": 1
+          },
+          "authority": {
+            "min": 1,
+            "max": 1
+          },
+          "unit": {
+            "min": 1,
+            "max": 1
+          },
+          "deliveryRef": {
+            "min": 1,
+            "max": 1
+          },
+          "tilePolicyRef": {
+            "min": 1,
+            "max": 1
+          },
+          "value": {
+            "min": 1,
+            "max": 1
+          }
+        }
+      ],
+      "table": {
+        "rows": {
+          "select": [
+            {
+              "for": {
+                "in": "tileKey"
+              }
+            },
+            {
+              "for": {
+                "in": "tileLabel"
+              }
+            },
+            {
+              "for": {
+                "in": "caption"
+              }
+            },
+            {
+              "for": {
+                "in": "contextLine"
+              }
+            },
+            {
+              "for": {
+                "in": "authority"
+              }
+            },
+            {
+              "for": {
+                "in": "unit"
+              }
+            },
+            {
+              "for": {
+                "in": "deliveryRef"
+              }
+            },
+            {
+              "for": {
+                "in": "tilePolicyRef"
+              }
+            },
+            {
+              "for": {
+                "in": "value"
+              }
+            }
+          ],
+          "dataReductionAlgorithm": {
+            "window": {
+              "count": 2
+            }
+          }
+        }
+      }
+    }
+  ],
+  "objects": {},
+  "supportsEmptyDataView": true,
+  "supportsLandingPage": true,
+  "supportsKeyboardFocus": true,
+  "supportsHighlight": false,
+  "sorting": {
+    "custom": {}
+  },
+  "tooltips": {
+    "supportedTypes": {
+      "default": true
+    }
+  }
+}

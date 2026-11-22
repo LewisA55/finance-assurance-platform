@@ -1,0 +1,25 @@
+{
+  "visual": {
+    "name": "nexusReportDetail",
+    "displayName": "Nexus Report Detail",
+    "guid": "NexusReportDetail36313AD96E7F4E25A3F0C03834F7CFAA",
+    "visualClassName": "Visual",
+    "version": "0.1.0.0",
+    "description": "Financial detail grid and time-series view with row-level evidence interaction.",
+    "supportUrl": "https://github.com",
+    "gitHubUrl": ""
+  },
+  "apiVersion": "5.11.1",
+  "author": {
+    "name": "Finance Assurance Platform (local development)",
+    "email": "development@example.invalid"
+  },
+  "assets": {
+    "icon": "assets/icon.png"
+  },
+  "externalJS": null,
+  "style": "style/visual.less",
+  "capabilities": "capabilities.json",
+  "dependencies": null,
+  "stringResources": []
+}

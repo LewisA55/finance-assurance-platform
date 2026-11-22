@@ -1,0 +1,25 @@
+{
+  "visual": {
+    "name": "nexusLineageDag",
+    "displayName": "Nexus Lineage DAG",
+    "guid": "NexusLineageDagF18D6C40A932E5B74C81036FD2E9A5B7",
+    "visualClassName": "Visual",
+    "version": "0.1.0.0",
+    "description": "Declared dataset dependencies with node kinds, transformation class and honest evidence depth.",
+    "supportUrl": "https://github.com",
+    "gitHubUrl": ""
+  },
+  "apiVersion": "5.11.1",
+  "author": {
+    "name": "Finance Assurance Platform (local development)",
+    "email": "development@example.invalid"
+  },
+  "assets": {
+    "icon": "assets/icon.png"
+  },
+  "externalJS": null,
+  "style": "style/visual.less",
+  "capabilities": "capabilities.json",
+  "dependencies": null,
+  "stringResources": []
+}

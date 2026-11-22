@@ -1,0 +1,23 @@
+table 'Rule Inventory'
+
+	measure 'Observations' = VAR n = COUNTROWS ( RELATEDTABLE ( 'Exception Observations' ) ) RETURN IF ( ISBLANK ( n ), 0, n )
+		formatString: 0
+
+	column 'Rule'
+		dataType: string
+		sourceColumn: [Rule]
+		summarizeBy: none
+
+	column 'Rule class'
+		dataType: string
+		sourceColumn: [Class]
+		summarizeBy: none
+
+	column 'Rule label'
+		dataType: string
+		sourceColumn: [Observation]
+		summarizeBy: none
+
+	partition 'Rule Inventory' = calculated
+		mode: import
+		source = DATATABLE ( "Rule", STRING, "Class", STRING, "Observation", STRING, { { "NEXUS-OBS-BALANCE-SHEET@v1", "CONTROL", "Balance sheet difference" }, { "NEXUS-OBS-CASH@v1", "CONTROL", "Cash unreconciled difference" }, { "NEXUS-OBS-DEFERRED-REVENUE@v1", "CONTROL", "Deferred revenue rollforward difference" }, { "NEXUS-OBS-GHOST-HEADCOUNT@v1", "CONTROL", "Ghost headcount" }, { "NEXUS-OBS-UNAPPLIED-CASH@v1", "EXPOSURE", "Unapplied cash balance" }, { "NEXUS-OBS-OVERDUE-AP@v1", "EXPOSURE", "Overdue accounts payable" } } )

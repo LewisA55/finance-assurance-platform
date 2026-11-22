@@ -1,0 +1,155 @@
+table Liquidity
+
+	measure 'Closing Cash GBP' =
+			VAR LastPeriod = MAX ( Liquidity[Period ID] )
+			RETURN
+			    IF (
+			        NOT ISBLANK ( LastPeriod ),
+			        CALCULATE (
+			            DIVIDE ( SUM ( Liquidity[Closing Cash Minor] ), 100 ),
+			            KEEPFILTERS ( Liquidity[Period ID] = LastPeriod )
+			        )
+			    )
+		formatString: """£""#,##0.00;(""£""#,##0.00);""-"""
+
+	measure 'June Closing Cash GBP' = CALCULATE ( [Closing Cash GBP], FILTER ( ALL ( 'Period' ), 'Period'[Period ID] = "2026-06" ) )
+		formatString: """£""#,##0.00;(""£""#,##0.00);""-"""
+
+	measure 'Operating Cash Flow GBP' = DIVIDE ( SUM ( 'Liquidity'[Operating Cash Flow Minor] ), 100 )
+		formatString: """£""#,##0.00;(""£""#,##0.00);""-"""
+
+	measure 'Investing Cash Flow GBP' = DIVIDE ( SUM ( 'Liquidity'[Investing Cash Flow Minor] ), 100 )
+		formatString: """£""#,##0.00;(""£""#,##0.00);""-"""
+
+	measure 'Financing Cash Flow GBP' = DIVIDE ( SUM ( 'Liquidity'[Financing Cash Flow Minor] ), 100 )
+		formatString: """£""#,##0.00;(""£""#,##0.00);""-"""
+
+	measure 'FX and Other Cash Movement GBP' = DIVIDE ( SUM ( 'Liquidity'[FX and Other Cash Movement Minor] ), 100 )
+		formatString: """£""#,##0.00;(""£""#,##0.00);""-"""
+
+	measure 'Net Cash Movement GBP' = DIVIDE ( SUM ( 'Liquidity'[Net Cash Movement Minor] ), 100 )
+		formatString: """£""#,##0.00;(""£""#,##0.00);""-"""
+
+	measure 'Cash Reconciliation Difference GBP' = DIVIDE ( SUM ( 'Liquidity'[Cash Reconciliation Difference Minor] ), 100 )
+		formatString: """£""#,##0.00;(""£""#,##0.00);""£""0.00"
+
+	measure 'Opening Cash GBP' = 
+			VAR FirstPeriod = MIN ( 'Liquidity'[Period ID] )
+			RETURN
+			    IF ( NOT ISBLANK ( FirstPeriod ), CALCULATE ( DIVIDE ( SUM ( 'Liquidity'[Opening Cash Minor] ), 100 ),
+			        KEEPFILTERS ( 'Liquidity'[Period ID] = FirstPeriod ) ) )
+		formatString: """£""#,##0.00;(""£""#,##0.00);""-"""
+
+	measure 'Net Debt GBP' = 
+			VAR LastPeriod = MAX ( 'Liquidity'[Period ID] )
+			RETURN
+			    IF ( NOT ISBLANK ( LastPeriod ), CALCULATE ( DIVIDE ( SUM ( 'Liquidity'[Net Debt Minor] ), 100 ),
+			        KEEPFILTERS ( 'Liquidity'[Period ID] = LastPeriod ) ) )
+		formatString: """£""#,##0.00;(""£""#,##0.00);""-"""
+
+	measure 'Available Liquidity GBP' = 
+			VAR LastPeriod = MAX ( 'Liquidity'[Period ID] )
+			RETURN
+			    IF ( NOT ISBLANK ( LastPeriod ), CALCULATE ( DIVIDE ( SUM ( 'Liquidity'[Available Liquidity Minor] ), 100 ),
+			        KEEPFILTERS ( 'Liquidity'[Period ID] = LastPeriod ) ) )
+		formatString: """£""#,##0.00;(""£""#,##0.00);""-"""
+
+	measure 'Gross Debt GBP' = 
+			VAR LastPeriod = MAX ( 'Liquidity'[Period ID] )
+			RETURN
+			    IF ( NOT ISBLANK ( LastPeriod ), CALCULATE ( DIVIDE ( SUM ( Liquidity[Debt Minor] ) + SUM ( Liquidity[Lease Liability Minor] ), 100 ),
+			        KEEPFILTERS ( 'Liquidity'[Period ID] = LastPeriod ) ) )
+		formatString: """£""#,##0.00;(""£""#,##0.00);""-"""
+
+	column 'Period ID'
+		dataType: string
+		sourceColumn: period_id
+		summarizeBy: none
+		isHidden
+
+	column 'Reporting Version Ref'
+		dataType: string
+		sourceColumn: reporting_version_ref
+		summarizeBy: none
+		isHidden
+
+	column 'Closing Cash Minor'
+		dataType: int64
+		sourceColumn: closing_cash_minor
+		summarizeBy: none
+		isHidden
+
+	column 'Operating Cash Flow Minor'
+		dataType: int64
+		sourceColumn: operating_cash_flow_minor
+		summarizeBy: none
+		isHidden
+
+	column 'Investing Cash Flow Minor'
+		dataType: int64
+		sourceColumn: investing_cash_flow_minor
+		summarizeBy: none
+		isHidden
+
+	column 'Financing Cash Flow Minor'
+		dataType: int64
+		sourceColumn: financing_cash_flow_minor
+		summarizeBy: none
+		isHidden
+
+	column 'FX and Other Cash Movement Minor'
+		dataType: int64
+		sourceColumn: fx_and_other_movement_minor
+		summarizeBy: none
+		isHidden
+
+	column 'Net Cash Movement Minor'
+		dataType: int64
+		sourceColumn: net_change_in_cash_minor
+		summarizeBy: none
+		isHidden
+
+	column 'Cash Reconciliation Difference Minor'
+		dataType: int64
+		sourceColumn: unreconciled_difference_minor
+		summarizeBy: none
+		isHidden
+
+	column 'Opening Cash Minor'
+		dataType: int64
+		sourceColumn: opening_cash_minor
+		summarizeBy: none
+		isHidden
+
+	column 'Debt Minor'
+		dataType: int64
+		sourceColumn: closing_debt_minor
+		summarizeBy: none
+		isHidden
+
+	column 'Lease Liability Minor'
+		dataType: int64
+		sourceColumn: closing_lease_liability_minor
+		summarizeBy: none
+		isHidden
+
+	column 'Net Debt Minor'
+		dataType: int64
+		sourceColumn: net_debt_minor
+		summarizeBy: none
+		isHidden
+
+	column 'Available Liquidity Minor'
+		dataType: int64
+		sourceColumn: available_liquidity_minor
+		summarizeBy: none
+		isHidden
+
+	partition 'Liquidity' = m
+		mode: import
+		source =
+			let
+				Source = ReadGroupActuals("mart_cash_flow_liquidity_monthly", true),
+				Selected = Table.SelectColumns(Source, {"period_id", "reporting_version_ref", "closing_cash_minor", "operating_cash_flow_minor", "investing_cash_flow_minor", "financing_cash_flow_minor", "fx_and_other_movement_minor", "net_change_in_cash_minor", "unreconciled_difference_minor", "opening_cash_minor", "closing_debt_minor", "closing_lease_liability_minor", "net_debt_minor", "available_liquidity_minor"})
+			in
+				Selected

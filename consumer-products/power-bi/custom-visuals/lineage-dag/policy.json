@@ -1,0 +1,24 @@
+{
+  "version": "NEXUS-LINEAGE-DATASET@v1",
+  "purpose": "EXECUTIVE_LINEAGE_REVIEW",
+  "deliveryRef": "Q-FINANCE-C2@v1",
+  "deliveryDigest": "sha256:7538132e08ea2b7e8c20f339db10e6c138cd2a08c71c4708c47c378d7c1b0141",
+  "sourceDigest": "sha256:39af66f379d5497399f89e3956e601b6fb99a070146d8c6d378bb684f288b7e5",
+  "contractVersion": "q-finance-c2-lineage@v1",
+  "file": "metadata/lineage.json",
+  "authority": "DELIVERY_LINEAGE_METADATA",
+  "expectedEdgeCount": 67,
+  "expectedDatasetCount": 29,
+  "evidenceDepth": "DATASET_DEPENDENCY",
+  "edgeKind": "DECLARED_DEPENDENCY",
+  "nodeKinds": ["GOLD_MODEL", "SYMBOLIC_COLLECTION", "BOUNDARY"],
+  "symbolicCollections": ["C1_MARTS", "EXECUTIVE_C1_MARTS"],
+  "symbolicBronzeSources": ["MULTIPLE_GOVERNED_A24_SOURCES", "MULTIPLE_GOVERNED_A24_SUBLEDGERS"],
+  "notes": {
+    "depth": "Evidence depth is dataset dependency. These edges do not carry row-level proof, and lineage navigation does not certify any value.",
+    "bronze": "Declared A24 bronze sources are listed per dataset and are deliberately not drawn as edges: the file does not state which bronze source feeds which dependency.",
+    "symbolic": "A symbolic collection such as C1_MARTS stands for a set of upstream datasets. It is shown as a collection, never resolved into physical tables.",
+    "boundary": "An upstream node with no dataset row of its own is a boundary node. Its own lineage is outside this metadata.",
+    "scope": "This is dataset lineage only. No transaction, journal or finding chain is drawn, because this metadata does not contain one."
+  }
+}

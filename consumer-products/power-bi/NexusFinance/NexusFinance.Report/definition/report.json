@@ -1,0 +1,150 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/report/3.3.0/schema.json",
+  "themeCollection": {
+    "baseTheme": {
+      "name": "Fluent2-CY26SU10",
+      "reportVersionAtImport": {
+        "visual": "2.11.0",
+        "report": "3.4.0",
+        "page": "2.3.1"
+      },
+      "type": "SharedResources"
+    }
+  },
+  "resourcePackages": [
+    {
+      "name": "SharedResources",
+      "type": "SharedResources",
+      "items": [
+        {
+          "name": "Fluent2-CY26SU10",
+          "path": "BaseThemes/Fluent2-CY26SU10.json",
+          "type": "BaseTheme"
+        }
+      ]
+    },
+    {
+      "name": "NexusReliabilityTileA64B7D4392CE4D438640AA814394A621",
+      "type": "CustomVisual",
+      "items": [
+        {
+          "name": "NexusReliabilityTileA64B7D4392CE4D438640AA814394A621.pbiviz.json",
+          "path": "NexusReliabilityTileA64B7D4392CE4D438640AA814394A621.pbiviz.json",
+          "type": "CustomVisualMetadata"
+        }
+      ]
+    },
+    {
+      "name": "NexusRollforwardBridgeB7E4C1A9D3F84E2B9065C7D18A34F052",
+      "type": "CustomVisual",
+      "items": [
+        {
+          "name": "NexusRollforwardBridgeB7E4C1A9D3F84E2B9065C7D18A34F052.pbiviz.json",
+          "path": "NexusRollforwardBridgeB7E4C1A9D3F84E2B9065C7D18A34F052.pbiviz.json",
+          "type": "CustomVisualMetadata"
+        }
+      ]
+    },
+    {
+      "name": "NexusStatementMatrixC3A9F57E1B6D4A28B904E7D63F15C8B2",
+      "type": "CustomVisual",
+      "items": [
+        {
+          "name": "NexusStatementMatrixC3A9F57E1B6D4A28B904E7D63F15C8B2.pbiviz.json",
+          "path": "NexusStatementMatrixC3A9F57E1B6D4A28B904E7D63F15C8B2.pbiviz.json",
+          "type": "CustomVisualMetadata"
+        }
+      ]
+    },
+    {
+      "name": "NexusTieOutPanelD4B82E6A1C7F49538A0D2E95B7461FC3",
+      "type": "CustomVisual",
+      "items": [
+        {
+          "name": "NexusTieOutPanelD4B82E6A1C7F49538A0D2E95B7461FC3.pbiviz.json",
+          "path": "NexusTieOutPanelD4B82E6A1C7F49538A0D2E95B7461FC3.pbiviz.json",
+          "type": "CustomVisualMetadata"
+        }
+      ]
+    },
+    {
+      "name": "NexusCloseGridE7C34D918B2A4F67905E81D2A6C4B30F",
+      "type": "CustomVisual",
+      "items": [
+        {
+          "name": "NexusCloseGridE7C34D918B2A4F67905E81D2A6C4B30F.pbiviz.json",
+          "path": "NexusCloseGridE7C34D918B2A4F67905E81D2A6C4B30F.pbiviz.json",
+          "type": "CustomVisualMetadata"
+        }
+      ]
+    },
+    {
+      "name": "NexusLineageDagF18D6C40A932E5B74C81036FD2E9A5B7",
+      "type": "CustomVisual",
+      "items": [
+        {
+          "name": "NexusLineageDagF18D6C40A932E5B74C81036FD2E9A5B7.pbiviz.json",
+          "path": "NexusLineageDagF18D6C40A932E5B74C81036FD2E9A5B7.pbiviz.json",
+          "type": "CustomVisualMetadata"
+        }
+      ]
+    },
+    {
+      "name": "RegisteredResources",
+      "type": "RegisteredResources",
+      "items": [
+        {
+          "name": "Financial_cover_mockups_(10)16310222408850283.png",
+          "path": "Financial_cover_mockups_(10)16310222408850283.png",
+          "type": "Image"
+        },
+        {
+          "name": "Untitled_design_(1)43718186192603703.png",
+          "path": "Untitled_design_(1)43718186192603703.png",
+          "type": "Image"
+        }
+      ]
+    },
+    {
+      "name": "NexusMetricCardA7F25B81D394C6E0472B9D53E18A6C4F",
+      "type": "CustomVisual",
+      "items": [
+        {
+          "name": "NexusMetricCardA7F25B81D394C6E0472B9D53E18A6C4F.pbiviz.json",
+          "path": "NexusMetricCardA7F25B81D394C6E0472B9D53E18A6C4F.pbiviz.json",
+          "type": "CustomVisualMetadata"
+        }
+      ]
+    },
+    {
+      "name": "NexusComparisonDE96413A903F4A7A8716560B4F2981C5",
+      "type": "CustomVisual",
+      "items": [
+        {
+          "name": "NexusComparisonDE96413A903F4A7A8716560B4F2981C5.pbiviz.json",
+          "path": "NexusComparisonDE96413A903F4A7A8716560B4F2981C5.pbiviz.json",
+          "type": "CustomVisualMetadata"
+        }
+      ]
+    },
+    {
+      "name": "NexusReportDetail36313AD96E7F4E25A3F0C03834F7CFAA",
+      "type": "CustomVisual",
+      "items": [
+        {
+          "name": "NexusReportDetail36313AD96E7F4E25A3F0C03834F7CFAA.pbiviz.json",
+          "path": "NexusReportDetail36313AD96E7F4E25A3F0C03834F7CFAA.pbiviz.json",
+          "type": "CustomVisualMetadata"
+        }
+      ]
+    }
+  ],
+  "settings": {
+    "useStylableVisualContainerHeader": true,
+    "exportDataMode": "AllowSummarized",
+    "defaultDrillFilterOtherVisuals": true,
+    "allowChangeFilterTypes": true,
+    "useEnhancedTooltips": true,
+    "useDefaultAggregateDisplayName": true
+  }
+}

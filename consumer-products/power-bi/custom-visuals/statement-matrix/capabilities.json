@@ -1,0 +1,443 @@
+{
+  "privileges": [],
+  "dataRoles": [
+    {
+      "name": "claimKey",
+      "displayName": "claimKey",
+      "kind": "Grouping"
+    },
+    {
+      "name": "rowKey",
+      "displayName": "rowKey",
+      "kind": "Grouping"
+    },
+    {
+      "name": "rowLabel",
+      "displayName": "rowLabel",
+      "kind": "Grouping"
+    },
+    {
+      "name": "rowOrder",
+      "displayName": "rowOrder",
+      "kind": "Grouping"
+    },
+    {
+      "name": "rowKind",
+      "displayName": "rowKind",
+      "kind": "Grouping"
+    },
+    {
+      "name": "indentLevel",
+      "displayName": "indentLevel",
+      "kind": "Grouping"
+    },
+    {
+      "name": "ruleStyle",
+      "displayName": "ruleStyle",
+      "kind": "Grouping"
+    },
+    {
+      "name": "columnKey",
+      "displayName": "columnKey",
+      "kind": "Grouping"
+    },
+    {
+      "name": "columnLabel",
+      "displayName": "columnLabel",
+      "kind": "Grouping"
+    },
+    {
+      "name": "columnOrder",
+      "displayName": "columnOrder",
+      "kind": "Grouping"
+    },
+    {
+      "name": "purpose",
+      "displayName": "purpose",
+      "kind": "GroupingOrMeasure"
+    },
+    {
+      "name": "authority",
+      "displayName": "authority",
+      "kind": "GroupingOrMeasure"
+    },
+    {
+      "name": "deliveryRef",
+      "displayName": "deliveryRef",
+      "kind": "GroupingOrMeasure"
+    },
+    {
+      "name": "deliveryDigest",
+      "displayName": "deliveryDigest",
+      "kind": "GroupingOrMeasure"
+    },
+    {
+      "name": "sourceDigest",
+      "displayName": "sourceDigest",
+      "kind": "GroupingOrMeasure"
+    },
+    {
+      "name": "evidenceRef",
+      "displayName": "evidenceRef",
+      "kind": "GroupingOrMeasure"
+    },
+    {
+      "name": "evidenceDigest",
+      "displayName": "evidenceDigest",
+      "kind": "GroupingOrMeasure"
+    },
+    {
+      "name": "contextState",
+      "displayName": "contextState",
+      "kind": "GroupingOrMeasure"
+    },
+    {
+      "name": "statementClass",
+      "displayName": "statementClass",
+      "kind": "GroupingOrMeasure"
+    },
+    {
+      "name": "period",
+      "displayName": "period",
+      "kind": "GroupingOrMeasure"
+    },
+    {
+      "name": "scope",
+      "displayName": "scope",
+      "kind": "GroupingOrMeasure"
+    },
+    {
+      "name": "version",
+      "displayName": "version",
+      "kind": "GroupingOrMeasure"
+    },
+    {
+      "name": "currency",
+      "displayName": "currency",
+      "kind": "GroupingOrMeasure"
+    },
+    {
+      "name": "signConvention",
+      "displayName": "signConvention",
+      "kind": "GroupingOrMeasure"
+    },
+    {
+      "name": "presentationPolicyRef",
+      "displayName": "presentationPolicyRef",
+      "kind": "GroupingOrMeasure"
+    },
+    {
+      "name": "lineEligibility",
+      "displayName": "lineEligibility",
+      "kind": "GroupingOrMeasure"
+    },
+    {
+      "name": "lineFailureReason",
+      "displayName": "lineFailureReason",
+      "kind": "GroupingOrMeasure"
+    },
+    {
+      "name": "amountMinor",
+      "displayName": "amountMinor",
+      "kind": "Measure"
+    },
+    {
+      "name": "expectedRowCount",
+      "displayName": "expectedRowCount",
+      "kind": "Measure"
+    }
+  ],
+  "dataViewMappings": [
+    {
+      "conditions": [
+        {
+          "claimKey": {
+            "min": 1,
+            "max": 1
+          },
+          "rowKey": {
+            "min": 1,
+            "max": 1
+          },
+          "rowLabel": {
+            "min": 1,
+            "max": 1
+          },
+          "rowOrder": {
+            "min": 1,
+            "max": 1
+          },
+          "rowKind": {
+            "min": 1,
+            "max": 1
+          },
+          "indentLevel": {
+            "min": 1,
+            "max": 1
+          },
+          "ruleStyle": {
+            "min": 1,
+            "max": 1
+          },
+          "columnKey": {
+            "min": 1,
+            "max": 1
+          },
+          "columnLabel": {
+            "min": 1,
+            "max": 1
+          },
+          "columnOrder": {
+            "min": 1,
+            "max": 1
+          },
+          "purpose": {
+            "min": 1,
+            "max": 1
+          },
+          "authority": {
+            "min": 1,
+            "max": 1
+          },
+          "deliveryRef": {
+            "min": 1,
+            "max": 1
+          },
+          "deliveryDigest": {
+            "min": 1,
+            "max": 1
+          },
+          "sourceDigest": {
+            "min": 1,
+            "max": 1
+          },
+          "evidenceRef": {
+            "min": 1,
+            "max": 1
+          },
+          "evidenceDigest": {
+            "min": 0,
+            "max": 1
+          },
+          "contextState": {
+            "min": 1,
+            "max": 1
+          },
+          "statementClass": {
+            "min": 1,
+            "max": 1
+          },
+          "period": {
+            "min": 1,
+            "max": 1
+          },
+          "scope": {
+            "min": 1,
+            "max": 1
+          },
+          "version": {
+            "min": 1,
+            "max": 1
+          },
+          "currency": {
+            "min": 1,
+            "max": 1
+          },
+          "signConvention": {
+            "min": 1,
+            "max": 1
+          },
+          "presentationPolicyRef": {
+            "min": 1,
+            "max": 1
+          },
+          "lineEligibility": {
+            "min": 1,
+            "max": 1
+          },
+          "lineFailureReason": {
+            "min": 0,
+            "max": 1
+          },
+          "amountMinor": {
+            "min": 1,
+            "max": 1
+          },
+          "expectedRowCount": {
+            "min": 1,
+            "max": 1
+          }
+        }
+      ],
+      "table": {
+        "rows": {
+          "select": [
+            {
+              "for": {
+                "in": "claimKey"
+              }
+            },
+            {
+              "for": {
+                "in": "rowKey"
+              }
+            },
+            {
+              "for": {
+                "in": "rowLabel"
+              }
+            },
+            {
+              "for": {
+                "in": "rowOrder"
+              }
+            },
+            {
+              "for": {
+                "in": "rowKind"
+              }
+            },
+            {
+              "for": {
+                "in": "indentLevel"
+              }
+            },
+            {
+              "for": {
+                "in": "ruleStyle"
+              }
+            },
+            {
+              "for": {
+                "in": "columnKey"
+              }
+            },
+            {
+              "for": {
+                "in": "columnLabel"
+              }
+            },
+            {
+              "for": {
+                "in": "columnOrder"
+              }
+            },
+            {
+              "for": {
+                "in": "purpose"
+              }
+            },
+            {
+              "for": {
+                "in": "authority"
+              }
+            },
+            {
+              "for": {
+                "in": "deliveryRef"
+              }
+            },
+            {
+              "for": {
+                "in": "deliveryDigest"
+              }
+            },
+            {
+              "for": {
+                "in": "sourceDigest"
+              }
+            },
+            {
+              "for": {
+                "in": "evidenceRef"
+              }
+            },
+            {
+              "for": {
+                "in": "evidenceDigest"
+              }
+            },
+            {
+              "for": {
+                "in": "contextState"
+              }
+            },
+            {
+              "for": {
+                "in": "statementClass"
+              }
+            },
+            {
+              "for": {
+                "in": "period"
+              }
+            },
+            {
+              "for": {
+                "in": "scope"
+              }
+            },
+            {
+              "for": {
+                "in": "version"
+              }
+            },
+            {
+              "for": {
+                "in": "currency"
+              }
+            },
+            {
+              "for": {
+                "in": "signConvention"
+              }
+            },
+            {
+              "for": {
+                "in": "presentationPolicyRef"
+              }
+            },
+            {
+              "for": {
+                "in": "lineEligibility"
+              }
+            },
+            {
+              "for": {
+                "in": "lineFailureReason"
+              }
+            },
+            {
+              "for": {
+                "in": "amountMinor"
+              }
+            },
+            {
+              "for": {
+                "in": "expectedRowCount"
+              }
+            }
+          ],
+          "dataReductionAlgorithm": {
+            "window": {
+              "count": 128
+            }
+          }
+        }
+      }
+    }
+  ],
+  "objects": {},
+  "supportsEmptyDataView": true,
+  "supportsLandingPage": true,
+  "supportsKeyboardFocus": true,
+  "supportsHighlight": false,
+  "sorting": {
+    "custom": {}
+  },
+  "tooltips": {
+    "supportedTypes": {
+      "default": true
+    }
+  }
+}

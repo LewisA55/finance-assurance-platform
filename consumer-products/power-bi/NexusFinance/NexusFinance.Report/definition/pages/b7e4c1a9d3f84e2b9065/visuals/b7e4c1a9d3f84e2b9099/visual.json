@@ -1,0 +1,60 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json",
+  "name": "b7e4c1a9d3f84e2b9099",
+  "position": {
+    "x": 24,
+    "y": 12,
+    "width": 1232,
+    "height": 72,
+    "z": 0,
+    "tabOrder": 0
+  },
+  "visual": {
+    "visualType": "textbox",
+    "objects": {
+      "general": [
+        {
+          "properties": {
+            "paragraphs": [
+              {
+                "textRuns": [
+                  {
+                    "value": "NEXUS FINANCE",
+                    "textStyle": {
+                      "fontSize": "12px",
+                      "fontFamily": "Segoe UI Semibold",
+                      "color": "#16776E"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "Rollforward Assurance",
+                    "textStyle": {
+                      "fontSize": "24px",
+                      "fontFamily": "Segoe UI Semibold",
+                      "color": "#162c43"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "Check opening balances, movements and closing balances across nine schedules. Each bridge shows its reporting scope.",
+                    "textStyle": {
+                      "fontSize": "12px",
+                      "color": "#566879"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    }
+  }
+}

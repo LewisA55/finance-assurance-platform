@@ -127,7 +127,7 @@ async function main() {
   await waitForPort(apiPort, api);
   const web = start(
     process.execPath,
-    [join(webRoot, "node_modules", "vinext", "dist", "cli.js"), "dev", "--hostname", host, "--port", String(webPort)],
+    [join(webRoot, "node_modules", "vite", "bin", "vite.js"), "dev", "--host", host, "--port", String(webPort)],
     webRoot,
     environment,
   );

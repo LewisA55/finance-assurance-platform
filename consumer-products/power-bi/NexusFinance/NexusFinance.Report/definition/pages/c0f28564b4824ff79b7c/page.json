@@ -1,0 +1,237 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/page/2.1.0/schema.json",
+  "name": "c0f28564b4824ff79b7c",
+  "displayName": "SaaS Performance",
+  "displayOption": "FitToWidth",
+  "height": 1056,
+  "width": 1280,
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "Filter_361b2222bbe08a32",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Period"
+              }
+            },
+            "Property": "Period ID"
+          }
+        },
+        "type": "Categorical",
+        "howCreated": "User",
+        "isLockedInViewMode": true,
+        "isHiddenInViewMode": true,
+        "filter": {
+          "Version": 2,
+          "From": [
+            {
+              "Name": "p",
+              "Entity": "Period",
+              "Type": 0
+            }
+          ],
+          "Where": [
+            {
+              "Condition": {
+                "In": {
+                  "Expressions": [
+                    {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Source": "p"
+                          }
+                        },
+                        "Property": "Period ID"
+                      }
+                    }
+                  ],
+                  "Values": [
+                    [
+                      {
+                        "Literal": {
+                          "Value": "'2025-07'"
+                        }
+                      }
+                    ],
+                    [
+                      {
+                        "Literal": {
+                          "Value": "'2025-08'"
+                        }
+                      }
+                    ],
+                    [
+                      {
+                        "Literal": {
+                          "Value": "'2025-09'"
+                        }
+                      }
+                    ],
+                    [
+                      {
+                        "Literal": {
+                          "Value": "'2025-10'"
+                        }
+                      }
+                    ],
+                    [
+                      {
+                        "Literal": {
+                          "Value": "'2025-11'"
+                        }
+                      }
+                    ],
+                    [
+                      {
+                        "Literal": {
+                          "Value": "'2025-12'"
+                        }
+                      }
+                    ],
+                    [
+                      {
+                        "Literal": {
+                          "Value": "'2026-01'"
+                        }
+                      }
+                    ],
+                    [
+                      {
+                        "Literal": {
+                          "Value": "'2026-02'"
+                        }
+                      }
+                    ],
+                    [
+                      {
+                        "Literal": {
+                          "Value": "'2026-03'"
+                        }
+                      }
+                    ],
+                    [
+                      {
+                        "Literal": {
+                          "Value": "'2026-04'"
+                        }
+                      }
+                    ],
+                    [
+                      {
+                        "Literal": {
+                          "Value": "'2026-05'"
+                        }
+                      }
+                    ],
+                    [
+                      {
+                        "Literal": {
+                          "Value": "'2026-06'"
+                        }
+                      }
+                    ]
+                  ]
+                }
+              }
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "visualInteractions": [
+    {
+      "source": "00000000000000000015",
+      "target": "0000000000000000000b",
+      "type": "NoFilter"
+    },
+    {
+      "source": "00000000000000000015",
+      "target": "0000000000000000000c",
+      "type": "NoFilter"
+    },
+    {
+      "source": "00000000000000000015",
+      "target": "0000000000000000000d",
+      "type": "NoFilter"
+    },
+    {
+      "source": "00000000000000000015",
+      "target": "0000000000000000000e",
+      "type": "NoFilter"
+    },
+    {
+      "source": "00000000000000000015",
+      "target": "00000000000000000016",
+      "type": "NoFilter"
+    },
+    {
+      "source": "00000000000000000015",
+      "target": "00000000000000000017",
+      "type": "NoFilter"
+    },
+    {
+      "source": "00000000000000000016",
+      "target": "0000000000000000000b",
+      "type": "NoFilter"
+    },
+    {
+      "source": "00000000000000000016",
+      "target": "0000000000000000000c",
+      "type": "NoFilter"
+    },
+    {
+      "source": "00000000000000000016",
+      "target": "0000000000000000000d",
+      "type": "NoFilter"
+    },
+    {
+      "source": "00000000000000000016",
+      "target": "0000000000000000000e",
+      "type": "NoFilter"
+    },
+    {
+      "source": "00000000000000000016",
+      "target": "00000000000000000015",
+      "type": "NoFilter"
+    },
+    {
+      "source": "00000000000000000016",
+      "target": "00000000000000000017",
+      "type": "NoFilter"
+    },
+    {
+      "source": "00000000000000000017",
+      "target": "0000000000000000000b",
+      "type": "NoFilter"
+    },
+    {
+      "source": "00000000000000000017",
+      "target": "0000000000000000000c",
+      "type": "NoFilter"
+    },
+    {
+      "source": "00000000000000000017",
+      "target": "0000000000000000000d",
+      "type": "NoFilter"
+    },
+    {
+      "source": "00000000000000000017",
+      "target": "0000000000000000000e",
+      "type": "NoFilter"
+    },
+    {
+      "source": "00000000000000000017",
+      "target": "00000000000000000015",
+      "type": "NoFilter"
+    },
+    {
+      "source": "00000000000000000017",
+      "target": "00000000000000000016",
+      "type": "NoFilter"
+    }
+  ]
+}

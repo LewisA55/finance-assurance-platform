@@ -1,0 +1,269 @@
+table 'Statement Cells'
+
+	measure 'Statement Amount Minor' = IF ( ISEMPTY ( 'Statement Cells' ), BLANK(), SUM ( 'Statement Cells'[amountMinor] ) )
+
+	measure 'Statement Cell Count' = IF ( ISEMPTY ( 'Statement Cells' ), BLANK(), COUNTROWS ( CALCULATETABLE ( 'Statement Cells', ALLSELECTED ( 'Statement Cells' ) ) ) )
+
+	measure 'Statement Context State' = IF ( ISEMPTY ( 'Statement Cells' ), BLANK(), VAR Selected = CALCULATETABLE ( 'Statement Cells', ALLSELECTED ( 'Statement Cells' ) ) VAR Claims = COUNTROWS ( DISTINCT ( SELECTCOLUMNS ( Selected, "c", 'Statement Cells'[claimKey] ) ) ) VAR Invalid = COUNTROWS ( FILTER ( Selected, 'Statement Cells'[contextState] <> "VALID" ) ) RETURN IF ( Claims = 1 && ISBLANK ( Invalid ), "VALID", "AMBIGUOUS" ) )
+
+	column claimKey
+		dataType: string
+		sourceColumn: claimKey
+		summarizeBy: none
+		isHidden
+
+	column statementClass
+		dataType: string
+		sourceColumn: statementClass
+		summarizeBy: none
+		isHidden
+
+	column asOfPeriod
+		dataType: string
+		sourceColumn: asOfPeriod
+		summarizeBy: none
+		isHidden
+
+	column rowKey
+		dataType: string
+		sourceColumn: rowKey
+		summarizeBy: none
+		isHidden
+
+	column rowLabel
+		dataType: string
+		sourceColumn: rowLabel
+		summarizeBy: none
+		isHidden
+
+	column rowOrder
+		dataType: int64
+		sourceColumn: rowOrder
+		summarizeBy: none
+		isHidden
+
+	column rowKind
+		dataType: string
+		sourceColumn: rowKind
+		summarizeBy: none
+		isHidden
+
+	column indentLevel
+		dataType: int64
+		sourceColumn: indentLevel
+		summarizeBy: none
+		isHidden
+
+	column ruleStyle
+		dataType: string
+		sourceColumn: ruleStyle
+		summarizeBy: none
+		isHidden
+
+	column columnKey
+		dataType: string
+		sourceColumn: columnKey
+		summarizeBy: none
+		isHidden
+
+	column columnLabel
+		dataType: string
+		sourceColumn: columnLabel
+		summarizeBy: none
+		isHidden
+
+	column columnOrder
+		dataType: int64
+		sourceColumn: columnOrder
+		summarizeBy: none
+		isHidden
+
+	column amountMinor
+		dataType: int64
+		sourceColumn: amountMinor
+		summarizeBy: none
+		isHidden
+
+	column period
+		dataType: string
+		sourceColumn: period
+		summarizeBy: none
+		isHidden
+
+	column scope
+		dataType: string
+		sourceColumn: scope
+		summarizeBy: none
+		isHidden
+
+	column version
+		dataType: string
+		sourceColumn: version
+		summarizeBy: none
+		isHidden
+
+	column currency
+		dataType: string
+		sourceColumn: currency
+		summarizeBy: none
+		isHidden
+
+	column signConvention
+		dataType: string
+		sourceColumn: signConvention
+		summarizeBy: none
+		isHidden
+
+	column presentationPolicyRef
+		dataType: string
+		sourceColumn: presentationPolicyRef
+		summarizeBy: none
+		isHidden
+
+	column lineEligibility
+		dataType: string
+		sourceColumn: lineEligibility
+		summarizeBy: none
+		isHidden
+
+	column lineFailureReason
+		dataType: string
+		sourceColumn: lineFailureReason
+		summarizeBy: none
+		isHidden
+
+	column purpose
+		dataType: string
+		sourceColumn: purpose
+		summarizeBy: none
+		isHidden
+
+	column authority
+		dataType: string
+		sourceColumn: authority
+		summarizeBy: none
+		isHidden
+
+	column deliveryRef
+		dataType: string
+		sourceColumn: deliveryRef
+		summarizeBy: none
+		isHidden
+
+	column deliveryDigest
+		dataType: string
+		sourceColumn: deliveryDigest
+		summarizeBy: none
+		isHidden
+
+	column sourceDigest
+		dataType: string
+		sourceColumn: sourceDigest
+		summarizeBy: none
+		isHidden
+
+	column evidenceRef
+		dataType: string
+		sourceColumn: evidenceRef
+		summarizeBy: none
+		isHidden
+
+	column evidenceDigest
+		dataType: string
+		sourceColumn: evidenceDigest
+		summarizeBy: none
+		isHidden
+
+	column contextState
+		dataType: string
+		sourceColumn: contextState
+		summarizeBy: none
+		isHidden
+
+	partition 'Statement Cells' = m
+		mode: import
+		source =
+			let
+			    Months = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"},
+			    ColumnLabel = (p as text) as text => Months{Number.FromText(Text.End(p, 2)) - 1} & " " & Text.Start(p, 4),
+			    // Buffered once: every period and column below re-reads this table.
+			    Source = Table.Buffer(Table.SelectRows(ReadC2("mart_cfo_presented_financials"), each [scope_id] = "NEXUS-GROUP")),
+			    Periods = List.Sort(List.Distinct(Table.Column(Source, "period_id"))),
+			    PriorOf = (p as text) as nullable text =>
+			        let i = List.PositionOf(Periods, p) in if i <= 0 then null else Periods{i - 1},
+			    Build = (statementClass as text, registry as list, sourceLineCount as number, signConvention as text) as table =>
+			        let
+			            Lines = Table.Buffer(Table.SelectRows(Source, each [statement_class] = statementClass)),
+			            RecordsFor = (p as text) as list => Table.ToRecords(Table.SelectRows(Lines, each [period_id] = p)),
+			            // Source amounts first, then registered formulas in scaffold order.
+			            ValuesFor = (p as text) as record =>
+			                let
+			                    Rows = RecordsFor(p),
+			                    Supplied = Record.FromList(
+			                        List.Transform(Rows, each [presented_amount_minor]),
+			                        List.Transform(Rows, each [metric_id]))
+			                in
+			                    List.Accumulate(registry, Supplied, (state, r) =>
+			                        if r{0} <> "DERIVED_SUBTOTAL" then state
+			                        else Record.AddField(state, r{1},
+			                            List.Sum(List.Transform(r{5}, (f) => Record.FieldOrDefault(state, f, null))))),
+			            Identical = (p as text) as logical =>
+			                let Rows = RecordsFor(p) in
+			                    List.Count(Rows) = sourceLineCount and List.AllTrue(List.Transform(Rows, (r) =>
+			                        r[reporting_version_ref] = "RV-NEXUS-GROUP-" & p & "@v1" and r[currency] = "GBP"
+			                        and r[value_authority] = "STATUTORY_STATEMENT" and r[reliability_status] = "RELIABLE_FOR_STATUTORY_ACTUALS"
+			                        and r[reliability_purpose] = "CFO_PRESENTED_FINANCIALS" and r[sign_convention] = signConvention
+			                        and r[source_package_digest] = "sha256:39af66f379d5497399f89e3956e601b6fb99a070146d8c6d378bb684f288b7e5")),
+			            CellsFor = (asOf as text) as list =>
+			                let
+			                    Columns = List.Select({asOf, PriorOf(asOf)}, each _ <> null),
+			                    Context = if List.AllTrue(List.Transform(Columns, Identical)) then "VALID" else "AMBIGUOUS",
+			                    Anchor = RecordsFor(asOf){0},
+			                    StatementEvidence = "mart_cfo_presented_financials / " & statementClass & " / RV-NEXUS-GROUP-" & asOf & "@v1 / "
+			                        & Anchor[drill_through_relation]
+			                in
+			                    List.Combine(List.Transform(List.Positions(Columns), (c) =>
+			                        let
+			                            p = Columns{c},
+			                            Values = ValuesFor(p)
+			                        in
+			                            List.Transform(List.Positions(registry), (i) =>
+			                                let
+			                                    r = registry{i},
+			                                    valued = List.Contains({"LINE", "SUPPLIED_TOTAL", "MEMO", "DERIVED_SUBTOTAL"}, r{0}),
+			                                    amount = if valued then Record.FieldOrDefault(Values, r{1}, null) else null,
+			                                    derived = r{0} = "DERIVED_SUBTOTAL"
+			                                in [
+			                                    claimKey = statementClass & "|" & asOf & "|NEXUS-GROUP",
+			                                    statementClass = statementClass, asOfPeriod = asOf,
+			                                    rowKey = r{1}, rowLabel = r{2}, rowOrder = i, rowKind = r{0},
+			                                    indentLevel = r{3}, ruleStyle = r{4},
+			                                    columnKey = p, columnLabel = ColumnLabel(p), columnOrder = c + 1,
+			                                    amountMinor = amount,
+			                                    period = p, scope = "NEXUS-GROUP", version = "RV-NEXUS-GROUP-" & p & "@v1",
+			                                    currency = "GBP", signConvention = signConvention,
+			                                    presentationPolicyRef = "NEXUS-STATEMENT-PRESENTATION@v1",
+			                                    lineEligibility = if not valued then "NOT_APPLICABLE"
+			                                        else if amount = null then "BLOCKED" else "ELIGIBLE",
+			                                    lineFailureReason = if valued and amount = null
+			                                        then "No source line was delivered for this period." else null,
+			                                    purpose = "EXECUTIVE_FINANCIAL_REVIEW", authority = "STATUTORY_STATEMENT",
+			                                    deliveryRef = "Q-FINANCE-C2@v1", deliveryDigest = "sha256:7538132e08ea2b7e8c20f339db10e6c138cd2a08c71c4708c47c378d7c1b0141",
+			                                    sourceDigest = Anchor[source_package_digest],
+			                                    // A registered subtotal is evidenced by its formula, never by a
+			                                    // source line's digest copied across to imply it was delivered.
+			                                    evidenceRef = if derived
+			                                        then "REGISTERED FORMULA " & "NEXUS-STATEMENT-PRESENTATION@v1" & " / " & r{1} & " = "
+			                                            & Text.Combine(r{5}, " + ")
+			                                        else StatementEvidence,
+			                                    evidenceDigest = if derived then null else Anchor[evidence_digest],
+			                                    contextState = Context
+			                                ])))
+			        in
+			            Table.FromRecords(List.Combine(List.Transform(Periods, CellsFor))),
+			    Combined = Table.Combine({Build("INCOME_STATEMENT", {{"HEADER", "h_revenue", "Revenue", 0, "none", {}}, {"LINE", "subscription_revenue", "Subscription revenue", 1, "none", {}}, {"LINE", "services_revenue", "Services revenue", 1, "none", {}}, {"DERIVED_SUBTOTAL", "d_total_revenue", "Total revenue", 0, "single", {"subscription_revenue", "services_revenue"}}, {"SPACER", "s_after_revenue", "", 0, "none", {}}, {"LINE", "cost_of_revenue", "Cost of revenue", 1, "none", {}}, {"DERIVED_SUBTOTAL", "d_gross_profit", "Gross profit", 0, "single", {"d_total_revenue", "cost_of_revenue"}}, {"SPACER", "s_after_gross", "", 0, "none", {}}, {"HEADER", "h_opex", "Operating expenses", 0, "none", {}}, {"LINE", "research_and_development", "Research and development", 1, "none", {}}, {"LINE", "sales_and_marketing", "Sales and marketing", 1, "none", {}}, {"LINE", "general_and_administrative", "General and administrative", 1, "none", {}}, {"LINE", "depreciation_and_amortisation", "Depreciation and amortisation", 1, "none", {}}, {"DERIVED_SUBTOTAL", "d_total_opex", "Total operating expenses", 0, "single", {"research_and_development", "sales_and_marketing", "general_and_administrative", "depreciation_and_amortisation"}}, {"SPACER", "s_after_opex", "", 0, "none", {}}, {"DERIVED_SUBTOTAL", "d_operating_profit", "Operating profit", 0, "single", {"d_gross_profit", "d_total_opex"}}, {"SPACER", "s_after_operating", "", 0, "none", {}}, {"LINE", "interest_expense", "Interest expense", 1, "none", {}}, {"LINE", "income_tax_expense", "Income tax expense", 1, "none", {}}, {"SUPPLIED_TOTAL", "net_income", "Net income", 0, "double", {}}}, 10, "POSITIVE_REVENUE_NEGATIVE_EXPENSE"),
+			        Build("BALANCE_SHEET", {{"HEADER", "h_assets", "Assets", 0, "none", {}}, {"LINE", "cash", "Cash", 1, "none", {}}, {"LINE", "accounts_receivable", "Accounts receivable", 1, "none", {}}, {"LINE", "intercompany_receivables", "Intercompany receivables", 1, "none", {}}, {"LINE", "prepayments", "Prepayments", 1, "none", {}}, {"LINE", "inventory", "Inventory", 1, "none", {}}, {"LINE", "deferred_tax_asset", "Deferred tax asset", 1, "none", {}}, {"LINE", "property_plant_equipment", "Property, plant and equipment", 1, "none", {}}, {"LINE", "accumulated_depreciation", "Accumulated depreciation", 1, "none", {}}, {"LINE", "intangible_assets", "Intangible assets", 1, "none", {}}, {"LINE", "accumulated_amortisation", "Accumulated amortisation", 1, "none", {}}, {"LINE", "goodwill", "Goodwill", 1, "none", {}}, {"LINE", "right_of_use_assets", "Right of use assets", 1, "none", {}}, {"LINE", "accumulated_right_of_use_depreciation", "Accumulated right of use depreciation", 1, "none", {}}, {"SUPPLIED_TOTAL", "total_assets", "Total assets", 0, "single", {}}, {"SPACER", "s_after_assets", "", 0, "none", {}}, {"HEADER", "h_liabilities", "Liabilities", 0, "none", {}}, {"LINE", "accounts_payable", "Accounts payable", 1, "none", {}}, {"LINE", "intercompany_payables", "Intercompany payables", 1, "none", {}}, {"LINE", "deferred_revenue", "Deferred revenue", 1, "none", {}}, {"LINE", "accrued_expenses", "Accrued expenses", 1, "none", {}}, {"LINE", "unapplied_cash", "Unapplied cash", 1, "none", {}}, {"LINE", "tax_payable", "Tax payable", 1, "none", {}}, {"LINE", "long_term_debt", "Long term debt", 1, "none", {}}, {"LINE", "lease_liabilities", "Lease liabilities", 1, "none", {}}, {"SUPPLIED_TOTAL", "total_liabilities", "Total liabilities", 0, "single", {}}, {"SPACER", "s_after_liabilities", "", 0, "none", {}}, {"HEADER", "h_equity", "Equity", 0, "none", {}}, {"LINE", "share_capital", "Share capital", 1, "none", {}}, {"LINE", "retained_earnings", "Retained earnings", 1, "none", {}}, {"SUPPLIED_TOTAL", "total_equity", "Total equity", 0, "single", {}}, {"SPACER", "s_after_equity", "", 0, "none", {}}, {"SUPPLIED_TOTAL", "total_liabilities_and_equity", "Total liabilities and equity", 0, "double", {}}}, 27, "POSITIVE_PRESENTED_BALANCE"),
+			        Build("CASH_FLOW", {{"HEADER", "h_movements", "Cash movements", 0, "none", {}}, {"LINE", "operating_cash_flow", "Operating cash flow", 1, "none", {}}, {"LINE", "investing_cash_flow", "Investing cash flow", 1, "none", {}}, {"LINE", "financing_cash_flow", "Financing cash flow", 1, "none", {}}, {"SUPPLIED_TOTAL", "net_change_in_cash", "Net change in cash", 0, "single", {}}, {"SUPPLIED_TOTAL", "closing_cash", "Closing cash", 0, "double", {}}, {"SPACER", "s_before_memo", "", 0, "none", {}}, {"MEMO", "net_income", "Net income (memo)", 0, "none", {}}}, 6, "POSITIVE_INFLOW_NEGATIVE_OUTFLOW")})
+			in
+			    Table.TransformColumnTypes(Combined, {{"rowOrder", Int64.Type}, {"indentLevel", Int64.Type},
+			        {"columnOrder", Int64.Type}, {"amountMinor", Int64.Type}})

@@ -1,0 +1,60 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json",
+  "name": "e7c34d918b2a4f67905e99",
+  "position": {
+    "x": 24,
+    "y": 12,
+    "width": 1232,
+    "height": 72,
+    "z": 0,
+    "tabOrder": 0
+  },
+  "visual": {
+    "visualType": "textbox",
+    "objects": {
+      "general": [
+        {
+          "properties": {
+            "paragraphs": [
+              {
+                "textRuns": [
+                  {
+                    "value": "NEXUS FINANCE",
+                    "textStyle": {
+                      "fontSize": "12px",
+                      "fontFamily": "Segoe UI Semibold",
+                      "color": "#16776E"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "Close Governance",
+                    "textStyle": {
+                      "fontSize": "24px",
+                      "fontFamily": "Segoe UI Semibold",
+                      "color": "#162c43"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "Compare close status by month and reporting scope. Select a cell for reconciliation checks and accounting event references.",
+                    "textStyle": {
+                      "fontSize": "12px",
+                      "color": "#566879"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    }
+  }
+}

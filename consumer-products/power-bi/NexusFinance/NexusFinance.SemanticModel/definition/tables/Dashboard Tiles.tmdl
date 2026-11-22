@@ -1,0 +1,71 @@
+table 'Dashboard Tiles'
+
+	column 'Tile Key'
+		dataType: string
+		sourceColumn: [Tile Key]
+		summarizeBy: none
+		isHidden
+
+	column 'Tile Label'
+		dataType: string
+		sourceColumn: [Tile Label]
+		summarizeBy: none
+		isHidden
+
+	column 'Tile Caption'
+		dataType: string
+		sourceColumn: [Tile Caption]
+		summarizeBy: none
+		isHidden
+
+	column 'Tile Context'
+		dataType: string
+		sourceColumn: [Tile Context]
+		summarizeBy: none
+		isHidden
+
+	column 'Tile Authority'
+		dataType: string
+		sourceColumn: [Tile Authority]
+		summarizeBy: none
+		isHidden
+
+	column 'Tile Unit'
+		dataType: string
+		sourceColumn: [Tile Unit]
+		summarizeBy: none
+		isHidden
+
+	column 'Tile Delivery'
+		dataType: string
+		sourceColumn: [Tile Delivery]
+		summarizeBy: none
+		isHidden
+
+	column 'Tile Policy'
+		dataType: string
+		sourceColumn: [Tile Policy]
+		summarizeBy: none
+		isHidden
+
+	partition 'Dashboard Tiles' = calculated
+		mode: import
+		source =
+			DATATABLE ( "Tile Key", STRING, "Tile Label", STRING, "Tile Caption", STRING, "Tile Context", STRING, "Tile Authority", STRING, "Tile Unit", STRING, "Tile Delivery", STRING, "Tile Policy", STRING, {
+				{ "FP_LTM_REVENUE", "LTM revenue", "GOVERNED ACTUALS", "Jul 2025 to Jun 2026 | Nexus Group | GBP", "STATUTORY_STATEMENT", "GBP", "Q-FINANCE-C2@v1", "NEXUS-DASHBOARD-TILE@v1" },
+				{ "FP_JUNE_REVENUE", "June revenue", "GOVERNED ACTUALS", "June 2026 | Nexus Group | GBP", "STATUTORY_STATEMENT", "GBP", "Q-FINANCE-C2@v1", "NEXUS-DASHBOARD-TILE@v1" },
+				{ "FP_JUNE_EBITDA", "June EBITDA", "GOVERNED ACTUALS", "June 2026 | Nexus Group | GBP", "STATUTORY_STATEMENT", "GBP", "Q-FINANCE-C2@v1", "NEXUS-DASHBOARD-TILE@v1" },
+				{ "FP_JUNE_CLOSING_CASH", "June closing cash", "GOVERNED ACTUALS", "June 2026 | Nexus Group | GBP", "STATUTORY_CASH_FLOW_AND_SUBLEDGER", "GBP", "Q-FINANCE-C2@v1", "NEXUS-DASHBOARD-TILE@v1" },
+				{ "CC_CLOSING_CASH", "Closing cash", "TREASURY", "June 2026 close | Nexus Group | GBP", "STATUTORY_CASH_FLOW_AND_SUBLEDGER", "GBP", "Q-FINANCE-C2@v1", "NEXUS-DASHBOARD-TILE@v1" },
+				{ "CC_GROSS_DEBT", "Gross debt", "TREASURY", "June 2026 close | Nexus Group | GBP", "STATUTORY_CASH_FLOW_AND_SUBLEDGER", "GBP", "Q-FINANCE-C2@v1", "NEXUS-DASHBOARD-TILE@v1" },
+				{ "CC_NET_DEBT", "Net debt", "TREASURY", "June 2026 close | Nexus Group | GBP", "STATUTORY_CASH_FLOW_AND_SUBLEDGER", "GBP", "Q-FINANCE-C2@v1", "NEXUS-DASHBOARD-TILE@v1" },
+				{ "CLOSE_HARD_CLOSED", "Hard-closed versions", "CLOSE ASSURANCE", "Jul 2025 to Jun 2026 | Nexus Group", "REPORTING_VERSION_REGISTER", "COUNT", "Q-FINANCE-C2@v1", "NEXUS-DASHBOARD-TILE@v1" },
+				{ "CLOSE_PUBLISHED", "Published versions", "CLOSE ASSURANCE", "Jul 2025 to Jun 2026 | Nexus Group", "REPORTING_VERSION_REGISTER", "COUNT", "Q-FINANCE-C2@v1", "NEXUS-DASHBOARD-TILE@v1" },
+				{ "CLOSE_CHECKS_PASSED", "Readiness checks passed", "DELIVERY-WIDE CHECKS", "Q-FINANCE-C2@v1 | Delivery-wide", "C1_MODEL_READINESS_CONTROLS", "COUNT", "Q-FINANCE-C2@v1", "NEXUS-DASHBOARD-TILE@v1" },
+				{ "CLOSE_CHECKS_OPEN", "Readiness checks not passed", "DELIVERY-WIDE CHECKS", "Q-FINANCE-C2@v1 | Delivery-wide", "C1_MODEL_READINESS_CONTROLS", "COUNT", "Q-FINANCE-C2@v1", "NEXUS-DASHBOARD-TILE@v1" },
+				{ "SAAS_ARR", "Ending ARR", "RECURRING REVENUE", "June 2026 | Nexus Group | GBP", "PUBLISHED_GROUP_SAAS_KPI", "GBP", "Q-FINANCE-C2@v1", "NEXUS-DASHBOARD-TILE@v1" },
+				{ "SAAS_MRR", "Ending MRR", "RECURRING REVENUE", "June 2026 | Nexus Group | GBP", "SUBSCRIPTION_EVENT_AND_STATE", "GBP", "Q-FINANCE-C2@v1", "NEXUS-DASHBOARD-TILE@v1" },
+				{ "SAAS_CUSTOMERS", "Active customers", "CUSTOMER BASE", "June 2026 | Nexus Group", "PUBLISHED_GROUP_SAAS_KPI", "COUNT", "Q-FINANCE-C2@v1", "NEXUS-DASHBOARD-TILE@v1" },
+				{ "SAAS_NRR", "Net revenue retention", "CUSTOMER RETENTION", "June 2026 | Nexus Group", "PUBLISHED_GROUP_SAAS_KPI", "PCT", "Q-FINANCE-C2@v1", "NEXUS-DASHBOARD-TILE@v1" },
+				{ "CC_AVAILABLE_LIQUIDITY", "Available liquidity", "TREASURY", "June 2026 close | Nexus Group | GBP", "STATUTORY_CASH_FLOW_AND_SUBLEDGER", "GBP", "Q-FINANCE-C2@v1", "NEXUS-DASHBOARD-TILE@v1" }
+			} )

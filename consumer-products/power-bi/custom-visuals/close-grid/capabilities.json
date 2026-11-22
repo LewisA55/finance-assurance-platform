@@ -1,0 +1,387 @@
+{
+  "privileges": [],
+  "dataRoles": [
+    {
+      "name": "claimKey",
+      "displayName": "claimKey",
+      "kind": "Grouping"
+    },
+    {
+      "name": "period",
+      "displayName": "period",
+      "kind": "Grouping"
+    },
+    {
+      "name": "scope",
+      "displayName": "scope",
+      "kind": "Grouping"
+    },
+    {
+      "name": "scopeType",
+      "displayName": "scopeType",
+      "kind": "Grouping"
+    },
+    {
+      "name": "version",
+      "displayName": "version",
+      "kind": "Grouping"
+    },
+    {
+      "name": "purpose",
+      "displayName": "purpose",
+      "kind": "GroupingOrMeasure"
+    },
+    {
+      "name": "authority",
+      "displayName": "authority",
+      "kind": "GroupingOrMeasure"
+    },
+    {
+      "name": "deliveryRef",
+      "displayName": "deliveryRef",
+      "kind": "GroupingOrMeasure"
+    },
+    {
+      "name": "deliveryDigest",
+      "displayName": "deliveryDigest",
+      "kind": "GroupingOrMeasure"
+    },
+    {
+      "name": "sourceDigest",
+      "displayName": "sourceDigest",
+      "kind": "GroupingOrMeasure"
+    },
+    {
+      "name": "evidenceRef",
+      "displayName": "evidenceRef",
+      "kind": "GroupingOrMeasure"
+    },
+    {
+      "name": "evidenceDigest",
+      "displayName": "evidenceDigest",
+      "kind": "GroupingOrMeasure"
+    },
+    {
+      "name": "contextState",
+      "displayName": "contextState",
+      "kind": "GroupingOrMeasure"
+    },
+    {
+      "name": "subledgerStatus",
+      "displayName": "subledgerStatus",
+      "kind": "GroupingOrMeasure"
+    },
+    {
+      "name": "bankStatus",
+      "displayName": "bankStatus",
+      "kind": "GroupingOrMeasure"
+    },
+    {
+      "name": "intercompanyStatus",
+      "displayName": "intercompanyStatus",
+      "kind": "GroupingOrMeasure"
+    },
+    {
+      "name": "trialBalanceStatus",
+      "displayName": "trialBalanceStatus",
+      "kind": "GroupingOrMeasure"
+    },
+    {
+      "name": "statementStatus",
+      "displayName": "statementStatus",
+      "kind": "GroupingOrMeasure"
+    },
+    {
+      "name": "closeStatus",
+      "displayName": "closeStatus",
+      "kind": "GroupingOrMeasure"
+    },
+    {
+      "name": "closedAt",
+      "displayName": "closedAt",
+      "kind": "GroupingOrMeasure"
+    },
+    {
+      "name": "softCloseEvent",
+      "displayName": "softCloseEvent",
+      "kind": "GroupingOrMeasure"
+    },
+    {
+      "name": "hardCloseEvent",
+      "displayName": "hardCloseEvent",
+      "kind": "GroupingOrMeasure"
+    },
+    {
+      "name": "publicationEvent",
+      "displayName": "publicationEvent",
+      "kind": "GroupingOrMeasure"
+    },
+    {
+      "name": "gridPolicyRef",
+      "displayName": "gridPolicyRef",
+      "kind": "GroupingOrMeasure"
+    },
+    {
+      "name": "expectedRowCount",
+      "displayName": "expectedRowCount",
+      "kind": "Measure"
+    }
+  ],
+  "dataViewMappings": [
+    {
+      "conditions": [
+        {
+          "claimKey": {
+            "min": 1,
+            "max": 1
+          },
+          "period": {
+            "min": 1,
+            "max": 1
+          },
+          "scope": {
+            "min": 1,
+            "max": 1
+          },
+          "scopeType": {
+            "min": 1,
+            "max": 1
+          },
+          "version": {
+            "min": 1,
+            "max": 1
+          },
+          "purpose": {
+            "min": 1,
+            "max": 1
+          },
+          "authority": {
+            "min": 1,
+            "max": 1
+          },
+          "deliveryRef": {
+            "min": 1,
+            "max": 1
+          },
+          "deliveryDigest": {
+            "min": 1,
+            "max": 1
+          },
+          "sourceDigest": {
+            "min": 1,
+            "max": 1
+          },
+          "evidenceRef": {
+            "min": 1,
+            "max": 1
+          },
+          "evidenceDigest": {
+            "min": 0,
+            "max": 1
+          },
+          "contextState": {
+            "min": 1,
+            "max": 1
+          },
+          "subledgerStatus": {
+            "min": 1,
+            "max": 1
+          },
+          "bankStatus": {
+            "min": 1,
+            "max": 1
+          },
+          "intercompanyStatus": {
+            "min": 1,
+            "max": 1
+          },
+          "trialBalanceStatus": {
+            "min": 1,
+            "max": 1
+          },
+          "statementStatus": {
+            "min": 1,
+            "max": 1
+          },
+          "closeStatus": {
+            "min": 1,
+            "max": 1
+          },
+          "closedAt": {
+            "min": 1,
+            "max": 1
+          },
+          "softCloseEvent": {
+            "min": 0,
+            "max": 1
+          },
+          "hardCloseEvent": {
+            "min": 0,
+            "max": 1
+          },
+          "publicationEvent": {
+            "min": 0,
+            "max": 1
+          },
+          "gridPolicyRef": {
+            "min": 1,
+            "max": 1
+          },
+          "expectedRowCount": {
+            "min": 1,
+            "max": 1
+          }
+        }
+      ],
+      "table": {
+        "rows": {
+          "select": [
+            {
+              "for": {
+                "in": "claimKey"
+              }
+            },
+            {
+              "for": {
+                "in": "period"
+              }
+            },
+            {
+              "for": {
+                "in": "scope"
+              }
+            },
+            {
+              "for": {
+                "in": "scopeType"
+              }
+            },
+            {
+              "for": {
+                "in": "version"
+              }
+            },
+            {
+              "for": {
+                "in": "purpose"
+              }
+            },
+            {
+              "for": {
+                "in": "authority"
+              }
+            },
+            {
+              "for": {
+                "in": "deliveryRef"
+              }
+            },
+            {
+              "for": {
+                "in": "deliveryDigest"
+              }
+            },
+            {
+              "for": {
+                "in": "sourceDigest"
+              }
+            },
+            {
+              "for": {
+                "in": "evidenceRef"
+              }
+            },
+            {
+              "for": {
+                "in": "evidenceDigest"
+              }
+            },
+            {
+              "for": {
+                "in": "contextState"
+              }
+            },
+            {
+              "for": {
+                "in": "subledgerStatus"
+              }
+            },
+            {
+              "for": {
+                "in": "bankStatus"
+              }
+            },
+            {
+              "for": {
+                "in": "intercompanyStatus"
+              }
+            },
+            {
+              "for": {
+                "in": "trialBalanceStatus"
+              }
+            },
+            {
+              "for": {
+                "in": "statementStatus"
+              }
+            },
+            {
+              "for": {
+                "in": "closeStatus"
+              }
+            },
+            {
+              "for": {
+                "in": "closedAt"
+              }
+            },
+            {
+              "for": {
+                "in": "softCloseEvent"
+              }
+            },
+            {
+              "for": {
+                "in": "hardCloseEvent"
+              }
+            },
+            {
+              "for": {
+                "in": "publicationEvent"
+              }
+            },
+            {
+              "for": {
+                "in": "gridPolicyRef"
+              }
+            },
+            {
+              "for": {
+                "in": "expectedRowCount"
+              }
+            }
+          ],
+          "dataReductionAlgorithm": {
+            "window": {
+              "count": 512
+            }
+          }
+        }
+      }
+    }
+  ],
+  "objects": {},
+  "supportsEmptyDataView": true,
+  "supportsLandingPage": true,
+  "supportsKeyboardFocus": true,
+  "supportsHighlight": false,
+  "sorting": {
+    "custom": {}
+  },
+  "tooltips": {
+    "supportedTypes": {
+      "default": true
+    }
+  }
+}

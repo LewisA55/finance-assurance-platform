@@ -1,0 +1,19 @@
+{
+  "version": "NEXUS-COMPARISON-FORECAST@v1",
+  "forecastRef": "SYNTHETIC-RF-2026-05@v1",
+  "baselinePeriod": "2025-06",
+  "vintagePeriod": "2026-05",
+  "targetPeriod": "2026-06",
+  "scope": "Management planning extract",
+  "deliveryRef": "Q-FINANCE-C2@v1",
+  "deliveryDigest": "sha256:7538132e08ea2b7e8c20f339db10e6c138cd2a08c71c4708c47c378d7c1b0141",
+  "accounts": {
+    "4000": {"factorBps": 10850, "direction": "higher"},
+    "4100": {"factorBps": 10550, "direction": "higher"},
+    "5000": {"factorBps": 10600, "direction": "lower"},
+    "5100": {"factorBps": 10400, "direction": "lower"},
+    "6000": {"factorBps": 10700, "direction": "lower"},
+    "6100": {"factorBps": 10300, "direction": "lower"},
+    "6200": {"factorBps": 10200, "direction": "lower"}
+  }
+}

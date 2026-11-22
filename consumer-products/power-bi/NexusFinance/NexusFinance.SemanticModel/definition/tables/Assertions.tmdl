@@ -1,0 +1,202 @@
+table 'Assertions'
+
+	measure 'Actual Value' = IF ( ISEMPTY ( 'Assertions' ), BLANK(), SUM ( 'Assertions'[actualValue] ) )
+
+	measure 'Expected Value' = IF ( ISEMPTY ( 'Assertions' ), BLANK(), SUM ( 'Assertions'[expectedValue] ) )
+
+	measure 'Source Difference' = IF ( ISEMPTY ( 'Assertions' ), BLANK(), SUM ( 'Assertions'[sourceDifference] ) )
+
+	measure 'Assertion Count' = IF ( ISEMPTY ( 'Assertions' ), BLANK(), COUNTROWS ( CALCULATETABLE ( 'Assertions', ALLSELECTED ( 'Assertions' ) ) ) )
+
+	measure 'Assertion Context State' = IF ( ISEMPTY ( 'Assertions' ), BLANK(), VAR Selected = CALCULATETABLE ( 'Assertions', ALLSELECTED ( 'Assertions' ) ) VAR Sources = COUNTROWS ( DISTINCT ( SELECTCOLUMNS ( Selected, "s", 'Assertions'[assertionSource] ) ) ) VAR Invalid = COUNTROWS ( FILTER ( Selected, 'Assertions'[contextState] <> "VALID" ) ) RETURN IF ( Sources = 1 && ISBLANK ( Invalid ), "VALID", "AMBIGUOUS" ) )
+
+	column claimKey
+		dataType: string
+		sourceColumn: claimKey
+		summarizeBy: none
+		isHidden
+
+	column assertionSource
+		dataType: string
+		sourceColumn: assertionSource
+		summarizeBy: none
+		isHidden
+
+	column assertionId
+		dataType: string
+		sourceColumn: assertionId
+		summarizeBy: none
+		isHidden
+
+	column assertionLabel
+		dataType: string
+		sourceColumn: assertionLabel
+		summarizeBy: none
+		isHidden
+
+	column assertionType
+		dataType: string
+		sourceColumn: assertionType
+		summarizeBy: none
+		isHidden
+
+	column operator
+		dataType: string
+		sourceColumn: operator
+		summarizeBy: none
+		isHidden
+
+	column unit
+		dataType: string
+		sourceColumn: unit
+		summarizeBy: none
+		isHidden
+
+	column actualValue
+		dataType: int64
+		sourceColumn: actualValue
+		summarizeBy: none
+		isHidden
+
+	column expectedValue
+		dataType: int64
+		sourceColumn: expectedValue
+		summarizeBy: none
+		isHidden
+
+	column sourceDifference
+		dataType: int64
+		sourceColumn: sourceDifference
+		summarizeBy: none
+		isHidden
+
+	column publishedResult
+		dataType: string
+		sourceColumn: publishedResult
+		summarizeBy: none
+		isHidden
+
+	column evidenceRef
+		dataType: string
+		sourceColumn: evidenceRef
+		summarizeBy: none
+		isHidden
+
+	column actualEvidenceRef
+		dataType: string
+		sourceColumn: actualEvidenceRef
+		summarizeBy: none
+		isHidden
+
+	column expectedEvidenceRef
+		dataType: string
+		sourceColumn: expectedEvidenceRef
+		summarizeBy: none
+		isHidden
+
+	column failureRef
+		dataType: string
+		sourceColumn: failureRef
+		summarizeBy: none
+		isHidden
+
+	column evidenceDigest
+		dataType: string
+		sourceColumn: evidenceDigest
+		summarizeBy: none
+		isHidden
+
+	column purpose
+		dataType: string
+		sourceColumn: purpose
+		summarizeBy: none
+		isHidden
+
+	column authority
+		dataType: string
+		sourceColumn: authority
+		summarizeBy: none
+		isHidden
+
+	column assertionPolicyRef
+		dataType: string
+		sourceColumn: assertionPolicyRef
+		summarizeBy: none
+		isHidden
+
+	column deliveryRef
+		dataType: string
+		sourceColumn: deliveryRef
+		summarizeBy: none
+		isHidden
+
+	column deliveryDigest
+		dataType: string
+		sourceColumn: deliveryDigest
+		summarizeBy: none
+		isHidden
+
+	column sourceDigest
+		dataType: string
+		sourceColumn: sourceDigest
+		summarizeBy: none
+		isHidden
+
+	column contextState
+		dataType: string
+		sourceColumn: contextState
+		summarizeBy: none
+		isHidden
+
+	partition 'Assertions' = m
+		mode: import
+		source =
+			let
+			    Root = Text.TrimEnd(Text.Trim(C2Root), {"\", "/"}),
+			    Manifest = Json.Document(File.Contents(Root & "/delivery-manifest.json")),
+			    Seal = Text.Trim(Text.FromBinary(File.Contents(Root & "/finance-delivery.digest"), TextEncoding.Utf8)),
+			    Verified = Manifest[delivery_ref] = "Q-FINANCE-C2@v1" and Manifest[status] = "PUBLISHED"
+			        and Seal = "sha256:7538132e08ea2b7e8c20f339db10e6c138cd2a08c71c4708c47c378d7c1b0141",
+			    Recon = if Verified then Json.Document(File.Contents(Root & "/metadata/reconciliation.json"))
+			        else error "C2 package identity differs. Set C2Root to the verified Q-FINANCE-C2@v1 directory.",
+			    ContractOk = Recon[contract_version] = "q-finance-c2-reconciliation@v1",
+			    // reconciliation.json has no comparison_operator. EQUAL is this adapter's
+			    // declaration against the contract version above, not a source column.
+			    C2Rows = List.Transform(Recon[rows], (r) =>
+			        let
+			            id = r[control_id],
+			            kind = if Text.StartsWith(id, "C2-TABLE-") then "DELIVERY_PARITY"
+			                else if List.Contains({"C2-SOURCE-BINDING", "C2-TAX-EQUITY"}, id) then "SOURCE_BINDING"
+			                else "ARITHMETIC"
+			        in [
+			            claimKey = "C2_DELIVERY|Q-FINANCE-C2@v1", assertionSource = "C2_DELIVERY",
+			            assertionId = id, assertionLabel = r[table_name], assertionType = kind,
+			            operator = if ContractOk then "EQUAL" else "UNDECLARED", unit = "COUNT",
+			            actualValue = Number.From(r[actual_value]), expectedValue = Number.From(r[expected_value]),
+			            sourceDifference = Number.From(r[difference]), publishedResult = r[status],
+			            evidenceRef = r[evidence], actualEvidenceRef = r[evidence], expectedEvidenceRef = null,
+			            failureRef = null, evidenceDigest = null,
+			            purpose = "EXECUTIVE_CONTROL_REVIEW", authority = "C2_DELIVERY_CONTROL",
+			            assertionPolicyRef = "NEXUS-ASSERTION-CLASSIFICATION@v1", deliveryRef = "Q-FINANCE-C2@v1",
+			            deliveryDigest = "sha256:7538132e08ea2b7e8c20f339db10e6c138cd2a08c71c4708c47c378d7c1b0141", sourceDigest = "sha256:39af66f379d5497399f89e3956e601b6fb99a070146d8c6d378bb684f288b7e5",
+			            contextState = if ContractOk then "VALID" else "AMBIGUOUS"
+			        ]),
+			    C1Rows = List.Transform(Table.ToRecords(ReadC2("mart_model_readiness_controls")), (r) => [
+			        claimKey = "C1_READINESS|Q-FINANCE-C2@v1", assertionSource = "C1_READINESS",
+			        assertionId = r[control_id], assertionLabel = r[control_name],
+			        assertionType = if r[comparison_operator] = "EQUAL" then "ARITHMETIC" else "THRESHOLD",
+			        operator = r[comparison_operator], unit = "COUNT",
+			        actualValue = Number.From(r[actual_value]), expectedValue = Number.From(r[expected_value]),
+			        sourceDifference = null, publishedResult = r[result_status],
+			        evidenceRef = r[evidence_relation] & " / " & r[validator_ref],
+			        actualEvidenceRef = r[evidence_relation], expectedEvidenceRef = null,
+			        failureRef = if r[first_failure_ref] = "\N" then null else r[first_failure_ref],
+			        evidenceDigest = null,
+			        purpose = "EXECUTIVE_CONTROL_REVIEW", authority = r[value_authority],
+			        assertionPolicyRef = "NEXUS-ASSERTION-CLASSIFICATION@v1", deliveryRef = "Q-FINANCE-C2@v1",
+			        deliveryDigest = "sha256:7538132e08ea2b7e8c20f339db10e6c138cd2a08c71c4708c47c378d7c1b0141", sourceDigest = r[source_package_digest],
+			        contextState = if r[source_package_digest] = "sha256:39af66f379d5497399f89e3956e601b6fb99a070146d8c6d378bb684f288b7e5" then "VALID" else "AMBIGUOUS"
+			    ])
+			in
+			    Table.TransformColumnTypes(Table.FromRecords(C2Rows & C1Rows),
+			        {{"actualValue", Int64.Type}, {"expectedValue", Int64.Type}, {"sourceDifference", Int64.Type}})

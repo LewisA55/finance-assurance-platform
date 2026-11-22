@@ -1,0 +1,58 @@
+table 'Readiness Controls'
+
+	measure 'Readiness Checks Passed' = COALESCE ( CALCULATE ( COUNTROWS ( 'Readiness Controls' ), 'Readiness Controls'[Result] = "PASS" ), 0 )
+		formatString: 0
+
+	measure 'Readiness Checks Not Passed' = COUNTROWS ( 'Readiness Controls' ) - [Readiness Checks Passed]
+		formatString: 0
+
+	column 'Control ID'
+		dataType: string
+		sourceColumn: control_id
+		summarizeBy: none
+
+	column 'Control'
+		dataType: string
+		sourceColumn: control_name
+		summarizeBy: none
+
+	column 'Result'
+		dataType: string
+		sourceColumn: result_status
+		summarizeBy: none
+
+	column 'Observed'
+		dataType: int64
+		sourceColumn: actual_value
+		summarizeBy: none
+
+	column 'Operator'
+		dataType: string
+		sourceColumn: comparison_operator
+		summarizeBy: none
+
+	column 'Expected'
+		dataType: int64
+		sourceColumn: expected_value
+		summarizeBy: none
+
+	column 'Evidence Relation'
+		dataType: string
+		sourceColumn: evidence_relation
+		summarizeBy: none
+
+	partition 'Readiness Controls' = m
+		mode: import
+		source =
+			let
+				Source = ReadC2("mart_model_readiness_controls"),
+				Invalid = Table.SelectRows(Source, each [reliability_status] <> "RELIABLE_FOR_MODEL_READINESS_ASSESSMENT"
+					or [reliability_purpose] <> "MODEL_SERVING_READINESS_CONTROLS"),
+				Checked = if Table.RowCount(Source) = 15 and Table.RowCount(Table.Distinct(Source, {"control_id"})) = 15
+					and Table.IsEmpty(Invalid) then Source else error "Expected the 15 sealed C1 readiness controls.",
+				Selected = Table.SelectColumns(Checked, {"control_id", "control_name", "result_status",
+					"actual_value", "comparison_operator", "expected_value", "evidence_relation"}),
+				Display = Table.TransformColumns(Selected, {{"comparison_operator", each
+					if _ = "EQUAL" then "=" else if _ = "GREATER_THAN_OR_EQUAL" then ">=" else _, type text}})
+			in
+				Display

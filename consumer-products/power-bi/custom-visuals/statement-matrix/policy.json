@@ -1,0 +1,123 @@
+{
+  "version": "NEXUS-STATEMENT-PRESENTATION@v1",
+  "purpose": "EXECUTIVE_FINANCIAL_REVIEW",
+  "deliveryRef": "Q-FINANCE-C2@v1",
+  "deliveryDigest": "sha256:7538132e08ea2b7e8c20f339db10e6c138cd2a08c71c4708c47c378d7c1b0141",
+  "sourceDigest": "sha256:39af66f379d5497399f89e3956e601b6fb99a070146d8c6d378bb684f288b7e5",
+  "table": "mart_cfo_presented_financials",
+  "scope": "NEXUS-GROUP",
+  "currency": "GBP",
+  "authority": "STATUTORY_STATEMENT",
+  "status": "RELIABLE_FOR_STATUTORY_ACTUALS",
+  "sourcePurpose": "CFO_PRESENTED_FINANCIALS",
+  "firstPeriod": "2021-01",
+  "lastPeriod": "2026-06",
+  "evidenceDigestKind": "SOURCE_TRIAL_BALANCE_DIGEST",
+  "comparison": "Selected month and prior month. YTD and LTM are not registered in this layout version.",
+  "statements": {
+    "INCOME_STATEMENT": {
+      "label": "Income statement",
+      "signConvention": "POSITIVE_REVENUE_NEGATIVE_EXPENSE",
+      "sourceLineCount": 10,
+      "note": "Source display order is alphabetic by account label. This executive order is a presentation layer; source order and amounts are unchanged.",
+      "reconciliation": {
+        "label": "Derived chain ties to supplied net income",
+        "expect": "net_income",
+        "formula": ["d_operating_profit", "interest_expense", "income_tax_expense"]
+      },
+      "rows": [
+        {"kind": "HEADER", "key": "h_revenue", "label": "Revenue", "indent": 0, "rule": "none"},
+        {"kind": "LINE", "key": "subscription_revenue", "label": "Subscription revenue", "indent": 1, "rule": "none"},
+        {"kind": "LINE", "key": "services_revenue", "label": "Services revenue", "indent": 1, "rule": "none"},
+        {"kind": "DERIVED_SUBTOTAL", "key": "d_total_revenue", "label": "Total revenue", "indent": 0, "rule": "single",
+          "formula": ["subscription_revenue", "services_revenue"]},
+        {"kind": "SPACER", "key": "s_after_revenue", "label": "", "indent": 0, "rule": "none"},
+        {"kind": "LINE", "key": "cost_of_revenue", "label": "Cost of revenue", "indent": 1, "rule": "none"},
+        {"kind": "DERIVED_SUBTOTAL", "key": "d_gross_profit", "label": "Gross profit", "indent": 0, "rule": "single",
+          "formula": ["d_total_revenue", "cost_of_revenue"]},
+        {"kind": "SPACER", "key": "s_after_gross", "label": "", "indent": 0, "rule": "none"},
+        {"kind": "HEADER", "key": "h_opex", "label": "Operating expenses", "indent": 0, "rule": "none"},
+        {"kind": "LINE", "key": "research_and_development", "label": "Research and development", "indent": 1, "rule": "none"},
+        {"kind": "LINE", "key": "sales_and_marketing", "label": "Sales and marketing", "indent": 1, "rule": "none"},
+        {"kind": "LINE", "key": "general_and_administrative", "label": "General and administrative", "indent": 1, "rule": "none"},
+        {"kind": "LINE", "key": "depreciation_and_amortisation", "label": "Depreciation and amortisation", "indent": 1, "rule": "none"},
+        {"kind": "DERIVED_SUBTOTAL", "key": "d_total_opex", "label": "Total operating expenses", "indent": 0, "rule": "single",
+          "formula": ["research_and_development", "sales_and_marketing", "general_and_administrative", "depreciation_and_amortisation"]},
+        {"kind": "SPACER", "key": "s_after_opex", "label": "", "indent": 0, "rule": "none"},
+        {"kind": "DERIVED_SUBTOTAL", "key": "d_operating_profit", "label": "Operating profit", "indent": 0, "rule": "single",
+          "formula": ["d_gross_profit", "d_total_opex"]},
+        {"kind": "SPACER", "key": "s_after_operating", "label": "", "indent": 0, "rule": "none"},
+        {"kind": "LINE", "key": "interest_expense", "label": "Interest expense", "indent": 1, "rule": "none"},
+        {"kind": "LINE", "key": "income_tax_expense", "label": "Income tax expense", "indent": 1, "rule": "none"},
+        {"kind": "SUPPLIED_TOTAL", "key": "net_income", "label": "Net income", "indent": 0, "rule": "double"}
+      ]
+    },
+    "BALANCE_SHEET": {
+      "label": "Balance sheet",
+      "signConvention": "POSITIVE_PRESENTED_BALANCE",
+      "sourceLineCount": 27,
+      "note": "Contra-asset balances keep their source sign. No current and non-current split is shown because the source does not classify one.",
+      "reconciliation": {
+        "label": "Total assets equal total liabilities and equity",
+        "expect": "total_assets",
+        "formula": ["total_liabilities_and_equity"]
+      },
+      "rows": [
+        {"kind": "HEADER", "key": "h_assets", "label": "Assets", "indent": 0, "rule": "none"},
+        {"kind": "LINE", "key": "cash", "label": "Cash", "indent": 1, "rule": "none"},
+        {"kind": "LINE", "key": "accounts_receivable", "label": "Accounts receivable", "indent": 1, "rule": "none"},
+        {"kind": "LINE", "key": "intercompany_receivables", "label": "Intercompany receivables", "indent": 1, "rule": "none"},
+        {"kind": "LINE", "key": "prepayments", "label": "Prepayments", "indent": 1, "rule": "none"},
+        {"kind": "LINE", "key": "inventory", "label": "Inventory", "indent": 1, "rule": "none"},
+        {"kind": "LINE", "key": "deferred_tax_asset", "label": "Deferred tax asset", "indent": 1, "rule": "none"},
+        {"kind": "LINE", "key": "property_plant_equipment", "label": "Property, plant and equipment", "indent": 1, "rule": "none"},
+        {"kind": "LINE", "key": "accumulated_depreciation", "label": "Accumulated depreciation", "indent": 1, "rule": "none"},
+        {"kind": "LINE", "key": "intangible_assets", "label": "Intangible assets", "indent": 1, "rule": "none"},
+        {"kind": "LINE", "key": "accumulated_amortisation", "label": "Accumulated amortisation", "indent": 1, "rule": "none"},
+        {"kind": "LINE", "key": "goodwill", "label": "Goodwill", "indent": 1, "rule": "none"},
+        {"kind": "LINE", "key": "right_of_use_assets", "label": "Right of use assets", "indent": 1, "rule": "none"},
+        {"kind": "LINE", "key": "accumulated_right_of_use_depreciation", "label": "Accumulated right of use depreciation", "indent": 1, "rule": "none"},
+        {"kind": "SUPPLIED_TOTAL", "key": "total_assets", "label": "Total assets", "indent": 0, "rule": "single"},
+        {"kind": "SPACER", "key": "s_after_assets", "label": "", "indent": 0, "rule": "none"},
+        {"kind": "HEADER", "key": "h_liabilities", "label": "Liabilities", "indent": 0, "rule": "none"},
+        {"kind": "LINE", "key": "accounts_payable", "label": "Accounts payable", "indent": 1, "rule": "none"},
+        {"kind": "LINE", "key": "intercompany_payables", "label": "Intercompany payables", "indent": 1, "rule": "none"},
+        {"kind": "LINE", "key": "deferred_revenue", "label": "Deferred revenue", "indent": 1, "rule": "none"},
+        {"kind": "LINE", "key": "accrued_expenses", "label": "Accrued expenses", "indent": 1, "rule": "none"},
+        {"kind": "LINE", "key": "unapplied_cash", "label": "Unapplied cash", "indent": 1, "rule": "none"},
+        {"kind": "LINE", "key": "tax_payable", "label": "Tax payable", "indent": 1, "rule": "none"},
+        {"kind": "LINE", "key": "long_term_debt", "label": "Long term debt", "indent": 1, "rule": "none"},
+        {"kind": "LINE", "key": "lease_liabilities", "label": "Lease liabilities", "indent": 1, "rule": "none"},
+        {"kind": "SUPPLIED_TOTAL", "key": "total_liabilities", "label": "Total liabilities", "indent": 0, "rule": "single"},
+        {"kind": "SPACER", "key": "s_after_liabilities", "label": "", "indent": 0, "rule": "none"},
+        {"kind": "HEADER", "key": "h_equity", "label": "Equity", "indent": 0, "rule": "none"},
+        {"kind": "LINE", "key": "share_capital", "label": "Share capital", "indent": 1, "rule": "none"},
+        {"kind": "LINE", "key": "retained_earnings", "label": "Retained earnings", "indent": 1, "rule": "none"},
+        {"kind": "SUPPLIED_TOTAL", "key": "total_equity", "label": "Total equity", "indent": 0, "rule": "single"},
+        {"kind": "SPACER", "key": "s_after_equity", "label": "", "indent": 0, "rule": "none"},
+        {"kind": "SUPPLIED_TOTAL", "key": "total_liabilities_and_equity", "label": "Total liabilities and equity", "indent": 0, "rule": "double"}
+      ]
+    },
+    "CASH_FLOW": {
+      "label": "Cash flow summary",
+      "signConvention": "POSITIVE_INFLOW_NEGATIVE_OUTFLOW",
+      "sourceLineCount": 6,
+      "note": "This is the delivered six-line cash-flow summary, not a complete statutory cash-flow statement. Net income is shown as a memo line and is not part of the movement total.",
+      "reconciliation": {
+        "label": "Movements tie to supplied net change in cash",
+        "expect": "net_change_in_cash",
+        "formula": ["operating_cash_flow", "investing_cash_flow", "financing_cash_flow"]
+      },
+      "rows": [
+        {"kind": "HEADER", "key": "h_movements", "label": "Cash movements", "indent": 0, "rule": "none"},
+        {"kind": "LINE", "key": "operating_cash_flow", "label": "Operating cash flow", "indent": 1, "rule": "none"},
+        {"kind": "LINE", "key": "investing_cash_flow", "label": "Investing cash flow", "indent": 1, "rule": "none"},
+        {"kind": "LINE", "key": "financing_cash_flow", "label": "Financing cash flow", "indent": 1, "rule": "none"},
+        {"kind": "SUPPLIED_TOTAL", "key": "net_change_in_cash", "label": "Net change in cash", "indent": 0, "rule": "single"},
+        {"kind": "SUPPLIED_TOTAL", "key": "closing_cash", "label": "Closing cash", "indent": 0, "rule": "double"},
+        {"kind": "SPACER", "key": "s_before_memo", "label": "", "indent": 0, "rule": "none"},
+        {"kind": "MEMO", "key": "net_income", "label": "Net income (memo)", "indent": 0, "rule": "none"}
+      ]
+    }
+  }
+}

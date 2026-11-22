@@ -1,0 +1,183 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json",
+  "name": "00000000000000000016",
+  "position": {
+    "x": 562,
+    "y": 278,
+    "width": 690,
+    "height": 224,
+    "z": 2200,
+    "tabOrder": 2200
+  },
+  "visual": {
+    "visualType": "NexusReportDetail36313AD96E7F4E25A3F0C03834F7CFAA",
+    "query": {
+      "queryState": {
+        "fields": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Reporting Version"
+                    }
+                  },
+                  "Property": "Period ID"
+                }
+              },
+              "queryRef": "Reporting Version.Period ID",
+              "nativeQueryRef": "Period ID",
+              "displayName": "Month"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Reporting Version"
+                    }
+                  },
+                  "Property": "Reporting Version Ref"
+                }
+              },
+              "queryRef": "Reporting Version.Reporting Version Ref",
+              "nativeQueryRef": "Reporting Version Ref",
+              "displayName": "Reporting version"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Liquidity"
+                    }
+                  },
+                  "Property": "Operating Cash Flow GBP"
+                }
+              },
+              "queryRef": "Liquidity.Operating Cash Flow GBP",
+              "nativeQueryRef": "Operating Cash Flow GBP",
+              "displayName": "Operating"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Liquidity"
+                    }
+                  },
+                  "Property": "Investing Cash Flow GBP"
+                }
+              },
+              "queryRef": "Liquidity.Investing Cash Flow GBP",
+              "nativeQueryRef": "Investing Cash Flow GBP",
+              "displayName": "Investing"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Liquidity"
+                    }
+                  },
+                  "Property": "Financing Cash Flow GBP"
+                }
+              },
+              "queryRef": "Liquidity.Financing Cash Flow GBP",
+              "nativeQueryRef": "Financing Cash Flow GBP",
+              "displayName": "Financing"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "Reporting Version"
+                  }
+                },
+                "Property": "Period ID"
+              }
+            },
+            "direction": "Descending"
+          }
+        ],
+        "isDefaultSort": false
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Monthly cash flows by reporting version'"
+                }
+              }
+            },
+            "fontColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#132841'"
+                    }
+                  }
+                }
+              }
+            },
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "13D"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "general": [
+        {
+          "properties": {
+            "altText": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Right-click a reporting version to view its close evidence.'"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "subTitle": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

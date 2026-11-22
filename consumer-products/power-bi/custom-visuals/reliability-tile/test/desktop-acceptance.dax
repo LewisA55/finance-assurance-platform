@@ -1,0 +1,33 @@
+// Run after refreshing the staged QA PBIP. Expected: 198.
+EVALUATE ROW ( "Claim rows", COUNTROWS ( 'KPI Claims' ) )
+
+// Expected: 228800965, ELIGIBLE, 1.
+EVALUATE CALCULATETABLE (
+    ROW ( "Value minor", [Display Value], "State", [Eligibility State], "Count", [Claim Count] ),
+    'KPI Claims'[metricId] = "REVENUE", 'Period'[Period ID] = "2026-06"
+)
+
+// Expected: 308230185.
+EVALUATE CALCULATETABLE (
+    ROW ( "Value minor", [Display Value] ),
+    'KPI Claims'[metricId] = "CLOSING_CASH", 'Period'[Period ID] = "2026-06"
+)
+
+// Expected: 2680056468.
+EVALUATE CALCULATETABLE (
+    ROW ( "Value minor", [Display Value] ),
+    'KPI Claims'[metricId] = "ENDING_ARR", 'Period'[Period ID] = "2026-06"
+)
+
+// Expected: BLANK, WITHHELD, purpose explanation.
+EVALUATE CALCULATETABLE (
+    ROW ( "Value minor", [Display Value], "State", [Eligibility State], "Reason", [Failure Reason] ),
+    'KPI Claims'[metricId] = "REVENUE", 'Period'[Period ID] = "2026-06",
+    'KPI Purpose'[Purpose] = "STATUTORY_SIGN_OFF"
+)
+
+// Expected: BLANK, INVALID_CONTEXT, 2.
+EVALUATE CALCULATETABLE (
+    ROW ( "Value minor", [Display Value], "State", [Eligibility State], "Count", [Claim Count] ),
+    'KPI Claims'[metricId] = "REVENUE", 'Period'[Period ID] IN { "2026-05", "2026-06" }
+)
