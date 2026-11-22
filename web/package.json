@@ -9,9 +9,9 @@
     "sync:finance-data": "node scripts/sync-c2-react-assets.mjs",
     "prepare:duckdb": "node scripts/prepare-duckdb-runtime.mjs",
     "predev": "npm run prepare:duckdb",
-    "dev": "vinext dev",
+    "dev": "vite dev",
     "prebuild": "npm run prepare:duckdb",
-    "build": "vinext build",
+    "build": "vite build",
     "start": "vinext start",
     "test:d1": "node --test tests/d1-finance-runtime.test.mjs",
     "test:d2": "node --test tests/d2-financial-performance.test.mjs",
@@ -30,11 +30,11 @@
   },
   "dependencies": {
     "@duckdb/duckdb-wasm": "1.33.1-dev57.0",
-    "react": "19.2.8",
-    "react-dom": "19.2.8"
+    "react": "19.3.1",
+    "react-dom": "19.3.1"
   },
   "devDependencies": {
-    "@cloudflare/vite-plugin": "1.60.2",
+    "@cloudflare/vite-plugin": "1.70.1",
     "@eslint/js": "9.39.4",
     "@next/eslint-plugin-next": "16.2.6",
     "@playwright/test": "1.62.1",
@@ -43,7 +43,7 @@
     "@types/react": "19.2.14",
     "@types/react-dom": "19.2.3",
     "@vitejs/plugin-react": "6.1.1",
-    "@vitejs/plugin-rsc": "0.5.34",
+    "@vitejs/plugin-rsc": "0.5.37",
     "eslint": "9.39.4",
     "eslint-plugin-jsx-a11y": "6.10.2",
     "eslint-plugin-react": "7.37.5",
@@ -51,16 +51,16 @@
     "globals": "16.4.0",
     "hyparquet": "1.29.2",
     "hyparquet-compressors": "1.1.1",
-    "react-server-dom-webpack": "19.2.8",
+    "react-server-dom-webpack": "19.3.1",
     "tailwindcss": "4.2.1",
     "typescript": "5.9.3",
-    "typescript-eslint": "8.59.3",
-    "vinext": "1.0.0-beta.8",
-    "vite": "8.2.2",
-    "wrangler": "4.141.0"
+    "typescript-eslint": "8.73.0",
+    "vinext": "1.4.6",
+    "vite": "8.3.8",
+    "wrangler": "4.164.0"
   },
   "overrides": {
-    "qs": "6.16.0"
+    "qs": "6.16.1"
   },
   "type": "module"
 }

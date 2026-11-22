@@ -1,10 +1,11 @@
 # Excel Product Workspace
 
-## Intended product
+## Review model
 
-The v0.2 Excel product will be an authored integrated three-statement and DCF
-model. It will consume one exact C2 data delivery package, not raw source
-events or a private warehouse.
+The v0.2 Excel review model integrates the three financial statements, scenario
+drivers and a DCF over one exact C2 delivery package. See the
+[model specification](specifications/v0.2-model.md) for the data binding,
+forecast conventions and rebuild command.
 
 ## Working boundary
 

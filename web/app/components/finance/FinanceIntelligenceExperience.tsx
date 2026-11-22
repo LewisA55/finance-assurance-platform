@@ -717,6 +717,10 @@ export function FinanceIntelligenceExperience({
             <span>Assurance Casework</span>
             <strong>Open assurance journeys</strong>
           </Link>
+          <Link href="/explorer" className="fi-evidence-link">
+            <span>Transaction explorer</span>
+            <strong>Search case evidence</strong>
+          </Link>
           <button className="fi-runtime-button" type="button" onClick={openDataState}>
             <i className={runtimeStatus} />
             <span role="status" aria-live="polite">

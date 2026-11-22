@@ -11,10 +11,15 @@ Its primary routes are:
 - `/revenue-saas`
 - `/assurance`
 - `/planning-valuation`
+- `/explorer` - search record references and trace the C-001 and CT-1 evidence chains
+- `/period-close` - simulate close decisions on C-001 and inspect the outcome in the explorer
 - `/product-guide`
 
 The repository also retains finite evidence journeys for reporting lineage,
 reconciliation, exceptions, remediation, readiness and governed decisions.
+The cockpit presents simulated decisions alongside the recorded close and
+restatement path. Running a simulation leaves published versions and evidence
+intact.
 
 ## Runtime contract
 

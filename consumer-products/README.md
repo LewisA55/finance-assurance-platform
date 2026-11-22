@@ -6,8 +6,9 @@ truth, controls, reporting versions, or the governed semantic definitions.
 
 | Product | Tracked here | Ignored locally | Release delivery |
 |---|---|---|---|
-| Excel | Model documentation, input map, schedule specifications, validation controls and reusable text assets | `excel/work/` and `excel/exports/` | Tagged XLSX asset when complete |
-| [Power BI](power-bi/README.md) | NexusFinance PBIP, TMDL model, PBIR report, custom visuals and validation | `power-bi/work/`, `power-bi/exports/` and Power BI Desktop cache | Current local export at `power-bi/work/R2/NexusFinance.pbix` |
+| [Excel](excel/README.md) | Three-statement and DCF builder, model specification and validation controls | `excel/work/` and `excel/exports/` | Reviewed workbook in the local authoring workspace |
+| [Power BI](power-bi/README.md) | NexusFinance PBIP, TMDL model, PBIR report, custom visuals and validation | `power-bi/work/`, `power-bi/exports/` and Power BI Desktop cache | [Screenshot gallery](../docs/public-release/power-bi/README.md) and local Desktop export |
+| [Executive briefing](executive-briefing/README.md) | Deck generator, chart code and print layout | `executive-briefing/exports/` | [June 2026 executive deck (PDF)](../docs/public-release/Nexus-June-2026-Executive-Deck.pdf) |
 
 Every consumer product must pin one exact governed delivery manifest and state
 its reporting version, purpose, scope, currency basis and reconciliation
@@ -28,6 +29,7 @@ power-bi/
   report/           report notes
   custom-visuals/   source for the bounded purposeful visuals
   validation/       model, measure, security and rendering checks
+executive-briefing/  evidence-bound reporting deck and PDF build
 ```
 
 Before public-release work or material desktop-model changes, create a private,

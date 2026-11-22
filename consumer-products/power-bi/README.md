@@ -7,6 +7,7 @@ pages, a 19-table TMDL model and nine custom visual packages. It uses the same
 sealed C2 delivery as Excel and React, with separately identified forecast
 and accounting-replay inputs on the comparison pages.
 
+- [Screenshot gallery](../../docs/public-release/power-bi/README.md) shows the live report and selected interactions.
 - [NexusFinance.pbip](NexusFinance/NexusFinance.pbip) is the project to edit.
   Git tracks the PBIR report definition and TMDL semantic model beside it.
 - `work/R2/NexusFinance.pbix` is the current local Desktop export with data

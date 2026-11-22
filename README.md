@@ -13,6 +13,12 @@ still wrong, and how a correction should be investigated, approved and recorded.
 > portfolio demonstration, not an audit opinion, investment recommendation or
 > production accounting system.
 
+## Review the portfolio
+
+- [Accounting case walkthrough](#start-with-this-example-a-balanced-ledger-an-incomplete-quarter) follows a missed posting from the closed accounts to the approved restatement.
+- [Power BI screenshot gallery](docs/public-release/power-bi/README.md) shows the live Desktop report, including KPI eligibility and reporting-version evidence.
+- [Executive deck (PDF)](docs/public-release/Nexus-June-2026-Executive-Deck.pdf) turns the June cash and facility evidence into a decision for Treasury and FP&A.
+
 ## Start with this example: a balanced ledger, an incomplete quarter
 
 In the subscription-revenue example, a GBP 10,000 recognition journal is not
@@ -28,7 +34,7 @@ preserved rather than silently overwritten.
 | Original June report | GBP 0 | GBP 120,000 |
 | Revised June report | GBP 10,000 | GBP 110,000 |
 
-![Assurance Casework: a balanced ledger can still report an incomplete quarter, with original and revised reporting preserved](docs/public-release/assurance-casework.png)
+![Assurance Casework showing the incomplete-period and restatement journeys](docs/public-release/linkedin/07-assurance-casework.png)
 
 **What this demonstrates:** testing whether debits equal credits is not the same
 as establishing completeness. The investigation needs the expected recognition
@@ -57,12 +63,17 @@ transformation: investigating discrepancies, documenting accounting consequences
 and making results reviewable. Automated checks support those tasks; they do not
 replace professional judgement or constitute an audit conclusion.
 
-## Where to look next
+## Explore the close decision locally
 
-- **Accounting and assurance:** the [subscription-revenue walkthrough above](#start-with-this-example-a-balanced-ledger-an-incomplete-quarter).
-- **Management reporting:** the [product views below](#management-reporting-views), showing financial performance and control readiness.
-- **Source-to-reporting controls:** the [architecture and ownership note](docs/public-release/architecture.md), explaining where each part of the process is responsible.
-- **Technical review or local use:** [setup and validation](#technical-detail-and-local-setup), with commands and repository structure.
+The Transaction Explorer lets you search by exact record reference and follow
+the evidence through posting, reporting and assurance. In the Period-Close
+Cockpit, you can simulate correcting the missed recognition before close or
+carrying it into the published period, then open the corresponding path in the
+explorer. The simulation leaves the published evidence intact.
+
+[Start the local app](#technical-detail-and-local-setup) and use the
+Transaction Explorer and Period-Close Cockpit links in its navigation.
+[Web routes and setup](web/README.md)
 
 ## Management reporting views
 
@@ -76,11 +87,11 @@ the accounts.
 
 ### CFO command centre
 
-![CFO command centre showing financial performance, cash and subscription metrics](docs/public-release/cfo-command-centre.png)
+![CFO command centre showing financial performance, cash and subscription metrics](docs/public-release/linkedin/01-cfo-command-centre.png)
 
 ### Assurance and control readiness
 
-![Assurance and control readiness showing close and package controls](docs/public-release/assurance-control-readiness.png)
+![Assurance and control readiness showing close and package controls](docs/public-release/linkedin/05-assurance-and-control-readiness.png)
 
 ## Executive briefing
 
@@ -127,8 +138,9 @@ flowchart LR
     G --> W[Governed analytical handoff]
     P --> W
     W --> UI[React and DuckDB-Wasm]
-    W -. future products .-> X[Excel model]
+    W --> X[Excel review model]
     W --> B[NexusFinance Power BI report]
+    W --> D[Executive briefing PDF]
 ```
 
 The platform keeps business-event truth, source-system truth, accounting truth
@@ -216,7 +228,7 @@ models/                  dbt Silver, Gold and governance models
 macros/                  dbt macros
 tests/                   Python, SQL and contract tests
 web/                     React/vinext finance product
-consumer-products/       Excel and Power BI product workspaces
+consumer-products/       Excel, Power BI and executive briefing workspaces
 docs/architecture/       Ratified architecture contracts and ADR log
 docs/product/            Product and analytical contracts
 docs/roadmap/            Implemented milestone records
@@ -235,7 +247,7 @@ temporary evidence do not belong in source control. See the
 ### Roadmap
 
 - `v0.1` **delivered**: governed finance platform and React intelligence product
-- `v0.2` in progress: integrated Excel three-statement and DCF model
+- `v0.2` **source available**: [Excel three-statement and DCF model](consumer-products/excel/README.md), with the reviewed workbook kept in the local authoring workspace
 - `v0.3` **delivered**: [NexusFinance Power BI report and semantic model](consumer-products/power-bi/README.md), with 15 report pages, a 19-table semantic model and nine custom visuals over the same sealed delivery
 - `v1.0`: complete cross-product portfolio release
 

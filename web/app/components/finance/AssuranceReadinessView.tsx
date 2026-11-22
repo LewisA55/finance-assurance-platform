@@ -203,6 +203,8 @@ export function AssuranceReadinessView({
           <Link href="/argus/exceptions/EXC-C001%40v1"><span>Argus</span><strong>Control exception</strong><small>Inspect the machine observation and reproducible evidence.</small></Link>
           <Link href="/aegis/cases/ISSUE-C001%40v1"><span>Aegis</span><strong>Issue governance</strong><small>Inspect ownership, review state and remediation boundary.</small></Link>
           <Link href="/aegis/readiness/RV-2026-06%40v2"><span>Aegis</span><strong>Reporting readiness</strong><small>Inspect a governed purpose-specific readiness decision.</small></Link>
+          <Link href="/explorer"><span>Casework</span><strong>Transaction-to-decision explorer</strong><small>Search exact records across both canonical cases.</small></Link>
+          <Link href="/period-close"><span>Casework</span><strong>Period-close cockpit</strong><small>Simulate the C-001 close decision and follow its consequences.</small></Link>
         </div>
         <p className="fi-panel-note">C-001 and CT-1 are controlled case studies. Their exceptions and issues are not counted as failures in the current Q-FINANCE-C2 delivery.</p>
       </section>

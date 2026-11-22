@@ -2,7 +2,7 @@ import { createHash } from "node:crypto";
 import { readdirSync, readFileSync, statSync } from "node:fs";
 import { join, relative } from "node:path";
 
-const BUILD_INPUTS = ["app", "public", "package-lock.json", "next.config.ts"];
+const BUILD_INPUTS = ["app", "public", "package-lock.json", "next.config.ts", "vite.config.ts"];
 
 function hashPath(hash: ReturnType<typeof createHash>, path: string): void {
   const stats = statSync(path);
